@@ -7,7 +7,6 @@ var app = express();
 
 //crgar archivos de Rutas
 var user_routes = require('./routes/routes');
-const morgan = require('morgan');
 
 //middlewares
 app.use(bodyParser.urlencoded({extended: false}));
