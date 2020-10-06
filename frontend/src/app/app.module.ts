@@ -1,22 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { routing, appRoutingProviders } from "./app.routing";//Es necesario para el routing
-import { HttpClientModule } from "@angular/common/http";//Es necesario para peticiones externas
 
 import { AppComponent } from './app.component';
-import { InicioComponent } from './components/inicio/inicio.component';
+import { EncabezadoComponent } from './componentes/compartidos/encabezado/encabezado.component';
+import { InicioComponent } from './componentes/inicio/inicio.component';
+import { PiepaginaComponent } from './componentes/compartidos/piepagina/piepagina.component';
+import { CarruzelComponent } from './componentes/compartidos/carruzel/carruzel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InicioComponent
+    EncabezadoComponent,
+    InicioComponent,
+    PiepaginaComponent,
+    CarruzelComponent
   ],
   imports: [
-    BrowserModule,
-    routing,//Parte del routing
-    HttpClientModule //Parte de las peticiones
+    BrowserModule
   ],
-  providers: [appRoutingProviders],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
