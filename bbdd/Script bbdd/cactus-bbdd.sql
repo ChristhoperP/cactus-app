@@ -1,4 +1,4 @@
--- Sun Oct  4 20:49:03 2020
+-- Mon Oct  5 20:26:49 2020
 
 -- -----------------------------------------------------
 -- Table TipoUsuario
@@ -81,36 +81,12 @@ CREATE TABLE IF NOT EXISTS agenciaEnvio (
 
 
 -- -----------------------------------------------------
--- Table InformacionEnvio
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS InformacionEnvio (
-  idInformacionEnvio INT NOT NULL,
-  nombreCompletoRemitente VARCHAR(200) NULL,
-  direccionCompleta VARCHAR(500) NULL,
-  domicilio VARCHAR(300) NULL,
-  agenciaEnvio_idagenciaEnvio INT NOT NULL,
-  PRIMARY KEY (idInformacionEnvio),
-  CONSTRAINT fk_InformacionEnvio_agenciaEnvio1
-    FOREIGN KEY (agenciaEnvio_idagenciaEnvio)
-    REFERENCES agenciaEnvio (idagenciaEnvio)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
-
-
--- -----------------------------------------------------
 -- Table Departamento
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Departamento (
   idDepartamento INT NOT NULL,
   descripcion VARCHAR(45) NULL,
-  InformacionEnvio_idInformacionEnvio INT NOT NULL,
-  PRIMARY KEY (idDepartamento),
-  CONSTRAINT fk_Departamento_InformacionEnvio1
-    FOREIGN KEY (InformacionEnvio_idInformacionEnvio)
-    REFERENCES InformacionEnvio (idInformacionEnvio)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (idDepartamento))
 ;
 
 
@@ -125,6 +101,30 @@ CREATE TABLE IF NOT EXISTS Municipio (
   CONSTRAINT fk_Municipio_Departamento1
     FOREIGN KEY (Departamento_idDepartamento)
     REFERENCES Departamento (idDepartamento)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+
+-- -----------------------------------------------------
+-- Table InformacionEnvio
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS InformacionEnvio (
+  idInformacionEnvio INT NOT NULL,
+  nombreCompletoRemitente VARCHAR(200) NULL,
+  direccionCompleta VARCHAR(500) NULL,
+  domicilio VARCHAR(300) NULL,
+  agenciaEnvio_idagenciaEnvio INT NOT NULL,
+  Municipio_idMunicipio INT NOT NULL,
+  PRIMARY KEY (idInformacionEnvio),
+  CONSTRAINT fk_InformacionEnvio_agenciaEnvio1
+    FOREIGN KEY (agenciaEnvio_idagenciaEnvio)
+    REFERENCES agenciaEnvio (idagenciaEnvio)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_InformacionEnvio_Municipio1
+    FOREIGN KEY (Municipio_idMunicipio)
+    REFERENCES Municipio (idMunicipio)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
