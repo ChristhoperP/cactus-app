@@ -6,6 +6,7 @@ import { EncabezadoComponent } from './componentes/compartidos/encabezado/encabe
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { PiepaginaComponent } from './componentes/compartidos/piepagina/piepagina.component';
 import { CarruzelComponent } from './componentes/compartidos/carruzel/carruzel.component';
+import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { CarruzelComponent } from './componentes/compartidos/carruzel/carruzel.c
     EncabezadoComponent,
     InicioComponent,
     PiepaginaComponent,
-    CarruzelComponent
+    CarruzelComponent,
+    IniciarSesionComponent
   ],
   imports: [
     BrowserModule
