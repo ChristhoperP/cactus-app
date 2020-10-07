@@ -1,0 +1,33 @@
+*{margin: 0; padding: 0;}
+.doc{
+  display: flex;
+  flex-flow: column wrap;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: #333944;
+  background-image: url(../../../assets/img/registro-fondo.jpg);
+  background-size: cover;
+}
+
+.btn:hover{
+  background-color: #9cd6d7;
+  color: #274f52;
+}
+
+.btn {
+  background-color: #50a1a5;
+  border: none;
+}
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.formulario {
+  background-color: rgba(0, 0, 0, 0.767);
+  color: white;
+  border-radius: 5%;
+  border: none;
+}
