@@ -1,37 +1,39 @@
 <div class="doc">
-       <div class="col-10 col-sm-8 col-md-6 col-lg-4 mr-auto ml-auto formulario" style="min-width: 270px; border: none;">
-        <form class="needs-validation pl-5 pr-5  rounded text-center" [formGroup]="formularioRegistro" validate>
-                <img class="mt-4 w-50" src="assets/img/perfil_registro.png" alt="perfil logo">
-                <h4 class="text-center mt-4">CREAR CUENTA</h4>
-                <hr class="mb-2">
-                <div class="form-row mt-4">
+       <div class="col-10 col-sm-7 col-md-6 col-lg-4 col-xl-4 mr-auto ml-auto formulario" style="min-width: 280px; border: none;">
+        <form style="max-height: 600px;" class="needs-validation pl-5 pr-5  rounded text-center" [formGroup]="formularioRegistro" validate>
+                <div class=" my-0 icono-formulario">
+                    <i class="far fa-user-circle"></i>
+                </div>
+                <h4 class="text-center mt-1">CREAR CUENTA</h4>
+            <div style="max-width: 400px;">
+                <div class="form-row mt-3">
                     <div class="w-100 mb-3">
                     <input 
                     formControlName="nombre"
                     [class.is-invalid]="validation('nombre')"
-                    type="text" class="form-control p-2" id="validationCustom01" placeholder="Nombre completo"  required>
+                    type="text" class="form-control form-control-sm p-2" id="validationCustom01" placeholder="Nombre completo"  required>
                     <div class="invalid-feedback"> 
                         No válido
                     </div>
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row col">
                     <div class="w-100 mb-3">
                         <input 
                             formControlName="correo"
                             [class.is-invalid]="validation('correo')"
-                            type="mail" class="form-control p-2" id="validationCustom02" placeholder="Correo electrónico" required>
+                            type="mail" class="form-control form-control-sm p-2" id="validationCustom02" placeholder="Correo electrónico" required>
                         <div class="invalid-feedback"> 
                             No válido
                         </div>
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row col">
                     <div class="w-100 mb-3">
                         <input 
                             formControlName="contrasena"
                             [class.is-invalid]="validation('contrasena')"
-                            type="password" class="form-control p-2" id="validationCustom03" aria-describedby="passwordHelpInline" placeholder="Contraseña" required>
+                            type="password" class="form-control form-control-sm p-2" id="validationCustom03" aria-describedby="passwordHelpInline" placeholder="Contraseña" required>
                         <div class="invalid-feedback"> 
                         <p id="passwordHelpInline" class="text-muted">
                             Must be 8-20 characters long.
@@ -44,7 +46,7 @@
                         <input 
                                 formControlName="verificarContrasena"
                                 [class.is-invalid]="validation('verificarContrasena')"
-                                type="password" class="form-control p-2" id="validationCustom04" placeholder="Confirmar contraseña" required>
+                                type="password" class="form-control form-control-sm p-2" id="validationCustom04" placeholder="Confirmar contraseña" required>
                         <div class="invalid-feedback"> 
                             No válido
                         </div>
@@ -64,6 +66,8 @@
                         class="btn btn-primary  w-50" type="button">Iniciar sesión</button>
                     </div>
                 </div>
+            </div>
+                
         </form>  
 </div>
 </div>

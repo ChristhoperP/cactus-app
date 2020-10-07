@@ -31,3 +31,10 @@
   border-radius: 5%;
   border: none;
 }
+
+.icono-formulario {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 8vmax;
+  padding: 0px;
+  margin: 0px;
+}
