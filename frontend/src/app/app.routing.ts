@@ -8,7 +8,7 @@ import { InicioComponent } from "./components/inicio/inicio.component";
 //Array de rutas
 const appRoutes: Routes = [
     {path: '', component: InicioComponent},
-    {path: 'inicio', component: InicioComponent},
+    {path: 'inicio', component: InicioComponent},    
     {path: '**', component: InicioComponent}
 ];
 
