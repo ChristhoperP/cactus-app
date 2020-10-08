@@ -24,8 +24,8 @@ import { rutas_encabezado } from "./app.routing";
     InicioComponent,
     PiepaginaComponent,
     CarruzelComponent,
-    RegistroComponent
-
+    RegistroComponent,
+    IniciarSesionComponent
   ],
   imports: [
     BrowserModule,
