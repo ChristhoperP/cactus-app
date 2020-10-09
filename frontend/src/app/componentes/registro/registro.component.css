@@ -38,3 +38,12 @@
   padding: 0px;
   margin: 0px;
 }
+
+.fa-circle {
+  font-size: 25%;
+}
+.invalid-tooltip{
+  padding: 0 1%;
+  text-align: initial;
+  top: 70%;
+}
