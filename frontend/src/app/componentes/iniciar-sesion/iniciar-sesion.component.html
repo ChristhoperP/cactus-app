@@ -7,16 +7,34 @@
             <div class="text-light mt-0 mb-5">
                 <h6>INICIAR SESIÓN</h6>
             </div>
-            <form class="form">                
+            
+            <form [formGroup]='formularioInicioSesion' class="form" (ngSubmit)="iniciarSesion()" validate>                
                 <div class="form-group">
-                    <input type="email" class="form-control" required placeholder="Correo electrónico">
+                    <input type="email" class="form-control" [class.is-invalid]="validarCampo('correo')" formControlName="correo" name="correo" required placeholder="Correo electrónico">
+                                        
+                    <div class="invalid-feedback" *ngIf="correo.errors?.required">
+                        Debe ingresar su correo electrónico                
+                    </div>
+                    <div class="invalid-feedback" *ngIf="correo.errors?.pattern">
+                        Ingrese una dirección de correo válida
+                    </div>                    
                 </div>
+
                 <div class="form-group">
-                    <input type="password" class="form-control" required placeholder="Contraseña">
+                    <input type="password" class="form-control" [class.is-invalid]="validarCampo('contrasena')" formControlName="contrasena" name="contrasena" required placeholder="Contraseña">
+                    
+                    <div class="invalid-feedback">
+                        Debe ingresar su contraseña 
+                    </div>
                 </div>
+
+                <div class="invalid-feedback mb-2" [class.d-block]="errorCredenciales">
+                    Credenciales no válidas 
+                </div> 
+
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Entrar</button>
-                </div>
+                </div>                
             </form>
             
             <br>
