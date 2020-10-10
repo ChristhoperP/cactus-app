@@ -8,37 +8,37 @@ import { Global } from "./global";
 })
 export class AuthService {
 
-  private url = Global.url;
-  constructor(private _http: HttpClient, private _router: Router) { }
+    private url = Global.url;
+    constructor(private _http: HttpClient, private _router: Router) { }
 
 
-  signUp(user) {
-    let params = JSON.stringify(user);
+    signUp(user) {
+        let params = JSON.stringify(user);
 
-    return this._http.post<any>(this.url + "signup", params);
-}
+        return this._http.post<any>(this.url + "registro", params);
+    }
 
-signIn(user) {
-    let params = JSON.stringify(user);
+    iniciarSesion(user) {
+        let params = JSON.stringify(user);
 
-    return this._http.post<any>(this.url + "signin", params);
-}
+        return this._http.post<any>(this.url + "validarUsuario", params);
+    }
 
-loggedIn() {
-    return !!localStorage.getItem('accessToken');
-}
+    loggedIn() {
+        return !!localStorage.getItem('accessToken');
+    }
 
-setToken(token): void {
-    localStorage.setItem('accessToken', token);
-}
+    setToken(token): void {
+        localStorage.setItem('accessToken', token);
+    }
 
-getToken() {
-    return localStorage.getItem('accessToken');
-}
+    getToken() {
+        return localStorage.getItem('accessToken');
+    }
 
-logoutUser() {
-    localStorage.removeItem('accessToken');
-    this._router.navigate(['inicio']);
-}
+    logoutUser() {
+        localStorage.removeItem('accessToken');
+        this._router.navigate(['inicio']);
+    }
 
 }
