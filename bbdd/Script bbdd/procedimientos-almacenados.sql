@@ -59,3 +59,44 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+
+CREATE OR REPLACE FUNCTION SP_VALIDAR_USUARIO
+(     
+   IN p_correo VARCHAR(45),
+   OUT p_id INT,
+   OUT p_contrasenia VARCHAR(500),
+   OUT p_ocurrioError INT,
+   OUT p_mensaje VARCHAR(200)
+)
+RETURNS RECORD AS $BODY$
+DECLARE cantidad INT;  
+BEGIN
+   p_id = NULL;
+   p_contrasenia = NULL;
+   IF(p_correo IS NULL ) THEN
+      p_ocurrioError := 1;
+      p_mensaje:= 'Error: campos incompletos'
+	  RETURN;
+   ELSE  
+	   SELECT COUNT(*) INTO cantidad
+	   FROM usuario
+	   WHERE  correo = p_correo;
+	   
+	   IF (cantidad != 0 ) THEN
+	      SELECT idusuario, contrasenia INTO p_id, p_contrasenia
+		  FROM usuario
+		  WHERE correo = p_correo;
+		 
+		  p_ocurrioError := 0;
+          p_mensaje:= 'El usuario existe';
+	      RETURN;
+	   ELSE 
+		  p_ocurrioError := 1;
+          p_mensaje:= 'Error: Usuario no registrado';
+		  RETURN;
+	   END IF;   	
+	END IF;	
+END;
+$BODY$
+LANGUAGE 'plpgsql';
