@@ -11,11 +11,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"  routerLinkActive="active">
+            <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['inicio']">Inicio</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Categorias</a>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['productos']">Categorias</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Promociones</a>
@@ -24,35 +24,56 @@
                 <a class="nav-link" href="#">Acerca de Nosotros</a>
             </li>
             <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['iniciar-sesion']">Iniciar Sesión</a> 
+                <a class="nav-link" [routerLink]="['iniciar-sesion']">Iniciar Sesión</a>
             </li>
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['registro']">Registrarse</a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link"> </a>
+            </li>
+
 
         </ul>
 
-        <div style="padding-right: 5px;">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="&#x002; Buscar Producto" aria-label="Search">
-            </form>
-        </div>
-        <i class="fas fa-shopping-cart" style="padding-right: 40px; size:45px; color:white"></i>
-        <div class="dropdown" *ngIf="true" style="padding-right: 35px;">
-            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white">
-            Usuario
-          </button >
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                <a class="dropdown-item" href="#">Mi Perfil</a>
-                <a class="dropdown-item" href="#">Historial de Compras</a>
-                <a class="dropdown-item" href="#">Cerrar Sesión</a>
-            </div>
-        </div>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" style="width: 200px; ">
+                <div class="input-group flex-nowrap">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Buscar Producto" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
 
-       
+            </li>
+        </ul>
 
 
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <i class="fas fa-shopping-cart" style="margin-left: 10px;margin-top: 5px; size:45px; color:white" id="carro_compra"></i>
+
+            </li>
+
+        </ul>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <div class="btn-group" style="padding-right: 10px;">
+                    <button type="button" id="usuario" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+             Usuario
+            </button>
+                    <div class="dropdown-menu dropdown-menu-lg-right">
+                        <button class="dropdown-item" type="button">Mi Perfil</button>
+                        <button class="dropdown-item" type="button">Historial de Compras</button>
+                        <button class="dropdown-item" type="button">Cerrar Sesión</button>
+                    </div>
+                </div>
+
+            </li>
+
+        </ul>
 
     </div>
 </nav>

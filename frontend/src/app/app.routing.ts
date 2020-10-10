@@ -5,7 +5,8 @@ import { Routes, RouterModule } from "@angular/router";
 //Importar componentes
 import { InicioComponent } from "./componentes/inicio/inicio.component";
 import {RegistroComponent} from "./componentes/registro/registro.component";
-import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
+import {IniciarSesionComponent} from "./componentes/iniciar-sesion/iniciar-sesion.component";
+import {ProductosComponent} from "./componentes/productos/productos.component";
 
 //Array de rutas
 const appRoutes: Routes = [
@@ -13,6 +14,7 @@ const appRoutes: Routes = [
     {path: 'inicio', component: InicioComponent},
     {path: 'iniciar-sesion', component: IniciarSesionComponent},
     {path: 'registro', component: RegistroComponent},
+    {path: 'productos', component: ProductosComponent},
     {path: '**', component: InicioComponent}
 ];
 

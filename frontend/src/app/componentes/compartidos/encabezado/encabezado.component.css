@@ -18,8 +18,10 @@ p {
     padding-top: 10px;
 }
 
-input {
-    border-radius: 35px;
-    width: 25px;
-    height: 25px;
+#usuario {
+    background-color: #50a1a5;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    border: none;
 }
