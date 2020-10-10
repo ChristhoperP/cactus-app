@@ -4,6 +4,7 @@ const { request } = require('express');
 const { pool } = require('../conexion');
 const bcrypt = require('bcrypt');
 const rutas = require('../config');
+const services = require('../services/token');
 
 var controller = {
     home: function(req, res) {
@@ -26,31 +27,29 @@ var controller = {
                     var respuesta = response.rows[0].sp_agregar_usuario;
                     var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
                     var arregloRes = respuesta1.split(',');
+                    var idUser = arregloRes[2];
 
-                    res.json({
-                        message: arregloRes[1],
-                        user: { nombre, correo, contrasenia }
-
-                    })
-
+                    if (idUser) {
+                        console.log(idUser);
+                        return res.status(200).send({
+                            token: services.createToken(idUser),
+                        });
+                    } else {
+                        return res.status(500).send({
+                            message: arregloRes[1]
+                        });
+                    }
 
                 } catch (err) {
                     console.log(err);
-                    res.json({
+                    return res.status(500).send({
                         message: 'Error: No se ha registrado el usuario',
-                        body: {
-                            user: { nombre, correo, contrasenia }
-                        }
                     })
                 }
             });
         } else {
-            console.log('Error: Faltan campos');
-            res.json({
-                message: 'Error: Faltan campos, Usuario no registrado',
-                body: {
-                    user: { nombre, correo, contrasenia }
-                }
+            return res.status(500).send({
+                message: 'Error: Faltan campos, usuario no registrado'
             })
         }
     }

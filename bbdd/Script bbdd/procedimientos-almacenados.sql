@@ -1,19 +1,4 @@
 
-CREATE OR REPLACE FUNCTION SP_REGISTRO_EMPLEADO
-(
-  
-)
-RETURNS RECORD AS $BODY$
-DECLARE vcMensaje VARCHAR(1000);
-DECLARE vnIdEmpleado INT;
-DECLARE vnIdpersona INT;
-DECLARE vdfechaContratacion date;
-BEGIN
-
-END;
-$BODY$
-LANGUAGE 'plpgsql';
-
 
 CREATE OR REPLACE FUNCTION SP_AGREGAR_USUARIO
 (    
@@ -24,14 +9,16 @@ CREATE OR REPLACE FUNCTION SP_AGREGAR_USUARIO
    IN p_direccion VARCHAR(200),
    IN p_tipo_usuario INT,
    OUT p_ocurrioError INT,
-   OUT p_mensaje VARCHAR(200)	
+   OUT p_mensaje VARCHAR(200),
+   OUT p_id INT
 )
 RETURNS RECORD AS $BODY$
 DECLARE cantidad INT;  
 BEGIN
+   p_id = NULL;
    IF(p_correo IS NULL OR p_contrasenia IS NULL OR p_nombre IS NULL) THEN
       p_ocurrioError := 1;
-      p_mensaje:= 'Error: Campos incompletos';
+      p_mensaje:= 'Error: campos incompletos';
 	  RETURN;
    ELSE  
 	   SELECT COUNT(*) INTO cantidad
@@ -59,16 +46,16 @@ BEGIN
         );
            p_ocurrioError := 0;
            p_mensaje:= 'Se ha registrado el usuario';
+		   SELECT idusuario INTO p_id
+		   FROM usuario
+		   WHERE correo =  p_correo;
 		   RETURN;
 		ELSE 
 		   p_ocurrioError := 1;
-           p_mensaje:= 'Error: Ya existe un usuario con registrado con este correo';
+           p_mensaje:= 'Error: Ya existe un usuario registrado con este correo';
 		   RETURN;
 	    END IF;   	
 	END IF;	
 END;
 $BODY$
 LANGUAGE 'plpgsql';
-
-
-
