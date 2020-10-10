@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
   idUsuario SERIAL NOT NULL,
   nombre VARCHAR(45) NOT NULL,
   correo VARCHAR(45) NOT NULL,
-  contrasenia VARCHAR(45) NOT NULL,
+  contrasenia VARCHAR(100) NOT NULL,
   telefono VARCHAR(45) NULL,
   direccion VARCHAR(200) NULL,
   Tipo_usuario_idTipo_usuario INT NOT NULL,
