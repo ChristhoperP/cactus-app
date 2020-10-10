@@ -9,7 +9,7 @@ var app = express();
 var user_routes = require('./routes/routes');
 
 //middlewares
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //CORS
