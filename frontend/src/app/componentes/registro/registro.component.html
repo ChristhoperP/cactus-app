@@ -1,11 +1,11 @@
 <div class="doc">
        <div class="col-10 col-sm-7 col-md-6 col-lg-4 col-xl-4 mr-auto ml-auto formulario" style="min-width: 280px; border: none;">
-        <form style="max-height: 600px;" class="needs-validation pl-5 pr-5  rounded text-center" [formGroup]="formularioRegistro" validate>
+        <form style="max-height: 800px;" class="needs-validation pl-5 pr-5  rounded text-center" [formGroup]="formularioRegistro" validate>
                 <div class=" my-0 icono-formulario">
                     <i class="far fa-user-circle"></i>
                 </div>
                 <h4 class="text-center mt-1">CREAR CUENTA</h4>
-            <div style="max-width: 400px;">
+            <div style="max-width: 400px;" class="ml-auto mr-auto" >
                 <div class="form-row mt-3">
                     <div class="w-100 mb-3">
                     <input 
@@ -24,7 +24,7 @@
                             [class.is-invalid]="validation('correo')"
                             type="mail" class="form-control form-control-sm p-2" id="validationCustom02" placeholder="Correo electrónico" required>
                         <div class="invalid-feedback"> 
-                            No válido
+                             No válido
                         </div>
                     </div>
                 </div>
@@ -34,18 +34,21 @@
                             formControlName="contrasena"
                             [class.is-invalid]="validation('contrasena')"
                             type="password" class="form-control form-control-sm p-2" id="validationCustom03" aria-describedby="passwordHelpInline" placeholder="Contraseña" required>
-                        <div class="invalid-feedback"> 
-                        <p id="passwordHelpInline" class="text-muted">
-                            Must be 8-20 characters long.
-                        </p>
-                        </div>
+                            <div class="invalid-tooltip">
+                                <small> Debe tener al menos:</small> <br>
+                                <small><i class="fa fa-circle" aria-hidden="true"></i> Una mayúscula</small><br>
+                                <small><i class="fa fa-circle" aria-hidden="true"></i> Una minúscula</small><br>
+                                <small><i class="fa fa-circle" aria-hidden="true"></i> Un numero 0-9</small><br>
+                                <small><i class="fa fa-circle" aria-hidden="true"></i> Un caracter especial</small>
+                            </div>
                     </div>
                 </div>
                 <div class="form-row ">
                     <div class="w-100 mb-3">
                         <input 
                                 formControlName="verificarContrasena"
-                                [class.is-invalid]="validation('verificarContrasena')"
+                                [class.is-invalid]="!contrasenaVerificada && this.formularioRegistro.get('verificarContrasena').touched"
+                                (keyup)="compararContrasena()"
                                 type="password" class="form-control form-control-sm p-2" id="validationCustom04" placeholder="Confirmar contraseña" required>
                         <div class="invalid-feedback"> 
                             No válido
@@ -55,8 +58,8 @@
                 <div class="mt-2 mb-4 text-center">
                     <div>
                         <button 
-                        [disabled]="!formularioRegistro.valid"
-                        class="btn btn-primary  w-50" type="button">Registrarse</button>
+                        [disabled]="formularioRegistro.invalid  || !contrasenaVerificada"
+                        class="btn btn-primary  w-50" type="button" (click)="registrarse()">Registrarse</button>
                     </div>
                     <div class="mt-4">
                         <a class="mt-2"><small>¿Ya tienes una cuenta?</small></a>
