@@ -9,14 +9,19 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
 import { PiepaginaComponent } from './componentes/compartidos/piepagina/piepagina.component';
 import { CarruzelComponent } from './componentes/compartidos/carruzel/carruzel.component';
 import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
+
+import { ProductosComponent } from './componentes/productos/productos.component';
+
 import { AuthService } from "./servicios/auth.service";
 import { TokenInterceptorService } from "./servicios/token-interceptor.service";
+
 
 //Formularios
 import { RegistroComponent } from './componentes/registro/registro.component';
 
 //Rutas
 import { rutas_encabezado, appRoutingProviders} from "./app.routing";
+
 
 
 @NgModule({
@@ -27,7 +32,9 @@ import { rutas_encabezado, appRoutingProviders} from "./app.routing";
     PiepaginaComponent,
     CarruzelComponent,
     RegistroComponent,
-    IniciarSesionComponent
+    IniciarSesionComponent,
+    ProductosComponent
+
   ],
   imports: [
     BrowserModule,
