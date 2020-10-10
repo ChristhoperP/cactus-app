@@ -13,7 +13,10 @@ var controller = {
         });
     },
     registrar: function(req, res) {
-        var { nombre, correo, contrasenia, tipoUsuario, telefono, direccion } = req.body;
+        var { nombre, correo, contrasenia } = req.body;
+
+        //Tipo de usuario cliente
+        var tipoUsuario=2;
 
         if (nombre != null && correo != null && contrasenia != null && tipoUsuario != null) {
             bcrypt.hash(contrasenia, 10, async(err, data) => {
