@@ -21,6 +21,9 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 
 //Rutas
 import { rutas_encabezado, appRoutingProviders} from "./app.routing";
+import { PromocionComponent } from './componentes/promocion/promocion.component';
+import { InformacionComponent } from './componentes/informacion/informacion.component';
+import { CarruselPromoComponent } from './componentes/compartidos/carrusel-promo/carrusel-promo.component';
 
 
 
@@ -33,7 +36,10 @@ import { rutas_encabezado, appRoutingProviders} from "./app.routing";
     CarruzelComponent,
     RegistroComponent,
     IniciarSesionComponent,
-    ProductosComponent
+    ProductosComponent,
+    PromocionComponent,
+    InformacionComponent,
+    CarruselPromoComponent
 
   ],
   imports: [
