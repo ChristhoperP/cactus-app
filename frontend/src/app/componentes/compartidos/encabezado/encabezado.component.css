@@ -25,3 +25,12 @@ p {
     font-weight: bold;
     border: none;
 }
+
+.navbar-collapse {
+    flex-grow: 0;
+}
+
+.lado-derecho {
+    right: 2%;
+    position: fixed;
+}

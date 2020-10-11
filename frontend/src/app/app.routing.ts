@@ -7,6 +7,8 @@ import { InicioComponent } from "./componentes/inicio/inicio.component";
 import {RegistroComponent} from "./componentes/registro/registro.component";
 import {IniciarSesionComponent} from "./componentes/iniciar-sesion/iniciar-sesion.component";
 import {ProductosComponent} from "./componentes/productos/productos.component";
+import { PromocionComponent } from './componentes/promocion/promocion.component';
+import { InformacionComponent } from './componentes/informacion/informacion.component';
 
 //Array de rutas
 const appRoutes: Routes = [
@@ -15,6 +17,8 @@ const appRoutes: Routes = [
     {path: 'iniciar-sesion', component: IniciarSesionComponent},
     {path: 'registro', component: RegistroComponent},
     {path: 'productos', component: ProductosComponent},
+    {path: 'promocion', component: PromocionComponent},
+    {path: 'informacion', component: InformacionComponent},
     {path: '**', component: InicioComponent}
 ];
 
