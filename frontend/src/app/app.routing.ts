@@ -2,6 +2,8 @@
 import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule, CanActivate } from "@angular/router";
 import { AuthGuard } from './servicios/guards/auth.guard';
+import { NoAuthGuard } from './servicios/guards/no-auth.guard';
+
 
 
 //Importar componentes
@@ -18,8 +20,8 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
 const appRoutes: Routes = [
     {path: '', component: InicioComponent},
     {path: 'inicio', component: InicioComponent},
-    {path: 'iniciar-sesion', component: IniciarSesionComponent},
-    {path: 'registro', component: RegistroComponent}, 
+    {path: 'iniciar-sesion', component: IniciarSesionComponent, canActivate: [NoAuthGuard]},
+    {path: 'registro', component: RegistroComponent, canActivate: [NoAuthGuard]}, 
     {path: 'productos', component: ProductosComponent},
     {path: 'promocion', component: PromocionComponent},
     {path: 'informacion', component: InformacionComponent},
