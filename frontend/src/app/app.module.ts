@@ -21,6 +21,7 @@ import { CarruselPromoComponent } from './componentes/compartidos/carrusel-promo
 import { AuthService } from "./servicios/auth.service";
 import { TokenInterceptorService } from "./servicios/token-interceptor.service";
 import { AuthGuard } from './servicios/guards/auth.guard';
+import { NoAuthGuard } from "./servicios/guards/no-auth.guard";
 
 
 //Formularios
@@ -55,6 +56,7 @@ import { rutas_encabezado, appRoutingProviders} from "./app.routing";
   providers: [
     appRoutingProviders,
     AuthGuard,
+    NoAuthGuard,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,
