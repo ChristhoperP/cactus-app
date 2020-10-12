@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-registro',
@@ -27,7 +31,10 @@ habilitarBoton:boolean=false;
                                   Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&.])[A-Za-z\d$@$!%*?&].{8,20}')
                                 ])
   });
-  constructor() { }
+
+  constructor( private servicioAuth: AuthService, private router: Router  ) { 
+
+  }
 
   ngOnInit(): void {
   }
@@ -47,14 +54,30 @@ habilitarBoton:boolean=false;
 
   registrarse(){
     if (this.formularioRegistro.get('nombre').valid &&
-        this.formularioRegistro.get('nombre').valid &&
-        this.formularioRegistro.get('nombre').valid &&
+        this.formularioRegistro.get('correo').valid &&
+        this.formularioRegistro.get('contrasena').valid &&
         this.contrasenaVerificada
     ) {
-      console.log("cuenta nueva");
+      const cuenta = {
+        "nombre": this.formularioRegistro.get('nombre').value,
+        "correo": this.formularioRegistro.get('correo').value,
+        "contrasenia":this.formularioRegistro.get('contrasena').value
+      }
+      console.log(cuenta);
       
+      this.servicioAuth.signUp(cuenta)
+        .subscribe(res => {
+          console.log("se registró una nueva cuenta");
+          
+          this.servicioAuth.setToken(res.token);          
+          this.router.navigate(['/inicio']);          
+        },
+        err => {
+          console.log(err);
+        });  
     } 
     else {
+      alert("Ocurrió un problema, no se ha podido registrar");
     }
   }
 
