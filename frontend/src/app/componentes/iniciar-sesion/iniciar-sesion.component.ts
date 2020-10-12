@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class IniciarSesionComponent implements OnInit {
 
   formularioInicioSesion: FormGroup = new FormGroup({
-    correo: new FormControl(null, [Validators.required, Validators.pattern(/^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i)]),
-    contrasena: new FormControl(null, Validators.required)
+    correo: new FormControl(null, Validators.required),
+    contrasenia: new FormControl(null, Validators.required)
   });
 
   errorCredenciales: Boolean = false;
@@ -26,7 +26,7 @@ export class IniciarSesionComponent implements OnInit {
   }
 
   get correo(){ return this.formularioInicioSesion.get('correo')};
-  get contrasena(){ return this.formularioInicioSesion.get('contrasena')};
+  get contrasenia(){ return this.formularioInicioSesion.get('contrasenia')};
 
   validarCampo(campo: string){
     return this.formularioInicioSesion.get(campo).invalid && this.formularioInicioSesion.get(campo).touched;
@@ -35,22 +35,19 @@ export class IniciarSesionComponent implements OnInit {
   iniciarSesion(){
     this.errorCredenciales = false;
 
-    if(this.formularioInicioSesion.invalid){
-      alert('Debe llenar todos los campos');
-      
+    if(this.formularioInicioSesion.invalid){      
       return;
     }
-
-    console.log(this.formularioInicioSesion.value);
+    
     this.servicioAuth.iniciarSesion(this.formularioInicioSesion.value)
-        .subscribe(res => {          
-          localStorage.setItem('token', res.token);
-          this.router.navigate(['../inicio']);
+        .subscribe(res => {
+          this.servicioAuth.setToken(res.token);          
+          this.router.navigate(['/inicio']);          
         },
         err => {
           console.log(err);
           this.errorCredenciales = true;
-        });
+        });    
   }
 
 }

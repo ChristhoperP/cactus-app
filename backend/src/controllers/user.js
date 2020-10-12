@@ -7,11 +7,6 @@ const rutas = require('../config');
 const services = require('../services/token');
 
 var controller = {
-    home: function(req, res) {
-        return res.status(200).send({
-            message: 'Hello world!'
-        });
-    },
     registrar: function(req, res) {
         var { nombre, correo, contrasenia } = req.body;
 

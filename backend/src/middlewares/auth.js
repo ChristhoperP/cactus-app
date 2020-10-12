@@ -24,4 +24,25 @@ function isAuth(req, res, next) {
 
 }
 
-module.exports = { isAuth }
+function noAuth(req, res, next) {
+
+    if (!req.headers.authorization) {
+        next()
+    } else {
+        const token = req.headers.authorization.split(" ")[1]
+        if (token == 'null' || token === undefined) {
+            next()
+        } else {
+            services.decodeToken(token)
+                .then(response => {
+                    return res.status(403).send({ verification: false, message: 'No tienes autorización: ya has iniciado sesión.' })
+                })
+                .catch(response => {
+                    next()
+                })
+        }
+    }
+
+}
+
+module.exports = { isAuth, noAuth }

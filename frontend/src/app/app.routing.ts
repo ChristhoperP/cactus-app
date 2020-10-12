@@ -1,6 +1,8 @@
 //Importar modulos del router de angular
 import { ModuleWithProviders } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, CanActivate } from "@angular/router";
+import { AuthGuard } from './servicios/guards/auth.guard';
+
 
 //Importar componentes
 import { InicioComponent } from "./componentes/inicio/inicio.component";
@@ -9,20 +11,22 @@ import {IniciarSesionComponent} from "./componentes/iniciar-sesion/iniciar-sesio
 import {ProductosComponent} from "./componentes/productos/productos.component";
 import { PromocionComponent } from './componentes/promocion/promocion.component';
 import { InformacionComponent } from './componentes/informacion/informacion.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
+
 
 //Array de rutas
 const appRoutes: Routes = [
     {path: '', component: InicioComponent},
     {path: 'inicio', component: InicioComponent},
     {path: 'iniciar-sesion', component: IniciarSesionComponent},
-    {path: 'registro', component: RegistroComponent},
+    {path: 'registro', component: RegistroComponent}, 
     {path: 'productos', component: ProductosComponent},
     {path: 'promocion', component: PromocionComponent},
     {path: 'informacion', component: InformacionComponent},
+    {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
     {path: '**', component: InicioComponent}
 ];
 
 //Exportar el modulo del router
 export const appRoutingProviders: any[]=[];
 export const rutas_encabezado: ModuleWithProviders<any> = RouterModule.forRoot(appRoutes);
-// export const APP_ROUTING = RouterModule.forRoot(appRoutes);
