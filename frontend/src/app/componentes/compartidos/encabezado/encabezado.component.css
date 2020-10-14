@@ -10,14 +10,6 @@
     padding-right: 15px;
 }
 
-p {
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 25px;
-    font-weight: bold;
-    padding-top: 10px;
-}
-
 #usuario {
     background-color: #50a1a5;
     color: white;
@@ -26,11 +18,28 @@ p {
     border: none;
 }
 
-.navbar-collapse {
-    flex-grow: 0;
+.navbar-nav .nav-link {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 20;
+    font-weight: bold;
 }
 
-.lado-derecho {
-    right: 2%;
-    position: absolute;
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-left: 20px;
+    padding-right: 15px;
+}
+
+#titulo {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+#usuario {
+    background-color: #50a1a5;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    border: none;
 }

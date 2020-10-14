@@ -1,25 +1,22 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light " style="background-color: #50a1a5!important;">
-    <a class="navbar-brand" [routerLink]="['/inicio']">
-        <img src="assets/img/logo_vector.png" width="40" height="40" alt="" loading="lazy">
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark" style="background-color: #50a1a5!important;">
+    <a class="navbar-brand" href="#">
+        <img src="/assets/img/logo_vector.png" width="40" height="40" alt="" loading="lazy">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    <div class="collapse navbar-collapse">
-        <p>Cactus HN</p>
-    </div>
+    <a class="navbar-brand" href="#" id="titulo">Cactus HN</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ">
+    <div class="collapse navbar-collapse" id="navbarsExample06">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/inicio']">Inicio</a>
             </li>
+
             <li class="nav-item" routerLinkActive="active">
-
-                <a class="nav-link" [routerLink]="['/productos']">Categorías</a>
-
+                <a class="nav-link" [routerLink]="['productos']">Categorías</a>
             </li>
+
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/promocion']">Promociones</a>
             </li>
@@ -38,53 +35,43 @@
                 </ng-container>
 
             </ul>
-
-            <li class="nav-item">
-                <a class="nav-link"> </a>
-            </li>
-
         </ul>
-    </div>
+        <form class="form-inline my-2 my-md-0">
 
-
-    <div class="collapse navbar-collapse lado-derecho">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item" style="width: 200px; ">
-                <div class="input-group flex-nowrap">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Buscar Producto" aria-label="Username" aria-describedby="addon-wrapping">
-                </div>
-            </li>
-        </ul>
-
-
-
-        <ul class="navbar-nav mr-auto">
-            <ng-container *ngIf="authService.loggedIn();">
-                <li class="nav-item">
-                    <div class="btn-group" style="padding-right: 10px;">
-                        <button type="button" id="usuario" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                 Usuario
-                </button>
-                        <div class="dropdown-menu dropdown-menu-lg-right" routerLinkActive="active">
-                            <button class="dropdown-item" type="button" [routerLink]="['/perfil']">Mi Perfil</button>
-                            <button class="dropdown-item" type="button">Historial de Compras</button>
-                            <button class="dropdown-item" type="button" (click)="authService.logoutUser()">Cerrar Sesión</button>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" style="width: 200px; ">
+                    <div class="input-group flex-nowrap">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
                         </div>
+                        <input type="text" class="form-control" placeholder="Buscar Producto" aria-label="Username" aria-describedby="addon-wrapping">
                     </div>
                 </li>
-            </ng-container>
-        </ul>
 
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <i class="fas fa-shopping-cart" style="margin-left: 10px;margin-top: 5px; size:45px; color:white" id="carro_compra"></i>
-            </li>
-        </ul>
+                <li>
+                    <div *ngIf="authService.loggedIn();">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <div class="btn-group" style="padding-right: 10px;">
+                                    <button type="button" id="usuario" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                 Usuario
+                </button>
+                                    <div class="dropdown-menu dropdown-menu-lg-right" routerLinkActive="active">
+                                        <button class="dropdown-item" type="button" [routerLink]="['/perfil']">Mi Perfil</button>
+                                        <button class="dropdown-item" type="button">Historial de Compras</button>
+                                        <button class="dropdown-item" type="button" (click)="authService.logoutUser()">Cerrar Sesión</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
+                <li class="nav-item">
+                    <i class="fas fa-shopping-cart" style="margin-left: 10px;margin-top: 0px; size:45px; color:white" id="carro_compra"></i>
+                </li>
+            </ul>
 
+        </form>
     </div>
-
 </nav>
