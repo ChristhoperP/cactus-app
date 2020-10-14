@@ -49,5 +49,6 @@ export class IniciarSesionComponent implements OnInit {
           this.errorCredenciales = true;
         });    
   }
+ 
 
 }
