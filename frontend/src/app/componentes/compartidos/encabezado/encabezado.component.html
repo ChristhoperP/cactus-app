@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-xl navbar-dark bg-dark" style="background-color: #50a1a5!important;">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" [routerLink]="['/inicio']">
         <img src="/assets/img/logo_vector.png" width="40" height="40" alt="" loading="lazy">
     </a>
-    <a class="navbar-brand" href="#" id="titulo">Cactus HN</a>
+    <a class="navbar-brand" [routerLink]="['/inicio']" id="titulo">Cactus HN</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,7 +14,7 @@
             </li>
 
             <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['productos']">Categorías</a>
+                <a class="nav-link" [routerLink]="['/productos']">Categorías</a>
             </li>
 
             <li class="nav-item" routerLinkActive="active">
