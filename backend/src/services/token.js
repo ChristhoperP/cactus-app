@@ -4,9 +4,10 @@ const jwt = require('jwt-simple')
 const moment = require('moment')
 const config = require('../config')
 
-function createToken(user) {
+function createToken(id,rol) {
     const payload = {
-        sub: user._id || user.id,//el contenido del token
+        sub: id,//el contenido del token
+        rol: rol,//guarda el rol del usuario
         iat: moment().unix(),//fecha inicio
         exp: moment().add(14, 'days').unix()//fecha de exp
     }
@@ -26,7 +27,7 @@ function decodeToken(token) {
                 })
             }
 
-            resolve(payload.sub)
+            resolve({id: payload.sub, rol: payload.rol})
 
         } catch (error) {
             reject({

@@ -26,11 +26,12 @@ var controller = {
                     var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
                     var arregloRes = respuesta1.split(',');
                     var idUser = arregloRes[2];
+                    var rolUser = arregloRes[3];
 
-                    if (idUser) {
-                        console.log(idUser);
+                    if (idUser && rolUser) {
+                        console.log(idUser, rolUser);
                         return res.status(200).send({
-                            token: services.createToken(idUser),
+                            token: services.createToken(idUser, rolUser), rol: rolUser
                         });
                     } else {
                         return res.status(500).send({
@@ -62,14 +63,15 @@ var controller = {
                 var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
                 var arregloRes = respuesta1.split(',');
                 var idUser = arregloRes[0];
-                var contraseniaUser = arregloRes[1];
-                var mensajeRes = arregloRes[3];
+                var rolUser = arregloRes[1];
+                var contraseniaUser = arregloRes[2];
+                var mensajeRes = arregloRes[4];
 
                 const resultadoMatch = await bcrypt.compare(contrasenia, contraseniaUser);
 
                 if (resultadoMatch) {
                     return res.status(200).send({
-                        token: services.createToken(idUser),
+                        token: services.createToken(idUser, rolUser), rol: rolUser
                     });
                 } else {
                     return res.status(500).send({
