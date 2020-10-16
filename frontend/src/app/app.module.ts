@@ -29,6 +29,7 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 
 //Rutas
 import { rutas_encabezado, appRoutingProviders} from "./app.routing";
+import { EncabezadoAdminComponent } from './componentes/administrador/encabezado-admin/encabezado-admin.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { rutas_encabezado, appRoutingProviders} from "./app.routing";
     PromocionComponent,
     InformacionComponent,
     CarruselPromoComponent,
-    PerfilComponent
+    PerfilComponent,
+    EncabezadoAdminComponent
 
   ],
   imports: [
