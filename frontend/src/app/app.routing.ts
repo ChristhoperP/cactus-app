@@ -16,6 +16,7 @@ import { InformacionComponent } from './componentes/informacion/informacion.comp
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 
 
+
 //Array de rutas
 const appRoutes: Routes = [
     {path: '', component: InicioComponent},

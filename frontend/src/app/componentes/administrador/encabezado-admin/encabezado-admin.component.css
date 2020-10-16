@@ -44,10 +44,53 @@
     border: none;
 }
 
-#carro_compra {
+#nav-admin {
+    background: linear-gradient(to left, #50a1a5, #88df8f);
+}
+
+.container {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid #68c1c5;
+    outline: none;
+    transition: 1s ease-in-out;
+    color: white;
+    margin-left: 15px;
+}
+
+.btn:hover {
+    transition: 1s ease-in-out;
+    background: #3e7b7e;
+}
+
+.btn:hover svg {
+    stroke-dashoffset: -480;
+}
+
+.btn span {
+    color: white;
+    font-size: 18px;
+    font-weight: 100;
+}
+
+#campana {
     margin-left: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
-    size: 10px;
+    size: 70px;
     color: white;
 }
