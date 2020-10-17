@@ -89,8 +89,12 @@ var controller = {
                 message: 'Error: campos incompletos',
             })
         }
-    }
+    },
+    
 };
+
+
+
 
 
 module.exports = controller;
