@@ -4,7 +4,7 @@
 -- Table TipoUsuario
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS TipoUsuario (
-  idTipoUsuario INT NOT NULL,
+  idTipoUsuario SERIAL NOT NULL,
   rol VARCHAR(45) NOT NULL,
   fecha_inicio DATE NULL,
   fecha_fin DATE NULL,
@@ -17,9 +17,10 @@ CREATE TABLE IF NOT EXISTS TipoUsuario (
 -- Table Usuario
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Usuario (
-  idUsuario INT NOT NULL,
+  idUsuario SERIAL NOT NULL,
   nombre VARCHAR(45) NOT NULL,
   correo VARCHAR(45) NOT NULL,
+  contrasenia VARCHAR(100) NOT NULL,
   telefono VARCHAR(45) NULL,
   direccion VARCHAR(200) NULL,
   Tipo_usuario_idTipo_usuario INT NOT NULL,
@@ -37,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
 -- Table MetodoPago
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS MetodoPago (
-  idMetodoPago INT NOT NULL,
+  idMetodoPago SERIAL NOT NULL,
   nombre VARCHAR(45) NOT NULL,
   apellido VARCHAR(45) NOT NULL,
   numeroTarjeta VARCHAR(45) NOT NULL,
@@ -52,7 +53,7 @@ CREATE TABLE IF NOT EXISTS MetodoPago (
 -- Table Usuario_has_MetodoPago
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Usuario_has_MetodoPago (
-  Usuario_idUsuarios INT NOT NULL,
+  Usuario_idUsuarios SERIAL NOT NULL,
   MetodoPago_idMetodoPago INT NOT NULL,
   PRIMARY KEY (Usuario_idUsuarios, MetodoPago_idMetodoPago),
   CONSTRAINT fk_Usuarios_has_MetodoPago_Usuarios1
@@ -72,7 +73,7 @@ CREATE TABLE IF NOT EXISTS Usuario_has_MetodoPago (
 -- Table agenciaEnvio
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS agenciaEnvio (
-  idagenciaEnvio INT NOT NULL,
+  idagenciaEnvio SERIAL NOT NULL,
   nombre VARCHAR(100) NULL,
   precio INT NULL,
   urlPerfil VARCHAR(500) NULL,
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS agenciaEnvio (
 -- Table Departamento
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Departamento (
-  idDepartamento INT NOT NULL,
+  idDepartamento SERIAL NOT NULL,
   descripcion VARCHAR(45) NULL,
   PRIMARY KEY (idDepartamento))
 ;
@@ -94,7 +95,7 @@ CREATE TABLE IF NOT EXISTS Departamento (
 -- Table Municipio
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Municipio (
-  idMunicipio INT NOT NULL,
+  idMunicipio SERIAL NOT NULL,
   descripcion VARCHAR(45) NULL,
   Departamento_idDepartamento INT NOT NULL,
   PRIMARY KEY (idMunicipio),
@@ -110,7 +111,7 @@ CREATE TABLE IF NOT EXISTS Municipio (
 -- Table InformacionEnvio
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS InformacionEnvio (
-  idInformacionEnvio INT NOT NULL,
+  idInformacionEnvio SERIAL NOT NULL,
   nombreCompletoRemitente VARCHAR(200) NULL,
   direccionCompleta VARCHAR(500) NULL,
   domicilio VARCHAR(300) NULL,
@@ -134,7 +135,7 @@ CREATE TABLE IF NOT EXISTS InformacionEnvio (
 -- Table TipoBase
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS TipoBase (
-  idTipoBase INT NOT NULL,
+  idTipoBase SERIAL NOT NULL,
   descripcion VARCHAR(100) NULL,
   PRIMARY KEY (idTipoBase))
 ;
@@ -144,7 +145,7 @@ CREATE TABLE IF NOT EXISTS TipoBase (
 -- Table Categoria
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Categoria (
-  idCategoria INT NOT NULL,
+  idCategoria SERIAL NOT NULL,
   descripcion VARCHAR(200) NULL,
   PRIMARY KEY (idCategoria))
 ;
@@ -154,7 +155,7 @@ CREATE TABLE IF NOT EXISTS Categoria (
 -- Table Producto
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Producto (
-  idProducto INT NOT NULL,
+  idProducto SERIAL NOT NULL,
   nombre VARCHAR(45) NULL,
   informacionAdicional VARCHAR(500) NULL,
   urlPortada VARCHAR(45) NULL,
@@ -183,7 +184,7 @@ CREATE TABLE IF NOT EXISTS Producto (
 -- Table ImagenProducto
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS ImagenProducto (
-  idImagenProducto INT NOT NULL,
+  idImagenProducto SERIAL NOT NULL,
   url VARCHAR(45) NULL,
   PRIMARY KEY (idImagenProducto))
 ;
@@ -213,7 +214,7 @@ CREATE TABLE IF NOT EXISTS Producto_has_ImagenProducto (
 -- Table Pedido
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Pedido (
-  idPedido INT NOT NULL,
+  idPedido SERIAL NOT NULL,
   fechaPedido DATE NULL,
   total DECIMAL NULL,
   Usuario_idUsuario INT NOT NULL,
@@ -236,7 +237,7 @@ CREATE TABLE IF NOT EXISTS Pedido (
 -- Table Promocion
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Promocion (
-  idPromocion INT NOT NULL,
+  idPromocion SERIAL NOT NULL,
   descripcion VARCHAR(200) NULL,
   fechaInicio DATE NULL,
   fechaFin DATE NULL,
@@ -249,7 +250,7 @@ CREATE TABLE IF NOT EXISTS Promocion (
 -- Table Familia
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Familia (
-  idFamilia INT NOT NULL,
+  idFamilia SERIAL NOT NULL,
   descripcion VARCHAR(200) NULL,
   PRIMARY KEY (idFamilia))
 ;
@@ -259,7 +260,7 @@ CREATE TABLE IF NOT EXISTS Familia (
 -- Table Genero
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Genero (
-  idGenero INT NOT NULL,
+  idGenero SERIAL NOT NULL,
   descripcion VARCHAR(200) NULL,
   Familia_idFamilia INT NOT NULL,
   PRIMARY KEY (idGenero),
@@ -275,7 +276,7 @@ CREATE TABLE IF NOT EXISTS Genero (
 -- Table Especie
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Especie (
-  idEspecie INT NOT NULL,
+  idEspecie SERIAL NOT NULL,
   descripcion VARCHAR(200) NULL,
   Genero_idGenero INT NOT NULL,
   PRIMARY KEY (idEspecie),
@@ -333,7 +334,7 @@ CREATE TABLE IF NOT EXISTS Promocion_has_Producto (
 -- Table Carrito
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Carrito (
-  idCarrito INT NOT NULL,
+  idCarrito SERIAL NOT NULL,
   Usuario_idUsuario INT NOT NULL,
   PRIMARY KEY (idCarrito),
   CONSTRAINT fk_Carrito_Usuario1
@@ -369,7 +370,7 @@ CREATE TABLE IF NOT EXISTS Carrito_has_Producto (
 -- Table PromocionAplicada
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS PromocionAplicada (
-  idPromocionAplicada INT NOT NULL,
+  idPromocionAplicada SERIAL NOT NULL,
   descripcion VARCHAR(200) NULL,
   porcentajeDescuento DECIMAL NULL,
   PRIMARY KEY (idPromocionAplicada))
@@ -401,7 +402,7 @@ CREATE TABLE IF NOT EXISTS PromocionAplicada_has_Pedido_has_Producto (
 -- Table Valoracion
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Valoracion (
-  idValoracion INT NOT NULL,
+  idValoracion SERIAL NOT NULL,
   valoracion DECIMAL NULL,
   Producto_idProducto INT NOT NULL,
   Usuario_idUsuario INT NOT NULL,
@@ -423,7 +424,7 @@ CREATE TABLE IF NOT EXISTS Valoracion (
 -- Table Comentario
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Comentario (
-  idComentario INT NOT NULL,
+  idComentario SERIAL NOT NULL,
   titulo VARCHAR(45) NULL,
   descripcion VARCHAR(1000) NULL,
   fecha DATE NULL,
@@ -481,7 +482,7 @@ CREATE TABLE IF NOT EXISTS Producto_has_Especie (
 -- Table Visita
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Visita (
-  idVisita INT NOT NULL,
+  idVisita SERIAL NOT NULL,
   fechaVisita TIMESTAMP NULL,
   fechaFinVisita TIMESTAMP NULL,
   PRIMARY KEY (idVisita))
