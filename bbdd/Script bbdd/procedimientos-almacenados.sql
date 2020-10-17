@@ -115,3 +115,24 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION SP_OBTENER_VISITA_USUARIO
+(  
+   OUT p_visita INT,
+   OUT p_usuario INT
+)
+RETURNS RECORD AS $BODY$ 
+BEGIN
+   p_visita = NULL;
+   p_usuario = NULL;
+   
+   SELECT COUNT(*) INTO p_visita FROM VISITA
+   WHERE EXTRACT(MONTH FROM fechavisita)=EXTRACT(MONTH FROM CURRENT_TIMESTAMP);
+
+   SELECT COUNT(*) INTO p_usuario
+		   FROM USUARIO;
+		   
+   RETURN;
+END;
+$BODY$
+LANGUAGE 'plpgsql';

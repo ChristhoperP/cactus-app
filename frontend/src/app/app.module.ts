@@ -22,6 +22,7 @@ import { AuthService } from "./servicios/auth.service";
 import { TokenInterceptorService } from "./servicios/token-interceptor.service";
 import { AuthGuard } from './servicios/guards/auth.guard';
 import { NoAuthGuard } from "./servicios/guards/no-auth.guard";
+import { PeticionesService } from "./servicios/peticiones.service";
 
 
 //Formularios
@@ -60,6 +61,7 @@ import { EncabezadoAdminComponent } from './componentes/administrador/encabezado
     AuthGuard,
     NoAuthGuard,
     AuthService,
+    PeticionesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
