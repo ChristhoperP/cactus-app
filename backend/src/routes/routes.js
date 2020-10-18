@@ -25,6 +25,7 @@ router.get('/visita-usuario', AdminController.visitaUsuario);
 
 
 //Obtener información de los productos del inventario
-router.get('/productos', auth.isAdmin, AdminController.visitaUsuario);
+router.get('/productos', auth.isAdmin, AdminController.infoInventario);
+router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategoria);
 
 module.exports = router;
