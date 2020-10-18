@@ -15,6 +15,7 @@ import { PromocionComponent } from './componentes/promocion/promocion.component'
 import { InformacionComponent } from './componentes/informacion/informacion.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { ControladorAdminComponent } from './componentes/administrador/controlador-admin/controlador-admin.component';
+import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
 
 
 
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
         path: 'controlador-admin',
         component: ControladorAdminComponent,
         children: [
+                    {path: 'inventario', component: InventarioComponent}
             
         ]
     },
