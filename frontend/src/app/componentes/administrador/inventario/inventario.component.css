@@ -1,0 +1,46 @@
+.imagen-producto{
+    width: 60px;
+    height: 60px;
+    background: #CCC;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+
+.imagen-producto img{
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+@supports(object-fit: cover){
+    .imagen-producto img{
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+}
+
+.btn-link{
+    color: green;
+}
+
+
+.botones {
+    font-size: 1.30vw;
+}
+
+h1{
+    font-size: 100%;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+@media screen and (min-width: 1300px) {
+    .botones {
+       font-size: 100%;
+    }
+  }

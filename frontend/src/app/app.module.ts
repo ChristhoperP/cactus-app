@@ -32,6 +32,7 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 import { rutas_encabezado, appRoutingProviders} from "./app.routing";
 import { EncabezadoAdminComponent } from './componentes/administrador/encabezado-admin/encabezado-admin.component';
 import { ControladorAdminComponent } from './componentes/administrador/controlador-admin/controlador-admin.component';
+import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ControladorAdminComponent } from './componentes/administrador/controlad
     CarruselPromoComponent,
     PerfilComponent,
     EncabezadoAdminComponent,
-    ControladorAdminComponent
+    ControladorAdminComponent,
+    InventarioComponent
 
   ],
   imports: [
