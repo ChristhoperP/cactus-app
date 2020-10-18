@@ -42,7 +42,12 @@ export class IniciarSesionComponent implements OnInit {
     this.servicioAuth.iniciarSesion(this.formularioInicioSesion.value)
         .subscribe(res => {
           this.servicioAuth.setToken(res.token);          
-          this.router.navigate(['/inicio']);          
+          
+          if (res.rol === 'admin' ){
+            this.router.navigate(['/controlador-admin']);          
+          } else {
+            this.router.navigate(['/inicio'])
+          }
         },
         err => {
           console.log(err);
