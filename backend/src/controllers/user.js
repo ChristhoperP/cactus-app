@@ -93,7 +93,7 @@ var controller = {
         }
     },
 
-    infoPerfilUsuario: async function (req, res) {
+    infoPerfilUsuario: async function(req, res) {
         try {
             const response = await pool.query(
                 'SELECT * FROM INFORMACION_USUARIO_PERFIL;'
@@ -111,8 +111,9 @@ var controller = {
             })
         }
     },
-    
+
 };
+
 
 
 
