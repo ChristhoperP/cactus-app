@@ -28,6 +28,24 @@ var controller = {
                 message: 'Error: No se ha podido obtener las visitas y los usuarios',
             })
         }
+    },
+    visitaUsuario: async function (req, res) {
+        try {
+            const response = await pool.query(
+                'SELECT * FROM INFORMACION_INVENTARIO;'
+            );
+
+            //console.log(response);
+            var respuesta = response.rows[0];
+
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se ha podido obtener los productos.',
+            })
+        }
     }
 
 };
