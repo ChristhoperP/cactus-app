@@ -119,4 +119,8 @@ var controller = {
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ebb55010a7a446c3fee4163705962ddc5c514b1b
 module.exports = controller;
