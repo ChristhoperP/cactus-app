@@ -29,14 +29,14 @@ var controller = {
             })
         }
     },
-    visitaUsuario: async function (req, res) {
+    infoInventario: async function (req, res) {
         try {
             const response = await pool.query(
                 'SELECT * FROM INFORMACION_INVENTARIO;'
             );
 
             //console.log(response);
-            var respuesta = response.rows[0];
+            var respuesta = response.rows;
 
             return res.status(200).send(respuesta);
 
@@ -44,6 +44,24 @@ var controller = {
             console.log(err);
             return res.status(500).send({
                 message: 'Error: No se ha podido obtener los productos.',
+            })
+        }
+    },
+    cantidadCategoria: async function (req, res) {
+        try {
+            const response = await pool.query(
+                'SELECT * FROM CANTIDAD_INVENTARIO_POR_CATEGORIA;'
+            );
+
+            //console.log(typeof(response.rows));
+            var respuesta = response.rows;
+
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se ha podido la cantidad de productos por categoria disponibles.',
             })
         }
     }
