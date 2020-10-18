@@ -26,20 +26,6 @@ export class AppComponent implements OnInit {
 
   }
 
-   /* ngOnDestroy(): void {
-    var idVisita = this._PeticionesService.getIdVisita();
-    if (idVisita) {
-      this._PeticionesService.registraFinVisita(idVisita)
-        .subscribe(res => {
-          this._PeticionesService.removeIdVisita();
-          console.log("he finalizado");
-        },
-          err => {
-            console.log(err);
-          });
-    }
-  }  */
-
   @HostListener('window: beforeunload', ['$event'])
   beforeunloadHandler(event){
     var idVisita = this._PeticionesService.getIdVisita();
