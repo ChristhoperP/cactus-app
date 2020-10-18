@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
   contrasenia VARCHAR(100) NOT NULL,
   telefono VARCHAR(45) NULL,
   direccion VARCHAR(200) NULL,
+  imagenPerfil VARCHAR(200) NULL,
   Tipo_usuario_idTipo_usuario INT NOT NULL,
   fechaRegistro DATE NULL,
   PRIMARY KEY (idUsuario),

@@ -546,9 +546,9 @@ INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Euphorbia decar
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Euphorbia enopla','1');
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Euphorbia obesa','1');
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Euphorbia flanaganii','1');
-INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Monadenium stapelioides variegata','3')
-INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Monadenium ritchiei variegata','3')
-INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Monadenium ritchiei','3')
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Monadenium stapelioides variegata','3');
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Monadenium ritchiei variegata','3');
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Monadenium ritchiei','3');
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Portulacaria afra','9');
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Postulacaria afra variagata','9');
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Portulacaria afra macrophylla','9');
