@@ -24,4 +24,7 @@ router.post('/registro-visita-fin/:id', VisitaController.visitaFinal);
 router.get('/visita-usuario', AdminController.visitaUsuario);
 
 
+//Obtener información de los productos del inventario
+router.get('/productos', AdminController.visitaUsuario);
+
 module.exports = router;
