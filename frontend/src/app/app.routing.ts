@@ -14,6 +14,7 @@ import {ProductosComponent} from "./componentes/productos/productos.component";
 import { PromocionComponent } from './componentes/promocion/promocion.component';
 import { InformacionComponent } from './componentes/informacion/informacion.component';
 import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { ControladorAdminComponent } from './componentes/administrador/controlador-admin/controlador-admin.component';
 
 
 
@@ -27,6 +28,13 @@ const appRoutes: Routes = [
     {path: 'promocion', component: PromocionComponent},
     {path: 'informacion', component: InformacionComponent},
     {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},
+    {
+        path: 'controlador-admin',
+        component: ControladorAdminComponent,
+        children: [
+            
+        ]
+    },
     {path: '**', component: InicioComponent}
 ];
 

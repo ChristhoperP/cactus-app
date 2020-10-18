@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 
 
@@ -9,10 +10,18 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class EncabezadoComponent implements OnInit {
 
+  isCustomer: Boolean;
 
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private router: Router) {}
 
   ngOnInit(): void {
+    if (this.router.url != '/controlador-admin'){
+      this.isCustomer = true;
+    } else {
+      this.isCustomer = false;
+    }
   }
 
 }
