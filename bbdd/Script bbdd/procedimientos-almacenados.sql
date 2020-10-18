@@ -136,3 +136,41 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION SP_OBTENER_TIPOSBASES()
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  FOR r IN SELECT idtipobase, descripcion
+           FROM tipobase
+           ORDER BY idtipobase
+     LOOP
+	    RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION SP_OBTENER_CATEGORIAS_PRODUCTOS()
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  FOR r IN SELECT idcategoria, descripcion
+           FROM categoria
+           ORDER BY idcategoria
+     LOOP
+	    RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+
+

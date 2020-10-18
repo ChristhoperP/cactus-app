@@ -31,7 +31,8 @@ var controller = {
                     if (idUser && rolUser) {
                         console.log(idUser, rolUser);
                         return res.status(200).send({
-                            token: services.createToken(idUser, rolUser), rol: rolUser
+                            token: services.createToken(idUser, rolUser),
+                            rol: rolUser
                         });
                     } else {
                         return res.status(500).send({
@@ -71,7 +72,8 @@ var controller = {
 
                 if (resultadoMatch) {
                     return res.status(200).send({
-                        token: services.createToken(idUser, rolUser), rol: rolUser
+                        token: services.createToken(idUser, rolUser),
+                        rol: rolUser
                     });
                 } else {
                     return res.status(500).send({
@@ -90,11 +92,7 @@ var controller = {
             })
         }
     },
-    
+
 };
-
-
-
-
 
 module.exports = controller;
