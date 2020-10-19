@@ -172,5 +172,74 @@ $$
 LANGUAGE plpgsql;
 
 
+CREATE OR REPLACE FUNCTION SP_OBTENER_ESPECIES()
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  FOR r IN SELECT A.idespecie, A.descripcion AS descripcion_especie,
+                   B.idgenero, B.descripcion AS descripcion_genero,
+                   C.idfamilia, C.descripcion AS descripcion_familia
+           FROM especie AS A LEFT JOIN genero AS B ON A.Genero_idGenero = B.idgenero
+           LEFT JOIN familia AS C on B.Familia_idFamilia = C.idFamilia
+     LOOP
+	    RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION SP_AGREGAR_ESPECIE
+(    
+   IN p_descripcionEspecie VARCHAR(200),	 
+   IN p_idgenero INT, 
+   OUT p_ocurrioError INT,
+   OUT p_mensaje VARCHAR(200),
+   OUT p_idespecie INT
+)
+RETURNS RECORD AS $BODY$
+DECLARE cantidad INT;  
+BEGIN
+   p_idespecie = NULL;
+   IF(p_descripcionEspecie IS NULL OR p_idgenero IS NULL) THEN
+      p_ocurrioError := 1;
+      p_mensaje:= 'Error: campos incompletos';
+	  RETURN;
+   ELSE  
+	   SELECT COUNT(*) INTO cantidad
+	   FROM especie
+	   WHERE UPPER(p_descripcionEspecie) = UPPER(descripcion) ;
+	   
+	   IF (cantidad = 0 ) THEN
+	     INSERT INTO especie(
+	       descripcion,
+           genero_idgenero
+         )
+	     VALUES (
+           p_descripcionEspecie,
+		   p_idgenero	 
+        );
+           p_ocurrioError := 0;
+           p_mensaje:= 'Se ha registrado la especie';
+		
+         SELECT idespecie INTO p_idespecie
+		 FROM especie
+	     WHERE UPPER(p_descripcionEspecie) = UPPER(descripcion) ;
+
+		 RETURN;
+		ELSE 
+		   p_ocurrioError := 1;
+           p_mensaje:= 'Error: la especie ya se encuentra registrada';
+		   RETURN;
+	    END IF;   	
+	END IF;	
+END;
+$BODY$
+LANGUAGE 'plpgsql';
+
+
 
 
