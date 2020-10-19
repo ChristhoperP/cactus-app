@@ -94,9 +94,11 @@ var controller = {
     },
 
     infoPerfilUsuario: async function(req, res) {
+       
         try {
             const response = await pool.query(
-                'SELECT * FROM INFORMACION_USUARIO_PERFIL;'
+                'SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = 2;'
+               /*  'SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = $1;', [req.user] */
             );
 
             console.log(response);
@@ -110,6 +112,8 @@ var controller = {
                 message: 'Error: No se ha podido obtener los datos del usuario.',
             })
         }
+
+       
     },
 
 };
