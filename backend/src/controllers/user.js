@@ -31,7 +31,8 @@ var controller = {
                     if (idUser && rolUser) {
                         console.log(idUser, rolUser);
                         return res.status(200).send({
-                            token: services.createToken(idUser, rolUser), rol: rolUser
+                            token: services.createToken(idUser, rolUser),
+                            rol: rolUser
                         });
                     } else {
                         return res.status(500).send({
@@ -71,7 +72,8 @@ var controller = {
 
                 if (resultadoMatch) {
                     return res.status(200).send({
-                        token: services.createToken(idUser, rolUser), rol: rolUser
+                        token: services.createToken(idUser, rolUser),
+                        rol: rolUser
                     });
                 } else {
                     return res.status(500).send({
@@ -91,7 +93,7 @@ var controller = {
         }
     },
 
-    infoPerfilUsuario: async function (req, res) {
+    infoPerfilUsuario: async function(req, res) {
         try {
             const response = await pool.query(
                 'SELECT * FROM INFORMACION_USUARIO_PERFIL;'
@@ -109,11 +111,16 @@ var controller = {
             })
         }
     },
-    
+
 };
 
 
 
 
 
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> ebb55010a7a446c3fee4163705962ddc5c514b1b
 module.exports = controller;
