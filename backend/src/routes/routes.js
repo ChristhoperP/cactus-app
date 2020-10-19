@@ -25,6 +25,8 @@ router.post('/upload-images/:id', image.upload.array('images', 2), ImageControll
 // Informacion para llenar los selects de registrar productos
 router.get('/tipos-bases', productoController.getTiposBases);
 router.get('/categorias', productoController.getCategorias);
+router.get('/especies', productoController.getEspecies);
+router.post('/registrarEspecie', productoController.registrarEspecie);
 
 
 
