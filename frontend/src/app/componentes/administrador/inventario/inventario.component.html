@@ -1,6 +1,6 @@
 <div>
     <div>
-        <h4 class="pt-2 pl-2">INVENTARIO DE PRODUCTOS</h4>
+        <h4 class="pt-2 pl-2"> <i class="fas fa-boxes mr-2"></i>INVENTARIO DE PRODUCTOS</h4>
         <hr>
     </div>
     <div>
@@ -13,6 +13,7 @@
             <table class="table table-hover text-center">
                 <thead>
                   <tr>
+                    <th scope="col" style="width:1%"></th>
                     <th scope="col">#</th>
                     <th scope="col">Imagen</th>
                     <th scope="col">Nombre
@@ -47,10 +48,16 @@
                     </th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio</th>
+                    <th scope="col" style="width:1%"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+                      </div>
+                    </td>
                     <th scope="row">1</th>
                     <td>
                        <div class="imagen-producto ml-auto mr-auto" >
@@ -62,8 +69,16 @@
                     <td>Maceteras de vidrio</td>
                     <td class="text-center">1</td>
                     <td>L 250</td>
+                    <td>
+                      <button class="btn btn-sm" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
+                    </td>
                   </tr>
                   <tr>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+                      </div>
+                    </td>
                     <th scope="row">2</th>
                     <td>
                         <div class="imagen-producto ml-auto mr-auto" >
@@ -75,6 +90,9 @@
                      <td>Maceteras de vidrio</td>
                      <td>1</td>
                      <td>L 250</td>
+                     <td>
+                       <button class="btn btn-sm" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
