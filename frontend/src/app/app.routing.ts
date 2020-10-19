@@ -3,6 +3,7 @@ import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule, CanActivate } from "@angular/router";
 import { AuthGuard } from './servicios/guards/auth.guard';
 import { NoAuthGuard } from './servicios/guards/no-auth.guard';
+import { IsAdminGuard } from './servicios/guards/is-admin.guard';
 
 
 
@@ -33,9 +34,9 @@ const appRoutes: Routes = [
         path: 'controlador-admin',
         component: ControladorAdminComponent,
         children: [
-                    {path: 'inventario', component: InventarioComponent}
-            
-        ]
+            {path: 'inventario', component: InventarioComponent}
+        ],
+        canActivate: [AuthGuard, IsAdminGuard]
     },
     {path: '**', component: InicioComponent}
 ];

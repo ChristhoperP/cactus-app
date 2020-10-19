@@ -1,0 +1,128 @@
+<div #modalClase class="modal fade" id="modifyProductModal" tabindex="-1" aria-labelledby="modifyProductModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modificar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="container">
+                    <form [formGroup]="formularioModificarProducto" class="form" enctype="multipart/form-data" validate>
+                        <div class="form-row">
+
+                            <div class="col-12 col-md-4">
+
+                                <div class="form-group row">
+                                    <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" formControlName="nombreProducto" name="nombreProducto" id="nombre" class="form-control" placeholder="Nombre del producto" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="categoria" class="col-sm-3 col-form-label">Categoría</label>
+                                    <div class="col-sm-9">
+                                        <select formControlName="categoria" name="categoria" id="categoria" class="form-control" required>
+                                          <option value="1">Categoría 1</option>
+                                          <option value="2">Categoría 2</option>
+                                          <option value="3">Categoría 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="tipoBase" class="col-sm-3 col-form-label">Base</label>
+                                    <div class="col-sm-9">
+                                        <select formControlName="base" name="tipoBase" id="tipoBase" class="form-control" required>
+                                          <option value="1">Madera</option>
+                                          <option value="2">Barro</option>
+                                          <option value="3">Cristal</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="especies" class="col-sm-3 col-form-label">Especie(s)</label>
+                                    <div class="col-sm-9">
+                                        <select formControlName="especies" name="especies" id="especies" multiple class="form-control" required>
+                                          <option value="1">Especie 1</option>
+                                          <option value="2">Especie 2</option>
+                                          <option value="3">Especie 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="cantidad" class="col-sm-3 col-form-label">Cantidad</label>
+                                    <div class="col-sm-3">
+                                        <input type="number" formControlName="cantidad" name="cantidad" id="cantidad" min="1" step="1" class="form-control" required>
+                                    </div>
+
+                                    <label for="precio" class="col-sm-2 col-form-label">Precio</label>
+                                    <div class="col-sm-4">
+                                        <input type="number" formControlName="precio" name="precio" id="precio" step="1.00" min="1" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea formControlName="descripcion" name="descripcion" class="form-control" placeholder="Descripción del producto" cols="30" rows="5" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4">
+
+                                <div class="form-group px-1">
+                                    <div class="position-relative portada-producto">
+                                        <span>Imagen de Portada</span>
+                                        <hr class="my-1">
+                                        <button type="button" class="btn btn-warning position-absolute" style="font-size:1vw;padding: 3px 5px;z-index: 100; top: 0; right: 0;" (click)="inputFotoPortada.click()">
+                                          <i class="fas fa-sync"></i> Cambiar imagen
+                                        </button>
+                                        <img [src]=" imgPortada || '../../../assets/img/tarjeta1.jpg'" class="img-thumbnail mb-2 imagen-producto">
+                                        <input class="d-none" type="file" #inputFotoPortada name="fotoPortadaProducto" id="fotoPortadaProducto" (change)="previewPortada($event.target)">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-md-4">
+
+                                <div class="form-group px-1">
+                                    <div class="form-row">
+
+                                        <div class="col-12">
+                                            <div class="position-relative">
+                                                Imágenes del Producto
+                                                <hr class="my-1">
+                                                <button type="button" class="btn btn-warning position-absolute" style="font-size:1vw;padding: 3px 5px;z-index: 100; top: 0; right: 0;" (click)="inputFotosProducto.click()">
+                                                  <i class="fas fa-plus"></i> Agregar imagen
+                                                </button>
+                                                <input class="d-none" type="file" multiple name="inputFotosProducto" #inputFotosProducto id="inputFotosProducto" (change)="previewProductImages($event.target)">
+                                            </div>
+                                        </div>
+
+                                        <div *ngFor="let img of imagenes" class="col-12 col-md-6 mb-2">
+                                            <app-foto-mod-producto [imagen]="img"></app-foto-mod-producto>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="mostrarValores()">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>

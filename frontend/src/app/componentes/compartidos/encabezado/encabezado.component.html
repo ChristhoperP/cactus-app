@@ -1,4 +1,4 @@
-<nav *ngIf="isCustomer" class="navbar navbar-expand-xl navbar-dark bg-dark" style="background-color: #50a1a5!important;">
+<nav *ngIf="authService.getUserRole() !== 'admin' || authService.getUserRole()" class="navbar navbar-expand-xl navbar-dark bg-dark" style="background-color: #50a1a5!important;">
     <a class="navbar-brand" [routerLink]="['/inicio']">
         <img src="/assets/img/logo_vector.png" width="40" height="40" alt="" loading="lazy">
     </a>

@@ -31,7 +31,8 @@ var controller = {
                     if (idUser && rolUser) {
                         console.log(idUser, rolUser);
                         return res.status(200).send({
-                            token: services.createToken(idUser, rolUser), rol: rolUser
+                            token: services.createToken(idUser, rolUser),
+                            rol: rolUser
                         });
                     } else {
                         return res.status(500).send({
@@ -71,7 +72,8 @@ var controller = {
 
                 if (resultadoMatch) {
                     return res.status(200).send({
-                        token: services.createToken(idUser, rolUser), rol: rolUser
+                        token: services.createToken(idUser, rolUser),
+                        rol: rolUser
                     });
                 } else {
                     return res.status(500).send({
@@ -90,8 +92,29 @@ var controller = {
             })
         }
     },
-    
+
+    infoPerfilUsuario: async function(req, res) {
+        try {
+            const response = await pool.query(
+                'SELECT * FROM INFORMACION_USUARIO_PERFIL;'
+            );
+
+            console.log(response);
+            var respuesta = response.rows;
+
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se ha podido obtener los datos del usuario.',
+            })
+        }
+    },
+
 };
+
+
 
 
 
