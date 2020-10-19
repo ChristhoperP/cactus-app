@@ -30,9 +30,9 @@
     font-size: 1.30vw;
 }
 
-h1{
+/* h1{
     font-size: 100%;
-}
+} */
 
 .btn:focus {
     outline: none;
@@ -44,3 +44,20 @@ h1{
        font-size: 100%;
     }
   }
+
+.dropdown-toggle::after {
+    display: none;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+}
+
+select {
+    border: none !important;
+    height: 100%;
+    width: 100%;
+    }
