@@ -64,6 +64,26 @@ var controller = {
                 message: 'Error: No se ha podido la cantidad de productos por categoria disponibles.',
             })
         }
+    },
+
+    infoProductoPorId: async function (req, res) {
+        var {idproducto} = req.body;
+        try {
+            const response = await pool.query(
+                'SELECT * FROM MODIFICAR_INVENTARIO WHERE IDPRODUCTO = $1;', [idproducto]
+            );
+
+            
+            var respuesta = response.rows;
+
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se ha podido la cantidad de productos por categoria disponibles.',
+            })
+        }
     }
 
 };
