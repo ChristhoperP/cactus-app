@@ -35,18 +35,19 @@ export class IniciarSesionComponent implements OnInit {
   iniciarSesion(){
     this.errorCredenciales = false;
 
-    if(this.formularioInicioSesion.invalid){      
+    if(this.formularioInicioSesion.invalid){
       return;
     }
-    
+
     this.servicioAuth.iniciarSesion(this.formularioInicioSesion.value)
         .subscribe(res => {
-          this.servicioAuth.setToken(res.token);          
-          
+          this.servicioAuth.setToken(res.token);
+          this.servicioAuth.setUserRole(res.rol);
+
           if (res.rol === 'admin' ){
-            this.router.navigate(['/controlador-admin']);          
+            this.router.navigate(['/controlador-admin']);
           } else {
-            this.router.navigate(['/inicio'])
+            this.router.navigate(['/inicio']);
           }
         },
         err => {
