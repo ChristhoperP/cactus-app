@@ -11,5 +11,5 @@ WHERE PR.CANTIDAD>0
 GROUP BY (CAT.DESCRIPCION);
 
 CREATE OR REPLACE VIEW INFORMACION_USUARIO_PERFIL AS
-select imagenperfil,nombre,contrasenia,correo,
+select imagenperfil,nombre,correo,
 telefono,direccion from usuario;
