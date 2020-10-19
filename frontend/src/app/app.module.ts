@@ -22,6 +22,7 @@ import { AuthService } from "./servicios/auth.service";
 import { TokenInterceptorService } from "./servicios/token-interceptor.service";
 import { AuthGuard } from './servicios/guards/auth.guard';
 import { NoAuthGuard } from "./servicios/guards/no-auth.guard";
+import { IsAdminGuard } from './servicios/guards/is-admin.guard';
 import { PeticionesService } from "./servicios/peticiones.service";
 
 
@@ -33,6 +34,8 @@ import { rutas_encabezado, appRoutingProviders} from "./app.routing";
 import { EncabezadoAdminComponent } from './componentes/administrador/encabezado-admin/encabezado-admin.component';
 import { ControladorAdminComponent } from './componentes/administrador/controlador-admin/controlador-admin.component';
 import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
+import { ModificarProductoComponent } from './componentes/administrador/modificar-producto/modificar-producto.component';
+import { FotoModProductoComponent } from './componentes/administrador/foto-mod-producto/foto-mod-producto.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import { InventarioComponent } from './componentes/administrador/inventario/inve
     PerfilComponent,
     EncabezadoAdminComponent,
     ControladorAdminComponent,
-    InventarioComponent
+    InventarioComponent,
+    ModificarProductoComponent,
+    FotoModProductoComponent
 
   ],
   imports: [
@@ -64,6 +69,7 @@ import { InventarioComponent } from './componentes/administrador/inventario/inve
     appRoutingProviders,
     AuthGuard,
     NoAuthGuard,
+    IsAdminGuard,
     AuthService,
     PeticionesService,
     {
