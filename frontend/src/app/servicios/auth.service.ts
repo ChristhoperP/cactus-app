@@ -46,4 +46,12 @@ export class AuthService {
         this._router.navigate(['inicio']);
     }
 
+    setUserRole( role ): void {
+        localStorage.setItem('rol', role);
+    }
+
+    getUserRole(): string {
+        return localStorage.getItem('rol');
+    }
+
 }

@@ -1,0 +1,42 @@
+.btn-cambia-imagen {
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.portada-producto:hover .btn-cambia-imagen {
+    display: block;
+}
+
+.btn-delete-image {
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 1.5rem;
+    padding: 1px 2px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    transform-origin: center center;
+    transform: translate(40%, -40%);
+    display: none;
+}
+
+.btn-delete-image:hover {
+    font-size: 1.7rem;
+}
+
+.btn-delete-image:active,
+.btn-delete-image:focus {
+    outline-style: none;
+    box-shadow: none;
+}
+
+.modify-image-card:hover .btn-delete-image {
+    display: block;
+}
