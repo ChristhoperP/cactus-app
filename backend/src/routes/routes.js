@@ -29,6 +29,9 @@ router.get('/especies', productoController.getEspecies);
 router.post('/registrarEspecie', productoController.registrarEspecie);
 
 
+// Informacion para llenar la tabla de modificar 
+router.get('/productoporid', auth.isAdmin, AdminController.infoProductoPorId);
+
 
 //Visitas por mes y usuarios
 router.post('/registro-visita-inicio', VisitaController.visitaInicio);
