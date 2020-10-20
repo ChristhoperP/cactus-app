@@ -97,8 +97,7 @@ var controller = {
        
         try {
             const response = await pool.query(
-                'SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = 2;'
-               /*  'SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = $1;', [req.user] */
+                `SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = ${req.user.id};`
             );
 
             console.log(response);
