@@ -42,4 +42,8 @@ router.get('/infoPerfil', /* auth.isAuth, */ UserController.infoPerfilUsuario);
 router.get('/productos', auth.isAdmin, AdminController.infoInventario);
 router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategoria);
 
+//Registrar producto
+router.post('/registro-producto', image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]), 
+(req, res) => { res.status(200).send( {files: req.files, body:req.body}) });
+//portada:req.files.portada[0].filename, gallery: {1: req.files.gallery[0].filename, 2: req.files.gallery[1].filename
 module.exports = router;
