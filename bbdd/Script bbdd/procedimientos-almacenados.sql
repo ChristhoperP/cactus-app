@@ -263,7 +263,7 @@ CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO
 )
 RETURNS RECORD AS $BODY$
 
-    DECLARE cantidadpro INT;
+   DECLARE cantidadpro INT;
 	DECLARE vnIdProducto INT;
 	DECLARE vnIdIMAGENPRODUCTO INT;
     
@@ -279,7 +279,7 @@ BEGIN
         END IF;  /* Se hizo una variable para idimagenproducto para poder usar en tabla producto has imagenproducto*/
   
    IF(p_nombreproducto IS NULL OR p_categoria IS NULL OR p_tipobase IS NULL OR p_especies IS NULL OR
-   p_especies IS NULL OR p_cantidad IS NULL OR p_precio IS NULL OR p_descripcion IS NULL OR p_imagenportada IS NULL OR p_imagenesgaleria IS NULL
+   p_especies IS NULL OR p_cantidad IS NULL OR p_precio IS NULL OR p_descripcion IS NULL /* OR p_imagenportada IS NULL OR p_imagenesgaleria IS NULL */
    ) THEN
       p_ocurrioError := 1;
       p_mensaje:= 'Error: campos incompletos';
