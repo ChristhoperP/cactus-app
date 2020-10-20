@@ -29,6 +29,9 @@ router.get('/especies', productoController.getEspecies);
 router.post('/registrarEspecie', productoController.registrarEspecie);
 
 
+// Informacion para llenar la tabla de modificar 
+router.get('/productoporid', auth.isAdmin, AdminController.infoProductoPorId);
+
 
 //Visitas por mes y usuarios
 router.post('/registro-visita-inicio', VisitaController.visitaInicio);
@@ -36,7 +39,7 @@ router.post('/registro-visita-fin/:id', VisitaController.visitaFinal);
 router.get('/visita-usuario', AdminController.visitaUsuario);
 
 //Informacion del Usuario
-router.get('/infoPerfil', /* auth.isAuth, */ UserController.infoPerfilUsuario);
+router.get('/infoPerfil', auth.isAuth, UserController.infoPerfilUsuario);
 
 //Obtener información de los productos del inventario
 router.get('/productos', auth.isAdmin, AdminController.infoInventario);
