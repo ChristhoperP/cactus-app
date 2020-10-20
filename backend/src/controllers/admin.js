@@ -4,6 +4,8 @@ const { pool } = require('../conexion');
 const bcrypt = require('bcrypt');
 const rutas = require('../config');
 const services = require('../services/token');
+const image = require('../middlewares/images');
+var ImageController = require('../controllers/image');
 
 var controller = {
     visitaUsuario: async function (req, res) {
@@ -113,6 +115,61 @@ var controller = {
                 message: 'Error: No se ha podido la cantidad de productos por categoria disponibles.',
             })
         }
+    },
+    
+    registroProducto: async function  (req, res) {
+       
+        image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]),
+                res.status(200).send( {files: req.files, body:req.body}) 
+                
+               
+
+
+        var {nombre, informacionadicional,precio,cantidad,TipoBase,Tiemposol,frecuenciariego,tamanio,categoria,especie,galeriaproducto} = req.body;
+        var{portada} =req.files.portada[0].filename;
+
+        for (let galeria of req.files.gallery[0].filename) {
+            console.log(galeria);
+        }
+
+        if (nombre != null && informacionadicional != null && precio != null && cantidad != null && TipoBase != null&& Tiemposol != null
+            && frecuenciariego != null && tamanio != null && categoria != null && especie != null) {
+
+                
+                try {
+                    
+                    const response = await pool.query(
+                        'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$9,$10,$11,$12);', [nombre, categoria, TipoBase, especie, cantidad, precio, Tiemposol, frecuenciariego, tamanio, informacionadicional,portada,galeria]
+                    );
+
+                    var respuesta = response.rows[0].sp_agregar_producto;
+                    var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
+                    var arregloRes = respuesta1.split(',');
+                    var ocurrioError = arregloRes[0];
+                    var mensaje = arregloRes[1];
+                    var idProducto = arregloRes[2];
+
+                    return res.status(500).send({
+                        message: mensaje
+                        
+                    });
+
+                } catch (err) {
+                    console.log(err);
+                    return res.status(500).send({
+                        message: 'Error: No se ha registrado el producto',
+                    })
+                }
+            
+        } else {
+            return res.status(500).send({
+                message: 'Error: Faltan campos, no se registro el producto'
+            })
+        }
+        
+
+            
+    
     }
 
 };
