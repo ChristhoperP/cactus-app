@@ -240,6 +240,139 @@ END;
 $BODY$
 LANGUAGE 'plpgsql';
 
+/* AGREGAR PRODUCTO */
+
+CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO
+(    
+   IN p_nombreproducto VARCHAR(45),	 
+   IN p_categoria INT, 
+   IN p_tipobase INT,
+   IN p_especies INT,
+   IN p_cantidad INT,
+   IN p_precio DECIMAL,
+   IN p_tiemposol VARCHAR(200),
+   IN p_frecuenciariego VARCHAR(200),
+   IN p_tamanio VARCHAR(200),
+   IN p_descripcion VARCHAR(500),
+   IN p_imagenportada VARCHAR(200),
+   IN p_imagenesgaleria VARCHAR(200),
+   OUT p_ocurrioError INT,
+   OUT p_mensaje VARCHAR(200),
+   OUT p_id INT
+   
+)
+RETURNS RECORD AS $BODY$
+
+    DECLARE cantidadpro INT;
+	DECLARE vnIdProducto INT;
+	DECLARE vnIdIMAGENPRODUCTO INT;
+    
+BEGIN
+    p_id = NULL;
+
+    
+        
+    IF EXISTS(SELECT * FROM IMAGENPRODUCTO) THEN
+            SELECT max(idIMAGENPRODUCTO)+1 INTO vnIdIMAGENPRODUCTO FROM IMAGENPRODUCTO;
+        ELSE
+            vnIdIMAGENPRODUCTO:=1;
+        END IF;  /* Se hizo una variable para idimagenproducto para poder usar en tabla producto has imagenproducto*/
+  
+   IF(p_nombreproducto IS NULL OR p_categoria IS NULL OR p_tipobase IS NULL OR p_especies IS NULL OR
+   p_especies IS NULL OR p_cantidad IS NULL OR p_precio IS NULL OR p_descripcion IS NULL OR p_imagenportada IS NULL OR p_imagenesgaleria IS NULL
+   ) THEN
+      p_ocurrioError := 1;
+      p_mensaje:= 'Error: campos incompletos';
+	  RETURN;
+   ELSE  
+	   SELECT COUNT(*) INTO cantidadpro
+	   FROM producto
+	   WHERE nombre=p_nombreproducto;
+
+	   /* INSERT EN TABLA PRODUCTO */
+	   IF (cantidadpro = 0 ) THEN
+	     INSERT INTO producto(
+	       nombre,
+           informacionadicional,
+		   urlportada,
+           precio, 
+           cantidad, 
+           tipobase_idtipobase, 
+           tiemposol, 
+           frecuenciariego,
+           tamanio,
+           categoria_idcategoria
+         )
+	     VALUES (
+           p_nombreproducto,
+           p_descripcion,
+	       p_imagenportada,
+           p_precio,
+           p_cantidad,
+           p_tipobase,
+           p_tiemposol,
+           p_frecuenciariego,
+           p_tamanio,
+           p_categoria
+        );
+
+           p_ocurrioError := 0;
+           p_mensaje:= 'Se ha registrado el producto';
+        
+		   
+         SELECT idproducto INTO p_id
+		   FROM producto        /* Se recupera el ID de Producto para mandarlo como respuesta*/
+		   WHERE nombre=p_nombreproducto;
+         
+		   
+		 
+         SELECT max(idproducto) INTO vnIdProducto FROM producto;  /* Se obtiene el ID de Producto para insertar en tablas has*/
+       
+         /* Se hace Insert en producto_has_especie */
+         INSERT INTO producto_has_especie(
+           producto_idproducto,
+           especie_idespecie
+         )
+	     VALUES (
+           vnIdProducto,
+           p_especies
+        );
+		
+		
+        /* insertar imagenes */
+
+        INSERT INTO imagenproducto(
+         IDIMAGENPRODUCTO,
+         URL
+         )
+	     VALUES (
+           vnIdIMAGENPRODUCTO,
+           p_imagenesgaleria
+        );
+
+         INSERT INTO producto_has_imagenproducto(
+           producto_idproducto,
+           imagenproducto_idimagenproducto
+         )
+	     VALUES (
+           vnIdProducto,
+           vnIdIMAGENPRODUCTO
+        );
+
+         
+
+		   RETURN;
+		ELSE 
+		   p_ocurrioError := 1;
+           p_mensaje:= 'Error: Ya existe un producto registrado con este nombre';
+		   RETURN;
+	    END IF;   	
+	END IF;	
+END;
+$BODY$
+LANGUAGE 'plpgsql';
+
+
 
 
 
