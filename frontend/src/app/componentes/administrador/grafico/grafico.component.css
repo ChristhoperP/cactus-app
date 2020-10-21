@@ -1,0 +1,12 @@
+#divChart {
+    top: 100px;
+    display: block;
+    width: 600px;
+    height: 600px;
+}
+
+#titulo {
+    padding-top: 30px;
+    text-align: center;
+    font-size: 120%;
+}

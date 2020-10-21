@@ -1,2 +1,77 @@
-<app-encabezado-admin></app-encabezado-admin>
-<router-outlet></router-outlet>
+<div class="encabezado">
+    <app-encabezado-admin>
+    </app-encabezado-admin>
+
+</div>
+
+<div>
+    <div class="row">
+        <div class="col-2">
+            <header class="main-head">
+                <nav class="head-nav">
+                    <div class="content-admin">
+
+                        <img src="assets/img/usuario.png " class="imagen" alt="">
+
+
+                        <p class="texto1">Nombre Administrador</p>
+
+                        <strong><p class="texto2">Administrador</p></strong>
+
+                    </div>
+
+                    <ul class="menu">
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['./inicioadmin']">
+                                <i class="fas fa-home icono"></i>
+
+                                <span class="span">Inicio</span></a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['./inventario']">
+                                <i class="fas fa-boxes icono"></i>
+
+                                <span class="span">Inventario</span></a>
+                        </li>
+                        <li>
+                            <a>
+
+                                <i class="fas fa-edit icono"></i>
+                                <span class="span">Pedidos</span></a>
+                        </li>
+                        <li>
+                            <a>
+                                <i class="fas fa-users icono"></i>
+
+                                <span class="span">Usuarios</span></a>
+                        </li>
+                        <li>
+                            <a>
+
+                                <i class="fas fa-percent icono"></i>
+
+                                <span class="span">Promociones</span></a>
+                        </li>
+                        <li>
+                            <a>
+
+                                <i class="fas fa-file-invoice icono"></i>
+
+                                <span class="span">Reportes</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+        <div class="col-10 pl-5 pr-5">
+            <div class="wrap-all-the-things">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- //main-head -->
