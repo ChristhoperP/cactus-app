@@ -119,9 +119,6 @@ var controller = {
 
     registroProducto: async function (req, res, next) {
 
-        //Esto esta mal
-        //{ res.status(200).send( {files: req.files, body:req.body}) 
-
 
         var { nombre, informacionadicional, precio, cantidad, tipobase, tiemposol, frecuenciariego, tamanio, categoria, especie } = req.body;
         //console.log(nombre, informacionadicional, precio, cantidad, tipobase, tiemposol, frecuenciariego, tamanio, categoria, especie);
@@ -160,7 +157,7 @@ var controller = {
             try {
 
                 const response = await pool.query(
-                    'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12);', [nombre, parseInt(categoria), parseInt(tipobase), parseInt(especie), parseInt(cantidad), parseFloat(precio), tiemposol, frecuenciariego, tamanio, informacionadicional, portada[0].filename, galeria[0].filename]
+                    'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);', [nombre, parseInt(categoria), parseInt(tipobase), parseInt(especie), parseInt(cantidad), parseFloat(precio), tiemposol, frecuenciariego, tamanio, informacionadicional, portada[0].filename, galeria[0].filename,galeria[1].filename,galeria[2].filename]
                 );
 
                 var respuesta = response.rows[0].sp_agregar_producto;
@@ -188,6 +185,6 @@ var controller = {
             })
         }
     }
-};
+}; 
 
 module.exports = controller;
