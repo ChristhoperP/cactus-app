@@ -94,7 +94,7 @@ var controller = {
     },
 
     infoPerfilUsuario: async function(req, res) {
-       
+
         try {
             const response = await pool.query(
                 `SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = ${req.user.id};`
@@ -111,10 +111,11 @@ var controller = {
                 message: 'Error: No se ha podido obtener los datos del usuario.',
             })
         }
-
-       
     },
-
+    obtenerUsuariosRegistrados: async function(req, res) {
+        const response = await pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');
+        res.json(response.rows);
+    }
 };
 
 

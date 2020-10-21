@@ -15,6 +15,7 @@ var productoController = require('../controllers/producto');
 router.get('/perfil', auth.isAuth, (req, res) => { res.status(200).send({ verification: true, user: req.user, message: 'Tienes acceso' }) }); //prueba resticción de acceso a las rutas
 router.post('/registro', auth.noAuth, UserController.registrar);
 router.post('/validarUsuario', auth.noAuth, UserController.validarUsuario);
+router.get('/obtenerUsuariosRegistrados', UserController.obtenerUsuariosRegistrados);
 
 
 //Subida de imagenes
@@ -31,6 +32,7 @@ router.post('/registrarEspecie', productoController.registrarEspecie);
 
 // Informacion para llenar la tabla de modificar 
 router.get('/productoporid', auth.isAdmin, AdminController.infoProductoPorId);
+router.post('/modificarProducto', productoController.actualizarProducto);
 
 
 //Visitas por mes y usuarios
