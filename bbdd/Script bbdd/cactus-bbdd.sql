@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS Producto (
   idProducto SERIAL NOT NULL,
   nombre VARCHAR(45) NULL,
   informacionAdicional VARCHAR(500) NULL,
-  urlPortada VARCHAR(45) NULL,
+  urlPortada VARCHAR(200) NULL,
   precio DECIMAL NULL,
   cantidad INT NULL,
   TipoBase_idTipoBase INT NOT NULL,
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS Producto (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS ImagenProducto (
   idImagenProducto SERIAL NOT NULL,
-  url VARCHAR(45) NULL,
+  url VARCHAR(200) NULL,
   PRIMARY KEY (idImagenProducto))
 ;
 
