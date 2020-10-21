@@ -69,8 +69,9 @@ habilitarBoton:boolean=false;
         .subscribe(res => {
           console.log("se registró una nueva cuenta");
           
-          this.servicioAuth.setToken(res.token);          
-          this.router.navigate(['/inicio']);          
+          this.servicioAuth.setToken(res.token);
+          this.servicioAuth.setUserRole(res.rol);
+          this.router.navigate(['/inicio']);
         },
         err => {
           console.log(err);
