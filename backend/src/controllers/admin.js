@@ -117,21 +117,20 @@ var controller = {
         }
     },
     
-    registroProducto: async function  (req, res) {
+    registroProducto: async function  (req, res,next) {
        
-        image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]),
-                res.status(200).send( {files: req.files, body:req.body}) 
-                
-               
-
+        
+        { res.status(200).send( {files: req.files, body:req.body}) 
+ 
 
         var {nombre, informacionadicional,precio,cantidad,TipoBase,Tiemposol,frecuenciariego,tamanio,categoria,especie,galeriaproducto} = req.body;
         var{portada} =req.files.portada[0].filename;
+        var{galeria} =req.files.gallery[0].filename+req.files.gallery[1].filename;
 
-        for (let galeria of req.files.gallery[0].filename) {
+       /*  for (let galeria of req.files.gallery[0].filename) {
             console.log(galeria);
         }
-
+ */
         if (nombre != null && informacionadicional != null && precio != null && cantidad != null && TipoBase != null&& Tiemposol != null
             && frecuenciariego != null && tamanio != null && categoria != null && especie != null) {
 
@@ -139,7 +138,7 @@ var controller = {
                 try {
                     
                     const response = await pool.query(
-                        'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$9,$10,$11,$12);', [nombre, categoria, TipoBase, especie, cantidad, precio, Tiemposol, frecuenciariego, tamanio, informacionadicional,portada,galeria]
+                        'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$9,$10,$11,$12);', [nombre, categoria, TipoBase, especie, cantidad, precio, Tiemposol, frecuenciariego, tamanio, informacionadicional,'','']
                     );
 
                     var respuesta = response.rows[0].sp_agregar_producto;
@@ -171,7 +170,7 @@ var controller = {
             
     
     }
-
+}
 };
 
 module.exports = controller;
