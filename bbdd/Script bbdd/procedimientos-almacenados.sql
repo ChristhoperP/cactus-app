@@ -287,14 +287,14 @@ BEGIN
    ELSE  
 	   SELECT COUNT(*) INTO cantidadpro
 	   FROM producto
-	   WHERE nombre=p_nombreproducto;
+	   WHERE idproducto=vnIdProducto;  /* Que el id no se repita */
 
 	   /* INSERT EN TABLA PRODUCTO */
 	   IF (cantidadpro = 0 ) THEN
 	     INSERT INTO producto(
 	       nombre,
            informacionadicional,
-		   urlportada,
+		      urlportada,
            precio, 
            cantidad, 
            tipobase_idtipobase, 
