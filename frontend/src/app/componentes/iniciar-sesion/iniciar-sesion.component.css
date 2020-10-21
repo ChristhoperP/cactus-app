@@ -6,7 +6,6 @@
 
 .fondo-formulario {
     background-color: rgba(52, 58, 64, 0.8);
-    /*#343a40;*/
 }
 
 .icono-formulario {
@@ -19,6 +18,7 @@
 .btn:hover {
     background-color: #9cd6d7;
     color: #274f52;
+}
 
 .btn {
     background-color: #50a1a5;
