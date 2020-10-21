@@ -62,9 +62,9 @@ var controller = {
             });
 
             //Se eliminan los elementos que no se necesitan
-            var respuesta1=[];
+            var respuesta1 = [];
             respuesta.forEach((element, indice) => {
-                if(!(elementosAEliminar.indexOf(indice) >= 0)){
+                if (!(elementosAEliminar.indexOf(indice) >= 0)) {
                     respuesta1.push(element);
                 }
             });
@@ -98,13 +98,13 @@ var controller = {
     },
 
     infoProductoPorId: async function (req, res) {
-        var {idproducto} = req.body;
+        var { idproducto } = req.body;
         try {
             const response = await pool.query(
                 'SELECT * FROM MODIFICAR_INVENTARIO WHERE IDPRODUCTO = $1;', [idproducto]
             );
 
-            
+
             var respuesta = response.rows;
 
             return res.status(200).send(respuesta);
@@ -116,61 +116,78 @@ var controller = {
             })
         }
     },
-    
-    registroProducto: async function  (req, res,next) {
-       
+
+    registroProducto: async function (req, res, next) {
+
+        //Esto esta mal
+        //{ res.status(200).send( {files: req.files, body:req.body}) 
+
+
+        var { nombre, informacionadicional, precio, cantidad, tipobase, tiemposol, frecuenciariego, tamanio, categoria, especie } = req.body;
+        //console.log(nombre, informacionadicional, precio, cantidad, tipobase, tiemposol, frecuenciariego, tamanio, categoria, especie);
+        var portada=[];
+        var galeria=[];
         
-        { res.status(200).send( {files: req.files, body:req.body}) 
- 
-
-        var {nombre, informacionadicional,precio,cantidad,TipoBase,Tiemposol,frecuenciariego,tamanio,categoria,especie,galeriaproducto} = req.body;
-        var{portada} =req.files.portada[0].filename;
-        var{galeria} =req.files.gallery[0].filename+req.files.gallery[1].filename;
-
-       /*  for (let galeria of req.files.gallery[0].filename) {
-            console.log(galeria);
+        if (req.files.portada) {
+            portada = req.files.portada;
+        }else{
+            portada[0]={filename : ''};
         }
- */
-        if (nombre != null && informacionadicional != null && precio != null && cantidad != null && TipoBase != null&& Tiemposol != null
+        if (req.files.gallery) {
+            galeria = req.files.gallery;
+
+            if(galeria.length==1){
+                galeria[1]={filename : ''}
+                galeria[2]={filename : ''}
+            }else if(galeria.length==2){
+                galeria[2]={filename : ''}
+            }
+        }else{
+            galeria[0]={filename : ''}
+            galeria[1]={filename : ''}
+            galeria[2]={filename : ''}
+        }
+
+        /*  for (let galeria of req.files.gallery[0].filename) {
+             console.log(galeria);
+         }
+  */
+        //console.log(portada[0]);
+        //console.log(galeria[0]);
+        if (nombre != null && informacionadicional != null && precio != null && cantidad != null && tipobase != null && tiemposol != null
             && frecuenciariego != null && tamanio != null && categoria != null && especie != null) {
 
-                
-                try {
-                    
-                    const response = await pool.query(
-                        'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$9,$10,$11,$12);', [nombre, categoria, TipoBase, especie, cantidad, precio, Tiemposol, frecuenciariego, tamanio, informacionadicional,'','']
-                    );
+            try {
 
-                    var respuesta = response.rows[0].sp_agregar_producto;
-                    var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
-                    var arregloRes = respuesta1.split(',');
-                    var ocurrioError = arregloRes[0];
-                    var mensaje = arregloRes[1];
-                    var idProducto = arregloRes[2];
+                const response = await pool.query(
+                    'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12);', [nombre, parseInt(categoria), parseInt(tipobase), parseInt(especie), parseInt(cantidad), parseFloat(precio), tiemposol, frecuenciariego, tamanio, informacionadicional, portada[0].filename, galeria[0].filename]
+                );
 
-                    return res.status(500).send({
-                        message: mensaje
-                        
-                    });
+                var respuesta = response.rows[0].sp_agregar_producto;
+                var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
+                var arregloRes = respuesta1.split(',');
+                var ocurrioError = arregloRes[0];
+                var mensaje = arregloRes[1];
+                var idProducto = arregloRes[2];
 
-                } catch (err) {
-                    console.log(err);
-                    return res.status(500).send({
-                        message: 'Error: No se ha registrado el producto',
-                    })
-                }
-            
+                return res.status(500).send({
+                    message: mensaje,
+                    files: req.files,
+                    body: req.body
+                });
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha registrado el producto',
+                })
+            }
         } else {
             return res.status(500).send({
                 message: 'Error: Faltan campos, no se registro el producto'
             })
         }
-        
-
-            
-    
     }
-}
 };
 
 module.exports = controller;
