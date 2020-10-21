@@ -1,0 +1,31 @@
+<div>
+    <div class="atras">
+        <h4 class="pt-2 pl-2"> <i class="fas fa-home mr-2"></i>INICIO</h4>
+        <hr>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-counter primary position-relative">
+                    <i class="fas fa-eye"></i>
+                    <span class="count-numbers"> {{visits}}</span>
+                    <span class="count-name">Visitas</span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card-counter info position-relative">
+                    <i class="fa fa-users"></i>
+                    <span class="count-numbers">{{user}}</span>
+                    <span class="count-name">Usuarios</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="conteiner">
+        <app-grafico></app-grafico>
+    </div>
+
+</div>
