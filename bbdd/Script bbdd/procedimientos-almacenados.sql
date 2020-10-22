@@ -192,6 +192,7 @@ $$
 LANGUAGE plpgsql;
 
 
+
 CREATE OR REPLACE FUNCTION SP_AGREGAR_ESPECIE
 (    
    IN p_descripcionEspecie VARCHAR(200),	 
@@ -242,7 +243,7 @@ LANGUAGE 'plpgsql';
 
 /* AGREGAR PRODUCTO */
 
-CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO
+CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO_prueba
 (    
    IN p_nombreproducto VARCHAR(45),	 
    IN p_categoria INT, 
@@ -255,7 +256,9 @@ CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO
    IN p_tamanio VARCHAR(200),
    IN p_descripcion VARCHAR(500),
    IN p_imagenportada VARCHAR(200),
-   IN p_imagenesgaleria VARCHAR(200),
+   IN p_imagengaleria1 VARCHAR(200),
+   IN p_imagengaleria2 VARCHAR(200),
+   IN p_imagengaleria3 VARCHAR(200),
    OUT p_ocurrioError INT,
    OUT p_mensaje VARCHAR(200),
    OUT p_id INT
@@ -263,20 +266,24 @@ CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO
 )
 RETURNS RECORD AS $BODY$
 
-   DECLARE cantidadpro INT;
+    DECLARE cantidadpro INT;
 	DECLARE vnIdProducto INT;
 	DECLARE vnIdIMAGENPRODUCTO INT;
+	DECLARE vnIdProducto2 INT;
+	DECLARE vnIdIMAGENPRODUCTO2 INT;
+	DECLARE vnIdProducto3 INT;
+	DECLARE vnIdIMAGENPRODUCTO3 INT;
     
 BEGIN
     p_id = NULL;
 
     
         
-    IF EXISTS(SELECT * FROM IMAGENPRODUCTO) THEN
+    /* IF EXISTS(SELECT * FROM IMAGENPRODUCTO) THEN
             SELECT max(idIMAGENPRODUCTO)+1 INTO vnIdIMAGENPRODUCTO FROM IMAGENPRODUCTO;
         ELSE
             vnIdIMAGENPRODUCTO:=1;
-        END IF;  /* Se hizo una variable para idimagenproducto para poder usar en tabla producto has imagenproducto*/
+        END IF;  */ /* Se hizo una variable para idimagenproducto para poder usar en tabla producto has imagenproducto*/
   
    IF(p_nombreproducto IS NULL OR p_categoria IS NULL OR p_tipobase IS NULL OR p_especies IS NULL OR
    p_especies IS NULL OR p_cantidad IS NULL OR p_precio IS NULL OR p_descripcion IS NULL /* OR p_imagenportada IS NULL OR p_imagenesgaleria IS NULL */
@@ -287,14 +294,14 @@ BEGIN
    ELSE  
 	   SELECT COUNT(*) INTO cantidadpro
 	   FROM producto
-	   WHERE nombre=p_nombreproducto;
+	   WHERE idproducto=vnIdProducto;  /* Que el id no se repita */
 
 	   /* INSERT EN TABLA PRODUCTO */
 	   IF (cantidadpro = 0 ) THEN
 	     INSERT INTO producto(
 	       nombre,
            informacionadicional,
-		   urlportada,
+		      urlportada,
            precio, 
            cantidad, 
            tipobase_idtipobase, 
@@ -327,6 +334,7 @@ BEGIN
 		   
 		 
          SELECT max(idproducto) INTO vnIdProducto FROM producto;  /* Se obtiene el ID de Producto para insertar en tablas has*/
+         SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
        
          /* Se hace Insert en producto_has_especie */
          INSERT INTO producto_has_especie(
@@ -341,24 +349,72 @@ BEGIN
 		
         /* insertar imagenes */
 
-        INSERT INTO imagenproducto(
-         IDIMAGENPRODUCTO,
-         URL
-         )
-	     VALUES (
-           vnIdIMAGENPRODUCTO,
-           p_imagenesgaleria
-        );
 
-         INSERT INTO producto_has_imagenproducto(
-           producto_idproducto,
-           imagenproducto_idimagenproducto
-         )
-	     VALUES (
-           vnIdProducto,
-           vnIdIMAGENPRODUCTO
-        );
+       
+            IF p_imagengaleria1 != '' THEN
 
+                INSERT INTO imagenproducto
+                (URL)
+                VALUES
+                (p_imagengaleria1);
+
+                INSERT INTO producto_has_imagenproducto
+                (
+                producto_idproducto,
+                imagenproducto_idimagenproducto
+                )
+                VALUES
+                (
+                    vnIdProducto,
+                    vnIdIMAGENPRODUCTO
+                    );
+            END IF;
+
+            SELECT max(idproducto) INTO vnIdProducto2 FROM producto;  /* Se obtiene el ID de Producto para insertar en tablas has*/
+            SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO2 FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
+
+            IF p_imagengaleria2 != '' THEN
+
+                INSERT INTO imagenproducto
+                (URL)
+                VALUES
+                (p_imagengaleria2);
+
+                INSERT INTO producto_has_imagenproducto
+                (
+                producto_idproducto,
+                imagenproducto_idimagenproducto
+                )
+                VALUES
+                (
+                    vnIdProducto2,
+                    vnIdIMAGENPRODUCTO2
+                    );
+            END IF;
+
+            SELECT max(idproducto) INTO vnIdProducto3 FROM producto;  /* Se obtiene el ID de Producto para insertar en tablas has*/
+            SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO3 FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
+
+            IF p_imagengaleria3 != '' THEN
+
+                INSERT INTO imagenproducto
+                (URL)
+                VALUES
+                (p_imagengaleria3);
+
+                INSERT INTO producto_has_imagenproducto
+                (
+                producto_idproducto,
+                imagenproducto_idimagenproducto
+                )
+                VALUES
+                (
+                    vnIdProducto3,
+                    vnIdIMAGENPRODUCTO3
+                    );
+            END IF;
+
+        
          
 
 		   RETURN;
@@ -371,8 +427,3 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
-
-
-
-
-

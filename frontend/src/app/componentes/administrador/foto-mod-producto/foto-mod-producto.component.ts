@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-foto-mod-producto',
@@ -8,6 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FotoModProductoComponent implements OnInit {
 
   @Input() imagen: File;
+
+  @Output() delete: EventEmitter<string> = new EventEmitter(true);
+
   src: string | ArrayBuffer;
 
   constructor() { }
@@ -25,6 +28,7 @@ export class FotoModProductoComponent implements OnInit {
 
   deleteImage(el: HTMLDivElement): void {
     el.parentElement.parentElement.remove();
+    this.delete.emit(this.imagen.name);
   }
 
 }

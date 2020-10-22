@@ -94,7 +94,7 @@ var controller = {
     },
 
     infoPerfilUsuario: async function(req, res) {
-       
+
         try {
             const response = await pool.query(
                 `SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = ${req.user.id};`
@@ -103,7 +103,7 @@ var controller = {
             console.log(response);
             var respuesta = response.rows;
 
-            return res.status(200).send(respuesta);
+            return res.status(200).send(respuesta[0]);
 
         } catch (err) {
             console.log(err);
@@ -114,7 +114,10 @@ var controller = {
 
        
     },
-
+    obtenerUsuariosRegistrados: async function(req, res) {
+        const response = await pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');
+        res.json(response.rows);
+    }
 };
 
 

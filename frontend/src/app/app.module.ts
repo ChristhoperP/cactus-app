@@ -4,6 +4,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+
+//Graficos
+import { ChartsModule } from 'ng2-charts';
+
+
 //componentes
 import { AppComponent } from './app.component';
 import { EncabezadoComponent } from './componentes/compartidos/encabezado/encabezado.component';
@@ -37,6 +42,9 @@ import { InventarioComponent } from './componentes/administrador/inventario/inve
 import { ModificarProductoComponent } from './componentes/administrador/modificar-producto/modificar-producto.component';
 import { FotoModProductoComponent } from './componentes/administrador/foto-mod-producto/foto-mod-producto.component';
 import { AgregarProductoComponent } from './componentes/administrador/agregar-producto/agregar-producto.component';
+import { InicioAdminComponent } from './componentes/administrador/inicio-admin/inicio-admin.component';
+import { GraficoComponent } from './componentes/administrador/grafico/grafico.component';
+
 
 @NgModule({
   declarations: [
@@ -58,6 +66,8 @@ import { AgregarProductoComponent } from './componentes/administrador/agregar-pr
     ModificarProductoComponent,
     FotoModProductoComponent,
     AgregarProductoComponent
+    InicioAdminComponent,
+    GraficoComponent
 
   ],
   imports: [
@@ -65,7 +75,8 @@ import { AgregarProductoComponent } from './componentes/administrador/agregar-pr
     rutas_encabezado,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [
     appRoutingProviders,

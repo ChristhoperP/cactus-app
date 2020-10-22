@@ -46,12 +46,67 @@ var controller = {
                 });
             }
         } else {
-            res.json({
-                mensaje: "Error: campos incompletos"
+
+            return res.status(500).send({
+                message: "Error: campos incompletos"
+            });
+        }
+    },
+    actualizarProducto: async function(req, res) {
+        var {
+            idproducto,
+            nombre,
+            informacionadicional,
+            urlportada,
+            precio,
+            cantidad,
+            idtipobase,
+            tiemposol,
+            frecuenciariego,
+            tamanio,
+            idcategoria
+        } = req.body;
+
+        console.log(req.body);
+        if (idproducto == null || nombre == null == informacionadicional == null ||
+            urlportada == null || precio == null || cantidad == null || idtipobase == null ||
+            tiemposol == null || frecuenciariego == null || tamanio == null || idcategoria == null) {
+            return res.status(500).send({
+                message: "Error: campos incompletos"
+            });
+        } else {
+            const response = await pool.query('SELECT SP_MODIFICAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);', [idproducto, nombre,
+                informacionadicional, urlportada, precio, cantidad, idtipobase, tiemposol, frecuenciariego, tamanio, idcategoria
+            ]);
+
+            var respuesta = response.rows[0].sp_modificar_producto;
+            var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
+            var arregloRes = respuesta1.split(',');
+            var ocurrioError = arregloRes[0];
+            var mensaje = arregloRes[1];
+
+            return res.status(200).send({
+                message: mensaje
+
             });
         }
     }
 }
 
-
 module.exports = controller;
+//Prueba
+/*
+{
+    "idproducto": 1,       
+    "nombre": "Echeveria Super Boom",
+    "informacionadicional": "lorem",
+    "urlportada": "Ninguna 123",
+    "precio": 220,
+    "cantidad": 2,
+    "idtipobase": 12,
+    "tiemposol": "7:00am-11:00am",
+    "frecuenciariego": "2 veces por semana",
+    "tamanio": "8x12cm",
+    "idcategoria": 2
+}
+*/

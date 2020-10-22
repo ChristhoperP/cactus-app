@@ -17,6 +17,9 @@ import { InformacionComponent } from './componentes/informacion/informacion.comp
 import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { ControladorAdminComponent } from './componentes/administrador/controlador-admin/controlador-admin.component';
 import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
+import { InicioAdminComponent } from './componentes/administrador/inicio-admin/inicio-admin.component';
+
+
 
 
 
@@ -34,7 +37,9 @@ const appRoutes: Routes = [
         path: 'controlador-admin',
         component: ControladorAdminComponent,
         children: [
-            {path: 'inventario', component: InventarioComponent}
+            {path: 'inicioadmin', component: InicioAdminComponent},
+            {path: 'inventario', component: InventarioComponent},
+            {path: '**', component: InicioAdminComponent}
         ],
         canActivate: [AuthGuard, IsAdminGuard]
     },
