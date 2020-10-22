@@ -19,6 +19,7 @@ export class ModificarProductoComponent implements OnInit {
 
   categorias: any;
   tiposBases: any;
+  listaEspecies: any;
 
   formularioModificarProducto: FormGroup = new FormGroup({
     nombreProducto: new FormControl(null, Validators.required),
@@ -48,6 +49,14 @@ export class ModificarProductoComponent implements OnInit {
     this.productService.getTiposBases()
           .subscribe( res => {
             this.tiposBases = res;
+          }, err => {
+            console.log(err);
+          });
+
+    this.productService.getEspecies()
+          .subscribe( res => {
+            // this.listaEspecies = res;
+            console.log(res);
           }, err => {
             console.log(err);
           });
