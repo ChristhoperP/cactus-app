@@ -94,14 +94,16 @@ var controller = {
     },
 
     infoPerfilUsuario: async function(req, res) {
-       
+
         try {
             const response = await pool.query(
                 `SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = ${req.user.id};`
             );
 
             console.log(response);
-            res.json(response.rows);;
+            var respuesta = response.rows;
+
+            return res.status(200).send(respuesta[0]);
 
         } catch (err) {
             console.log(err);
@@ -109,10 +111,11 @@ var controller = {
                 message: 'Error: No se ha podido obtener los datos del usuario.',
             })
         }
-
-       
     },
-
+    obtenerUsuariosRegistrados: async function(req, res) {
+        const response = await pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');
+        res.json(response.rows);
+    }
 };
 
 
