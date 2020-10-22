@@ -36,6 +36,7 @@ import { ControladorAdminComponent } from './componentes/administrador/controlad
 import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
 import { ModificarProductoComponent } from './componentes/administrador/modificar-producto/modificar-producto.component';
 import { FotoModProductoComponent } from './componentes/administrador/foto-mod-producto/foto-mod-producto.component';
+import { AgregarProductoComponent } from './componentes/administrador/agregar-producto/agregar-producto.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { FotoModProductoComponent } from './componentes/administrador/foto-mod-p
     ControladorAdminComponent,
     InventarioComponent,
     ModificarProductoComponent,
-    FotoModProductoComponent
+    FotoModProductoComponent,
+    AgregarProductoComponent
 
   ],
   imports: [

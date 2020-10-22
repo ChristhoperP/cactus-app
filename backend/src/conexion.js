@@ -8,8 +8,10 @@ module.exports = {
         host: 'localhost',
         user: 'postgres',
         password: '123',
+        // password: 'postgres',
         database: 'cactus',
         port: 5434
+
     })
 }
 
