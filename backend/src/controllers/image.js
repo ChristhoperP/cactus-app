@@ -44,6 +44,23 @@ var controller = {
                 });
             }
         })
+    },
+
+    DeleteImageFile: function(req, res){
+        var file = req.params.image;
+        var path_file = './src/public/uploads/'+file;
+
+        fs.unlink(path_file, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }else{
+                return res.status(200).send({
+                    message: "No existe la imagen que desea borrar"
+                });
+            }
+            
+        })
     }
 };
 
