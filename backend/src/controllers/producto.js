@@ -46,6 +46,7 @@ var controller = {
                 });
             }
         } else {
+
             return res.status(500).send({
                 message: "Error: campos incompletos"
             });
@@ -86,6 +87,7 @@ var controller = {
 
             return res.status(200).send({
                 message: mensaje
+
             });
         }
     }

@@ -41,9 +41,9 @@ import { ControladorAdminComponent } from './componentes/administrador/controlad
 import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
 import { ModificarProductoComponent } from './componentes/administrador/modificar-producto/modificar-producto.component';
 import { FotoModProductoComponent } from './componentes/administrador/foto-mod-producto/foto-mod-producto.component';
+import { AgregarProductoComponent } from './componentes/administrador/agregar-producto/agregar-producto.component';
 import { InicioAdminComponent } from './componentes/administrador/inicio-admin/inicio-admin.component';
 import { GraficoComponent } from './componentes/administrador/grafico/grafico.component';
-
 
 
 @NgModule({
@@ -65,9 +65,9 @@ import { GraficoComponent } from './componentes/administrador/grafico/grafico.co
     InventarioComponent,
     ModificarProductoComponent,
     FotoModProductoComponent,
+    AgregarProductoComponent
     InicioAdminComponent,
     GraficoComponent
-   
 
   ],
   imports: [

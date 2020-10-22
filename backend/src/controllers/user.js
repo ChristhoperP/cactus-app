@@ -111,6 +111,8 @@ var controller = {
                 message: 'Error: No se ha podido obtener los datos del usuario.',
             })
         }
+
+       
     },
     obtenerUsuariosRegistrados: async function(req, res) {
         const response = await pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');

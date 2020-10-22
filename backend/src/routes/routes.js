@@ -32,7 +32,9 @@ router.post('/registrarEspecie', productoController.registrarEspecie);
 
 // Informacion para llenar la tabla de modificar 
 router.get('/productoporid', auth.isAdmin, AdminController.infoProductoPorId);
+
 router.post('/modificarProducto', productoController.actualizarProducto);
+
 
 
 //Visitas por mes y usuarios
@@ -48,6 +50,7 @@ router.get('/productos', auth.isAdmin, AdminController.infoInventario);
 router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategoria);
 
 //Registrar producto
+
 router.post('/registro-producto', /* auth.isAdmin */ image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]), 
 AdminController.registroProducto);
 
