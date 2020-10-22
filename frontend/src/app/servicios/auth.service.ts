@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Global } from "./global";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { SERVER_URL } from '../SERVER_URL';
+
 
 @Injectable({
     providedIn: 'root'
@@ -53,5 +55,9 @@ export class AuthService {
     getUserRole(): string {
         return localStorage.getItem('rol');
     }
+
+    getInfoUsuario() {
+        return this._http.get(`${SERVER_URL}/infoPerfil`);
+      }
 
 }
