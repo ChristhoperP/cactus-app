@@ -51,7 +51,8 @@ router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategori
 router.post('/registro-producto', /* auth.isAdmin */ image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]), 
 AdminController.registroProducto);
 
-//Obtener imagenes
+//Obtener imagenes y eliminar
 router.get('/get-image/:image', ImageController.getImageFile);
+router.get('/delete-image/:image', ImageController.DeleteImageFile);
 
 module.exports = router;
