@@ -57,9 +57,9 @@
                                     <label for="especies" class="col-sm-3 col-form-label">Especie(s)</label>
                                     <div class="col-sm-9">
                                         <select formControlName="especies" name="especies" id="especies" multiple [class.is-invalid]="especies.invalid && especies.touched" class="form-control" required>
-                                          <option value="1">Especie 1</option>
-                                          <option value="2">Especie 2</option>
-                                          <option value="3">Especie 3</option>
+                                            <option *ngFor="let especie of listaEspecies" value="{{ especie.idespecie }}">{{ especie.descripcion_especie }}</option>
+                                          <!-- <option value="2">Especie 2</option>
+                                          <option value="3">Especie 3</option> -->
                                         </select>
                                         <div class="invalid-feedback">
                                             Este campo es obligatorio

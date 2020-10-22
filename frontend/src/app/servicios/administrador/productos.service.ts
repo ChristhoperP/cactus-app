@@ -23,4 +23,8 @@ export class ProductosService {
   getCategorias() {
     return this._http.get(this.url + 'categorias', {headers: this.headers});
   }
+
+  getEspecies() {
+    return this._http.get(this.url + 'especies', {headers: this.headers});
+  }
 }
