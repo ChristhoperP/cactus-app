@@ -101,7 +101,9 @@ var controller = {
             );
 
             console.log(response);
-            res.json(response.rows);;
+            var respuesta = response.rows;
+
+            return res.status(200).send(respuesta[0]);
 
         } catch (err) {
             console.log(err);
