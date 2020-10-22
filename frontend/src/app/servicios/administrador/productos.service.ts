@@ -27,4 +27,9 @@ export class ProductosService {
   getEspecies() {
     return this._http.get(this.url + 'especies', {headers: this.headers});
   }
+
+  getProductInfo( productId: number) {
+    const idproducto = [productId.toString()];
+    return this._http.get(this.url + 'productoporid', {headers: this.headers, params: {idproducto}});
+  }
 }

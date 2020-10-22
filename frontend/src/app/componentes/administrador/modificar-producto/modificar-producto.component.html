@@ -104,7 +104,7 @@
                                           <i class="fas fa-sync"></i> Cambiar imagen
                                         </button>
                                         <img [src]=" imgPortada || '../../../assets/img/tarjeta1.jpg'" class="img-thumbnail mb-2 imagen-producto">
-                                        <input class="d-none" type="file" #inputFotoPortada accept="image/*" name="fotoPortadaProducto" id="fotoPortadaProducto" (change)="previewPortada($event.target)">
+                                        <input class="d-none" type="file" #inputFotoPortada accept=".jpg,.jpeg,.png" name="fotoPortadaProducto" id="fotoPortadaProducto" (change)="previewPortada($event.target)">
                                     </div>
                                 </div>
                             </div>
