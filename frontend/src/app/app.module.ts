@@ -65,10 +65,9 @@ import { GraficoComponent } from './componentes/administrador/grafico/grafico.co
     InventarioComponent,
     ModificarProductoComponent,
     FotoModProductoComponent,
-    AgregarProductoComponent
+    AgregarProductoComponent,
     InicioAdminComponent,
     GraficoComponent
-
   ],
   imports: [
     BrowserModule,
