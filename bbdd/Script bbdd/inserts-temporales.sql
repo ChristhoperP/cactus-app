@@ -12,3 +12,12 @@ INSERT INTO public.producto_has_especie(producto_idproducto, especie_idespecie)V
 INSERT INTO public.producto_has_especie(producto_idproducto, especie_idespecie)VALUES (2, 32);
 INSERT INTO public.producto_has_especie(producto_idproducto, especie_idespecie)VALUES (3, 33);
 INSERT INTO public.producto_has_especie(producto_idproducto, especie_idespecie)VALUES (4, 34);
+
+INSERT INTO imagenproducto(url)VALUES ('URL1');
+INSERT INTO imagenproducto(url)VALUES ('URL2');
+INSERT INTO imagenproducto(url)VALUES ('URL3');
+
+INSERT INTO producto_has_imagenproducto(producto_idproducto, imagenproducto_idimagenproducto)VALUES (1, 1);
+INSERT INTO producto_has_imagenproducto(producto_idproducto, imagenproducto_idimagenproducto)VALUES (1, 2);
+INSERT INTO producto_has_imagenproducto(producto_idproducto, imagenproducto_idimagenproducto)VALUES (1, 3);
+

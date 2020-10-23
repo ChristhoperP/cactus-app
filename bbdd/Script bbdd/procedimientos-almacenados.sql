@@ -426,3 +426,152 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION sp_modificar_producto(
+	p_idproducto INT,
+	p_nombre VARCHAR(45),
+	p_informacionadicional VARCHAR(500),
+	p_urlportada VARCHAR(200),
+	p_precio NUMERIC,
+	p_cantidad INT,
+	p_tipobase_idtipobase INT,
+	p_tiemposol VARCHAR(45),
+	p_frecuenciariego VARCHAR(45),
+	p_tamanio VARCHAR(45),
+	p_categoria_idcategoria INT,
+	p_especies INT[],
+	p_eliminadas INT[],
+	p_imggaleria1 VARCHAR(200),
+	p_imggaleria2 VARCHAR(200),
+	p_imggaleria3 VARCHAR(200),
+	OUT p_ocurrioerror INT,
+	OUT p_mensaje VARCHAR(100)
+)	
+RETURNS record AS $BODY$
+DECLARE idImagen1 INT;
+DECLARE idImagen2 INT;
+DECLARE idImagen3 INT;
+BEGIN
+	idImagen1 := NULL;
+    idImagen2 := NULL;
+    idImagen3 := NULL;
+    IF (p_idproducto != NULL OR p_tipobase_idtipobase != NULL OR p_categoria_idcategoria  != NULL) THEN
+           p_ocurrioError := 1;
+           p_mensaje := "Error: campos incompletos";
+		   RETURN;
+     ELSE   
+	    UPDATE producto
+	    SET nombre=p_nombre, 
+	    informacionadicional=p_informacionadicional, 
+	    urlportada = p_urlportada,
+	    precio = p_precio,
+	    cantidad = p_cantidad, 
+	    tipobase_idtipobase = p_tipobase_idtipobase ,
+	    tiemposol = p_tiemposol , 
+	    frecuenciariego= p_frecuenciariego, 
+	    tamanio=p_tamanio , 
+	    categoria_idcategoria = p_categoria_idcategoria
+	    WHERE idproducto = p_idproducto ;
+		---Especies 
+		DELETE FROM PRODUCTO_HAS_ESPECIE
+    	WHERE  producto_idproducto = p_idproducto ;
+		
+		
+		FOR i IN array_lower(p_especies,1).. array_upper(p_especies,1) LOOP
+		   INSERT INTO producto_has_especie(producto_idproducto, especie_idespecie)
+	              VALUES (p_idproducto, p_especies[i]);
+		END LOOP;
+		
+		--Imagenes eliminadas 
+		
+		IF (array_length(p_eliminadas,1) <> 0) THEN  
+		   FOR i IN array_lower(p_eliminadas,1).. array_upper(p_eliminadas,1) LOOP	  
+		        DELETE FROM producto_has_imagenproducto
+	            WHERE producto_idproducto = p_idproducto AND
+		           imagenproducto_idimagenproducto = p_eliminadas[i];  
+				   
+		        DELETE FROM imagenproducto
+	            WHERE idimagenproducto = p_eliminadas[i];		   
+		    END LOOP;
+		END IF;
+				
+	    IF (p_imggaleria1 != '' ) THEN
+		    INSERT INTO imagenproducto(url)
+	        VALUES (p_imggaleria1);
+			
+			SELECT idimagenproducto INTO idImagen1
+	        FROM imagenproducto
+			WHERE url = p_imggaleria1;
+			
+			INSERT INTO producto_has_imagenproducto(
+	                producto_idproducto, imagenproducto_idimagenproducto)
+	        VALUES (p_idproducto, idImagen1);
+		 END IF;  
+
+         IF (p_imggaleria2 != '' ) THEN
+		    INSERT INTO imagenproducto(url)
+	        VALUES (p_imggaleria2);
+			
+			SELECT idimagenproducto INTO idImagen2
+	        FROM imagenproducto
+			WHERE url = p_imggaleria2;
+			
+			INSERT INTO producto_has_imagenproducto(
+	                producto_idproducto, imagenproducto_idimagenproducto)
+	        VALUES (p_idproducto, idImagen2);
+		  END IF;  
+		
+		   IF (p_imggaleria3 != '') THEN
+		    INSERT INTO imagenproducto(url)
+	        VALUES (p_imggaleria3);
+			
+			SELECT idimagenproducto INTO idImagen3
+	        FROM imagenproducto
+			WHERE url = p_imggaleria3;
+			
+			INSERT INTO producto_has_imagenproducto(
+	                producto_idproducto, imagenproducto_idimagenproducto)
+	        VALUES (p_idproducto, idImagen3);
+		 END IF;  
+	    p_ocurrioError := 0;
+        p_mensaje := 'Campos actualizados';
+        RETURN;
+    END IF;     
+END;
+$BODY$
+LANGUAGE 'plpgsql';
+
+
+
+CREATE OR REPLACE FUNCTION sp_modificar_usuario(
+	IN p_idusuario INT,
+    IN p_nombre VARCHAR(45), 
+    IN p_contrasenia VARCHAR(100),
+    IN p_telefono  VARCHAR(45),
+    IN p_direccion VARCHAR(200),
+    IN p_imagenperfil VARCHAR(200),	
+	OUT p_ocurrioerror INT,
+	OUT p_mensaje VARCHAR(100)
+)	
+RETURNS record AS $BODY$
+DECLARE 
+BEGIN
+    IF (p_idusuario != NULL OR p_nombre != NULL OR p_contrasenia != NULL) THEN
+           p_ocurrioError := 1;
+           p_mensaje := "Error: campos incompletos";
+		   RETURN;
+     ELSE   
+	    UPDATE usuario
+     SET nombre=p_nombre, 
+         contrasenia=p_contrasenia,
+         telefono=p_telefono,
+         direccion=p_direccion,
+         imagenperfil=p_imagenperfil
+    WHERE idusuario = p_idusuario;
+	     p_ocurrioError := 0;
+         p_mensaje := 'Campos actualizados';
+         RETURN;
+    END IF;     
+END;
+$BODY$
+LANGUAGE 'plpgsql';
