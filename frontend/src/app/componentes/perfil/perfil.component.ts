@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getInfoUsuario().subscribe((data: any) => {
-      this.correo = data[0].correo;
+      this.correo = data.correo;
       this.direccion = data.direccion;
       this.imagen = data.imagenperfil;
       this.nombreUsuario = data.nombre;
