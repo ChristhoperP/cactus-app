@@ -46,6 +46,7 @@ var controller = {
                 });
             }
         } else {
+
             return res.status(500).send({
                 message: "Error: campos incompletos"
             });
@@ -103,6 +104,7 @@ var controller = {
                 console.log(eliminadas);
 
 
+
                 var respuesta = responseUpdate.rows[0].sp_modificar_producto;
                 var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
                 var arregloRes = respuesta1.split(',');
@@ -117,6 +119,7 @@ var controller = {
                     message: 'Error: producto no actualizado'
                 });
             }
+
         }
     }
 }

@@ -192,6 +192,7 @@ $$
 LANGUAGE plpgsql;
 
 
+
 CREATE OR REPLACE FUNCTION SP_AGREGAR_ESPECIE
 (    
    IN p_descripcionEspecie VARCHAR(200),	 

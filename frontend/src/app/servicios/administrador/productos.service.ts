@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Global } from '../global';
 import { Router } from '@angular/router';
 
@@ -26,5 +26,10 @@ export class ProductosService {
 
   getEspecies() {
     return this._http.get(this.url + 'especies', {headers: this.headers});
+  }
+
+  getProductInfo( productId: number) {
+    const params = new HttpParams().set('idproducto', productId.toString());
+    return this._http.get(this.url + 'productoporid', {headers: this.headers, params});
   }
 }

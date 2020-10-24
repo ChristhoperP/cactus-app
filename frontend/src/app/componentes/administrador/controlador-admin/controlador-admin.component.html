@@ -1,77 +1,103 @@
-<div class="encabezado">
-    <app-encabezado-admin>
-    </app-encabezado-admin>
+<body>
 
-</div>
+    <div class="d-flex" id="wrapper">
 
-<div>
-    <div class="row">
-        <div class="col-2">
-            <header class="main-head">
-                <nav class="head-nav">
-                    <div class="content-admin">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
 
-                        <img src="assets/img/usuario.png " class="imagen" alt="">
+            <div class="content-admin">
+
+                <img src="assets/img/usuario.png " class="imagen" alt="">
 
 
-                        <p class="texto1">Nombre Administrador</p>
+                <p class="texto1">Nombre Administrador</p>
 
-                        <strong><p class="texto2">Administrador</p></strong>
+                <strong><p class="texto2">Administrador</p></strong>
 
-                    </div>
+            </div>
 
-                    <ul class="menu">
-                        <li routerLinkActive="active">
-                            <a [routerLink]="['./inicioadmin']">
-                                <i class="fas fa-home icono"></i>
+            <div class="list-group list-group-flush">
 
-                                <span class="span">Inicio</span></a>
-                        </li>
-                        <li routerLinkActive="active">
-                            <a [routerLink]="['./inventario']">
-                                <i class="fas fa-boxes icono"></i>
+                <a [routerLink]="['./inicioadmin']" class="list-group-item list-group-item-action bg-light">
+                    <i class="fas fa-home icono"></i>
+                    <span class="span">Inicio</span>
+                </a>
+                <a [routerLink]="['./inventario']" class="list-group-item list-group-item-action bg-light">
+                    <i class="fas fa-boxes icono"></i>
 
-                                <span class="span">Inventario</span></a>
-                        </li>
-                        <li>
-                            <a>
+                    <span class="span">Inventario</span>
+                </a>
+                <a class="list-group-item list-group-item-action bg-light ">
+                    <i class="fas fa-users icono"></i>
 
-                                <i class="fas fa-edit icono"></i>
-                                <span class="span">Pedidos</span></a>
-                        </li>
-                        <li>
-                            <a>
-                                <i class="fas fa-users icono"></i>
+                    <span class="span">Usuarios</span>
+                </a>
+                <a class="list-group-item list-group-item-action bg-light">
+                    <i class="fas fa-percent icono"></i>
 
-                                <span class="span">Usuarios</span></a>
-                        </li>
-                        <li>
-                            <a>
+                    <span class="span">Promociones</span>
+                </a>
+                <a class="list-group-item list-group-item-action bg-light">
+                    <i class="fas fa-file-invoice icono"></i>
 
-                                <i class="fas fa-percent icono"></i>
+                    <span class="span">Reportes</span>
+                </a>
 
-                                <span class="span">Promociones</span></a>
-                        </li>
-                        <li>
-                            <a>
-
-                                <i class="fas fa-file-invoice icono"></i>
-
-                                <span class="span">Reportes</span></a>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
-        </div>
-
-        <div class="col-10 pl-5 pr-5">
-            <div class="wrap-all-the-things">
-                <router-outlet></router-outlet>
             </div>
         </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom admin">
+                <button class="btn btn-primary boton-menu" id="menu-toggle"> <i class="fas fa-bars"></i></button>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <a class="navbar-brand" [routerLink]="['inicio']">
+                        <img src="/assets/img/logo_vector.png" id="logo" width="40" height="40" alt="" loading="lazy">
+                    </a>
+                    <a class="navbar-brand" [routerLink]="['inicio']" id="titulo">Cactus HN</a>
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+
+                        <li class="nav-item" style="width: 200px; ">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder=" " aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <i class="fas fa-bell" id="campana"></i>
+                        </li>
+
+                        <li>
+                            <button type="button" id="cerrar-sesion" class="btn btn-outline-success cerrar-sesion" (click)="authService.logoutUser()">Cerrar Sesión</button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+
+                <router-outlet></router-outlet>
+
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
     </div>
-</div>
+    <!-- /#wrapper -->
 
 
-
-<!-- //main-head -->
+</body>

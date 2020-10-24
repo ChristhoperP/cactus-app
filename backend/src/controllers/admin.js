@@ -62,9 +62,11 @@ var controller = {
             });
 
             //Se eliminan los elementos que no se necesitan
+
             var respuesta1 = [];
             respuesta.forEach((element, indice) => {
                 if (!(elementosAEliminar.indexOf(indice) >= 0)) {
+
                     respuesta1.push(element);
                 }
             });
@@ -98,7 +100,9 @@ var controller = {
     },
 
     infoProductoPorId: async function (req, res) {
+
         var { idproducto } = req.body;
+
         try {
             const response = await pool.query(
                 'SELECT * FROM MODIFICAR_INVENTARIO WHERE IDPRODUCTO = $1;', [idproducto]

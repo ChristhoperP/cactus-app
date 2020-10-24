@@ -37,6 +37,8 @@ router.get('/productoporid', auth.isAdmin, AdminController.infoProductoPorId);
 router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), productoController.actualizarProducto);
 
 
+
+
 //Visitas por mes y usuarios
 router.post('/registro-visita-inicio', VisitaController.visitaInicio);
 router.post('/registro-visita-fin/:id', VisitaController.visitaFinal);
@@ -50,9 +52,14 @@ router.get('/productos', auth.isAdmin, AdminController.infoInventario);
 router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategoria);
 
 //Registrar producto
+
 router.post('/registro-producto', /* auth.isAdmin */ image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]),
     AdminController.registroProducto);
 
 
+
+//Obtener imagenes y eliminar
+router.get('/get-image/:image', ImageController.getImageFile);
+router.get('/delete-image/:image', ImageController.DeleteImageFile);
 
 module.exports = router;

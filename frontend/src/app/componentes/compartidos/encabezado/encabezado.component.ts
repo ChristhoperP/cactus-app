@@ -9,12 +9,17 @@ import { AuthService } from 'src/app/servicios/auth.service';
   styleUrls: ['./encabezado.component.css']
 })
 export class EncabezadoComponent implements OnInit {
-
+  nombreUsuario: any;
+  
   constructor(
     public authService: AuthService,
     private router: Router) {}
 
   ngOnInit(): void {
+    this.authService.getInfoUsuario().subscribe((data: any) => {
+      this.nombreUsuario = data.nombre;
+       console.log(data)
+    });
   }
 
 }
