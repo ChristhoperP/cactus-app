@@ -243,7 +243,7 @@ LANGUAGE 'plpgsql';
 
 /* AGREGAR PRODUCTO */
 
-CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO_prueba
+CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO
 (    
    IN p_nombreproducto VARCHAR(45),	 
    IN p_categoria INT, 
@@ -594,3 +594,56 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION SP_ELIMINAR_PRODUCTO(
+	IN p_idproducto INT,
+	OUT p_ocurrioerror INT,
+	OUT p_mensaje VARCHAR(100)
+)	
+RETURNS record AS $BODY$
+DECLARE 
+BEGIN
+    
+    /* VERIFICANDO QUE EXISTA EL ID DEL PRODUCTO Y QUE NO SEA NULL */
+        IF EXISTS(SELECT * from producto where idproducto=p_idproducto) IS FALSE THEN
+           p_ocurrioError := 1;
+           p_mensaje := "Error: No se envia ningun ID de producto para eliminar ";
+		   RETURN;
+        END IF;
+
+        IF p_idproducto=0 or p_idproducto is null THEN
+            p_mensaje:=p_mensaje||'p_idproducto, ';
+        END IF;
+
+        /* BORRANDO EL PRODUCTO Y DATOS DE TABLAS ASOCIADAS */
+
+	   /* especie asociadas */
+
+	    DELETE FROM public.producto_has_especie
+        WHERE producto_idproducto=p_idproducto;
+
+	   /* imagenes asociadas */
+
+	    DELETE FROM public.producto_has_imagenproducto
+        WHERE producto_idproducto=p_idproducto;
+
+        DELETE FROM public.imagenproducto
+        WHERE idimagenproducto IN (select IP.idimagenproducto FROM PRODUCTO as PR
+        INNER JOIN PRODUCTO_HAS_IMAGENPRODUCTO PRIM ON PRIM.PRODUCTO_IDPRODUCTO=PR.IDPRODUCTO
+        INNER JOIN IMAGENPRODUCTO IP ON IP.IDIMAGENPRODUCTO=PRIM.IMAGENPRODUCTO_IDIMAGENPRODUCTO
+        WHERE IDPRODUCTO = p_idproducto);
+
+        /* el producto */
+
+        DELETE FROM public.producto
+        WHERE idproducto = p_idproducto;
+
+
+	     p_ocurrioError := 0;
+         p_mensaje := 'El producto se elimino exitosamente y sus tablas asociadas';
+         RETURN;
+     
+END;
+$BODY$
+LANGUAGE 'plpgsql';

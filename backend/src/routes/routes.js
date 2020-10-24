@@ -50,6 +50,8 @@ router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategori
 router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]), 
 AdminController.registroProducto);
 
+// Eliminar producto
+router.post('/eliminar-producto', /* auth.isAdmin, */ AdminController.eliminarProducto);
 
 //Obtener imagenes y eliminar
 router.get('/get-image/:image', ImageController.getImageFile);
