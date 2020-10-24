@@ -36,8 +36,9 @@
                           <i class="fa fa-filter"  aria-hidden="true" style="font-size: 95%;"></i>
                         </button>
                                 <div class="dropdown-menu p-0">
-                                    <select class="custom-select" size="3">
-                                         <option *ngFor="let categoria of categorias"   [(ngModel)]="productosFilterByCategoria.categoria"  value="{{categoria.descripcion}}">{{categoria.descripcion}}</option>
+                                    <select class="custom-select" size="3" #c (change)="filtrarProductoCategoria(c.value)">
+                                        <option value="mostrarTodo">Mostrar todo</option> 
+                                        <option *ngFor="let categoria of categorias"  [value]="categoria.descripcion">{{categoria.descripcion}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -48,7 +49,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let producto of productos | filterBy: productosFilterByName">
+                    
+                    <tr *ngFor="let producto of productosInventario | filterBy: productosFilterByName">
                         <td>
                             <div class="form-check">
                                 <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">

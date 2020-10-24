@@ -17,10 +17,12 @@ productosFilterByName: any = { nombre: '' };
 productosFilterByCategoria: any = { categoria: '' };
 public url: string;
 
+productosInventario: any = [];
+categoriaSeleccionada;
+filtrados=[];
 
   constructor(private _productoService: ProductosService, private filter: FilterPipe) {
-    this.url = Global.url;
-    
+    this.url = Global.url;    
    }
 
   ngOnInit(): void {
@@ -28,6 +30,9 @@ public url: string;
     .subscribe((res:any)=> {
         this.productos = res;
         console.log(res);
+        this.productosInventario = this.productos;
+        console.log(this.productosInventario);
+
         
       } );
 
@@ -35,6 +40,7 @@ public url: string;
       .subscribe((res:any)=> {
           this.categorias = res;
         } );
+
   }
 
   deleteProduct(): void {
@@ -79,4 +85,22 @@ public url: string;
     });
   }
 
+  filtrarProductoCategoria(cat){
+    console.log(cat);
+    this.categoriaSeleccionada = cat;
+    this.filtrados=[];
+    if (cat=="mostrarTodo") {
+      this.productosInventario = this.productos;
+    } else {
+      for (let i = 0; i < this.productos.length; i++) {
+        if (this.productos[i].categoria===cat) {
+         this.filtrados.push(this.productos[i]);
+        }
+      }
+      console.log(this.filtrados);
+      this.productosInventario = this.filtrados;
+    }
+    
+    return this.productosInventario;
+  }
 }

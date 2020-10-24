@@ -34,7 +34,7 @@ options: Options = {
     maxHeight: 1697,
     maxWidth: 1200
   },
-  allowedExtensions: ['JPG', 'PNG']
+  allowedExtensions: ['JPG', 'PNG', 'GIF']
 }
 
 images: any = [];
