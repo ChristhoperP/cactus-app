@@ -47,6 +47,8 @@ import { FotoModProductoComponent } from './componentes/administrador/foto-mod-p
 import { AgregarProductoComponent } from './componentes/administrador/agregar-producto/agregar-producto.component';
 import { InicioAdminComponent } from './componentes/administrador/inicio-admin/inicio-admin.component';
 import { GraficoComponent } from './componentes/administrador/grafico/grafico.component';
+import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
+import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios.component';
 
 
 @NgModule({
@@ -70,7 +72,9 @@ import { GraficoComponent } from './componentes/administrador/grafico/grafico.co
     FotoModProductoComponent,
     AgregarProductoComponent,
     InicioAdminComponent,
-    GraficoComponent
+    GraficoComponent,
+    FiltroUsuarioPipe,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
