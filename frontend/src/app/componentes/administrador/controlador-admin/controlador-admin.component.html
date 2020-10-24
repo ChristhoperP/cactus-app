@@ -7,10 +7,8 @@
 
             <div class="content-admin">
 
-                <img src="assets/img/usuario.png " class="imagen" alt="">
+                <i class="fas fa-user-tie imagen"></i>
 
-
-                <p class="texto1">Nombre Administrador</p>
 
                 <strong><p class="texto2">Administrador</p></strong>
 
@@ -18,26 +16,26 @@
 
             <div class="list-group list-group-flush">
 
-                <a [routerLink]="['./inicioadmin']" class="list-group-item list-group-item-action bg-light">
+                <a [routerLink]="['./inicioadmin']" class="list-group-item list-group-item-action ">
                     <i class="fas fa-home icono"></i>
                     <span class="span">Inicio</span>
                 </a>
-                <a [routerLink]="['./inventario']" class="list-group-item list-group-item-action bg-light">
+                <a [routerLink]="['./inventario']" class="list-group-item list-group-item-action ">
                     <i class="fas fa-boxes icono"></i>
 
                     <span class="span">Inventario</span>
                 </a>
-                <a class="list-group-item list-group-item-action bg-light ">
+                <a class="list-group-item list-group-item-action  ">
                     <i class="fas fa-users icono"></i>
 
                     <span class="span">Usuarios</span>
                 </a>
-                <a class="list-group-item list-group-item-action bg-light">
+                <a class="list-group-item list-group-item-action">
                     <i class="fas fa-percent icono"></i>
 
                     <span class="span">Promociones</span>
                 </a>
-                <a class="list-group-item list-group-item-action bg-light">
+                <a class="list-group-item list-group-item-action ">
                     <i class="fas fa-file-invoice icono"></i>
 
                     <span class="span">Reportes</span>
@@ -51,7 +49,7 @@
         <div id="page-content-wrapper">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom admin">
-                <button class="btn btn-primary boton-menu" id="menu-toggle"> <i class="fas fa-bars"></i></button>
+                <button class="btn btn-primary boton-menu" id="menu-toggle"><i class="fas fa-th-large"></i> </button>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -61,10 +59,10 @@
 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <a class="navbar-brand" [routerLink]="['inicio']">
+                    <a class="navbar-brand" [routerLink]="['./inicioadmin']">
                         <img src="/assets/img/logo_vector.png" id="logo" width="40" height="40" alt="" loading="lazy">
                     </a>
-                    <a class="navbar-brand" [routerLink]="['inicio']" id="titulo">Cactus HN</a>
+                    <a class="navbar-brand" [routerLink]="['./inicioadmin']" id="titulo">Cactus HN</a>
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 
 
