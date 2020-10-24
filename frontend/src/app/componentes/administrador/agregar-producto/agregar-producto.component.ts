@@ -79,6 +79,72 @@ formularioEspecie:FormGroup = new FormGroup({
     .subscribe((res:any)=> {
         this.tipoBases = res;
     } );
+
+    this._productoService.getGeneros ()
+    .subscribe((res:any)=> {
+        this.generos = res;
+        console.log(res);
+        
+    } );
+
+  }
+
+  agregarEspecie(){
+    if (this.formularioEspecie.get("especie").valid && this.formularioEspecie.get("genero").valid) {
+      var nuevaEspecie = {
+        "descripcionEspecie": this.formularioEspecie.get("especie").value,
+        "idGenero": this.formularioEspecie.get("genero").value
+      }
+      console.log(nuevaEspecie);
+      
+      this._productoService.agregarEspecie(nuevaEspecie)
+      .subscribe(res => {
+        console.log("se registró una nueva especie");
+        console.log(res);
+        // this.especies=res;
+      },
+      err => {
+        console.log(err);
+      }); 
+    }
+  }
+
+  agregarProducto(){
+    if (this.formularioProducto.get("nombre").valid &&
+        this.formularioProducto.get("cantidad").valid &&
+        this.formularioProducto.get("precio").valid &&
+        this.formularioProducto.get("base").valid &&
+        this.formularioProducto.get("categoria").valid &&
+        this.formularioProducto.get("especies").valid &&
+        this.formularioProducto.get("tamanio").valid 
+    ) {
+      var producto = {
+        "nombre": this.formularioProducto.get("nombre").value,
+        "informacionadicional": this.formularioProducto.get("descripcion").value,
+        "precio": this.formularioProducto.get("precio").value,
+        "cantidad": this.formularioProducto.get("cantidad").value,
+        "tipobase": this.formularioProducto.get("base").value,
+        "tiemposol": this.formularioProducto.get("tiempoSol").value,
+        "frecuenciariego": this.formularioProducto.get("riego").value,
+        "tamanio": this.formularioProducto.get("tamanio").value,
+        "categoria": this.formularioProducto.get("categoria").value,
+        "especie": this.formularioProducto.get("especies").value
+      }
+      console.log(producto);
+
+      // this._productoService.agregarProducto(producto)
+      // .subscribe(res => {
+      //   console.log("se registró un nuevo producto");
+      //   console.log(res);
+      // },
+      // err => {
+      //   console.log(err);
+      // });  
+  } 
+  else {
+    alert("Ocurrió un error, no se ha podido guardar el producto");
+  }
+
   }
 
   onLoadImg( e ){
@@ -108,11 +174,12 @@ formularioEspecie:FormGroup = new FormGroup({
   }
 
   validation(campo){
-    return this.formularioProducto.get(campo).invalid;
+    return this.formularioProducto.get(campo).invalid && this.formularioProducto.get(campo).touched ;
   }
 
   validationEspecie(campo){
-    return  this.formularioEspecie.get(campo).invalid;
+    return  this.formularioEspecie.get(campo).invalid && this.formularioEspecie.get(campo).touched;
   }
+
 
 }

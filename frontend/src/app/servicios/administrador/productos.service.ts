@@ -40,6 +40,26 @@ export class ProductosService {
   getProductos(){
     return this._http.get(this.url + 'productos', {headers: this.headers});
   }
+
+  agregarProducto(producto){
+    
+    let params = JSON.stringify(producto);
+
+    return this._http.post<any>(this.url + "registro-producto", params, {headers:this.headers});
+
+  }
+
+  agregarEspecie(especie){
+    
+    let params = JSON.stringify(especie);
+
+    return this._http.post<any>(this.url + "registrarEspecie", params, {headers:this.headers});
+
+  }
+
+  
+
+
 }
 
 

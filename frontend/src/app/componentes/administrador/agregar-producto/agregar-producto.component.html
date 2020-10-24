@@ -74,11 +74,11 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <form [formGroup]="formularioEspecie">
-                      <button type="button"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
+                      <button type="button"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px" (click)="agregarEspecie()"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
                       <input type="text" class="form-control form-control-sm mb-1" formControlName="especie" [class.is-invalid]="validationEspecie('especie')" placeholder="Nombre de la nueva especie" id="validationServer08"  required>
                       <select class="custom-select custom-select-sm" formControlName="genero" [class.is-invalid]="validationEspecie('genero')">
                         <option active disable value="" >Seleccione el género</option>  
-                        <option *ngFor="let categoria of categorias" value="{{categoria.idcategoria}}">{{categoria.descripcion}}</option>
+                        <option *ngFor="let genero of generos" value="{{genero.idgenero}}">{{genero.descripcion}}</option>
                       </select>
                       <div class="invalid-feedback">
                         Debe seleccionar un género
@@ -166,7 +166,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-agregar">Agregar producto</button>
+          <button type="submit" class="btn btn-agregar" (click)="agregarProducto()">Agregar producto</button>
         </div>
       </div>
     </div>
