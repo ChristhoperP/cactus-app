@@ -121,6 +121,12 @@ var controller = {
             }
 
         }
+    },
+    getGenero: async function(req, res) {
+        let s = 'SELECT idgenero, descripcion_genero,idfamilia, descripcion_familia ';
+        let f = 'FROM SP_OBTENER_GENERO() AS ( idgenero INT, descripcion_genero VARCHAR(200),idfamilia INT, descripcion_familia VARCHAR(200));';
+        const response = await pool.query(s + f);
+        res.json(response.rows);
     }
 }
 

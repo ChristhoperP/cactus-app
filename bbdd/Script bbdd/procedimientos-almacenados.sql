@@ -576,3 +576,21 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+
+CREATE OR REPLACE FUNCTION SP_OBTENER_GENERO()
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  FOR r IN SELECT  A.idgenero, A.descripcion AS descripcion_genero,
+                    B.idfamilia, B.descripcion AS descripcion_familia
+           FROM genero AS A  LEFT JOIN familia AS B on A.Familia_idFamilia = B.idFamilia
+     LOOP
+	    RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+END;
+$$
+LANGUAGE plpgsql;

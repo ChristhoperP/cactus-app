@@ -29,6 +29,7 @@ router.get('/tipos-bases', productoController.getTiposBases);
 router.get('/categorias', productoController.getCategorias);
 router.get('/especies', productoController.getEspecies);
 router.post('/registrarEspecie', productoController.registrarEspecie);
+router.get('/generos', productoController.getGenero);
 
 
 
