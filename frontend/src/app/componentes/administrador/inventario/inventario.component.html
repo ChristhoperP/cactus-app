@@ -24,10 +24,7 @@
                         </button>
                                 <div class="dropdown-menu dropdown-menu-left p-0">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                        </div>
+                                        <input type="text" class="form-control" [(ngModel)]="productosFilterByName.nombre" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
                                     </div>
                                 </div>
                             </div>
@@ -40,9 +37,8 @@
                         </button>
                                 <div class="dropdown-menu p-0">
                                     <select class="custom-select" size="3">
-                          <option *ngFor="let categoria of categorias" value="{{categoria.descripcion}}">{{categoria.descripcion}}</option>
-                            
-                          </select>
+                                         <option *ngFor="let categoria of categorias"   [(ngModel)]="productosFilterByCategoria.categoria"  value="{{categoria.descripcion}}">{{categoria.descripcion}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </th>
@@ -52,7 +48,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let producto of productos">
+                    <tr *ngFor="let producto of productos | filterBy: productosFilterByName">
                         <td>
                             <div class="form-check">
                                 <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
@@ -61,7 +57,7 @@
                         <th scope="row">{{producto.idproducto}}</th>
                         <td>
                             <div class="imagen-producto ml-auto mr-auto">
-                                <img src="{{producto.urlportada}}" alt="injerto">
+                                <img src="{{url+'get-image/'+producto.urlportada}}" alt="{{producto.nombre}}">
                             </div>
                         </td>
                         <td>{{producto.nombre}}</td>
@@ -71,6 +67,11 @@
                         <td>L {{producto.precio}}</td>
                         <td>
                             <button class="btn btn-sm" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="(productos | filterBy: productosFilterByName || productos | filterBy: productosFilterByName).length === 0">
+                        <td>
+                            No hay resultados
                         </td>
                     </tr>
                 </tbody>

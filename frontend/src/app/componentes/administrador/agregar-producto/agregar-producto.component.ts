@@ -122,12 +122,12 @@ formularioEspecie:FormGroup = new FormGroup({
         this.formularioProducto.get("especies").valid &&
         this.formularioProducto.get("tamanio").valid 
     ) {
-          let file =  this.images[0];
-      let producto = new FormData();
+          let portada =  this.images[0];
+          let galeria = this.galeria
+        let producto = new FormData();
 
-        producto.append("files", file.file);
-        producto.append('img', 'assets/perfil/'+file.file.name);
-        producto.set('portada', 'assets/img/productos/'+file.file.name);
+        producto.append("portada", portada.file);
+        producto.append("gallery", galeria.file);
         producto.set('nombre', this.formularioProducto.get("nombre").value);
         producto.set('informacionadicional', this.formularioProducto.get("descripcion").value);
         producto.set('precio', this.formularioProducto.get("precio").value);
@@ -141,19 +141,19 @@ formularioEspecie:FormGroup = new FormGroup({
 
       console.log(producto);
 
-      // this._productoService.agregarProducto(producto)
-      // .subscribe(res => {
-      //   console.log("se registró un nuevo producto");
-      //   console.log(res);
-      // },
-      // err => {
-      //   console.log(err);
-      // });  
+      this._productoService.agregarProducto(producto)
+      .subscribe(res => {
+        console.log("se registró un nuevo producto");
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      });  
       
-  } 
-  else {
-    alert("Ocurrió un error, no se ha podido guardar el producto");
-  }
+      } 
+      else {
+        alert("Ocurrió un error, no se ha podido guardar el producto");
+      }
 
   }
 
@@ -170,7 +170,8 @@ formularioEspecie:FormGroup = new FormGroup({
   }
 
   selected(imageResult:ImageResult, tipoFotos) {
-
+    console.log('FUERA JOH');
+    
     switch (tipoFotos) {
       case 'portada':
                     if (imageResult.error) alert(imageResult.error);

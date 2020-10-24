@@ -42,10 +42,9 @@ export class ProductosService {
   }
 
   agregarProducto(producto){
-    
     let params = JSON.stringify(producto);
 
-    return this._http.post<any>(this.url + "registro-producto", params, {headers:this.headers});
+    return this._http.post<any>(this.url + "registro-producto", producto);
 
   }
 

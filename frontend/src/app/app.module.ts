@@ -6,7 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageToDataUrlModule } from "ngx-image2dataurl";
-
+import { FilterPipeModule } from 'ngx-filter-pipe';
 //Graficos
 import { ChartsModule } from 'ng2-charts';
 
@@ -88,6 +88,7 @@ import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios
     ChartsModule,
     ImageCropperModule,
     ImageToDataUrlModule,
+    FilterPipeModule
   ],
   providers: [
     appRoutingProviders,

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { ProductosService } from '../../../servicios/administrador/productos.service';
+import { FilterPipe } from 'ngx-filter-pipe';
+import { Global } from "../../../servicios/global";
 
 
 @Component({
@@ -11,8 +13,13 @@ import { ProductosService } from '../../../servicios/administrador/productos.ser
 export class InventarioComponent implements OnInit {
 categorias:any = [];
 productos:any =[];
+productosFilterByName: any = { nombre: '' };
+productosFilterByCategoria: any = { categoria: '' };
+public url: string;
 
-  constructor(private _productoService: ProductosService) {
+
+  constructor(private _productoService: ProductosService, private filter: FilterPipe) {
+    this.url = Global.url;
     
    }
 
