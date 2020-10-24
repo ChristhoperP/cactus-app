@@ -8,6 +8,9 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 //Graficos
 import { ChartsModule } from 'ng2-charts';
 
+//cargar JS
+import {ServAdminService}  from "./servicios/administrador/serv-admin.service"
+
 
 //componentes
 import { AppComponent } from './app.component';
@@ -84,6 +87,7 @@ import { GraficoComponent } from './componentes/administrador/grafico/grafico.co
     IsAdminGuard,
     AuthService,
     PeticionesService,
+    ServAdminService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
