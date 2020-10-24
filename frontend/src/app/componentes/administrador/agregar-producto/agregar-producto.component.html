@@ -43,7 +43,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationServer04">Tipo de base</label>
                         <select class="custom-select custom-select-sm" formControlName="base" [class.is-invalid]="validation('base')" >
-                            <option active disable value="">Seleccionar...</option>  
+                            <option disabled active value="">Seleccionar...</option>  
                             <option *ngFor="let base of tipoBases" value="{{base.idtipobase}}">{{base.descripcion}}</option>
                           </select>
                           <div class="invalid-feedback">
@@ -53,7 +53,7 @@
                       <div class="col-md-6 mb-3">
                         <label for="validationServer05">Categoría</label>
                         <select class="custom-select custom-select-sm" formControlName="categoria" [class.is-invalid]="validation('categoria')">
-                          <option active disable value="">Seleccionar...</option>  
+                          <option disabled active value="">Seleccionar...</option>  
                           <option *ngFor="let categoria of categorias" value="{{categoria.idcategoria}}">{{categoria.descripcion}}</option>
                         </select>
                         <div class="invalid-feedback">
@@ -77,8 +77,8 @@
                       <button type="button"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px" (click)="agregarEspecie()"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
                       <input type="text" class="form-control form-control-sm mb-1" formControlName="especie" [class.is-invalid]="validationEspecie('especie')" placeholder="Nombre de la nueva especie" id="validationServer08"  required>
                       <select class="custom-select custom-select-sm" formControlName="genero" [class.is-invalid]="validationEspecie('genero')">
-                        <option active disable value="" >Seleccione el género</option>  
-                        <option *ngFor="let genero of generos" value="{{genero.idgenero}}">{{genero.descripcion}}</option>
+                        <option  disabled active value="" >Seleccione el género</option>  
+                        <option *ngFor="let genero of generos" value="{{genero.idgenero}}">{{genero.descripcion_genero}}</option>
                       </select>
                       <div class="invalid-feedback">
                         Debe seleccionar un género

@@ -15,8 +15,8 @@ export class AgregarProductoComponent implements OnInit {
 categorias:any = [];
 especies:any = [];
 tipoBases:any = [];
-generos:any = [];
-productos:any=[];
+generos:any= [];
+productos1:any=[];
 
 
 imageChangedEvent: any = '';
@@ -83,7 +83,7 @@ formularioEspecie:FormGroup = new FormGroup({
     this._productoService.getGeneros ()
     .subscribe((res:any)=> {
         this.generos = res;
-        console.log(res);
+        console.log(this.generos);
         
     } );
 
