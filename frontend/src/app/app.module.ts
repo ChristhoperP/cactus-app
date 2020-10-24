@@ -8,6 +8,9 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 //Graficos
 import { ChartsModule } from 'ng2-charts';
 
+//cargar JS
+import {ServAdminService}  from "./servicios/administrador/serv-admin.service"
+
 
 //componentes
 import { AppComponent } from './app.component';
@@ -29,6 +32,7 @@ import { AuthGuard } from './servicios/guards/auth.guard';
 import { NoAuthGuard } from "./servicios/guards/no-auth.guard";
 import { IsAdminGuard } from './servicios/guards/is-admin.guard';
 import { PeticionesService } from "./servicios/peticiones.service";
+import { UploadService } from "./servicios/upload.service";
 
 
 //Formularios
@@ -41,9 +45,11 @@ import { ControladorAdminComponent } from './componentes/administrador/controlad
 import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
 import { ModificarProductoComponent } from './componentes/administrador/modificar-producto/modificar-producto.component';
 import { FotoModProductoComponent } from './componentes/administrador/foto-mod-producto/foto-mod-producto.component';
+import { AgregarProductoComponent } from './componentes/administrador/agregar-producto/agregar-producto.component';
 import { InicioAdminComponent } from './componentes/administrador/inicio-admin/inicio-admin.component';
 import { GraficoComponent } from './componentes/administrador/grafico/grafico.component';
-
+import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
+import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios.component';
 
 
 @NgModule({
@@ -65,10 +71,11 @@ import { GraficoComponent } from './componentes/administrador/grafico/grafico.co
     InventarioComponent,
     ModificarProductoComponent,
     FotoModProductoComponent,
+    AgregarProductoComponent,
     InicioAdminComponent,
-    GraficoComponent
-   
-
+    GraficoComponent,
+    FiltroUsuarioPipe,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +92,8 @@ import { GraficoComponent } from './componentes/administrador/grafico/grafico.co
     IsAdminGuard,
     AuthService,
     PeticionesService,
+    ServAdminService,
+    UploadService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

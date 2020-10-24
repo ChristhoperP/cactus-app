@@ -8,20 +8,21 @@
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb" style="background-color: transparent;">
                     <i class="fas fa-user icono-user"></i>
-                    <li class="breadcrumb-item active" aria-current="page">Alejandra</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{nombreUsuario}}</li>
                 </ol>
             </nav>
             <!-- /Breadcrumb -->
 
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
-                    <div class="card">
+                    <div class="card" style="background-color: transparent;">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="assets/img/usuario.png" alt="" style="width: 150px; height: 150px;">
+                                <img src="{{url+'get-image/'+imagen}}" alt="" style="width: 150px; height: 150px;" *ngIf="imagen">
+                                <img src="assets/img/usuario.png" alt="" style="width: 150px; height: 150px;" *ngIf="!imagen">
                                 <div class="file btn btn-lg btn-primary">
                                     Cambiar Foto
-                                    <input type="file" name="file" />
+                                    <input type="file" name="file" (change)="fileChangeEvent($event)"/>
                                 </div>
 
                             </div>
@@ -38,28 +39,28 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-sm-4">
-                                    <h6 class="mb-0">Nombre Usuario:</h6>
+                                    <h6 class="mb-0 pl-4">Nombre Usuario:</h6>
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    {{nombreUsuario}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
+
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4">
-                                    <h6 class="mb-0">Contraseña:</h6>
+                                    <h6 class="mb-0 pl-4">Contraseña:</h6>
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    *************
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
                                 </div>
                             </div>
-
-
 
                         </div>
                         <div class="titulo">
@@ -69,35 +70,35 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-sm-4">
-                                    <h6 class="mb-0">Correo Electrónico:</h6>
+                                    <h6 class="mb-0 pl-4">Correo Electrónico:</h6>
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    {{correo}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4">
-                                    <h6 class="mb-0">Número de Télefono:</h6>
+                                    <h6 class="mb-0 pl-4">Número de Télefono:</h6>
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    {{telefono}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4">
-                                    <h6 class="mb-0">Dirección:</h6>
+                                    <h6 class="mb-0 pl-4">Dirección:</h6>
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    {{direccion}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    Kenneth Valdez
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
                                 </div>
                             </div>
 

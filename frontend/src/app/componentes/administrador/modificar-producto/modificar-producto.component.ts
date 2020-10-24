@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class ModificarProductoComponent implements OnInit {
 
+  idProducto = 1;
+
   imgPortada: string | ArrayBuffer;
   imagenes = new Array<File>();
   cantImgs = 0;
@@ -55,7 +57,13 @@ export class ModificarProductoComponent implements OnInit {
 
     this.productService.getEspecies()
           .subscribe( res => {
-            // this.listaEspecies = res;
+            this.listaEspecies = res;
+          }, err => {
+            console.log(err);
+          });
+
+    this.productService.getProductInfo( this.idProducto )
+          .subscribe( res => {
             console.log(res);
           }, err => {
             console.log(err);
@@ -158,7 +166,7 @@ export class ModificarProductoComponent implements OnInit {
   isValidImage( file: File ): boolean {
     const fileFormat = file.type.split('/')[1];
 
-    if ( fileFormat === 'jpeg' || fileFormat === 'png' ) {
+    if ( fileFormat === 'jpg' || fileFormat === 'jpeg' || fileFormat === 'png' ) {
       return true;
     }
 

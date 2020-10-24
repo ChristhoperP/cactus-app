@@ -7,38 +7,34 @@ var fs = require('fs');
 var path = require('path');
 
 var controller = {
-    subirImagen: async function (req, res)  {
+    subirImagenPerfil: async function (req, res) {
         if (req.file) {
-            console.log(req.params.id);
+            console.log(req.user.id);
             //console.log(req.file);
-            console.log(req.file.filename);
-            res.send('uploaded');
+            //console.log(req.file.filename);
+            try {
+                const response = await pool.query(`UPDATE public.usuario SET imagenperfil='${req.file.filename}' WHERE idusuario=${req.user.id};`);
+
+                return res.status(200).send(req.file.filename);
+            } catch (error) {
+                console.log(error);
+                return res.status(500).send({
+                    message: 'No se ha podido obtener subir la imagen',
+                })
+            }
         } else {
-            res.send('no uploaded');
+            res.status(500).send('No se subió la imagen.');
         }
     },
 
-    subirImagenes: async function  (req, res) {
-        if (req.files) {
-            //console.log(req.files);
-            console.log(req.params.id);
-            req.files.forEach(element => {
-                console.log(element.filename);
-            });
-            res.send('uploaded');
-        } else {
-            res.send('no uploaded');
-        }
-    },
-
-    getImageFile: function(req, res){
+    getImageFile: function (req, res) {
         var file = req.params.image;
-        var path_file = './src/public/uploads/'+file;
+        var path_file = './src/public/uploads/' + file;
 
-        fs.stat(path_file, (err)=>{
-            if(!err){
+        fs.stat(path_file, (err) => {
+            if (!err) {
                 return res.sendFile(path.resolve(path_file));
-            }else{
+            } else {
                 return res.status(200).send({
                     message: "No existe la imagen..."
                 });
@@ -46,20 +42,18 @@ var controller = {
         })
     },
 
-    DeleteImageFile: function(req, res){
+    DeleteImageFile: function (req, res) {
         var file = req.params.image;
-        var path_file = './src/public/uploads/'+file;
+        var path_file = './src/public/uploads/' + file;
 
         fs.unlink(path_file, (err) => {
             if (err) {
-              console.error(err)
-              return
-            }else{
+                return res.status(404).send({ error: "Imagen no encontrada." });
+            } else {
                 return res.status(200).send({
-                    message: "No existe la imagen que desea borrar"
+                    message: "Imagen borrada con exito."
                 });
             }
-            
         })
     }
 };

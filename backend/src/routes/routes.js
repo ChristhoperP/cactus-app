@@ -16,24 +16,22 @@ router.get('/perfil', auth.isAuth, (req, res) => { res.status(200).send({ verifi
 router.post('/registro', auth.noAuth, UserController.registrar);
 router.post('/validarUsuario', auth.noAuth, UserController.validarUsuario);
 router.get('/obtenerUsuariosRegistrados', UserController.obtenerUsuariosRegistrados);
+router.post('/actualizarInfoUsuario', image.upload.fields([{ name: 'perfil', maxCount: 1 }]), UserController.actualizarInfoUsuarios);
 
 
-//Subida de imagenes
-router.post('/upload-image/:id', image.upload.single('image'), ImageController.subirImagen);
-router.post('/upload-images/:id', image.upload.array('images', 2), ImageController.subirImagenes);
-
+//Subida imagen de perfil
+router.post('/upload-image/', auth.isAuth, image.upload.single('image'), ImageController.subirImagenPerfil);
 
 // Informacion para llenar los selects de registrar productos
 router.get('/tipos-bases', productoController.getTiposBases);
 router.get('/categorias', productoController.getCategorias);
 router.get('/especies', productoController.getEspecies);
 router.post('/registrarEspecie', productoController.registrarEspecie);
-
+router.get('/generos', productoController.getGenero);
 
 // Informacion para llenar la tabla de modificar 
 router.get('/productoporid', auth.isAdmin, AdminController.infoProductoPorId);
-router.post('/modificarProducto', productoController.actualizarProducto);
-
+router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), productoController.actualizarProducto);
 
 //Visitas por mes y usuarios
 router.post('/registro-visita-inicio', VisitaController.visitaInicio);
@@ -48,11 +46,13 @@ router.get('/productos', auth.isAdmin, AdminController.infoInventario);
 router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategoria);
 
 //Registrar producto
+
 router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]), 
 AdminController.registroProducto);
 
+
 //Obtener imagenes y eliminar
 router.get('/get-image/:image', ImageController.getImageFile);
-router.get('/delete-image/:image', ImageController.DeleteImageFile);
+router.delete('/delete-image/:image', ImageController.DeleteImageFile);
 
 module.exports = router;

@@ -46,6 +46,7 @@ var controller = {
                 });
             }
         } else {
+
             return res.status(500).send({
                 message: "Error: campos incompletos"
             });
@@ -53,41 +54,79 @@ var controller = {
     },
     actualizarProducto: async function(req, res) {
         var {
-            idproducto,
+            idProducto,
             nombre,
-            informacionadicional,
-            urlportada,
+            informacionAdicional,
             precio,
             cantidad,
-            idtipobase,
-            tiemposol,
-            frecuenciariego,
+            idTipoBase,
+            tiempoSol,
+            frecuenciaRiego,
             tamanio,
-            idcategoria
+            idCategoria,
+            especiesProducto,
+            eliminadas
         } = req.body;
 
-        console.log(req.body);
-        if (idproducto == null || nombre == null == informacionadicional == null ||
-            urlportada == null || precio == null || cantidad == null || idtipobase == null ||
-            tiemposol == null || frecuenciariego == null || tamanio == null || idcategoria == null) {
+        var portada = [];
+        var galeria = [];
+
+        if (req.files.portada) {
+            portada = req.files.portada;
+        } else {
+            portada[0] = { filename: '' };
+        }
+
+        if (req.files.gallery) {
+            galeria = req.files.gallery;
+
+            if (galeria.length == 1) {
+                galeria[1] = { filename: '' }
+                galeria[2] = { filename: '' }
+            } else if (galeria.length == 2) {
+                galeria[2] = { filename: '' }
+            }
+        } else {
+            galeria[0] = { filename: '' }
+            galeria[1] = { filename: '' }
+            galeria[2] = { filename: '' }
+        }
+        if (idProducto == null || idTipoBase == null || idCategoria == null) {
             return res.status(500).send({
                 message: "Error: campos incompletos"
             });
         } else {
-            const response = await pool.query('SELECT SP_MODIFICAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);', [idproducto, nombre,
-                informacionadicional, urlportada, precio, cantidad, idtipobase, tiemposol, frecuenciariego, tamanio, idcategoria
-            ]);
+            try {
 
-            var respuesta = response.rows[0].sp_modificar_producto;
-            var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
-            var arregloRes = respuesta1.split(',');
-            var ocurrioError = arregloRes[0];
-            var mensaje = arregloRes[1];
+                const responseUpdate = await pool.query('SELECT SP_MODIFICAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16);', [idProducto, nombre, informacionAdicional, portada[0].filename, precio, cantidad, idTipoBase, tiempoSol, frecuenciaRiego, tamanio, idCategoria, especiesProducto,
+                    eliminadas, galeria[0].filename, galeria[1].filename, galeria[2].filename
+                ]);
+                console.log(eliminadas);
 
-            return res.status(200).send({
-                message: mensaje
-            });
+
+
+                var respuesta = responseUpdate.rows[0].sp_modificar_producto;
+                var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
+                var arregloRes = respuesta1.split(',');
+                var ocurrioError = arregloRes[0];
+                var mensaje = arregloRes[1];
+                return res.status(200).send({
+                    message: mensaje
+                });
+            } catch (e) {
+                console.log(e);
+                return res.status(500).send({
+                    message: 'Error: producto no actualizado'
+                });
+            }
+
         }
+    },
+    getGenero: async function(req, res) {
+        let s = 'SELECT idgenero, descripcion_genero,idfamilia, descripcion_familia ';
+        let f = 'FROM SP_OBTENER_GENERO() AS ( idgenero INT, descripcion_genero VARCHAR(200),idfamilia INT, descripcion_familia VARCHAR(200));';
+        const response = await pool.query(s + f);
+        res.json(response.rows);
     }
 }
 
