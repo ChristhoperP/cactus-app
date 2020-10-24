@@ -28,8 +28,18 @@ export class ProductosService {
     return this._http.get(this.url + 'especies', {headers: this.headers});
   }
 
+  getGeneros(){
+    return this._http.get(this.url + 'generos', {headers: this.headers});
+  }
+
   getProductInfo( productId: number) {
     const params = new HttpParams().set('idproducto', productId.toString());
     return this._http.get(this.url + 'productoporid', {headers: this.headers, params});
   }
+
+  getProductos(){
+    return this._http.get(this.url + 'productos', {headers: this.headers});
+  }
 }
+
+

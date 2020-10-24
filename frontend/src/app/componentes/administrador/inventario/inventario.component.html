@@ -53,49 +53,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let producto of productos">
                         <td>
                             <div class="form-check">
                                 <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
                             </div>
                         </td>
-                        <th scope="row">1</th>
+                        <th scope="row">{{producto.idproducto}}</th>
                         <td>
                             <div class="imagen-producto ml-auto mr-auto">
-                                <img src="assets/img/productos/injerto.jpg" alt="injerto">
+                                <img src="{{producto.urlportada}}" alt="injerto">
                             </div>
                         </td>
-                        <td>Injerto</td>
+                        <td>{{producto.nombre}}</td>
                         <td><button class="btn btn-link">Ver más</button></td>
-                        <td>Maceteras de vidrio</td>
-                        <td class="text-center">1</td>
-                        <td>L 250</td>
+                        <td>{{producto.categoria}}</td>
+                        <td class="text-center">{{producto.cantidad}}</td>
+                        <td>{{producto.precio}}</td>
                         <td>
                             <button class="btn btn-sm" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
-                            </div>
-                        </td>
-                        <th scope="row">2</th>
-                        <td>
-                            <div class="imagen-producto ml-auto mr-auto">
-                                <img src="assets/img/productos/injerto.jpg" alt="injerto">
-                            </div>
-                        </td>
-                        <td>Injerto</td>
-                        <td><button class="btn btn-link">Ver más</button></td>
-                        <td>Maceteras de vidrio</td>
-                        <td>1</td>
-                        <td>L 250</td>
-                        <td>
-                            <button class="btn btn-sm" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
         </div>

@@ -108,7 +108,7 @@ formularioEspecie:FormGroup = new FormGroup({
   }
 
   validation(campo){
-    return this.formularioProducto.get(campo).invalid && this.formularioEspecie.get(campo).invalid;
+    return this.formularioProducto.get(campo).invalid;
   }
 
   validationEspecie(campo){

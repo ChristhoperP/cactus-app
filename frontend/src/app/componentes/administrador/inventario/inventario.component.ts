@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { ProductosService } from '../../../servicios/administrador/productos.service';
+
 
 @Component({
   selector: 'app-inventario',
@@ -8,9 +10,19 @@ import Swal from 'sweetalert2';
 })
 export class InventarioComponent implements OnInit {
 
-  constructor() { }
+productos:any =[];
+
+  constructor(private _productoService: ProductosService) {
+    
+   }
 
   ngOnInit(): void {
+    this._productoService.getProductos()
+    .subscribe((res:any)=> {
+        this.productos = res;
+        console.log(res);
+        
+      } );
   }
 
   deleteProduct(): void {
