@@ -9,7 +9,7 @@ import { ProductosService } from '../../../servicios/administrador/productos.ser
   styleUrls: ['./inventario.component.css']
 })
 export class InventarioComponent implements OnInit {
-
+categorias:any = [];
 productos:any =[];
 
   constructor(private _productoService: ProductosService) {
@@ -23,6 +23,11 @@ productos:any =[];
         console.log(res);
         
       } );
+
+      this._productoService.getCategorias()
+      .subscribe((res:any)=> {
+          this.categorias = res;
+        } );
   }
 
   deleteProduct(): void {

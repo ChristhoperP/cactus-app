@@ -21,10 +21,13 @@ productos1:any=[];
 
 imageChangedEvent: any = '';
 croppedImage: any = '';
-fileInput: Array <File>;
-firstImage:any = 'assets/img/portada_icon.png';
-portada: any = "../../../../assets/img/administrador/portada_icon.png";
-multiplesFotos: string = "../../../../assets/img/administrador/fotos.jpg";
+fileInputPortada: Array <File>;
+fileInputGaleria: Array <File>;
+
+
+firstImage:any = '../../../../assets/img/administrador/portada_icon2.png';
+portada: string = '../../../../assets/img/administrador/portada_icon2.png';
+multiplesFotos: any;
 
 options: Options = {
   resize: {
@@ -35,6 +38,7 @@ options: Options = {
 }
 
 images: any = [];
+galeria:any = [];
 imagenPortada;
 
 formularioProducto:FormGroup = new FormGroup({
@@ -118,18 +122,23 @@ formularioEspecie:FormGroup = new FormGroup({
         this.formularioProducto.get("especies").valid &&
         this.formularioProducto.get("tamanio").valid 
     ) {
-      var producto = {
-        "nombre": this.formularioProducto.get("nombre").value,
-        "informacionadicional": this.formularioProducto.get("descripcion").value,
-        "precio": this.formularioProducto.get("precio").value,
-        "cantidad": this.formularioProducto.get("cantidad").value,
-        "tipobase": this.formularioProducto.get("base").value,
-        "tiemposol": this.formularioProducto.get("tiempoSol").value,
-        "frecuenciariego": this.formularioProducto.get("riego").value,
-        "tamanio": this.formularioProducto.get("tamanio").value,
-        "categoria": this.formularioProducto.get("categoria").value,
-        "especie": this.formularioProducto.get("especies").value
-      }
+          let file =  this.images[0];
+      let producto = new FormData();
+
+        producto.append("files", file.file);
+        producto.append('img', 'assets/perfil/'+file.file.name);
+        producto.set('portada', 'assets/img/productos/'+file.file.name);
+        producto.set('nombre', this.formularioProducto.get("nombre").value);
+        producto.set('informacionadicional', this.formularioProducto.get("descripcion").value);
+        producto.set('precio', this.formularioProducto.get("precio").value);
+        producto.set('cantidad', this.formularioProducto.get("cantidad").value);
+        producto.set('tipobase', this.formularioProducto.get("base").value);
+        producto.set('tiemposol', this.formularioProducto.get("tiempoSol").value);
+        producto.set('frecuenciariego', this.formularioProducto.get("riego").value);
+        producto.set('tamanio', this.formularioProducto.get("tamanio").value);
+        producto.set('categoria', this.formularioProducto.get("categoria").value);
+        producto.set('especie', this.formularioProducto.get("especies").value);
+
       console.log(producto);
 
       // this._productoService.agregarProducto(producto)
@@ -140,6 +149,7 @@ formularioEspecie:FormGroup = new FormGroup({
       // err => {
       //   console.log(err);
       // });  
+      
   } 
   else {
     alert("Ocurrió un error, no se ha podido guardar el producto");
@@ -150,23 +160,37 @@ formularioEspecie:FormGroup = new FormGroup({
   onLoadImg( e ){
     this.imageChangedEvent = e;
     console.log(e);
-    this.fileInput = e.target.files;
+    this.fileInputPortada = e.target.files;
 
     const reader = new FileReader();
     reader.onload = e => this.firstImage = reader.result;
 
-    reader.readAsDataURL(this.fileInput[0]);
+    reader.readAsDataURL(this.fileInputPortada[0]);
     this.imageCropped(  this.imageChangedEvent);
   }
 
   selected(imageResult:ImageResult, tipoFotos) {
-    console.log('fuera joh');
-    
-    if (imageResult.error) alert(imageResult.error);
-    this.images.push(imageResult);
-    console.log(this.images);
 
-    this.portada = imageResult.resized && imageResult.resized.dataURL || imageResult.dataURL;
+    switch (tipoFotos) {
+      case 'portada':
+                    if (imageResult.error) alert(imageResult.error);
+                    this.images.push(imageResult);
+                    console.log(this.images);
+
+                    this.portada = imageResult.resized && imageResult.resized.dataURL || imageResult.dataURL;
+        break;
+
+        case 'galeria':
+          if (imageResult.error) alert(imageResult.error);
+          this.galeria.push(imageResult);
+          console.log(this.galeria);
+
+        break;
+    
+      default:
+        break;
+    }
+    
   }
 
   imageCropped(event: ImageCroppedEvent) {

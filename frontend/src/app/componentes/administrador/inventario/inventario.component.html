@@ -40,9 +40,8 @@
                         </button>
                                 <div class="dropdown-menu p-0">
                                     <select class="custom-select" size="3">
-                            <option value="1">Injerto</option>
-                            <option value="2">Terrario colgante</option>
-                            <option value="3">Mini terrario</option>
+                          <option *ngFor="let categoria of categorias" value="{{categoria.descripcion}}">{{categoria.descripcion}}</option>
+                            
                           </select>
                                 </div>
                             </div>

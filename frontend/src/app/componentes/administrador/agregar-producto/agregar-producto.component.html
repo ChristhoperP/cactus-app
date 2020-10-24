@@ -120,39 +120,44 @@
                 <div class="form-row">
                   <div class="ui cards centered ">
                     <label class="btn card ml-auto mr-auto w-50" (click)="inputPortada.click()" for="validationServer12">
-                      <h4 style="color: cadetblue;" >Añadir portada</h4>
                       <div class="image">
-                        <img class=" w-100" src="../../../../assets/img/administrador/portada_icon.png" style="opacity: 35%;" >
+                          <img class="w-100 img-fluid" [src]="portada" alt="portada">
                       </div>
                     </label>
                   </div>
 
                   <input
                   type="file"
-                  accept=".jpg,.jpeg,.png"
+                  accept="image/*"
                   class="custom-file-input"
                   id="validationServer12"
-                  name="img"
+                  name="validationServer12"
                   multiple
-                  (imageSelected)="selected($event, 'portada')"
+                  (imageSelected)="selected($event,'portada')"
+                  [imageToDataUrl]="options"
                   class="d-none"
                   #inputPortada
                   >
                 </div>
 
                 <div class="form-row">
-                  <button type="button" class="btn btn-sm btn-info mb-2" (click)="inputMultiple.click()" style="border-radius: 15px;"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Añadir más</button>
-                           
+                  <button type="button" class="btn btn-sm btn-info mb-2" (click)="inputGaleria.click()" style="border-radius: 15px;"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Añadir más</button>
+                  <div class="form-row">
+                    <div class=" card col-4" *ngFor="let item of galeria">
+                      <img class="w-100" [src]="item.resized && item.resized.dataURL || item.dataURL">
+                    </div>
+                  </div>         
                   <input
                   type="file"
-                  accept=".jpg,.jpeg,.png"
+                  accept="image/*"
                   class="custom-file-input"
                   id="validationServer13"
-                  name="img"
+                  name="validationServer13"
                   multiple
-                  (imageSelected)="selected($event, 'multiplesFotos')"
+                  (imageSelected)="selected($event,'galeria')"
+                  [imageToDataUrl]="options"
                   class="d-none"
-                  #inputMultiple
+                  #inputGaleria
                   >
                 </div>
                 <div class="form-row">
