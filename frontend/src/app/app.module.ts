@@ -32,6 +32,7 @@ import { AuthGuard } from './servicios/guards/auth.guard';
 import { NoAuthGuard } from "./servicios/guards/no-auth.guard";
 import { IsAdminGuard } from './servicios/guards/is-admin.guard';
 import { PeticionesService } from "./servicios/peticiones.service";
+import { UploadService } from "./servicios/upload.service";
 
 
 //Formularios
@@ -92,6 +93,7 @@ import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios
     AuthService,
     PeticionesService,
     ServAdminService,
+    UploadService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

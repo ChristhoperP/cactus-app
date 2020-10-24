@@ -18,10 +18,11 @@
                     <div class="card" style="background-color: transparent;">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img [src]="imagen || 'assets/img/usuario.png'" alt="" style="width: 150px; height: 150px;">
+                                <img src="{{url+'get-image/'+imagen}}" alt="" style="width: 150px; height: 150px;" *ngIf="imagen">
+                                <img src="assets/img/usuario.png" alt="" style="width: 150px; height: 150px;" *ngIf="!imagen">
                                 <div class="file btn btn-lg btn-primary">
                                     Cambiar Foto
-                                    <input type="file" name="file" />
+                                    <input type="file" name="file" (change)="fileChangeEvent($event)"/>
                                 </div>
 
                             </div>

@@ -34,4 +34,7 @@ export class PeticionesService {
         localStorage.removeItem('idVisita');
     }
 
+    eliminarImagenPerfil(image){
+        return this._http.delete<any>(this.url + "delete-image/"+image, {headers:this.headers});
+    }
 }
