@@ -16,6 +16,7 @@ router.get('/perfil', auth.isAuth, (req, res) => { res.status(200).send({ verifi
 router.post('/registro', auth.noAuth, UserController.registrar);
 router.post('/validarUsuario', auth.noAuth, UserController.validarUsuario);
 router.get('/obtenerUsuariosRegistrados', UserController.obtenerUsuariosRegistrados);
+router.post('/actualizarInfoUsuario', image.upload.fields([{ name: 'perfil', maxCount: 1 }]), UserController.actualizarInfoUsuarios);
 
 
 //Subida de imagenes
@@ -30,10 +31,11 @@ router.get('/especies', productoController.getEspecies);
 router.post('/registrarEspecie', productoController.registrarEspecie);
 
 
+
 // Informacion para llenar la tabla de modificar 
 router.get('/productoporid', auth.isAdmin, AdminController.infoProductoPorId);
+router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), productoController.actualizarProducto);
 
-router.post('/modificarProducto', productoController.actualizarProducto);
 
 
 
@@ -51,8 +53,10 @@ router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategori
 
 //Registrar producto
 
-router.post('/registro-producto', /* auth.isAdmin */ image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]), 
-AdminController.registroProducto);
+router.post('/registro-producto', /* auth.isAdmin */ image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]),
+    AdminController.registroProducto);
+
+
 
 //Obtener imagenes y eliminar
 router.get('/get-image/:image', ImageController.getImageFile);

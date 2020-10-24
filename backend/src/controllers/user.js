@@ -117,13 +117,44 @@ var controller = {
     obtenerUsuariosRegistrados: async function(req, res) {
         const response = await pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');
         res.json(response.rows);
+    },
+    actualizarInfoUsuarios: async function(req, res, next) {
+        var { idUsuario, nombre, contrasenia, telefono, direccion } = req.body;
+
+        var perfil = [];
+
+        if (req.files.perfil) {
+            perfil = req.files.perfil;
+        } else {
+            perfil[0] = { filename: '' };
+        }
+
+        try {
+            bcrypt.hash(contrasenia, 10, async(err, data) => {
+                try {
+                    contrasenia = data;
+                    const response = await pool.query(
+                        'SELECT sp_modificar_usuario($1,$2,$3,$4,$5,$6);', [parseInt(idUsuario), nombre, contrasenia, telefono, direccion, perfil[0].filename]
+                    );
+
+                    var respuesta = response.rows[0].sp_modificar_usuario;
+                    var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
+                    var arregloRes = respuesta1.split(',');
+                    return res.status(200).send({
+                        message: arregloRes[1]
+                    })
+                } catch (err) {
+                    console.log('No se puede encriptar' + err);
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: datos no actualizados'
+            })
+        }
     }
 };
-
-
-
-
-
 
 
 module.exports = controller;
