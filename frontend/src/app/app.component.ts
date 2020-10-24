@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   @HostListener('window: beforeunload', ['$event'])
-  beforeunloadHandler(event){
+  beforeunloadHandler(event) {
     var idVisita = this._PeticionesService.getIdVisita();
     if (idVisita) {
       this._PeticionesService.registraFinVisita(idVisita)

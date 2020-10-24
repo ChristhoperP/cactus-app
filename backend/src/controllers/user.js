@@ -100,7 +100,7 @@ var controller = {
                 `SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = ${req.user.id};`
             );
 
-            console.log(response);
+            //console.log(response);
             var respuesta = response.rows;
 
             return res.status(200).send(respuesta[0]);
