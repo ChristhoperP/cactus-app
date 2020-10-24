@@ -51,7 +51,7 @@ router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'po
 AdminController.registroProducto);
 
 // Eliminar producto
-router.post('/eliminar-producto', /* auth.isAdmin, */ AdminController.eliminarProducto);
+router.post('/eliminar-producto', auth.isAdmin, AdminController.eliminarProducto);
 
 //Obtener imagenes y eliminar
 router.get('/get-image/:image', ImageController.getImageFile);
