@@ -101,3 +101,18 @@ body {
 .btn:hover {
     background-color: #52a877;
 }
+
+.btn-editar:hover {
+    background-color: #9cd6d7 !important;
+    color: #274f52 !important;
+}
+
+.btn-editar:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-editar:active {
+    background-color: #9cd6d7 !important;
+    color: #274f52 !important;
+}
