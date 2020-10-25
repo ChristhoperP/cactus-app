@@ -124,10 +124,16 @@ formularioEspecie:FormGroup = new FormGroup({
     ) {
           let portada =  this.images[0];
           let galeria = this.galeria
+
+
         let producto = new FormData();
+        if (this.galeria.length > 0){
+          for (const file of  this.galeria) {
+            producto.append("gallery", file.file);
+          }
+        }
 
         producto.append("portada", portada.file);
-        producto.append("gallery", galeria.file);
         producto.set('nombre', this.formularioProducto.get("nombre").value);
         producto.set('informacionadicional', this.formularioProducto.get("descripcion").value);
         producto.set('precio', this.formularioProducto.get("precio").value);
