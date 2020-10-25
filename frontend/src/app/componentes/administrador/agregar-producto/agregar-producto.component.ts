@@ -3,6 +3,7 @@ import { ProductosService } from '../../../servicios/administrador/productos.ser
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Options, ImageResult } from "ngx-image2dataurl";
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 
 
 
@@ -34,8 +35,11 @@ options: Options = {
     maxHeight: 1697,
     maxWidth: 1200
   },
-  allowedExtensions: ['JPG', 'PNG', 'GIF']
+  allowedExtensions: ['JPG', 'PNG', 'GIF', 'JPEG']
 }
+
+cantImgs = 0;
+imgLimit = 2;
 
 images: any = [];
 galeria:any = [];
@@ -176,22 +180,30 @@ formularioEspecie:FormGroup = new FormGroup({
   }
 
   selected(imageResult:ImageResult, tipoFotos) {
-    console.log('FUERA JOH');
-    
     switch (tipoFotos) {
       case 'portada':
-                    if (imageResult.error) alert(imageResult.error);
-                    this.images.push(imageResult);
-                    console.log(this.images);
-
-                    this.portada = imageResult.resized && imageResult.resized.dataURL || imageResult.dataURL;
+                    if (imageResult.error) {
+                      this.fileTypeAlert();
+                    } else {
+                        this.images.push(imageResult);
+                        console.log(this.images);
+                        this.portada = imageResult.resized && imageResult.resized.dataURL || imageResult.dataURL;
+                    }
         break;
 
         case 'galeria':
-          if (imageResult.error) alert(imageResult.error);
-          this.galeria.push(imageResult);
-          console.log(this.galeria);
-
+                   
+                    if (this.cantImgs> this.imgLimit){
+                      this.fileAmountAlert();
+                    } else {
+                        if (imageResult.error){
+                          this.fileTypeAlert();
+                        } else {
+                            this.galeria.push(imageResult);
+                            this.cantImgs++;
+                            console.log(this.galeria);
+                        }
+                    }
         break;
     
       default:
@@ -212,5 +224,20 @@ formularioEspecie:FormGroup = new FormGroup({
     return  this.formularioEspecie.get(campo).invalid && this.formularioEspecie.get(campo).touched;
   }
 
+  fileTypeAlert(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Solo se admiten archivos .jpg y .png'
+    });
+  }
+
+  fileAmountAlert(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: `Solo se admiten 3 imágenes adicionales por producto`
+    });
+  }
 
 }
