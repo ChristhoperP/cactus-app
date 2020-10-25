@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Global } from '../../../servicios/global';
 
 @Component({
   selector: 'app-foto-mod-producto',
@@ -7,28 +8,36 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class FotoModProductoComponent implements OnInit {
 
-  @Input() imagen: File;
+  @Input() imagen: File | string;
 
-  @Output() delete: EventEmitter<string> = new EventEmitter(true);
+  @Output() delete: EventEmitter<[string, boolean]> = new EventEmitter(true);
 
   src: string | ArrayBuffer;
 
   constructor() { }
 
   ngOnInit(): void {
-    const fr = new FileReader();
 
-    fr.readAsDataURL(this.imagen);
+    if ( this.imagen instanceof File ){
+      const fr = new FileReader();
 
-    fr.onload = () => {
-      this.src = fr.result;
-    };
+      fr.readAsDataURL(this.imagen);
 
+      fr.onload = () => {
+        this.src = fr.result;
+      };
+    } else {
+      this.src = Global.url + 'get-image/' + this.imagen;
+    }
   }
 
   deleteImage(el: HTMLDivElement): void {
     el.parentElement.parentElement.remove();
-    this.delete.emit(this.imagen.name);
+    if ( this.imagen instanceof File){
+      this.delete.emit([this.imagen.name, true]);
+    } else {
+      this.delete.emit([this.imagen, false]);
+    }
   }
 
 }
