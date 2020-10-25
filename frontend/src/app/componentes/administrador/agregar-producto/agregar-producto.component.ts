@@ -192,16 +192,7 @@ formularioEspecie:FormGroup = new FormGroup({
         break;
 
         case 'galeria':
-                    // if (imageResult.error) {
-                    //   this.fileTypeAlert();
-                    // } else {
-                    // if (this.galeria<=this.cantImgs) {
-                    //   this.galeria.push(imageResult);
-                    //   this.cantImgs++;
-                    //   console.log(this.galeria);
-                    // }
-                    // }
-
+                   
                     if (this.cantImgs> this.imgLimit){
                       this.fileAmountAlert();
                     } else {
@@ -212,12 +203,7 @@ formularioEspecie:FormGroup = new FormGroup({
                             this.cantImgs++;
                             console.log(this.galeria);
                         }
-                
-                      
                     }
-
-         
-
         break;
     
       default:
