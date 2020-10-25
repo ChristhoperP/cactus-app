@@ -15,26 +15,30 @@ export class AgregarProductoComponent implements OnInit {
 categorias:any = [];
 especies:any = [];
 tipoBases:any = [];
-generos:any = [];
-productos:any=[];
+generos:any= [];
+productos1:any=[];
 
 
 imageChangedEvent: any = '';
 croppedImage: any = '';
-fileInput: Array <File>;
-firstImage:any = 'assets/img/portada_icon.png';
-portada: any = "../../../../assets/img/administrador/portada_icon.png";
-multiplesFotos: string = "../../../../assets/img/administrador/fotos.jpg";
+fileInputPortada: Array <File>;
+fileInputGaleria: Array <File>;
+
+
+firstImage:any = '../../../../assets/img/administrador/portada_icon2.png';
+portada: string = '../../../../assets/img/administrador/portada_icon2.png';
+multiplesFotos: any;
 
 options: Options = {
   resize: {
     maxHeight: 1697,
     maxWidth: 1200
   },
-  allowedExtensions: ['JPG', 'PNG']
+  allowedExtensions: ['JPG', 'PNG', 'GIF']
 }
 
 images: any = [];
+galeria:any = [];
 imagenPortada;
 
 formularioProducto:FormGroup = new FormGroup({
@@ -79,28 +83,121 @@ formularioEspecie:FormGroup = new FormGroup({
     .subscribe((res:any)=> {
         this.tipoBases = res;
     } );
+
+    this._productoService.getGeneros ()
+    .subscribe((res:any)=> {
+        this.generos = res;
+        console.log(this.generos);
+        
+    } );
+
+  }
+
+  agregarEspecie(){
+    if (this.formularioEspecie.get("especie").valid && this.formularioEspecie.get("genero").valid) {
+      var nuevaEspecie = {
+        "descripcionEspecie": this.formularioEspecie.get("especie").value,
+        "idGenero": this.formularioEspecie.get("genero").value
+      }
+      console.log(nuevaEspecie);
+      
+      this._productoService.agregarEspecie(nuevaEspecie)
+      .subscribe(res => {
+        console.log("se registró una nueva especie");
+        console.log(res);
+        // this.especies=res;
+      },
+      err => {
+        console.log(err);
+      }); 
+    }
+  }
+
+  agregarProducto(){
+    if (this.formularioProducto.get("nombre").valid &&
+        this.formularioProducto.get("cantidad").valid &&
+        this.formularioProducto.get("precio").valid &&
+        this.formularioProducto.get("base").valid &&
+        this.formularioProducto.get("categoria").valid &&
+        this.formularioProducto.get("especies").valid &&
+        this.formularioProducto.get("tamanio").valid 
+    ) {
+          let portada =  this.images[0];
+          let galeria = this.galeria
+
+
+        let producto = new FormData();
+        if (this.galeria.length > 0){
+          for (const file of  this.galeria) {
+            producto.append("gallery", file.file);
+          }
+        }
+
+        producto.append("portada", portada.file);
+        producto.set('nombre', this.formularioProducto.get("nombre").value);
+        producto.set('informacionadicional', this.formularioProducto.get("descripcion").value);
+        producto.set('precio', this.formularioProducto.get("precio").value);
+        producto.set('cantidad', this.formularioProducto.get("cantidad").value);
+        producto.set('tipobase', this.formularioProducto.get("base").value);
+        producto.set('tiemposol', this.formularioProducto.get("tiempoSol").value);
+        producto.set('frecuenciariego', this.formularioProducto.get("riego").value);
+        producto.set('tamanio', this.formularioProducto.get("tamanio").value);
+        producto.set('categoria', this.formularioProducto.get("categoria").value);
+        producto.set('especie', this.formularioProducto.get("especies").value);
+
+      console.log(producto);
+
+      this._productoService.agregarProducto(producto)
+      .subscribe(res => {
+        console.log("se registró un nuevo producto");
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      });  
+      
+      } 
+      else {
+        alert("Ocurrió un error, no se ha podido guardar el producto");
+      }
+
   }
 
   onLoadImg( e ){
     this.imageChangedEvent = e;
     console.log(e);
-    this.fileInput = e.target.files;
+    this.fileInputPortada = e.target.files;
 
     const reader = new FileReader();
     reader.onload = e => this.firstImage = reader.result;
 
-    reader.readAsDataURL(this.fileInput[0]);
+    reader.readAsDataURL(this.fileInputPortada[0]);
     this.imageCropped(  this.imageChangedEvent);
   }
 
   selected(imageResult:ImageResult, tipoFotos) {
-    console.log('fuera joh');
+    console.log('FUERA JOH');
     
-    if (imageResult.error) alert(imageResult.error);
-    this.images.push(imageResult);
-    console.log(this.images);
+    switch (tipoFotos) {
+      case 'portada':
+                    if (imageResult.error) alert(imageResult.error);
+                    this.images.push(imageResult);
+                    console.log(this.images);
 
-    this.portada = imageResult.resized && imageResult.resized.dataURL || imageResult.dataURL;
+                    this.portada = imageResult.resized && imageResult.resized.dataURL || imageResult.dataURL;
+        break;
+
+        case 'galeria':
+          if (imageResult.error) alert(imageResult.error);
+          this.galeria.push(imageResult);
+          console.log(this.galeria);
+
+        break;
+    
+      default:
+        break;
+    }
+    
   }
 
   imageCropped(event: ImageCroppedEvent) {
@@ -108,11 +205,12 @@ formularioEspecie:FormGroup = new FormGroup({
   }
 
   validation(campo){
-    return this.formularioProducto.get(campo).invalid && this.formularioEspecie.get(campo).invalid;
+    return this.formularioProducto.get(campo).invalid && this.formularioProducto.get(campo).touched ;
   }
 
   validationEspecie(campo){
-    return  this.formularioEspecie.get(campo).invalid;
+    return  this.formularioEspecie.get(campo).invalid && this.formularioEspecie.get(campo).touched;
   }
+
 
 }

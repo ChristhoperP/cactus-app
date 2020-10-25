@@ -28,8 +28,38 @@ export class ProductosService {
     return this._http.get(this.url + 'especies', {headers: this.headers});
   }
 
+  getGeneros(){
+    return this._http.get(this.url + 'generos', {headers: this.headers});
+  }
+
   getProductInfo( productId: number) {
     const params = new HttpParams().set('idproducto', productId.toString());
     return this._http.get(this.url + 'productoporid', {headers: this.headers, params});
   }
+
+  getProductos(){
+    return this._http.get(this.url + 'productos', {headers: this.headers});
+  }
+
+  agregarProducto(producto){
+    let params = JSON.stringify(producto);
+
+    return this._http.post<any>(this.url + "registro-producto", producto);
+
+  }
+
+  agregarEspecie(especie){
+    
+    let params = JSON.stringify(especie);
+
+    return this._http.post<any>(this.url + "registrarEspecie", params, {headers:this.headers});
+
+  }
+
+
+  
+
+
 }
+
+
