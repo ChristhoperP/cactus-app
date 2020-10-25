@@ -18,10 +18,11 @@
                     <div class="card" style="background-color: transparent;">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img [src]="imagen || 'assets/img/usuario.png'" alt="" style="width: 150px; height: 150px;">
+                                <img src="{{url+'get-image/'+imagen}}" alt="" style="width: 150px; height: 150px;" *ngIf="imagen">
+                                <img src="assets/img/usuario.png" alt="" style="width: 150px; height: 150px;" *ngIf="!imagen">
                                 <div class="file btn btn-lg btn-primary">
                                     Cambiar Foto
-                                    <input type="file" name="file" />
+                                    <input type="file" name="file" (change)="fileChangeEvent($event)"/>
                                 </div>
 
                             </div>
@@ -44,7 +45,9 @@
                                     {{nombreUsuario}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setName(nombreUsuario)">Editar</button>
+
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
+
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -55,7 +58,7 @@
                                     *************
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setPassword()">Editar</button>
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
                                 </div>
                             </div>
 
@@ -78,13 +81,13 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4">
-                                    <h6 class="mb-0 pl-4">Número de Teléfono:</h6>
+                                    <h6 class="mb-0 pl-4">Número de Télefono:</h6>
                                 </div>
                                 <div class="col-sm-4 text-secondary">
                                     {{telefono}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setPhone(telefono)">{{!(telefono) ? 'Editar' : 'Agregar'}}</button>
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -95,7 +98,7 @@
                                     {{direccion}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setAddress(direccion)">{{!(direccion)? 'Editar' : 'Agregar'}}</button>
+                                    <button type="button" class="btn btn-outline-success">Editar</button>
                                 </div>
                             </div>
 
@@ -108,5 +111,3 @@
         </div>
     </div>
 </body>
-
-<app-actualizar-usuario #modalModificar [nombre]='nombreUsuario' [correo]='correo' [numTel]='telefono' [dir]='direccion'></app-actualizar-usuario>

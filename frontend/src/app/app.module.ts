@@ -50,7 +50,6 @@ import { InicioAdminComponent } from './componentes/administrador/inicio-admin/i
 import { GraficoComponent } from './componentes/administrador/grafico/grafico.component';
 import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
 import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios.component';
-import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/actualizar-usuario.component';
 
 
 @NgModule({
@@ -76,8 +75,7 @@ import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/act
     InicioAdminComponent,
     GraficoComponent,
     FiltroUsuarioPipe,
-    UsuariosComponent,
-    ActualizarUsuarioComponent
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,

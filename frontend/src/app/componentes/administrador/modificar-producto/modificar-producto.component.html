@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modificar Producto</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -19,7 +19,7 @@
                                 <div class="form-group row">
                                     <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
                                     <div class="col-sm-9">
-                                        <input type="text" [class.is-invalid]="nombreProducto.invalid && nombreProducto.touched" formControlName="nombre" name="nombre" id="nombre" class="form-control" placeholder="Nombre del producto" required>
+                                        <input type="text" [class.is-invalid]="nombreProducto.invalid && nombreProducto.touched" formControlName="nombreProducto" name="nombreProducto" id="nombre" class="form-control" placeholder="Nombre del producto" required>
                                         <div class="invalid-feedback">
                                             Este campo es obligatorio
                                         </div>
@@ -28,9 +28,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="idCategoria" class="col-sm-3 col-form-label">Categoría</label>
+                                    <label for="categoria" class="col-sm-3 col-form-label">Categoría</label>
                                     <div class="col-sm-9">
-                                        <select formControlName="idCategoria" name="idCategoria" id="idCategoria" class="form-control" [class.is-invalid]="idCategoria.invalid && idCategoria.touched" required>
+                                        <select formControlName="categoria" name="categoria" id="categoria" class="form-control" [class.is-invalid]="categoria.invalid && categoria.touched" required>
                                           <option *ngFor="let cat of categorias" value="{{ cat.idcategoria }}">{{ cat.descripcion }}</option>                                          
                                         </select>
                                         <div class="invalid-feedback">
@@ -40,9 +40,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="idTipoBase" class="col-sm-3 col-form-label">Base</label>
+                                    <label for="tipoBase" class="col-sm-3 col-form-label">Base</label>
                                     <div class="col-sm-9">
-                                        <select formControlName="idTipoBase" name="idTipoBase" id="tipoBase" [class.is-invalid]="idTipoBase.invalid && idTipoBase.touched" class="form-control" required>
+                                        <select formControlName="base" name="tipoBase" id="tipoBase" [class.is-invalid]="base.invalid && base.touched" class="form-control" required>
                                             <option *ngFor="let base of tiposBases" value="{{ base.idtipobase }}">{{ base.descripcion }}</option>
                                           <!-- <option value="2">Barro</option>
                                           <option value="3">Cristal</option> -->
@@ -56,7 +56,7 @@
                                 <div class="form-group row">
                                     <label for="especies" class="col-sm-3 col-form-label">Especie(s)</label>
                                     <div class="col-sm-9">
-                                        <select formControlName="especiesProducto" name="especiesProducto" id="especies" multiple [class.is-invalid]="especies.invalid && especies.touched" class="form-control" required>
+                                        <select formControlName="especies" name="especies" id="especies" multiple [class.is-invalid]="especies.invalid && especies.touched" class="form-control" required>
                                             <option *ngFor="let especie of listaEspecies" value="{{ especie.idespecie }}">{{ especie.descripcion_especie }}</option>
                                           <!-- <option value="2">Especie 2</option>
                                           <option value="3">Especie 3</option> -->
@@ -85,40 +85,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="tiempoSol" class="col-sm-3 col-form-label">Tiempo de sol</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" [class.is-invalid]="tiempoSol.invalid && tiempoSol.touched" formControlName="tiempoSol" name="tiempoSol" id="tiempoSol" class="form-control" placeholder="Tiempo de sol" required>
-                                        <div class="invalid-feedback">
-                                            Este campo es obligatorio
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="frecuenciaRiego" class="col-sm-3 col-form-label">Frecuencia de riego</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" [class.is-invalid]="frecuenciaRiego.invalid && frecuenciaRiego.touched" formControlName="frecuenciaRiego" name="frecuenciaRiego" id="frecuenciaRiego" class="form-control" placeholder="Frecuencia de riego" required>
-                                        <div class="invalid-feedback">
-                                            Este campo es obligatorio
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="tamanio" class="col-sm-3 col-form-label">Tamaño</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" [class.is-invalid]="tamanio.invalid && tamanio.touched" formControlName="tamanio" name="tamanio" id="tamanio" class="form-control" placeholder="Nombre del producto" required>
-                                        <div class="invalid-feedback">
-                                            Este campo es obligatorio
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="form-group">
-                                    <label for="informacionAdicional" class="col-sm-3 col-form-label">Descripción</label>
-                                    <textarea formControlName="informacionAdicional" id="informacionAdicional" name="informacionAdicional" [class.is-invalid]="informacionAdicional.invalid && informacionAdicional.touched" class="form-control" placeholder="Descripción del producto" cols="30"
-                                        rows="5" required></textarea>
+                                    <textarea formControlName="descripcion" name="descripcion" [class.is-invalid]="descripcion.invalid && descripcion.touched" class="form-control" placeholder="Descripción del producto" cols="30" rows="5" required></textarea>
                                     <div class="invalid-feedback">
                                         Este campo es obligatorio
                                     </div>
@@ -136,7 +104,7 @@
                                           <i class="fas fa-sync"></i> Cambiar imagen
                                         </button>
                                         <img [src]=" imgPortada || '../../../assets/img/tarjeta1.jpg'" class="img-thumbnail mb-2 imagen-producto">
-                                        <input class="d-none" type="file" #inputFotoPortada accept=".jpg,.jpeg,.png" name="portada" id="fotoPortadaProducto" (change)="previewPortada($event.target)">
+                                        <input class="d-none" type="file" #inputFotoPortada accept=".jpg,.jpeg,.png" name="fotoPortadaProducto" id="fotoPortadaProducto" (change)="previewPortada($event.target)">
                                     </div>
                                 </div>
                             </div>
@@ -161,10 +129,6 @@
                                             <app-foto-mod-producto *ngIf="img" [imagen]="img" (delete)="deleteImageByName($event)"></app-foto-mod-producto>
                                         </div>
 
-                                        <div *ngFor="let img of imgsActuales" class="col-12 col-md-6 mb-2">
-                                            <app-foto-mod-producto *ngIf="img" [imagen]="img" (delete)="deleteImageByName($event)"></app-foto-mod-producto>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -175,8 +139,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="mostrarValores()">Guardar Cambios</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="resetForm()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="mostrarValores()">Guardar Cambios</button>
             </div>
         </div>
     </div>
