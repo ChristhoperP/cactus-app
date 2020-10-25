@@ -48,15 +48,14 @@
     padding-left: 75px;
     margin-top: 40px;
     margin-bottom: 10px;
-    color: black;
+    color: #3e7b7e;
 }
 
 .texto2 {
     font-size: 140%;
-    padding-left: 38px;
-    color: black;
+    padding-left: 35px;
+    color: #3e7b7e;
     width: bold;
-    background: rgba(75, 192, 192, 0.1);
 }
 
 .cerrar-sesion {
@@ -89,12 +88,12 @@
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
-    background-image: url("../../../../assets/img/fondo1.jpg");
-    /*filter: blur(6px);*/
+    background-image: url("../../../../assets/img/fondo2.jpg");
 }
 
-.list-group-item-action {
-    background: rgba(75, 192, 192, 0.1);
+#sidebar-wrapper:hover {
+    box-shadow: 3px -13px 17px 3px #888;
+    border: none;
 }
 
 .list-group-item-action:hover {
@@ -105,6 +104,11 @@
 #sidebar-wrapper .sidebar-heading {
     padding: 0.875rem 1.25rem;
     font-size: 1.2rem;
+}
+
+.list-group-item-action {
+    background: rgba(75, 192, 192, 0.1);
+    color: black !important;
 }
 
 #sidebar-wrapper .list-group {
