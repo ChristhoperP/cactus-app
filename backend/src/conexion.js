@@ -7,9 +7,9 @@ module.exports = {
     pool: new Pool({
         host: 'localhost',
         user: 'postgres',
-        password: 'postgres',
+        password: '123',
         database: 'cactus',
-        port: 5432
+        port: 5434
 
     })
 }
