@@ -34,9 +34,8 @@ export class PerfilComponent implements OnInit {
       this.imagen = data.imagenperfil;
       this.nombreUsuario = data.nombre;
       this.telefono = data.telefono;
-      console.log(data)
+      //console.log(data);
     });
-
   }
 
   fileChangeEvent(fileImput: any) {

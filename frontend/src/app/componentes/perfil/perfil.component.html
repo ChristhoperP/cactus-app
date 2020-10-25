@@ -45,9 +45,7 @@
                                     {{nombreUsuario}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-
-                                    <button type="button" class="btn btn-outline-success">Editar</button>
-
+                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setName(nombreUsuario)">Editar</button>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -58,7 +56,7 @@
                                     *************
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-outline-success">Editar</button>
+                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setPassword()">Editar</button>
                                 </div>
                             </div>
 
@@ -81,13 +79,13 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-4">
-                                    <h6 class="mb-0 pl-4">Número de Télefono:</h6>
+                                    <h6 class="mb-0 pl-4">Número de Teléfono:</h6>
                                 </div>
                                 <div class="col-sm-4 text-secondary">
                                     {{telefono}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-outline-success">Editar</button>
+                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setPhone(telefono)">{{!(telefono) ? 'Editar' : 'Agregar'}}</button>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -98,7 +96,7 @@
                                     {{direccion}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-outline-success">Editar</button>
+                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setAddress(direccion)">{{!(direccion)? 'Editar' : 'Agregar'}}</button>
                                 </div>
                             </div>
 
@@ -111,3 +109,5 @@
         </div>
     </div>
 </body>
+
+<app-actualizar-usuario #modalModificar [nombre]='nombreUsuario' [correo]='correo' [numTel]='telefono' [dir]='direccion'></app-actualizar-usuario>
