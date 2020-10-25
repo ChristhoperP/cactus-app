@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <form [formGroup]="formularioEspecie">
-                      <button type="button"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px" (click)="agregarEspecie()"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
+                      <button type="button" [disabled]="formularioEspecie.invalid"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px" (click)="agregarEspecie()"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
                       <input type="text" class="form-control form-control-sm mb-1" formControlName="especie" [class.is-invalid]="validationEspecie('especie')" placeholder="Nombre de la nueva especie" id="validationServer08"  required>
                       <select class="custom-select custom-select-sm" formControlName="genero" [class.is-invalid]="validationEspecie('genero')">
                         <option  disabled active value="" >Seleccione el género</option>  

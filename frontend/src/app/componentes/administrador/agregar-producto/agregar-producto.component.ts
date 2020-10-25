@@ -116,6 +116,7 @@ formularioEspecie:FormGroup = new FormGroup({
       .subscribe(res => {
         console.log("se registró una nueva especie");
         console.log(res.message);
+        this.alertEspecieAgregada();
         this.formularioEspecie.reset();
       },
       err => {
@@ -256,6 +257,13 @@ formularioEspecie:FormGroup = new FormGroup({
     Swal.fire({
       icon: 'success',
       title: 'Producto agregado exitosamente',
+    });
+  }
+
+  alertEspecieAgregada(): void {
+    Swal.fire({
+      icon: 'success',
+      text: 'Especie agregada exitosamente',
     });
   }
 
