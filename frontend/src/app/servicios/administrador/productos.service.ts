@@ -30,6 +30,7 @@ export class ProductosService {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   getProductInfo( idproducto: any): any {
 
     const params = new HttpParams().set('idproducto', idproducto.toString());
@@ -45,6 +46,16 @@ export class ProductosService {
   getProductInfo( idproducto: any): any {
 
     const params = new HttpParams().set('idproducto', idproducto.toString());
+=======
+
+  getGeneros(){
+    return this._http.get(this.url + 'generos', {headers: this.headers});
+  }
+
+  getProductInfo( idproducto: any): any {
+
+    const params = new HttpParams().set('idproducto', idproducto.toString());
+>>>>>>> parent of a53ddec... Revert "Merge branch 'master' into BR"
 
     return this._http.get(this.url + 'productoporid', {headers: this.headers, params});
     // return this._http.get<any[]>(this.url + `productos/${idproducto}`);
@@ -76,6 +87,28 @@ export class ProductosService {
 
   }
 
+<<<<<<< HEAD
+=======
+  getProductos(){
+    return this._http.get(this.url + 'productos', {headers: this.headers});
+  }
+
+  agregarProducto(producto){
+    let params = JSON.stringify(producto);
+
+    return this._http.post<any>(this.url + "registro-producto", producto);
+
+  }
+
+  agregarEspecie(especie){
+    
+    let params = JSON.stringify(especie);
+
+    return this._http.post<any>(this.url + "registrarEspecie", params, {headers:this.headers});
+
+  }
+
+>>>>>>> parent of a53ddec... Revert "Merge branch 'master' into BR"
 
   
 
