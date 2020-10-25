@@ -4,9 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
-import { ImageCropperModule } from 'ngx-image-cropper';
-import { ImageToDataUrlModule } from "ngx-image2dataurl";
-import { FilterPipeModule } from 'ngx-filter-pipe';
+
 //Graficos
 import { ChartsModule } from 'ng2-charts';
 
@@ -87,10 +85,7 @@ import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/act
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ChartsModule,
-    ImageCropperModule,
-    ImageToDataUrlModule,
-    FilterPipeModule
+    ChartsModule
   ],
   providers: [
     appRoutingProviders,
