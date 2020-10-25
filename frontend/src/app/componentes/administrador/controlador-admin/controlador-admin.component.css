@@ -48,15 +48,15 @@
     padding-left: 75px;
     margin-top: 40px;
     margin-bottom: 10px;
-    color: white;
+    color: black;
 }
 
 .texto2 {
     font-size: 140%;
-    padding-left: 35px;
-    color: white;
+    padding-left: 38px;
+    color: black;
     width: bold;
-    background: rgba(75, 192, 192, 0.4);
+    background: rgba(75, 192, 192, 0.1);
 }
 
 .cerrar-sesion {
@@ -89,11 +89,12 @@
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
-    background-image: url("../../../../assets/img/3108.jpg");
+    background-image: url("../../../../assets/img/fondo1.jpg");
+    /*filter: blur(6px);*/
 }
 
 .list-group-item-action {
-    background: rgba(75, 192, 192, 0.7);
+    background: rgba(75, 192, 192, 0.1);
 }
 
 .list-group-item-action:hover {
