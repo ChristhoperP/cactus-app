@@ -29,12 +29,26 @@ export class ProductosService {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   getProductInfo( idproducto: any): any {
 
     const params = new HttpParams().set('idproducto', idproducto.toString());
 =======
   getGeneros(){
     return this._http.get(this.url + 'generos', {headers: this.headers});
+=======
+
+  getGeneros(){
+    return this._http.get(this.url + 'generos', {headers: this.headers});
+  }
+
+  getProductInfo( idproducto: any): any {
+
+    const params = new HttpParams().set('idproducto', idproducto.toString());
+
+    return this._http.get(this.url + 'productoporid', {headers: this.headers, params});
+    // return this._http.get<any[]>(this.url + `productos/${idproducto}`);
+>>>>>>> parent of a53ddec... Revert "Merge branch 'master' into BR"
   }
 
   getProductInfo( productId: number) {
@@ -42,4 +56,30 @@ export class ProductosService {
 >>>>>>> parent of 216373b... Merge pull request #85 from ChristhoperP/BR
     return this._http.get(this.url + 'productoporid', {headers: this.headers, params});
   }
+
+  getProductos(){
+    return this._http.get(this.url + 'productos', {headers: this.headers});
+  }
+
+  agregarProducto(producto){
+    let params = JSON.stringify(producto);
+
+    return this._http.post<any>(this.url + "registro-producto", producto);
+
+  }
+
+  agregarEspecie(especie){
+    
+    let params = JSON.stringify(especie);
+
+    return this._http.post<any>(this.url + "registrarEspecie", params, {headers:this.headers});
+
+  }
+
+
+  
+
+
 }
+
+
