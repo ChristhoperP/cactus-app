@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef, Output, EventEmitter  } from '@angular/core';
 import { ProductosService } from '../../../servicios/administrador/productos.service';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Options, ImageResult } from "ngx-image2dataurl";
@@ -13,6 +13,13 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
+  @Output() evento = new EventEmitter<Producto>();
+  newElement:Producto;
+
+  @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
+  modalProducto;
+  showModalAgregarProducto: boolean = false;
+
 categorias:any = [];
 especies:any = [];
 tipoBases:any = [];
@@ -108,8 +115,8 @@ formularioEspecie:FormGroup = new FormGroup({
       this._productoService.agregarEspecie(nuevaEspecie)
       .subscribe(res => {
         console.log("se registró una nueva especie");
-        console.log(res);
-        // this.especies=res;
+        console.log(res.message);
+        this.formularioEspecie.reset();
       },
       err => {
         console.log(err);
@@ -155,6 +162,11 @@ formularioEspecie:FormGroup = new FormGroup({
       .subscribe(res => {
         console.log("se registró un nuevo producto");
         console.log(res);
+        this.alertProductoAgregado();
+
+        this.closeAddExpenseModal.nativeElement.click();
+        this.showModalAgregarProducto=false;
+        this.formularioProducto.reset();
       },
       err => {
         console.log(err);
@@ -240,4 +252,16 @@ formularioEspecie:FormGroup = new FormGroup({
     });
   }
 
+  alertProductoAgregado(): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Producto agregado exitosamente',
+    });
+  }
+
+}
+
+interface Producto {
+  tipo: string,
+ 
 }

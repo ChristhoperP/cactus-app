@@ -1,9 +1,9 @@
-<div #modalClase1 class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModal" aria-hidden="true">
+<div #modalClase1 [class.show]="showModalAgregarProducto" class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModal" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Agregar producto</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" #closeAddExpenseModal class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
