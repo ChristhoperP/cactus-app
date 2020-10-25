@@ -43,7 +43,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="validationServer04">Tipo de base</label>
                         <select class="custom-select custom-select-sm" formControlName="base" [class.is-invalid]="validation('base')" >
-                            <option active disable value="">Seleccionar...</option>  
+                            <option disabled active value="">Seleccionar...</option>  
                             <option *ngFor="let base of tipoBases" value="{{base.idtipobase}}">{{base.descripcion}}</option>
                           </select>
                           <div class="invalid-feedback">
@@ -53,7 +53,7 @@
                       <div class="col-md-6 mb-3">
                         <label for="validationServer05">Categoría</label>
                         <select class="custom-select custom-select-sm" formControlName="categoria" [class.is-invalid]="validation('categoria')">
-                          <option active disable value="">Seleccionar...</option>  
+                          <option disabled active value="">Seleccionar...</option>  
                           <option *ngFor="let categoria of categorias" value="{{categoria.idcategoria}}">{{categoria.descripcion}}</option>
                         </select>
                         <div class="invalid-feedback">
@@ -74,11 +74,11 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <form [formGroup]="formularioEspecie">
-                      <button type="button"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
+                      <button type="button"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px" (click)="agregarEspecie()"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
                       <input type="text" class="form-control form-control-sm mb-1" formControlName="especie" [class.is-invalid]="validationEspecie('especie')" placeholder="Nombre de la nueva especie" id="validationServer08"  required>
                       <select class="custom-select custom-select-sm" formControlName="genero" [class.is-invalid]="validationEspecie('genero')">
-                        <option active disable value="" >Seleccione el género</option>  
-                        <option *ngFor="let categoria of categorias" value="{{categoria.idcategoria}}">{{categoria.descripcion}}</option>
+                        <option  disabled active value="" >Seleccione el género</option>  
+                        <option *ngFor="let genero of generos" value="{{genero.idgenero}}">{{genero.descripcion_genero}}</option>
                       </select>
                       <div class="invalid-feedback">
                         Debe seleccionar un género
@@ -90,12 +90,12 @@
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
                       <label for="validationServer09">Tiempo de sol</label>
-                      <input type="text" class="form-control form-control-sm" formControlName="tiempoSol" id="validationServer09"  required>
+                      <input type="text" class="form-control form-control-sm" formControlName="tiempoSol" id="validationServer09"  >
                       
                     </div>
                     <div class="col-md-4 mb-3">
                       <label for="validationServer10">Frecuencia de riego</label>
-                      <input type="text" class="form-control form-control-sm" formControlName="riego" id="validationServer10"  required>
+                      <input type="text" class="form-control form-control-sm" formControlName="riego" id="validationServer10"  >
                       
                     </div>
                     <div class="col-md-4 mb-3">
@@ -119,40 +119,45 @@
                 </div>
                 <div class="form-row">
                   <div class="ui cards centered ">
-                    <label class="btn card ml-auto mr-auto w-50" (click)="inputPortada.click()" for="validationServer12">
-                      <h4 style="color: cadetblue;" >Añadir portada</h4>
+                    <label class="btn card ml-auto mr-auto w-50" for="validationServer12">
                       <div class="image">
-                        <img class=" w-100" src="../../../../assets/img/administrador/portada_icon.png" style="opacity: 35%;" >
+                          <img class="w-100 img-fluid" [src]="portada" alt="portada">
                       </div>
                     </label>
                   </div>
 
                   <input
                   type="file"
-                  accept=".jpg,.jpeg,.png"
+                  accept=".jpg,.jpeg,.png,.gif"
                   class="custom-file-input"
                   id="validationServer12"
-                  name="img"
+                  name="validationServer12"
                   multiple
-                  (imageSelected)="selected($event, 'portada')"
+                  (imageSelected)="selected($event,'portada')"
+                  [imageToDataUrl]="options"
                   class="d-none"
                   #inputPortada
                   >
                 </div>
 
                 <div class="form-row">
-                  <button type="button" class="btn btn-sm btn-info mb-2" (click)="inputMultiple.click()" style="border-radius: 15px;"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Añadir más</button>
-                           
+                  <button type="button" class="btn btn-sm btn-info mb-2" (click)="inputGaleria.click()" style="border-radius: 15px;"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Añadir más</button>
+                  <div class="form-row">
+                    <div class=" card col-4" *ngFor="let item of galeria">
+                      <img class="w-100" [src]="item.resized && item.resized.dataURL || item.dataURL">
+                    </div>
+                  </div>         
                   <input
                   type="file"
-                  accept=".jpg,.jpeg,.png"
+                  accept=".jpg,.jpeg,.png,.gif"
                   class="custom-file-input"
                   id="validationServer13"
-                  name="img"
+                  name="validationServer13"
                   multiple
-                  (imageSelected)="selected($event, 'multiplesFotos')"
+                  (imageSelected)="selected($event,'galeria')"
+                  [imageToDataUrl]="options"
                   class="d-none"
-                  #inputMultiple
+                  #inputGaleria
                   >
                 </div>
                 <div class="form-row">
@@ -161,12 +166,11 @@
 
               </div>
             </div>
-            <!-- <button class="btn btn-primary" type="submit">Agregar</button> -->
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-agregar">Agregar producto</button>
+          <button type="submit" [disabled]="formularioProducto.invalid" class="btn btn-agregar" (click)="agregarProducto()">Agregar producto</button>
         </div>
       </div>
     </div>

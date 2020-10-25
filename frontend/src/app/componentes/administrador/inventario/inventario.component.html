@@ -24,10 +24,7 @@
                         </button>
                                 <div class="dropdown-menu dropdown-menu-left p-0">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                        </div>
+                                        <input type="text" class="form-control" [(ngModel)]="productosFilterByName.nombre" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
                                     </div>
                                 </div>
                             </div>
@@ -39,11 +36,10 @@
                           <i class="fa fa-filter"  aria-hidden="true" style="font-size: 95%;"></i>
                         </button>
                                 <div class="dropdown-menu p-0">
-                                    <select class="custom-select" size="3">
-                            <option value="1">Injerto</option>
-                            <option value="2">Terrario colgante</option>
-                            <option value="3">Mini terrario</option>
-                          </select>
+                                    <select class="custom-select" size="3" #c (change)="filtrarProductoCategoria(c.value)">
+                                        <option value="mostrarTodo">Mostrar todo</option> 
+                                        <option *ngFor="let categoria of categorias"  [value]="categoria.descripcion">{{categoria.descripcion}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </th>
@@ -53,49 +49,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    
+                    <tr *ngFor="let producto of productosInventario | filterBy: productosFilterByName">
                         <td>
                             <div class="form-check">
                                 <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
                             </div>
                         </td>
-                        <th scope="row">1</th>
+                        <th scope="row">{{producto.idproducto}}</th>
                         <td>
                             <div class="imagen-producto ml-auto mr-auto">
-                                <img src="assets/img/productos/injerto.jpg" alt="injerto">
+                                <img src="{{url+'get-image/'+producto.urlportada}}" alt="{{producto.nombre}}">
                             </div>
                         </td>
-                        <td>Injerto</td>
+                        <td>{{producto.nombre}}</td>
                         <td><button class="btn btn-link">Ver más</button></td>
-                        <td>Maceteras de vidrio</td>
-                        <td class="text-center">1</td>
-                        <td>L 250</td>
+                        <td>{{producto.categoria}}</td>
+                        <td class="text-center">{{producto.cantidad}}</td>
+                        <td>L {{producto.precio}}</td>
                         <td>
                             <button class="btn btn-sm" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="(productos | filterBy: productosFilterByName || productos | filterBy: productosFilterByName).length === 0">
                         <td>
-                            <div class="form-check">
-                                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
-                            </div>
-                        </td>
-                        <th scope="row">2</th>
-                        <td>
-                            <div class="imagen-producto ml-auto mr-auto">
-                                <img src="assets/img/productos/injerto.jpg" alt="injerto">
-                            </div>
-                        </td>
-                        <td>Injerto</td>
-                        <td><button class="btn btn-link">Ver más</button></td>
-                        <td>Maceteras de vidrio</td>
-                        <td>1</td>
-                        <td>L 250</td>
-                        <td>
-                            <button class="btn btn-sm" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
+                            No hay resultados
                         </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
