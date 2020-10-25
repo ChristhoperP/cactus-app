@@ -334,7 +334,7 @@ BEGIN
 		   
 		 
          SELECT max(idproducto) INTO vnIdProducto FROM producto;  /* Se obtiene el ID de Producto para insertar en tablas has*/
-         SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
+        
        
          /* Se hace Insert en producto_has_especie */
          INSERT INTO producto_has_especie(
@@ -357,6 +357,8 @@ BEGIN
                 (URL)
                 VALUES
                 (p_imagengaleria1);
+				
+				 SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
 
                 INSERT INTO producto_has_imagenproducto
                 (
@@ -371,7 +373,7 @@ BEGIN
             END IF;
 
             SELECT max(idproducto) INTO vnIdProducto2 FROM producto;  /* Se obtiene el ID de Producto para insertar en tablas has*/
-            SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO2 FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
+            
 
             IF p_imagengaleria2 != '' THEN
 
@@ -379,6 +381,8 @@ BEGIN
                 (URL)
                 VALUES
                 (p_imagengaleria2);
+				
+				SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO2 FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
 
                 INSERT INTO producto_has_imagenproducto
                 (
@@ -393,7 +397,7 @@ BEGIN
             END IF;
 
             SELECT max(idproducto) INTO vnIdProducto3 FROM producto;  /* Se obtiene el ID de Producto para insertar en tablas has*/
-            SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO3 FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
+            
 
             IF p_imagengaleria3 != '' THEN
 
@@ -401,6 +405,8 @@ BEGIN
                 (URL)
                 VALUES
                 (p_imagengaleria3);
+				
+				SELECT max(idIMAGENPRODUCTO) INTO vnidIMAGENPRODUCTO3 FROM IMAGENPRODUCTO;  /* Se obtiene el ID de imagen para insertar en tablas has*/
 
                 INSERT INTO producto_has_imagenproducto
                 (
@@ -420,7 +426,7 @@ BEGIN
 		   RETURN;
 		ELSE 
 		   p_ocurrioError := 1;
-           p_mensaje:= 'Error: Ya existe un producto registrado con este nombre';
+           p_mensaje:= 'Error: Ya existe un producto registrado con este id';
 		   RETURN;
 	    END IF;   	
 	END IF;	
