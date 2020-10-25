@@ -225,12 +225,13 @@ var controller = {
             && frecuenciariego != null && tamanio != null && categoria != null && especie != null) {
 
             try {
-                console.log('correcto hasta aqui');
+                
                 console.log(req.body);
                 const response = await pool.query(
                     'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);', [nombre, parseInt(categoria), parseInt(tipobase), parseInt(especie), parseInt(cantidad), parseFloat(precio), tiemposol, frecuenciariego, tamanio, informacionadicional, portada[0].filename, galeria[0].filename,galeria[1].filename,galeria[2].filename]
                 );
-                var respuesta = response.rows[0].sp_agregar_producto_prueba;
+                console.log('se ha registrado exitosamente');
+                var respuesta = response.rows[0].sp_agregar_producto;
                 var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
                 var arregloRes = respuesta1.split(',');
                 var ocurrioError = arregloRes[0];
