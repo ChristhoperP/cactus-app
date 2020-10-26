@@ -241,7 +241,8 @@ var controller = {
                 return res.status(200).send({
                     message: mensaje,
                     files: req.files,
-                    body: req.body
+                    body: req.body,
+                    idProducto: idProducto
                 });
 
             } catch (err) {
@@ -256,6 +257,7 @@ var controller = {
             })
         }
     },
+
     eliminarProducto: async function(req, res) {
         var {idproducto} = req.body;
         
