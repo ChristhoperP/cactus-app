@@ -14,9 +14,12 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
 })
 export class AgregarProductoComponent implements OnInit {
   @Output() 
-  producto = new EventEmitter<Object>();
+  nuevoProducto = new EventEmitter<Object>();
 
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
+  @ViewChild('myInputPortada') imgPortada: ElementRef;
+  @ViewChild('inputGaleria') inputGaleria: ElementRef;
+
   modalProducto;
   showModalAgregarProducto: boolean = false;
 
@@ -135,10 +138,8 @@ formularioEspecie:FormGroup = new FormGroup({
         this.formularioProducto.get("especies").valid &&
         this.formularioProducto.get("tamanio").valid 
     ) {
-          let portada =  this.images[0];
-          let galeria = this.galeria
-
-
+        let portada =  this.images[this.images.length -1];
+          
         let producto = new FormData();
         if (this.galeria.length > 0){
           for (const file of  this.galeria) {
@@ -163,12 +164,30 @@ formularioEspecie:FormGroup = new FormGroup({
       this._productoService.agregarProducto(producto)
       .subscribe(res => {
         console.log("se registró un nuevo producto");
-        console.log(res);
-        this.alertProductoAgregado();
         
-        this.producto.emit(this.productoAgregado);
+          var nuevoProducto = {
+            "cantidad": res.body.cantidad,
+            "categoria": res.body.categoria,
+            "especie": res.body.especie,
+            "idproducto": res.idProducto,
+            "informacionadicional": res.body.informacionadicional,
+            "nombre": res.body.nombre,
+            "precio": res.body.precio,
+            "urlportada": res.files.portada[0].filename
+          }
+
+        this.alertProductoAgregado();
+
+        this.nuevoProducto.emit(nuevoProducto);
         this.closeAddExpenseModal.nativeElement.click();
+        this.imgPortada.nativeElement.value = "";
+        this.inputGaleria.nativeElement.value = "";
         this.showModalAgregarProducto=false;
+        this.portada= this.firstImage;
+        this.images=[];
+        this.galeria=[];
+        console.log(this.galeria);
+        
         this.formularioProducto.reset();
       },
       err => {
@@ -208,14 +227,13 @@ formularioEspecie:FormGroup = new FormGroup({
 
         case 'galeria':
                    
-                    if (this.cantImgs> this.imgLimit){
+                    if (this.galeria.length> this.imgLimit){
                       this.fileAmountAlert();
                     } else {
                         if (imageResult.error){
                           this.fileTypeAlert();
                         } else {
                             this.galeria.push(imageResult);
-                            this.cantImgs++;
                             console.log(this.galeria);
                         }
                     }
@@ -267,6 +285,11 @@ formularioEspecie:FormGroup = new FormGroup({
       icon: 'success',
       text: 'Especie agregada exitosamente',
     });
+  }
+
+  limpiarFileInput(){
+    this.imgPortada.nativeElement.value = " ";
+
   }
 
 }

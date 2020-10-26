@@ -23,6 +23,7 @@ filtrados=[];
 
   constructor(private _productoService: ProductosService, private filter: FilterPipe) {
     this.url = Global.url;    
+    this.productos;
    }
 
   ngOnInit(): void {
@@ -103,4 +104,10 @@ filtrados=[];
     
     return this.productosInventario;
   }
+
+  recibeNuevoProducto(producto){
+    console.log(producto);
+    this.productos.push(producto);
+  }
+
 }
