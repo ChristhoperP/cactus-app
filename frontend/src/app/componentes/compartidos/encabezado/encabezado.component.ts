@@ -16,10 +16,15 @@ export class EncabezadoComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.getInfoUsuario().subscribe((data: any) => {
-      this.nombreUsuario = data.nombre;
-       console.log(data)
-    });
+
+if (this.authService.loggedIn()==true){
+  this.authService.getInfoUsuario().subscribe((data: any) => {
+    this.nombreUsuario = data.nombre;
+     console.log(data)
+  });
+}
+
+    
   }
 
 }
