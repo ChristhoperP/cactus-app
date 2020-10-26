@@ -13,8 +13,8 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
-  @Output() evento = new EventEmitter<Producto>();
-  newElement:Producto;
+  @Output() 
+  producto = new EventEmitter<Object>();
 
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
   modalProducto;
@@ -24,7 +24,7 @@ categorias:any = [];
 especies:any = [];
 tipoBases:any = [];
 generos:any= [];
-productos1:any=[];
+productoAgregado:any;
 
 
 imageChangedEvent: any = '';
@@ -74,6 +74,7 @@ formularioEspecie:FormGroup = new FormGroup({
 
 
   constructor( private _productoService: ProductosService) {
+    this.especies;
    }
 
   ngOnInit(): void {
@@ -115,7 +116,7 @@ formularioEspecie:FormGroup = new FormGroup({
       this._productoService.agregarEspecie(nuevaEspecie)
       .subscribe(res => {
         console.log("se registró una nueva especie");
-        console.log(res.message);
+        console.log(res);
         this.alertEspecieAgregada();
         this.formularioEspecie.reset();
       },
@@ -164,7 +165,8 @@ formularioEspecie:FormGroup = new FormGroup({
         console.log("se registró un nuevo producto");
         console.log(res);
         this.alertProductoAgregado();
-
+        
+        this.producto.emit(this.productoAgregado);
         this.closeAddExpenseModal.nativeElement.click();
         this.showModalAgregarProducto=false;
         this.formularioProducto.reset();
@@ -267,9 +269,4 @@ formularioEspecie:FormGroup = new FormGroup({
     });
   }
 
-}
-
-interface Producto {
-  tipo: string,
- 
 }
