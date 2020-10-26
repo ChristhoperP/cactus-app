@@ -40,7 +40,8 @@ var controller = {
                 return res.status(200).send({
                     token: services.createToken(idEspecie),
                     nombre: nombreEspecie,
-                    message: mensaje
+                    message: mensaje,
+                    idespecie: idEspecie
                 });
             } else {
                 return res.status(500).send({
