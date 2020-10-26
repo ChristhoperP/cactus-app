@@ -102,7 +102,7 @@ formularioEspecie:FormGroup = new FormGroup({
     this._productoService.getGeneros ()
     .subscribe((res:any)=> {
         this.generos = res;
-        console.log(this.generos);
+        // console.log(this.generos);
         
     } );
 
@@ -120,6 +120,13 @@ formularioEspecie:FormGroup = new FormGroup({
       .subscribe(res => {
         console.log("se registró una nueva especie");
         console.log(res);
+        
+        var especieAgregada = {
+          "idespecie": res.idespecie,
+          "descripcion_especie": this.formularioEspecie.get("especie").value
+        }
+        this.especies.push(especieAgregada);
+
         this.alertEspecieAgregada();
         this.formularioEspecie.reset();
       },
