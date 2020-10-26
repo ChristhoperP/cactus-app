@@ -83,4 +83,4 @@
 </div>
 
 <app-modificar-producto #updateModal></app-modificar-producto>
-<app-agregar-producto></app-agregar-producto>
+<app-agregar-producto (nuevoProducto)="recibeNuevoProducto($event)"></app-agregar-producto>

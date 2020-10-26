@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <form [formGroup]="formularioEspecie">
-                      <button type="button"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px" (click)="agregarEspecie()"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
+                      <button type="button" [disabled]="formularioEspecie.invalid"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px" (click)="agregarEspecie()"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
                       <input type="text" class="form-control form-control-sm mb-1" formControlName="especie" [class.is-invalid]="validationEspecie('especie')" placeholder="Nombre de la nueva especie" id="validationServer08"  required>
                       <select class="custom-select custom-select-sm" formControlName="genero" [class.is-invalid]="validationEspecie('genero')">
                         <option  disabled active value="" >Seleccione el género</option>  
@@ -134,7 +134,7 @@
                   (imageSelected)="selected($event,'portada')"
                   [imageToDataUrl]="options"
                   class="d-none"
-                  #inputPortada
+                  #myInputPortada
                   >
                 </div>
 
@@ -168,8 +168,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" [disabled]="formularioProducto.invalid" class="btn btn-agregar" (click)="agregarProducto()">Agregar producto</button>
+          <button type="submit" [disabled]="formularioProducto.invalid"  class="btn btn-agregar" (click)="agregarProducto()">Agregar producto</button>
         </div>
       </div>
     </div>
   </div>
+  
