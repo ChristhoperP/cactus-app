@@ -49,7 +49,7 @@ BEGIN
            p_ocurrioError := 0;
            p_mensaje:= 'Se ha registrado el usuario';
 		   
-         SELECT idusuario INTO p_id
+       SELECT idusuario INTO p_id
 		   FROM usuario
 		   WHERE correo =  p_correo;
 
@@ -326,12 +326,7 @@ BEGIN
            p_ocurrioError := 0;
            p_mensaje:= 'Se ha registrado el producto';
         
-		   
-         SELECT idproducto INTO p_id
-		   FROM producto        /* Se recupera el ID de Producto para mandarlo como respuesta*/
-		   WHERE nombre=p_nombreproducto;
-         
-		   
+
 		 
          SELECT max(idproducto) INTO vnIdProducto FROM producto;  /* Se obtiene el ID de Producto para insertar en tablas has*/
         
@@ -422,6 +417,9 @@ BEGIN
 
         
          
+         SELECT max(idproducto) INTO p_id
+		   FROM producto;     /* Se recupera el ID de Producto para mandarlo como respuesta*/
+		  
 
 		   RETURN;
 		ELSE 
@@ -433,6 +431,8 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+/* MODIFICAR PRODUCTO */
 
 CREATE OR REPLACE FUNCTION sp_modificar_producto(
 	p_idproducto INT,
