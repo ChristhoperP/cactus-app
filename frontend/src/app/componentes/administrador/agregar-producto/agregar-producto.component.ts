@@ -287,9 +287,4 @@ formularioEspecie:FormGroup = new FormGroup({
     });
   }
 
-  limpiarFileInput(){
-    this.imgPortada.nativeElement.value = " ";
-
-  }
-
 }
