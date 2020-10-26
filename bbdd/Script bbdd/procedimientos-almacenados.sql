@@ -199,7 +199,8 @@ CREATE OR REPLACE FUNCTION SP_AGREGAR_ESPECIE
    IN p_idgenero INT, 
    OUT p_ocurrioError INT,
    OUT p_mensaje VARCHAR(200),
-   OUT p_idespecie INT
+   OUT p_idespecie INT,
+   OUT p_nombreespecie VARCHAR (200)	
 )
 RETURNS RECORD AS $BODY$
 DECLARE cantidad INT;  
@@ -226,7 +227,7 @@ BEGIN
            p_ocurrioError := 0;
            p_mensaje:= 'Se ha registrado la especie';
 		
-         SELECT idespecie INTO p_idespecie
+         SELECT idespecie, descripcion  INTO p_idespecie, p_nombreespecie
 		 FROM especie
 	     WHERE UPPER(p_descripcionEspecie) = UPPER(descripcion) ;
 
