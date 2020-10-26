@@ -34,10 +34,12 @@ var controller = {
             var ocurrioError = arregloRes[0];
             var mensaje = arregloRes[1];
             var idEspecie = arregloRes[2];
+            var nombreEspecie = arregloRes[3];
 
             if (idEspecie) {
                 return res.status(200).send({
                     token: services.createToken(idEspecie),
+                    nombre: nombreEspecie,
                     message: mensaje
                 });
             } else {
