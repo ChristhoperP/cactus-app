@@ -60,6 +60,23 @@ export class PerfilComponent implements OnInit {
           //form.reset();
         });
     }
+
+  }
+
+  datoActualizado( evt: any): void {
+      switch ( evt.campo) {
+        case 'nombre':
+          this.nombreUsuario = evt.nuevoValor;
+          break;
+        case 'telefono':
+          this.telefono = evt.nuevoValor;
+          break;
+        case 'direccion':
+          this.direccion = evt.nuevoValor;
+          break;
+        default:
+          break;
+      }
   }
 
 }

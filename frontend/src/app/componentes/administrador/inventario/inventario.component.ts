@@ -4,6 +4,7 @@ import { ProductosService } from '../../../servicios/administrador/productos.ser
 import { FilterPipe } from 'ngx-filter-pipe';
 import { Global } from "../../../servicios/global";
 import { Router } from '@angular/router';
+import { PeticionesService } from 'src/app/servicios/peticiones.service';
 
 
 @Component({
@@ -25,7 +26,12 @@ productosInventario: any = [];
 categoriaSeleccionada;
 filtrados=[];
 
-  constructor(private _productoService: ProductosService, private filter: FilterPipe, private router: Router) {
+  constructor(
+    private _productoService: ProductosService,
+    private _peticionesServive: PeticionesService,
+    private filter: FilterPipe,
+    private router: Router) {
+
     this.url = Global.url;    
     this.productos;
    }
@@ -61,18 +67,45 @@ filtrados=[];
 
       if (result.isConfirmed) {
 
-        this._productoService.deleteProduct( productId )
+        this._productoService.getProductInfo( productId )
           .subscribe( res => {
+            if (res[0].galeria || res[0].portada){
+              let gallery = [];
+
+              if (res[0].galeria) {
+                gallery = res[0].galeria;
+              }
+
+              if (res[0].urlportada) {
+                gallery.push(res[0].urlportada);
+              }
+
+              for (const img of gallery) {
+                this._peticionesServive.eliminarImagenProducto(img)
+                .subscribe( res1 => {
+                  console.log(res1);
+                }, err1 => {
+                  console.log(err1);
+                });
+              }
+            }
+          }, err => {
+            console.log(err);
+          });
+
+        this._productoService.deleteProduct( productId )
+          .subscribe( resp => {
             if (count === 1){
               Swal.fire({
               title: 'Producto eliminado!',
               icon: 'success',
               confirmButtonColor: `#50a1a5`
-            });}
+            });
+          }
             // this.router.navigate(['controlador-admin/inventario']);
             this.reloadComponent();
-          }, err => {
-            console.log(err);
+          }, err2 => {
+            console.log(err2);
           });
       }
     });
@@ -95,8 +128,37 @@ filtrados=[];
         if (result.isConfirmed) {
 
           this.idproductos.forEach( id => {
-            this._productoService.deleteProduct(id).subscribe(res => {
-              console.log(res);
+
+          this._productoService.getProductInfo( id )
+            .subscribe( res => {
+
+              if (res[0].galeria || res[0].portada){
+                let gallery = [];
+
+                if (res[0].galeria) {
+                  gallery = res[0].galeria;
+                }
+
+                if (res[0].urlportada) {
+                  gallery.push(res[0].urlportada);
+                }
+
+                for (const img of gallery) {
+                  this._peticionesServive.eliminarImagenProducto(img)
+                  .subscribe( res1 => {
+                    console.log(res1);
+                  }, err1 => {
+                    console.log(err1);
+                  });
+                }
+              }
+            }, err2 => {
+              console.log(err2);
+            });
+
+          this._productoService.deleteProduct(id)
+            .subscribe(resp => {
+              console.log(resp);
             }, err => {
               console.log(err);
             });

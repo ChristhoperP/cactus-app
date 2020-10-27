@@ -1,4 +1,4 @@
-<app-encabezado></app-encabezado>
+<app-encabezado [nombreActualizado]="nombreUsuario"></app-encabezado>
 
 <body>
     <div class="container">
@@ -22,7 +22,7 @@
                                 <img src="assets/img/usuario.png" alt="" style="width: 150px; height: 150px;" *ngIf="!imagen">
                                 <div class="file btn btn-lg btn-primary">
                                     Cambiar Foto
-                                    <input type="file" name="file" (change)="fileChangeEvent($event)"/>
+                                    <input type="file" name="file" (change)="fileChangeEvent($event)" />
                                 </div>
 
                             </div>
@@ -85,7 +85,7 @@
                                     {{telefono}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setPhone(telefono)">{{!(telefono) ? 'Editar' : 'Agregar'}}</button>
+                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setPhone(telefono)">{{telefono && (telefono.length > 1) ? 'Editar' : 'Agregar'}}</button>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -96,7 +96,7 @@
                                     {{direccion}}
                                 </div>
                                 <div class="col-sm-4 text-secondary">
-                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setAddress(direccion)">{{!(direccion)? 'Editar' : 'Agregar'}}</button>
+                                    <button type="button" class="btn btn-link btn-editar" data-toggle="modal" data-target="#updateUserModal" (click)="modalModificar.setAddress(direccion)">{{direccion && (direccion.length > 1)? 'Editar' : 'Agregar'}}</button>
                                 </div>
                             </div>
 
@@ -110,4 +110,4 @@
     </div>
 </body>
 
-<app-actualizar-usuario #modalModificar [nombre]='nombreUsuario' [correo]='correo' [numTel]='telefono' [dir]='direccion'></app-actualizar-usuario>
+<app-actualizar-usuario #modalModificar (datoActualizado)='datoActualizado($event)' [nombre]='nombreUsuario' [correo]='correo' [numTel]='telefono' [dir]='direccion'></app-actualizar-usuario>

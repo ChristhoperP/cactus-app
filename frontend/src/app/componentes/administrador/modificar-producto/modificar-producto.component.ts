@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ProductosService } from 'src/app/servicios/administrador/productos.service';
 import Swal, { SweetAlertResult } from 'sweetalert2';
 import { Router } from '@angular/router';
+import { PeticionesService } from 'src/app/servicios/peticiones.service';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class ModificarProductoComponent implements OnInit {
   imgLimit = 3;
   sizeLimit = 5242880;
   deletedImgs = new Array<number>();
+  imgsToDelet = new Array<string>();
+  urlPortada = '';
 
   categorias: any;
   tiposBases: any;
@@ -48,6 +51,7 @@ export class ModificarProductoComponent implements OnInit {
 
   constructor(
     private productService: ProductosService,
+    private peticionesService: PeticionesService,
     private router: Router
   ) { }
 
@@ -111,14 +115,10 @@ export class ModificarProductoComponent implements OnInit {
             });
 
             this.imgPortada = 'http://localhost:3000/api/get-image/' + res[0].urlportada;
-
-            const tmpImg = [];
-            for (const img of res[0].galeria) {
-              tmpImg.push(img);
-              this.cantImgs++;
-            }
+            this.urlPortada = res[0].urlportada;
 
             this.imgsActuales = res[0].galeria;
+            this.cantImgs = this.imgsActuales.length;
             this.idsImgsActuales = res[0].idimagen;
 
           }, err => {
@@ -128,7 +128,11 @@ export class ModificarProductoComponent implements OnInit {
 
   resetForm(): void {
     this.idProducto = null;
-    console.log(this.idProducto);
+    this.imgsToDelet = new Array<string>();
+    this.formularioModificarProducto.reset();
+    this.imgsActuales = new Array<string>();
+    this.idsImgsActuales = new Array<number>();
+    this.imagenes = new Array<File>();
   }
 
   deleteImage(el: HTMLImageElement): void {
@@ -152,11 +156,12 @@ export class ModificarProductoComponent implements OnInit {
       this.imagenes = nImgs;
       this.formularioModificarProducto.patchValue({gallery: this.imagenes});
     } else {
-      --this.cantImgs;
+      this.cantImgs--;
       this.deletedImgs.push(this.idsImgsActuales[this.imgsActuales.indexOf(name)]);
       this.formularioModificarProducto.patchValue({eliminadas: this.deletedImgs});
       this.deleteImageAlert();
       this.imgsActuales.splice(this.imgsActuales.indexOf(name), 1);
+      this.imgsToDelet.push(name);
     }
   }
 
@@ -183,6 +188,10 @@ export class ModificarProductoComponent implements OnInit {
         fr.onload = () => {
           this.imgPortada = fr.result;
           this.formularioModificarProducto.patchValue({portada: evt.files[0]});
+
+          if (this.imgsToDelet.indexOf(this.urlPortada) < 0){
+            this.imgsToDelet.push(this.urlPortada);
+          }
         };
       }
     }
@@ -264,12 +273,16 @@ export class ModificarProductoComponent implements OnInit {
       console.log(this.portada);
     }
 
-    for (let i = 0; i < this.imgsEliminadas.value.length; i++) {
-      producto.append('eliminadas[]', this.imgsEliminadas.value[i]);
+    if (this.imgsEliminadas.value){
+      for (const img of this.imgsEliminadas.value) {
+        producto.append('eliminadas[]', img);
+      }
     }
 
-    for (let i = 0; i < this.especies.value.length; i++) {
-      producto.append('especiesProducto[]', this.especies.value[i]);
+    if (this.especies.value){
+      for (const esp of this.especies.value) {
+        producto.append('especiesProducto[]', esp);
+      }
     }
 
     console.log(this.deletedImgs);
@@ -287,6 +300,19 @@ export class ModificarProductoComponent implements OnInit {
           icon: 'success',
           confirmButtonColor: `#50a1a5`
         });
+
+        if (this.imgsToDelet){
+          for ( const img of this.imgsToDelet ){
+            console.log(img);
+            this.peticionesService.eliminarImagenProducto(img)
+              .subscribe( resp => {
+                console.log(resp);
+              }, err => {
+                console.log(err);
+              });
+          }
+        }
+
         this.closeModal.nativeElement.click();
         this.reloadComponent();
       }, err => {
