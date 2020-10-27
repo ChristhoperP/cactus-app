@@ -313,7 +313,7 @@ BEGIN
 	     VALUES (
            p_nombreproducto,
            p_descripcion,
-	       p_imagenportada,
+          p_imagenportada,
            p_precio,
            p_cantidad,
            p_tipobase,
