@@ -471,7 +471,7 @@ BEGIN
 	    UPDATE producto
 	    SET nombre=p_nombre, 
 	    informacionadicional=p_informacionadicional, 
-	    urlportada = p_urlportada,
+	    ---urlportada = p_urlportada,
 	    precio = p_precio,
 	    cantidad = p_cantidad, 
 	    tipobase_idtipobase = p_tipobase_idtipobase ,
@@ -483,6 +483,12 @@ BEGIN
 		---Especies 
 		DELETE FROM PRODUCTO_HAS_ESPECIE
     	WHERE  producto_idproducto = p_idproducto ;
+
+		IF (p_urlportada != '') THEN
+			UPDATE producto
+	    	SET urlportada = p_urlportada
+			WHERE idproducto = p_idproducto;
+		END IF;
 		
 		
 		FOR i IN array_lower(p_especies,1).. array_upper(p_especies,1) LOOP
@@ -548,8 +554,6 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
-
-
 
 CREATE OR REPLACE FUNCTION sp_modificar_usuario(
 	IN p_idusuario INT,
