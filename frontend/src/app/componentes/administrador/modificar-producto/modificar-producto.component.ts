@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductosService } from 'src/app/servicios/administrador/productos.service';
 import Swal, { SweetAlertResult } from 'sweetalert2';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,15 +12,18 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
 })
 export class ModificarProductoComponent implements OnInit {
 
+  @ViewChild('closeModal') closeModal: ElementRef;
+
   idProducto = '';
 
   imgPortada: string | ArrayBuffer;
   imagenes = new Array<File>();
   imgsActuales = new Array<string>();
+  idsImgsActuales = new Array<number>();
   cantImgs = 0;
   imgLimit = 3;
   sizeLimit = 5242880;
-  deletedImgs = new Array<string>();
+  deletedImgs = new Array<number>();
 
   categorias: any;
   tiposBases: any;
@@ -37,13 +41,14 @@ export class ModificarProductoComponent implements OnInit {
     tamanio: new FormControl(null, Validators.required),
     idCategoria: new FormControl(null, Validators.required),
     especiesProducto: new FormControl(null, Validators.required),
-    eliminadas: new FormControl(null),
+    eliminadas: new FormControl(new Array<number>()),
     portada: new FormControl(null),
-    gallery: new FormControl(null)
+    gallery: new FormControl(new Array<File>())
   });
 
   constructor(
-    private productService: ProductosService
+    private productService: ProductosService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -82,11 +87,10 @@ export class ModificarProductoComponent implements OnInit {
   get informacionAdicional(): AbstractControl { return this.formularioModificarProducto.get('informacionAdicional'); }
   get portada(): AbstractControl { return this.formularioModificarProducto.get('portada'); }
   get fotosProducto(): [] { return this.formularioModificarProducto.get('gallery').value; }
+  get imgsEliminadas(): AbstractControl { return this.formularioModificarProducto.get('eliminadas'); }
 
   setProductInfo( productId: string ): void {
     this.idProducto = productId;
-
-    console.log(this.imgsActuales, this.imagenes);
 
     this.productService.getProductInfo( this.idProducto )
           .subscribe( res => {
@@ -99,18 +103,23 @@ export class ModificarProductoComponent implements OnInit {
               especiesProducto: [this.setEspecie(res[0].especie).toString()],
               cantidad: res[0].cantidad,
               precio: res[0].precio,
-              informacionAdicional: res[0].informacionadicional
+              informacionAdicional: res[0].informacionadicional,
+              tiempoSol: res[0].tiemposol,
+              frecuenciaRiego: res[0].frecuenciariego,
+              tamanio: res[0].tamanio// ,
+              // portada: res[0].urlportada
             });
 
             this.imgPortada = 'http://localhost:3000/api/get-image/' + res[0].urlportada;
 
             const tmpImg = [];
-            for (const img of res) {
-              tmpImg.push(img.urlimagenes);
+            for (const img of res[0].galeria) {
+              tmpImg.push(img);
               this.cantImgs++;
             }
 
-            this.imgsActuales = tmpImg;
+            this.imgsActuales = res[0].galeria;
+            this.idsImgsActuales = res[0].idimagen;
 
           }, err => {
             console.log(err);
@@ -118,12 +127,8 @@ export class ModificarProductoComponent implements OnInit {
   }
 
   resetForm(): void {
-    this.formularioModificarProducto.reset();
-    this.deletedImgs = new Array<string>();
-    this.imagenes = new Array<File>();
-    this.cantImgs = 0;
-    console.log(this.formularioModificarProducto.value);
-    console.log(this.deletedImgs, this.imagenes);
+    this.idProducto = null;
+    console.log(this.idProducto);
   }
 
   deleteImage(el: HTMLImageElement): void {
@@ -147,11 +152,20 @@ export class ModificarProductoComponent implements OnInit {
       this.imagenes = nImgs;
       this.formularioModificarProducto.patchValue({gallery: this.imagenes});
     } else {
-      this.cantImgs--;
-      this.imgsActuales.splice(this.imgsActuales.indexOf(name), 1);
-      this.deletedImgs.push(name);
+      --this.cantImgs;
+      this.deletedImgs.push(this.idsImgsActuales[this.imgsActuales.indexOf(name)]);
       this.formularioModificarProducto.patchValue({eliminadas: this.deletedImgs});
       this.deleteImageAlert();
+      this.imgsActuales.splice(this.imgsActuales.indexOf(name), 1);
+    }
+  }
+
+  findDeletedImage( name: string ): number {
+    for (let i = 0; i < this.imgsActuales.length; i++) {
+      if (this.imgsActuales[i] === name) {
+        return i;
+      }
+      return -1;
     }
   }
 
@@ -168,7 +182,7 @@ export class ModificarProductoComponent implements OnInit {
 
         fr.onload = () => {
           this.imgPortada = fr.result;
-          this.formularioModificarProducto.patchValue({fotoPortada: evt.files[0]});
+          this.formularioModificarProducto.patchValue({portada: evt.files[0]});
         };
       }
     }
@@ -206,9 +220,80 @@ export class ModificarProductoComponent implements OnInit {
   }
 
   mostrarValores(): void {
-    console.log(this.formularioModificarProducto.value);
-    console.log(this.formularioModificarProducto.valid);
+    /* const producto = {
+      idProducto: this.idProducto,
+      nombre: this.nombreProducto.value,
+      informacionAdicional: this.informacionAdicional.value,
+      precio: this.precio.value,
+      cantidad: this.cantidad.value,
+      idTipoBase: this.idTipoBase.value,
+      tiempoSol: this.tiempoSol.value,
+      frecuenciaRiego: this.frecuenciaRiego.value,
+      tamanio: this.tamanio.value,
+      idCategoria: this.idCategoria.value,
+      especiesProducto: this.especies.value,
+      eliminadas: this.imgsEliminadas.value,
+      portada: this.portada.value,
+      gallery: this.fotosProducto
+    }; */
+
+    const producto = new FormData();
+
+    producto.append('idProducto', this.idProducto);
+    producto.append('nombre', this.nombreProducto.value);
+    producto.append('informacionAdicional', this.informacionAdicional.value);
+    producto.append('precio', this.precio.value);
+    producto.append('cantidad', this.cantidad.value);
+    producto.append('idTipoBase', this.idTipoBase.value);
+    producto.append('tiempoSol', this.tiempoSol.value);
+    producto.append('frecuenciaRiego', this.frecuenciaRiego.value);
+    producto.append('tamanio', this.tamanio.value);
+    producto.append('idCategoria', this.idCategoria.value);
+    // producto.append('especiesProducto', this.especies.value);
+    // producto.append('eliminadas', this.imgsEliminadas.value);
+    // producto.append('portada', this.portada.value);
+
+    if (this.fotosProducto && this.fotosProducto.length > 0){
+      for (const img of this.fotosProducto) {
+        producto.append('gallery', img);
+      }
+    }
+
+    if (this.portada.value) {
+      producto.append('portada', this.portada.value);
+      console.log(this.portada);
+    }
+
+    for (let i = 0; i < this.imgsEliminadas.value.length; i++) {
+      producto.append('eliminadas[]', this.imgsEliminadas.value[i]);
+    }
+
+    for (let i = 0; i < this.especies.value.length; i++) {
+      producto.append('especiesProducto[]', this.especies.value[i]);
+    }
+
     console.log(this.deletedImgs);
+
+
+
+    // console.log(producto);
+    // console.log(this.formularioModificarProducto.value, this.formularioModificarProducto.valid);
+
+    this.productService.updateProduct(producto)
+      .subscribe( res => {
+        console.log(res);
+        Swal.fire({
+          title: 'Cambios guardados exitosamente!',
+          icon: 'success',
+          confirmButtonColor: `#50a1a5`
+        });
+        this.closeModal.nativeElement.click();
+        this.reloadComponent();
+      }, err => {
+        console.log(err);
+      });
+
+    // console.log(producto);
   }
 
   isValidImage( file: File ): boolean {
@@ -283,5 +368,11 @@ export class ModificarProductoComponent implements OnInit {
       icon: 'info',
       confirmButtonColor: `#50a1a5`
     });
+  }
+
+  reloadComponent(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['controlador-admin/inventario']);
   }
 }

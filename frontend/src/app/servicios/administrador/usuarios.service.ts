@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Global } from '../global';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Global } from '../global';
 export class UsuariosService {
 
   url = Global.url;
+  private headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(
     private _http: HttpClient
@@ -15,5 +16,10 @@ export class UsuariosService {
 
   getUsuariosRegistrados() {
     return this._http.get(this.url + 'obtenerUsuariosRegistrados');
+  }
+
+  updateUser( user ) {
+    const params = JSON.stringify(user);
+    return this._http.post(this.url + 'actualizarInfoUsuario', params, {headers: this.headers});
   }
 }

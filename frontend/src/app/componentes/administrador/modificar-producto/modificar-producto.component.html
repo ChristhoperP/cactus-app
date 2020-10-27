@@ -1,4 +1,4 @@
-<div #modalClase class="modal fade" id="modifyProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div *ngIf="idProducto" #modalClase class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -56,7 +56,7 @@
                                 <div class="form-group row">
                                     <label for="especies" class="col-sm-3 col-form-label">Especie(s)</label>
                                     <div class="col-sm-9">
-                                        <select formControlName="especiesProducto" name="especiesProducto" id="especies" multiple [class.is-invalid]="especies.invalid && especies.touched" class="form-control" required>
+                                        <select formControlName="especiesProducto" name="especiesProducto[]" id="especies" multiple [class.is-invalid]="especies.invalid && especies.touched" class="form-control" required>
                                             <option *ngFor="let especie of listaEspecies" value="{{ especie.idespecie }}">{{ especie.descripcion_especie }}</option>
                                           <!-- <option value="2">Especie 2</option>
                                           <option value="3">Especie 3</option> -->
@@ -176,7 +176,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="mostrarValores()">Guardar Cambios</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="resetForm()">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" #closeModal (click)="resetForm()">Cancelar</button>
             </div>
         </div>
     </div>
