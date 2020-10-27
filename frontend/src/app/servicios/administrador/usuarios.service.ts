@@ -20,6 +20,6 @@ export class UsuariosService {
 
   updateUser( user ) {
     const params = JSON.stringify(user);
-    return this._http.post(this.url + 'actualizarInfoUsuario', params, {headers: this.headers});
+    return this._http.post<any>(this.url + 'actualizarInfoUsuario', user);
   }
 }

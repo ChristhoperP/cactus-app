@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 
@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class EncabezadoComponent implements OnInit {
   nombreUsuario: any;
+
+  @Input() nombreActualizado: any;
   
   constructor(
     public authService: AuthService,
