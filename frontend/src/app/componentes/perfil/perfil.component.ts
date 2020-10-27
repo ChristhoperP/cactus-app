@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { UploadService } from "../../servicios/upload.service";
 import { PeticionesService } from "../../servicios/peticiones.service";
 import { Global } from "../../servicios/global";
+import Swal, { SweetAlertResult } from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil',
@@ -45,7 +46,11 @@ export class PerfilComponent implements OnInit {
       this._uploadService.makeFileRequest(Global.url + "upload-image/", [], this.filesToUpload, "image")
         .then((result: any) => {
           this.estado = "Exitoso";
-          alert("Imagen subida con éxito.");
+          Swal.fire({
+            title: 'Foto Actualizada Correctamente',
+            icon: 'success',
+            confirmButtonColor: `#50a1a5`
+          });
           if (this.imagen) {
             this._peticionesService.eliminarImagenPerfil(this.imagen)
             .subscribe(res => {
