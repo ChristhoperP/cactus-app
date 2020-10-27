@@ -8,7 +8,7 @@ const image = require('../middlewares/images');
 var ImageController = require('../controllers/image');
 
 var controller = {
-    visitaUsuario: async function (req, res) {
+    visitaUsuario: async function(req, res) {
         try {
             const response = await pool.query(
                 'SELECT SP_OBTENER_VISITA_USUARIO();'
@@ -31,7 +31,7 @@ var controller = {
             })
         }
     },
-    infoInventario: async function (req, res) {
+    infoInventario: async function(req, res) {
         try {
             const response = await pool.query(
                 'SELECT * FROM INFORMACION_INVENTARIO order by idProducto;'
@@ -47,17 +47,17 @@ var controller = {
             var elementosAEliminar = [];
 
             respuesta.forEach((element, indice) => {
-                idproducto = element.idproducto;//Se obtiene el id del elemento actual
-                especie = [];//se establece un arreglo vacio para almacenar la especie
-                if (idproducto == idproductoAnt) {//Si el id del elemento actual coincide con el id del elemento anterior:
-                    respuesta[indiceProducto].especie.push(element.especie);//La especie del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
+                idproducto = element.idproducto; //Se obtiene el id del elemento actual
+                especie = []; //se establece un arreglo vacio para almacenar la especie
+                if (idproducto == idproductoAnt) { //Si el id del elemento actual coincide con el id del elemento anterior:
+                    respuesta[indiceProducto].especie.push(element.especie); //La especie del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
                     elementosAEliminar.push(indice);
                 } else {
                     //Si no es igual el elemento anterior con el actual:
-                    especie.push(element.especie);//la especie actual se almacena en un arreglo
-                    element.especie = especie;//la especie del elemento actual se convierte en un arreglo
-                    indiceProducto = indice;//se almacena el indice del array que contiene el elemento actual
-                    idproductoAnt = idproducto;//el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
+                    especie.push(element.especie); //la especie actual se almacena en un arreglo
+                    element.especie = especie; //la especie del elemento actual se convierte en un arreglo
+                    indiceProducto = indice; //se almacena el indice del array que contiene el elemento actual
+                    idproductoAnt = idproducto; //el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
                 }
             });
 
@@ -80,7 +80,7 @@ var controller = {
             })
         }
     },
-    cantidadCategoria: async function (req, res) {
+    cantidadCategoria: async function(req, res) {
         try {
             const response = await pool.query(
                 'SELECT * FROM CANTIDAD_INVENTARIO_POR_CATEGORIA;'
@@ -98,8 +98,9 @@ var controller = {
             })
         }
     },
-    infoProductoPorId: async function (req, res) {
-        var { idproducto } = req.body;
+    infoProductoPorId: async function(req, res) {
+        //var { idproducto } = req.body;
+        var idproducto = req.params.idproducto;
 
         try {
             const response = await pool.query(
@@ -118,20 +119,20 @@ var controller = {
             var elementosAEliminar = [];
 
             respuesta.forEach((element, indice) => {
-                idproducto1 = element.idproducto;//Se obtiene el id del elemento actual
-                galeria = [];//se establece un arreglo vacio para almacenar la galeria
-                if (idproducto1 == idproductoAnt) {//Si el id del elemento actual coincide con el id del elemento anterior:
-                    respuesta[indiceProducto].galeria.push(element.galeria);//La galeria del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
-                    respuesta[indiceProducto].idimagen.push(element.idimagen);//La galeria del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
+                idproducto1 = element.idproducto; //Se obtiene el id del elemento actual
+                galeria = []; //se establece un arreglo vacio para almacenar la galeria
+                if (idproducto1 == idproductoAnt) { //Si el id del elemento actual coincide con el id del elemento anterior:
+                    respuesta[indiceProducto].galeria.push(element.galeria); //La galeria del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
+                    respuesta[indiceProducto].idimagen.push(element.idimagen); //La galeria del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
                     elementosAEliminar.push(indice);
                 } else {
                     //Si no es igual el elemento anterior con el actual:
-                    galeria.push(element.galeria);//la galeria actual se almacena en un arreglo
-                    idimagen.push(element.idimagen);//la galeria actual se almacena en un arreglo
-                    element.galeria = galeria;//la galeria del elemento actual se convierte en un arreglo
-                    element.idimagen = idimagen;//la galeria del elemento actual se convierte en un arreglo
-                    indiceProducto = indice;//se almacena el indice del array que contiene el elemento actual
-                    idproductoAnt = idproducto1;//el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
+                    galeria.push(element.galeria); //la galeria actual se almacena en un arreglo
+                    idimagen.push(element.idimagen); //la galeria actual se almacena en un arreglo
+                    element.galeria = galeria; //la galeria del elemento actual se convierte en un arreglo
+                    element.idimagen = idimagen; //la galeria del elemento actual se convierte en un arreglo
+                    indiceProducto = indice; //se almacena el indice del array que contiene el elemento actual
+                    idproductoAnt = idproducto1; //el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
                 }
             });
 
@@ -143,7 +144,7 @@ var controller = {
                 }
             });
 
-            
+
 
             /* var idproductoAnt1 = 0;
             var idproducto1 = 0;
@@ -175,7 +176,7 @@ var controller = {
             }); */
 
             return res.status(200).send(respuesta1);
-            
+
 
         } catch (err) {
             console.log(err);
@@ -185,34 +186,34 @@ var controller = {
         }
     },
 
- 
-    registroProducto: async function (req, res, next) {
+
+    registroProducto: async function(req, res, next) {
 
 
         var { nombre, informacionadicional, precio, cantidad, tipobase, tiemposol, frecuenciariego, tamanio, categoria, especie } = req.body;
         //console.log(nombre, informacionadicional, precio, cantidad, tipobase, tiemposol, frecuenciariego, tamanio, categoria, especie);
-        var portada=[];
-        var galeria=[];
+        var portada = [];
+        var galeria = [];
 
-        
+
         if (req.files.portada) {
             portada = req.files.portada;
-        }else{
-            portada[0]={filename : ''};
+        } else {
+            portada[0] = { filename: '' };
         }
         if (req.files.gallery) {
             galeria = req.files.gallery;
 
-            if(galeria.length==1){
-                galeria[1]={filename : ''}
-                galeria[2]={filename : ''}
-            }else if(galeria.length==2){
-                galeria[2]={filename : ''}
+            if (galeria.length == 1) {
+                galeria[1] = { filename: '' }
+                galeria[2] = { filename: '' }
+            } else if (galeria.length == 2) {
+                galeria[2] = { filename: '' }
             }
-        }else{
-            galeria[0]={filename : ''}
-            galeria[1]={filename : ''}
-            galeria[2]={filename : ''}
+        } else {
+            galeria[0] = { filename: '' }
+            galeria[1] = { filename: '' }
+            galeria[2] = { filename: '' }
         }
 
         /*  for (let galeria of req.files.gallery[0].filename) {
@@ -221,14 +222,14 @@ var controller = {
   */
         //console.log(portada[0]);
         //console.log(galeria[0]);
-        if (nombre != null && informacionadicional != null && precio != null && cantidad != null && tipobase != null && tiemposol != null
-            && frecuenciariego != null && tamanio != null && categoria != null && especie != null) {
+        if (nombre != null && informacionadicional != null && precio != null && cantidad != null && tipobase != null && tiemposol != null &&
+            frecuenciariego != null && tamanio != null && categoria != null && especie != null) {
 
             try {
-                
+
                 console.log(req.body);
                 const response = await pool.query(
-                    'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);', [nombre, parseInt(categoria), parseInt(tipobase), parseInt(especie), parseInt(cantidad), parseFloat(precio), tiemposol, frecuenciariego, tamanio, informacionadicional, portada[0].filename, galeria[0].filename,galeria[1].filename,galeria[2].filename]
+                    'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);', [nombre, parseInt(categoria), parseInt(tipobase), parseInt(especie), parseInt(cantidad), parseFloat(precio), tiemposol, frecuenciariego, tamanio, informacionadicional, portada[0].filename, galeria[0].filename, galeria[1].filename, galeria[2].filename]
                 );
                 console.log('se ha registrado exitosamente');
                 var respuesta = response.rows[0].sp_agregar_producto;
@@ -259,31 +260,31 @@ var controller = {
     },
 
     eliminarProducto: async function(req, res) {
-        var {idproducto} = req.body;
-        
-        if (idproducto != null ) {
-            
-        try {
-            const response = await pool.query(
-                'SELECT SP_ELIMINAR_PRODUCTO ($1);', [parseInt(idproducto)]
-            );
-                
+        var { idproducto } = req.body;
 
-            return res.status(200).send({message: "producto eliminado con exito"});
+        if (idproducto != null) {
 
-        } catch (err) {
-            console.log(err);
+            try {
+                const response = await pool.query(
+                    'SELECT SP_ELIMINAR_PRODUCTO ($1);', [parseInt(idproducto)]
+                );
+
+
+                return res.status(200).send({ message: "producto eliminado con exito" });
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha podido eliminar el producto',
+                })
+            }
+        } else {
             return res.status(500).send({
-                message: 'Error: No se ha podido eliminar el producto',
+                message: 'Error: campo incompleto no recupera el id',
             })
         }
-         } else {
-        return res.status(500).send({
-            message: 'Error: campo incompleto no recupera el id',
-        })
-                 }
-       
+
     }
-}; 
+};
 
 module.exports = controller;

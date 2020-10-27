@@ -30,7 +30,7 @@ router.post('/registrarEspecie', productoController.registrarEspecie);
 router.get('/generos', productoController.getGenero);
 
 // Informacion para llenar la tabla de modificar 
-router.get('/productoporid', auth.isAdmin, AdminController.infoProductoPorId);
+router.get('/productoporid/:idproducto', auth.isAdmin, AdminController.infoProductoPorId);
 router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), productoController.actualizarProducto);
 
 //Visitas por mes y usuarios
@@ -47,8 +47,8 @@ router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategori
 
 //Registrar producto
 
-router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'portada', maxCount: 1 },{ name: 'gallery', maxCount: 3 }]), 
-AdminController.registroProducto);
+router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]),
+    AdminController.registroProducto);
 
 // Eliminar producto
 router.post('/eliminar-producto', auth.isAdmin, AdminController.eliminarProducto);

@@ -27,7 +27,7 @@
                         <div class="form-group row">
                             <label for="contrasena" class="col-sm-5 col-form-label">Contraseña actual</label>
                             <div class="col-sm-7">
-                                <input type="text" [class.is-invalid]="contrasena.invalid && contrasena.touched" formControlName="contrasena" name="contrasena" class="form-control" id="contrasena" placeholder="Contraseña actual" required>
+                                <input type="password" [class.is-invalid]="contrasena.invalid && contrasena.touched" formControlName="contrasena" name="contrasena" class="form-control" id="contrasena" placeholder="Contraseña actual" required>
                                 <div class="invalid-feedback">
                                     Este campo es obligatorio
                                 </div>
@@ -37,7 +37,7 @@
                         <div class="form-group row">
                             <label for="nuevaContrasena" class="col-sm-5 col-form-label">Contraseña nueva</label>
                             <div class="col-sm-7">
-                                <input type="text" [class.is-invalid]="nuevaContrasena.invalid && nuevaContrasena.touched" formControlName="nuevaContrasena" name="nuevaContrasena" class="form-control" id="nuevaContrasena" placeholder="Nueva contraseña" required>
+                                <input type="password" [class.is-invalid]="nuevaContrasena.invalid && nuevaContrasena.touched" formControlName="nuevaContrasena" name="nuevaContrasena" class="form-control" id="nuevaContrasena" placeholder="Nueva contraseña" required>
                                 <div class="invalid-tooltip">
                                     <small> Debe tener al menos:</small> <br>
                                     <small><i class="fa fa-circle" aria-hidden="true"></i> Una mayúscula</small><br>
@@ -51,7 +51,7 @@
                         <div class="form-group row">
                             <label for="confirmarContrasena" class="col-sm-5 col-form-label">Confirmar contraseña</label>
                             <div class="col-sm-7">
-                                <input type="text" [class.is-invalid]="confirmContrasena.invalid && confirmContrasena.touched" formControlName="confirmContrasena" name="confirmContrasena" class="form-control" id="confirmarContrasena" placeholder="Confirmar contraseña" required>
+                                <input type="password" [class.is-invalid]="confirmContrasena.invalid && confirmContrasena.touched" formControlName="confirmContrasena" name="confirmContrasena" class="form-control" id="confirmarContrasena" placeholder="Confirmar contraseña" required>
                                 <div class="invalid-feedback">
                                     Las contraseñas no coinciden
                                 </div>

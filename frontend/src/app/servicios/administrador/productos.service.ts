@@ -36,9 +36,10 @@ export class ProductosService {
 
   getProductInfo( idproducto: any): any {
 
-    const params = new HttpParams().set('idproducto', idproducto.toString());
+    const params = new HttpParams();
+    params.append('idproducto', idproducto);
 
-    return this._http.get(this.url + 'productoporid', {headers: this.headers, params});
+    return this._http.get(this.url + `productoporid/${idproducto}`, {headers: this.headers});
     // return this._http.get<any[]>(this.url + `productos/${idproducto}`);
   }
 
@@ -65,9 +66,14 @@ export class ProductosService {
 
   }
 
+  updateProduct ( product ) {
+    const params = JSON.stringify( product );
+    return this._http.post<any>(this.url + 'actualizarProducto', product);
+  }
 
-  
-
+  deleteProduct( productid ){
+    return this._http.post(this.url + 'eliminar-producto', {idproducto: productid}, {headers: this.headers} );
+  }
 
 }
 
