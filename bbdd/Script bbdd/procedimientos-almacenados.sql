@@ -609,7 +609,7 @@ CREATE OR REPLACE FUNCTION SP_ELIMINAR_PRODUCTO(
 	OUT p_mensaje VARCHAR(100)
 )	
 RETURNS record AS $BODY$
-DECLARE 
+DECLARE imagenes_eliminadas INT[];
 BEGIN
     
     /* VERIFICANDO QUE EXISTA EL ID DEL PRODUCTO Y QUE NO SEA NULL */
@@ -629,17 +629,21 @@ BEGIN
 
 	    DELETE FROM public.producto_has_especie
         WHERE producto_idproducto=p_idproducto;
+		
+		
+		imagenes_eliminadas = 
+		(SELECT ARRAY (SELECT imagenproducto_idimagenproducto FROM producto_has_imagenproducto WHERE producto_idproducto = p_idproducto));
 
 	   /* imagenes asociadas */
 
 	    DELETE FROM public.producto_has_imagenproducto
         WHERE producto_idproducto=p_idproducto;
 
-        DELETE FROM public.imagenproducto
-        WHERE idimagenproducto IN (select IP.idimagenproducto FROM PRODUCTO as PR
-        INNER JOIN PRODUCTO_HAS_IMAGENPRODUCTO PRIM ON PRIM.PRODUCTO_IDPRODUCTO=PR.IDPRODUCTO
-        INNER JOIN IMAGENPRODUCTO IP ON IP.IDIMAGENPRODUCTO=PRIM.IMAGENPRODUCTO_IDIMAGENPRODUCTO
-        WHERE IDPRODUCTO = p_idproducto);
+		FOR i IN array_lower(imagenes_eliminadas,1).. array_upper(imagenes_eliminadas,1) LOOP
+		   		  DELETE FROM public.imagenproducto
+	              WHERE idimagenproducto = imagenes_eliminadas[i];
+		END LOOP;
+       
 
         /* el producto */
 
