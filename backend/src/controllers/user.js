@@ -7,14 +7,14 @@ const rutas = require('../config');
 const services = require('../services/token');
 
 var controller = {
-    registrar: function(req, res) {
+    registrar: function (req, res) {
         var { nombre, correo, contrasenia } = req.body;
 
         //Tipo de usuario cliente
         var tipoUsuario = 2;
 
         if (nombre != null && correo != null && contrasenia != null && tipoUsuario != null) {
-            bcrypt.hash(contrasenia, 10, async(err, data) => {
+            bcrypt.hash(contrasenia, 10, async (err, data) => {
                 try {
                     contrasenia = data;
                     console.log(data);
@@ -53,7 +53,7 @@ var controller = {
             })
         }
     },
-    validarUsuario: async function(req, res) {
+    validarUsuario: async function (req, res) {
         var { correo, contrasenia } = req.body;
         if (correo != null && contrasenia != null) {
             try {
@@ -93,7 +93,7 @@ var controller = {
         }
     },
 
-    infoPerfilUsuario: async function(req, res) {
+    infoPerfilUsuario: async function (req, res) {
 
         try {
             const response = await pool.query(
@@ -112,46 +112,89 @@ var controller = {
             })
         }
 
-       
+
     },
-    obtenerUsuariosRegistrados: async function(req, res) {
+    obtenerUsuariosRegistrados: async function (req, res) {
         const response = await pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');
         res.json(response.rows);
     },
-    actualizarInfoUsuarios: async function(req, res, next) {
-        var { idUsuario, nombre, contrasenia, telefono, direccion } = req.body;
+    actualizarInfoUsuarios: async function (req, res) {
+        var { nombre, contraseniaAnterior, contraseniaNueva, telefono, direccion, opcion } = req.body;
+        var idUsuario = req.user.id;
 
-        var perfil = [];
-
-        if (req.files.perfil) {
-            perfil = req.files.perfil;
-        } else {
-            perfil[0] = { filename: '' };
-        }
-
-        try {
-            bcrypt.hash(contrasenia, 10, async(err, data) => {
-                try {
-                    contrasenia = data;
-                    const response = await pool.query(
-                        'SELECT sp_modificar_usuario($1,$2,$3,$4,$5,$6);', [parseInt(idUsuario), nombre, contrasenia, telefono, direccion, perfil[0].filename]
-                    );
-
-                    var respuesta = response.rows[0].sp_modificar_usuario;
-                    var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
-                    var arregloRes = respuesta1.split(',');
-                    return res.status(200).send({
-                        message: arregloRes[1]
-                    })
-                } catch (err) {
-                    console.log('No se puede encriptar' + err);
+        switch (parseInt(opcion)) {
+            case 1: //modifica el nombre
+                if (idUsuario && nombre) {
+                    await pool.query(`UPDATE public.usuario SET nombre='${nombre}' WHERE idusuario=${idUsuario};`);
+                    res.status(200).send({ nombre: nombre, message: "Se actualizó el nombre correctamente." });
+                } else {
+                    res.status(500).send({
+                        message: 'Error: No se ha podido actualizar el dato del usuario.',
+                    });
                 }
-            });
-        } catch (err) {
-            console.log(err);
-            return res.status(500).send({
-                message: 'Error: datos no actualizados'
-            })
+                break;
+            case 2://actualiza la contrasenia
+                if (idUsuario && contraseniaAnterior && contraseniaNueva) {
+                    const response = await pool.query(`SELECT contrasenia FROM public.usuario where idusuario=${idUsuario};`);
+
+                    const resultadoMatch = await bcrypt.compare(contraseniaAnterior, response.rows[0].contrasenia);
+
+                    if (resultadoMatch) {
+                        try {
+                            bcrypt.hash(contraseniaNueva, 10, async (err, data) => {
+                                try {
+                                    contraseniaNueva = data;
+
+                                    await pool.query(`UPDATE public.usuario SET contrasenia='${contraseniaNueva}' WHERE idusuario=${idUsuario};`);
+                                    res.status(200).send({ message: "Se actualizó la contrasenia correctamente." });
+
+                                } catch (err) {
+                                    console.log(err);
+                                    res.status(500).send({ message: "No se pudo actualizar la contrasenia." });
+                                }
+                            });
+                        } catch (err) {
+                            console.log(err);
+                            res.status(500).send({
+                                message: 'Error: datos no actualizados'
+                            })
+                        }
+                    } else {
+                        res.status(500).send({
+                            message: 'No coinciden.',
+                        })
+                    }
+                } else {
+                    res.status(500).send({
+                        message: 'Error: No se ha podido actualizar el dato del usuario.',
+                    });
+                }
+                break;
+            case 3://actualizar el telefono
+                if (idUsuario && telefono) {
+                    await pool.query(`UPDATE public.usuario SET telefono='${telefono}' WHERE idusuario=${idUsuario};`);
+                    res.status(200).send({ telefono: telefono, message: "Se actualizó el telefono correctamente." });
+                } else {
+                    res.status(500).send({
+                        message: 'Error: No se ha podido actualizar el dato del usuario.'
+                    });
+                }
+                break;
+            case 4:
+                if (idUsuario && direccion) {
+                    await pool.query(`UPDATE public.usuario SET direccion='${direccion}' WHERE idusuario=${idUsuario};`);
+                    res.status(200).send({ direccion: direccion, message: "Se actualizó la direccion correctamente." });
+                } else {
+                    res.status(500).send({
+                        message: 'Error: No se ha podido actualizar el dato del usuario.'
+                    });
+                }
+                break;
+            default:
+                res.status(404).send({
+                    message: 'No se han enviado datos para actualizar.'
+                });
+                break;
         }
     }
 };

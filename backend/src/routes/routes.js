@@ -16,7 +16,7 @@ router.get('/perfil', auth.isAuth, (req, res) => { res.status(200).send({ verifi
 router.post('/registro', auth.noAuth, UserController.registrar);
 router.post('/validarUsuario', auth.noAuth, UserController.validarUsuario);
 router.get('/obtenerUsuariosRegistrados', UserController.obtenerUsuariosRegistrados);
-router.post('/actualizarInfoUsuario', image.upload.fields([{ name: 'perfil', maxCount: 1 }]), UserController.actualizarInfoUsuarios);
+router.post('/actualizarInfoUsuario', auth.isAuth, UserController.actualizarInfoUsuarios);
 
 
 //Subida imagen de perfil
