@@ -642,11 +642,11 @@ BEGIN
 
 	    DELETE FROM public.producto_has_imagenproducto
         WHERE producto_idproducto=p_idproducto;
-
+/* 
 		FOR i IN array_lower(imagenes_eliminadas,1).. array_upper(imagenes_eliminadas,1) LOOP
 		   		  DELETE FROM public.imagenproducto
 	              WHERE idimagenproducto = imagenes_eliminadas[i];
-		END LOOP;
+		END LOOP; */
        
 
         /* el producto */
