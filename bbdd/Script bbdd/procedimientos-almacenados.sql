@@ -613,7 +613,7 @@ CREATE OR REPLACE FUNCTION SP_ELIMINAR_PRODUCTO(
 	OUT p_mensaje VARCHAR(100)
 )	
 RETURNS record AS $BODY$
-DECLARE imagenes_eliminadas INT[];
+DECLARE --imagenes_eliminadas INT[];
 BEGIN
     
     /* VERIFICANDO QUE EXISTA EL ID DEL PRODUCTO Y QUE NO SEA NULL */
@@ -635,8 +635,8 @@ BEGIN
         WHERE producto_idproducto=p_idproducto;
 		
 		
-		imagenes_eliminadas = 
-		(SELECT ARRAY (SELECT imagenproducto_idimagenproducto FROM producto_has_imagenproducto WHERE producto_idproducto = p_idproducto));
+		--imagenes_eliminadas = 
+		--(SELECT ARRAY (SELECT imagenproducto_idimagenproducto FROM producto_has_imagenproducto WHERE producto_idproducto = p_idproducto));
 
 	   /* imagenes asociadas */
 
