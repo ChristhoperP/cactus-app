@@ -64,7 +64,7 @@
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="validationServer07">Especies</label>
-                        <button type="button" id="addNuevaEspecie" class="btn btn-info mb-1 ml-1 p-0 add"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                        <button type="button" id="addNuevaEspecie" class="btn btn-info mb-1 ml-1 p-0 add"><i class="fa fa-plus-circle" aria-hidden="true" (click)="habilitarFormularioEspecie()"></i></button>
                         <select multiple  class="custom-select custom-select-sm" data-live-search="true" size="3" formControlName="especies" [class.is-invalid]="validation('especies')" >
                             <option *ngFor="let especie of especies" value="{{especie.idespecie}}">{{especie.descripcion_especie}}</option>
                         </select>
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                      <form [formGroup]="formularioEspecie">
+                      <form [formGroup]="formularioEspecie" [hidden]="!mostrarFormularioEspecie">
                       <button type="button" [disabled]="formularioEspecie.invalid"  class="btn btn-sm btn-info mb-1" style="border-radius: 50px" (click)="agregarEspecie()"><i class="fa fa-check-circle" aria-hidden="true"></i> Agregar</button>
                       <input type="text" class="form-control form-control-sm mb-1" formControlName="especie" [class.is-invalid]="validationEspecie('especie')" placeholder="Nombre de la nueva especie" id="validationServer08"  required>
                       <select class="custom-select custom-select-sm" formControlName="genero" [class.is-invalid]="validationEspecie('genero')">

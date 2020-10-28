@@ -28,6 +28,7 @@ especies:any = [];
 tipoBases:any = [];
 generos:any= [];
 productoAgregado:any;
+mostrarFormularioEspecie:boolean = false;
 
 
 imageChangedEvent: any = '';
@@ -78,6 +79,8 @@ formularioEspecie:FormGroup = new FormGroup({
 
   constructor( private _productoService: ProductosService) {
     this.especies;
+    this.images;
+
    }
 
   ngOnInit(): void {
@@ -129,6 +132,7 @@ formularioEspecie:FormGroup = new FormGroup({
 
         this.alertEspecieAgregada();
         this.formularioEspecie.reset();
+        this.mostrarFormularioEspecie = false;
       },
       err => {
         console.log(err);
@@ -145,7 +149,8 @@ formularioEspecie:FormGroup = new FormGroup({
         this.formularioProducto.get("especies").valid &&
         this.formularioProducto.get("tamanio").valid 
     ) {
-        let portada =  this.images[this.images.length -1];
+        if (this.images !="") {
+          let portada =  this.images[this.images.length -1];
           
         let producto = new FormData();
         if (this.galeria.length > 0){
@@ -193,13 +198,15 @@ formularioEspecie:FormGroup = new FormGroup({
         this.portada= this.firstImage;
         this.images=[];
         this.galeria=[];
-        console.log(this.galeria);
         
         this.formularioProducto.reset();
       },
       err => {
         console.log(err);
       });  
+        } else{
+          this.alertImagenNoCargada();
+        }
       
       } 
       else {
@@ -256,6 +263,10 @@ formularioEspecie:FormGroup = new FormGroup({
       this.croppedImage = event.base64;
   }
 
+  habilitarFormularioEspecie(){
+    this.mostrarFormularioEspecie = true;
+  }
+
   validation(campo){
     return this.formularioProducto.get(campo).invalid && this.formularioProducto.get(campo).touched ;
   }
@@ -280,6 +291,14 @@ formularioEspecie:FormGroup = new FormGroup({
     });
   }
 
+  alertImagenNoCargada(): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: `Debe seleccionar una portada`
+    });
+  }
+
   alertProductoAgregado(): void {
     Swal.fire({
       icon: 'success',
@@ -293,5 +312,6 @@ formularioEspecie:FormGroup = new FormGroup({
       text: 'Especie agregada exitosamente',
     });
   }
+
 
 }
