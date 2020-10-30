@@ -108,8 +108,8 @@ export class ModificarProductoComponent implements OnInit {
               cantidad: res[0].cantidad,
               precio: res[0].precio,
               informacionAdicional: res[0].informacionadicional,
-              tiempoSol: res[0].tiemposol,
-              frecuenciaRiego: res[0].frecuenciariego,
+              tiempoSol: (res[0].tiemposol == 'null') ? '' : res[0].tiemposol ,
+              frecuenciaRiego: (res[0].frecuenciariego == 'null') ? '' : res[0].frecuenciariego,
               tamanio: res[0].tamanio// ,
               // portada: res[0].urlportada
             });
@@ -118,7 +118,7 @@ export class ModificarProductoComponent implements OnInit {
             this.urlPortada = res[0].urlportada;
 
             this.imgsActuales = res[0].galeria;
-            this.cantImgs = this.imgsActuales.length;
+            this.cantImgs = (res[0].galeria[0]) ? res[0].galeria.length : 0 ;
             this.idsImgsActuales = res[0].idimagen;
 
           }, err => {

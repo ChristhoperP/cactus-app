@@ -30,9 +30,12 @@ filtrados=[];
     private _productoService: ProductosService,
     private _peticionesServive: PeticionesService,
     private filter: FilterPipe,
-    private router: Router) {
+    private router: Router
+    ) {
 
-    this.url = Global.url;    
+
+
+    this.url = Global.url;
     this.productos;
    }
 
@@ -52,7 +55,7 @@ filtrados=[];
 
   }
 
-  deleteProduct( productId, count ): void {
+  deleteProduct( productId: string, count: number ): void {
     console.log(productId, count);
 
     Swal.fire({
@@ -69,44 +72,65 @@ filtrados=[];
 
         this._productoService.getProductInfo( productId )
           .subscribe( res => {
-            if (res[0].galeria || res[0].portada){
-              let gallery = [];
 
-              if (res[0].galeria) {
-                gallery = res[0].galeria;
-              }
+            let gallery = [];
 
-              if (res[0].urlportada) {
-                gallery.push(res[0].urlportada);
-              }
-
-              for (const img of gallery) {
-                this._peticionesServive.eliminarImagenProducto(img)
-                .subscribe( res1 => {
-                  console.log(res1);
-                }, err1 => {
-                  console.log(err1);
-                });
-              }
+            if (res[0].galeria) {
+              gallery = res[0].galeria;
             }
+
+            if (res[0].urlportada) {
+              gallery.push(res[0].urlportada);
+            }
+
+            console.log('Arreglo imagenes: ' + gallery);
+
+            for (const img of gallery) {
+              this._peticionesServive.eliminarImagenProducto(img)
+              .subscribe( res1 => {
+                console.log(res1);
+              }, err1 => {
+                console.log(err1);
+              });
+            }
+
+
+            this._productoService.deleteProduct( productId )
+              .subscribe( resp => {
+                console.log(resp);
+                this.deleteFromArray( productId );
+                if (count === 1){
+                  Swal.fire({
+                    title: 'Producto eliminado!',
+                    icon: 'success',
+                    confirmButtonColor: `#50a1a5`
+                  });
+                }
+                // this.router.navigate(['controlador-admin/inventario']);
+                // this.reloadComponent();
+              }, err2 => {
+                console.log(err2);
+              });
+
           }, err => {
             console.log(err);
           });
 
-        this._productoService.deleteProduct( productId )
+        /* this._productoService.deleteProduct( productId )
           .subscribe( resp => {
             if (count === 1){
               Swal.fire({
-              title: 'Producto eliminado!',
-              icon: 'success',
-              confirmButtonColor: `#50a1a5`
-            });
-          }
+                title: 'Producto eliminado!',
+                icon: 'success',
+                confirmButtonColor: `#50a1a5`
+              });
+            }
             // this.router.navigate(['controlador-admin/inventario']);
-            this.reloadComponent();
+            this.deleteFromArray( productId );
+            // this.reloadComponent();
           }, err2 => {
             console.log(err2);
-          });
+          }); */
       }
     });
   }
@@ -132,26 +156,27 @@ filtrados=[];
           this._productoService.getProductInfo( id )
             .subscribe( res => {
 
-              if (res[0].galeria || res[0].portada){
-                let gallery = [];
+              let gallery = [];
 
-                if (res[0].galeria) {
-                  gallery = res[0].galeria;
-                }
-
-                if (res[0].urlportada) {
-                  gallery.push(res[0].urlportada);
-                }
-
-                for (const img of gallery) {
-                  this._peticionesServive.eliminarImagenProducto(img)
-                  .subscribe( res1 => {
-                    console.log(res1);
-                  }, err1 => {
-                    console.log(err1);
-                  });
-                }
+              if (res[0].galeria) {
+                gallery = res[0].galeria;
               }
+
+              if (res[0].urlportada) {
+                gallery.push(res[0].urlportada);
+              }
+
+              console.log('Arreglo imagenes: ' + gallery);
+
+              for (const img of gallery) {
+                this._peticionesServive.eliminarImagenProducto(img)
+                .subscribe( res1 => {
+                  console.log(res1);
+                }, err1 => {
+                  console.log(err1);
+                });
+              }
+
             }, err2 => {
               console.log(err2);
             });
@@ -159,6 +184,7 @@ filtrados=[];
           this._productoService.deleteProduct(id)
             .subscribe(resp => {
               console.log(resp);
+              this.deleteFromArray(id.toString(10));
             }, err => {
               console.log(err);
             });
@@ -172,7 +198,7 @@ filtrados=[];
             icon: 'success',
             confirmButtonColor: `#50a1a5`
           });
-          this.reloadComponent();
+          // this.reloadComponent();
         }
       });
     } else {
@@ -196,7 +222,7 @@ filtrados=[];
       console.log(this.filtrados);
       this.productosInventario = this.filtrados;
     }
-    
+
     return this.productosInventario;
   }
 
@@ -245,6 +271,22 @@ filtrados=[];
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['controlador-admin/inventario']);
+  }
+
+  deleteFromArray( id: string ): void {
+
+    console.log('Id a eliminar: ' + id/* , this.productos */);
+
+
+    for (let i = 0; i < this.productos.length; i++) {
+      if ( this.productos[i].idproducto === id){
+        console.log('Eliminando: ' + id + ' / ' + this.productos[i]);
+        this.productos.splice(i, 1);
+      }
+    }
+
+    // this.productos = this.productos.filter( item => item.idproducto !== id.toString());
+
   }
 
 }

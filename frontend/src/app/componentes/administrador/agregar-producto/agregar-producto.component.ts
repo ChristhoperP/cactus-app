@@ -90,6 +90,8 @@ formularioEspecie:FormGroup = new FormGroup({
     this._productoService.getCategorias()
     .subscribe((res:any)=> {
         this.categorias = res;
+        console.log(this.categorias);
+        
       } );
 
     this._productoService.getEspecies ()
@@ -176,10 +178,15 @@ formularioEspecie:FormGroup = new FormGroup({
       this._productoService.agregarProducto(producto)
       .subscribe(res => {
         console.log("se registró un nuevo producto");
+        console.log(res);
+        console.log(this.categorias);
         
+        var nombreCategoria = this.categorias.find( categoria => categoria.idcategoria == res.body.categoria);
+        // console.log(nombreCategoria);
+
           var nuevoProducto = {
             "cantidad": res.body.cantidad,
-            "categoria": res.body.categoria,
+            "categoria": nombreCategoria.descripcion,
             "especie": res.body.especie,
             "idproducto": res.idProducto,
             "informacionadicional": res.body.informacionadicional,
