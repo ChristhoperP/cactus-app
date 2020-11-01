@@ -11,43 +11,67 @@ h1 {
     line-height: 90px;
 }
 
-h2 {
-    color: transparent;
-    background: url(/assets/img/1C.png) repeat;
-    -webkit-background-clip: text;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-transform: uppercase;
-    font-size: 5vw;
-    font-weight: bold;
-    text-align: right;
-    letter-spacing: -2px;
-    line-height: 90px;
+.contenedor1 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas: "contenido contenido sidebar";
 }
 
-.div1 {
-    margin-left: 1%;
-    margin-right: 1%;
-    margin-top: 1%;
-    margin-bottom: 5%;
+.titulo {
+    text-align: center;
+    padding-left: 38%;
 }
 
-.div2 {
-    margin-left: 1%;
-    margin-right: 1%;
-    margin-top: 1%;
-    margin-bottom: 2%;
+.lista {
+    text-align: center;
+    padding-left: 30%;
 }
 
-.div3 {
-    background-color: rgb(184, 233, 134);
-    margin-bottom: 2%;
-    padding-left: 12%;
+.contenedor2 {
+    background-image: url("../../../assets/img/fondo-valores.png");
 }
 
-p {
-    padding-right: 1%;
+.contenedor1>div,
+.contenedor1 .contenido,
+.contenedor1 .sidebar {
+    padding: 20px;
+    border-radius: 0px;
 }
 
-.p3 {
-    text-align: right;
+.contenedor1 .contenido {
+    grid-area: contenido;
+}
+
+.contenedor1 .sidebar {
+    grid-column: 3 / 4;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    grid-area: sidebar;
+}
+
+.list-group-item {
+    background: transparent;
+    border: 0px;
+    font-size: 100%;
+    padding-right: 60%;
+}
+
+@media screen and (max-width: 768px) {
+    .contenedor1 {
+        grid-template-areas: "contenido contenido contenido" "sidebar sidebar sidebar";
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contenedor2 {
+        grid-template-areas: "contenido contenido contenido" "sidebar sidebar sidebar";
+    }
 }
