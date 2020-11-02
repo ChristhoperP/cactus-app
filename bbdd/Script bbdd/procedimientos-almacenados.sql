@@ -606,6 +606,7 @@ END;
 $$
 LANGUAGE plpgsql;
 
+/* ELIMINAR PRODUCTO */
 
 CREATE OR REPLACE FUNCTION SP_ELIMINAR_PRODUCTO(
 	IN p_idproducto INT,
@@ -659,6 +660,83 @@ BEGIN
          p_mensaje := 'El producto se elimino exitosamente y sus tablas asociadas';
          RETURN;
      
+END;
+$BODY$
+LANGUAGE 'plpgsql';
+
+/* Agregar promocion */
+
+CREATE OR REPLACE FUNCTION SP_AGREGAR_PROMOCION
+( 
+      
+   IN p_idproducto INT,	 
+   IN p_descripcion VARCHAR(45),	 
+   IN p_fechainicio DATE, 
+   IN p_fechafin DATE, 
+   IN p_porcentajedescuento DECIMAL,
+   OUT p_ocurrioError INT,
+   OUT p_mensaje VARCHAR(200),
+   OUT p_id INT
+   
+)
+RETURNS RECORD AS $BODY$
+
+	DECLARE vnIdPromocion INT;
+
+    
+BEGIN
+    p_id = NULL;
+
+ 
+        IF(p_idproducto IS NULL OR p_descripcion IS NULL OR p_fechainicio IS NULL OR p_fechafin IS NULL OR p_porcentajedescuento IS NULL
+        ) THEN
+            p_ocurrioError := 1;
+            p_mensaje:= 'Error: campos incompletos';
+            RETURN;
+        END IF;    
+   
+               /* insert en promocion */
+			IF exists (select idproducto from producto where idproducto=p_idproducto) THEN
+			
+               INSERT INTO promocion(
+                  descripcion,
+                  fechainicio,
+                  fechafin,
+                  porcentajedescuento
+                  )
+               VALUES (
+                  p_descripcion,
+                  p_fechainicio,
+                  p_fechafin,
+                  p_porcentajedescuento
+               );
+
+                 
+        
+
+         SELECT max(idpromocion) INTO vnIdPromocion FROM promocion;  /* Se obtiene el ID de Promocion para insertar en tabla has*/
+       
+                 /* Se hace Insert en promocion_has_producto */
+                  INSERT INTO promocion_has_producto(
+                  promocion_idpromocion,
+                  producto_idproducto
+                  )
+               VALUES (
+                  vnIdPromocion,
+                  p_idproducto
+               );
+         
+         SELECT max(idpromocion) INTO p_id
+		   FROM promocion;     /* Se recupera el ID de promocion para mandarlo como respuesta*/
+		  
+                  p_ocurrioError := 0;
+                  p_mensaje:= 'Se ha registrado la promocion y su tabla asociada';
+		   RETURN;
+		ELSE 
+		   p_ocurrioError := 1;
+           p_mensaje:= 'Error: No se registro la promocion';
+		   RETURN;
+	   END IF ;
 END;
 $BODY$
 LANGUAGE 'plpgsql';
