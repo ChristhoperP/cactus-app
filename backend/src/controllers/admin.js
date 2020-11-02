@@ -253,6 +253,46 @@ var controller = {
             })
         }
 
+    },
+
+    registroPromocion: async function(req, res) {
+
+
+        var { idproducto, descripcion, fechainicio, fechafin, porcentajedescuento} = req.body;
+        console.log(idproducto, descripcion, fechainicio, fechafin, porcentajedescuento);
+       
+        if (idproducto != null && descripcion != null && fechainicio != null && porcentajedescuento != null) {
+            
+            try {
+
+                console.log(req.body);
+                const response = await pool.query(
+                    'SELECT SP_AGREGAR_PROMOCION($1,$2,$3,$4,$5);', [parseInt(idproducto), descripcion, fechainicio, fechafin, parseFloat(porcentajedescuento)]
+                );
+                console.log('se ha registrado exitosamente');
+                var respuesta = response.rows[0].sp_agregar_promocion;
+                var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
+                var arregloRes = respuesta1.split(',');
+                var mensaje = arregloRes[1];
+                var idPromocion = arregloRes[2];
+
+                return res.status(200).send({
+                    message: mensaje,
+                    body: req.body,
+                    idPromocion: idPromocion
+                });
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha registrado la promocion',
+                })
+            }
+        } else {
+            return res.status(500).send({
+                message: 'Error: Faltan campos, no se registro la promocion'
+            })
+        }
     }
 };
 
