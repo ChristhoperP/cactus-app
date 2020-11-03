@@ -740,3 +740,46 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+/* Eliminar Promocion */
+
+CREATE OR REPLACE FUNCTION SP_ELIMINAR_PROMOCION(
+	IN p_idpromocion INT,
+	OUT p_ocurrioerror INT,
+	OUT p_mensaje VARCHAR(100)
+)	
+RETURNS record AS $BODY$
+DECLARE 
+BEGIN
+    
+    /* VERIFICANDO QUE EXISTA EL ID DEL PROMOCION Y QUE NO SEA NULL */
+        IF EXISTS(SELECT idpromocion from promocion where idpromocion=p_idpromocion) IS FALSE THEN
+           p_ocurrioError := 1;
+           p_mensaje := "Error: No se envia ningun ID de promocion para eliminar ";
+		   RETURN;
+        END IF;
+
+        IF p_idpromocion=0 or p_idpromocion is null THEN
+            p_mensaje:=p_mensaje||'p_idpromocion, ';
+        END IF;
+
+        /* BORRANDO EL PROMOCION Y DATOS DE TABLAS ASOCIADAS */
+
+	   /* tabla has asociada */
+
+	    DELETE FROM public.promocion_has_producto
+        WHERE promocion_idpromocion=p_idpromocion;
+		
+		/* Borrar la promocion */
+
+        DELETE FROM public.promocion
+        WHERE idpromocion = p_idpromocion;
+
+
+	     p_ocurrioError := 0;
+         p_mensaje := 'El promocion se elimino exitosamente y sus tablas asociadas';
+         RETURN;
+     
+END;
+$BODY$
+LANGUAGE 'plpgsql';
