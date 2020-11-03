@@ -64,6 +64,22 @@ h1 {
     padding-right: 60%;
 }
 
+.contenedor-mapa {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas: "contenido contenido sidebar";
+}
+
+agm-map {
+    width: 98%;
+    height: 200px;
+ }
+
 @media screen and (max-width: 768px) {
     .contenedor1 {
         grid-template-areas: "contenido contenido contenido" "sidebar sidebar sidebar";
