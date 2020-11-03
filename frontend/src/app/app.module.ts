@@ -9,7 +9,7 @@ import { ImageToDataUrlModule } from "ngx-image2dataurl";
 import { FilterPipeModule } from 'ngx-filter-pipe';
 //Graficos
 import { ChartsModule } from 'ng2-charts';
-
+import { AgmCoreModule } from '@agm/core';
 //cargar JS
 import {ServAdminService}  from "./servicios/administrador/serv-admin.service"
 
@@ -90,7 +90,10 @@ import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/act
     ChartsModule,
     ImageCropperModule,
     ImageToDataUrlModule,
-    FilterPipeModule
+    FilterPipeModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCJzxAkEYyB2-ZosSZAnnX0kwI516q3t6c'    
+   })
   ],
   providers: [
     appRoutingProviders,

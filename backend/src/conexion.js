@@ -13,7 +13,6 @@ const { Pool } = require('pg');
 
     }) */
 
-
 //Conexión remota
 module.exports = {
     pool: new Pool({
@@ -22,5 +21,7 @@ module.exports = {
         password: 'postgres',
         database: 'cactus',
         port: 5432
+
     })
+
 }
