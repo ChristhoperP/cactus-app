@@ -35,6 +35,9 @@ router.post('/upload-image/', auth.isAuth, image.upload.single('image'), ImageCo
 
         /* RUTAS DE PRODUCTOS */
 
+//Obtener información de los productos del inventario
+router.get('/productoslanding', AdminController.infoInventario);
+router.get('/productoslanding-logueado',auth.isAuth,  AdminController.infoInventario);
 
 //Obtener información de los productos del inventario
 router.get('/productos', auth.isAdmin, AdminController.infoInventario);
@@ -64,8 +67,11 @@ router.get('/generos', productoController.getGenero);
 
         /* RUTAS DE PROMOCIONES */
 
-
+// registrar promocion
   router.post('/registro-promocion', /* auth.isAdmin, */ AdminController.registroPromocion);
+  
+// eliminar promocion
+  router.post('/eliminar-promocion', /* auth.isAdmin, */ AdminController.eliminarPromocion);
 
   
 

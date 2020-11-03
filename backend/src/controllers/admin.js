@@ -293,6 +293,33 @@ var controller = {
                 message: 'Error: Faltan campos, no se registro la promocion'
             })
         }
+    },
+
+    eliminarPromocion: async function(req, res) {
+        var { idpromocion } = req.body;
+
+        if (idpromocion != null) {
+
+            try {
+                const response = await pool.query(
+                    'SELECT SP_ELIMINAR_PROMOCION ($1);', [parseInt(idpromocion)]
+                );
+
+
+                return res.status(200).send({ message: "promocion eliminada con exito" });
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha podido eliminar la promocion',
+                })
+            }
+        } else {
+            return res.status(500).send({
+                message: 'Error: campo incompleto no recupera el id',
+            })
+        }
+
     }
 };
 

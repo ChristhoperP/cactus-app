@@ -3,16 +3,15 @@ const { Pool } = require('pg');
 
 //Conexión local
 
-// module.exports = {
-//     pool: new Pool({
-//         host: 'localhost',
-//         user: 'postgres',
-//         password: '123',
-//         database: 'cactus',
-//         port: 5434
+/* module.exports = {
+    pool: new Pool({
+        host: 'localhost',
+        user: 'postgres',
+        password: '123',
+        database: 'cactus',
+        port: 5434
 
-//     })
-
+    }) */
 
 //Conexión remota
 module.exports = {
@@ -22,5 +21,7 @@ module.exports = {
         password: 'postgres',
         database: 'cactus',
         port: 5432
-    }) 
+
+    })
+
 }
