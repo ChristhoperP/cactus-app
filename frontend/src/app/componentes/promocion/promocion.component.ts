@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PromocionesFrontService} from 'src/app/servicios/promociones-front.service';
 
 @Component({
   selector: 'app-promocion',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./promocion.component.css']
 })
 export class PromocionComponent implements OnInit {
-
-  constructor() { }
+  promociones: any = [];
+  constructor(private servicioPromocion: PromocionesFrontService) { }
 
   ngOnInit(): void {
+    this.servicioPromocion.getPromocion()
+      .subscribe( res => {
+        this.promociones = res;
+        console.log("Mostrar Promociones")
+      }, err => {
+        console.log(err);
+      });
   }
 
 }

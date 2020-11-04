@@ -22,95 +22,25 @@
 
     <div class="row justify-content-center">
 
-        <div class="col-md-4 col-12">
+        <div class="col-lg-4 col-md-6 col-12" *ngFor="let promocion of promociones">
             <div class="card">
                 <div class="card-header ">
                     <div class="img-animtion image-promo">
-                        <img src="assets/img/productos/injerto.jpg" alt="" class="card-img-top imagenes">
+                        <img src=" " alt="" class="card-img-top imagenes">
                     </div>
                 </div>
                 <div class="card-body text-center" id="divPadre">
                     <div id="circulo" class="card-title">
-                        <h3>10%</h3>
+                        <h3>{{promocion.porcentajedescuento}}%</h3>
                     </div>
                     <h5 class="card-title">
-                        Nombre Producto
+                        {{promocion.nombre}}
                     </h5>
                     <p class="card-text" style="font-size: 1.3em;">
-                        <span> Precio</span> <span>  L. </span> <span><s>COSTO</s></span>
+                        <span> Precio</span> <span>  L. </span> <span><s>{{promocion.precio}}</s></span>
                     </p>
                     <p class="card-text " style="font-size: 2em; color: rgb(0, 145, 77);">
-                        <span>  L. </span> <span>250</span>
-                    </p>
-                    <div class=" container">
-                        <div class="row">
-                            <div class=" col-8">
-                                <button type="button" class="btn btn-outline-success">Comprar Ahora</button>
-                            </div>
-                            <div class=" col-4">
-                                <i class="fas fa-shopping-cart icono"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-4 col-12">
-            <div class="card">
-                <div class="card-header ">
-                    <div class="img-animtion image-promo">
-                        <img src="assets/img/productos/neon.jpg" alt="" class="card-img-top imagenes">
-                    </div>
-                </div>
-                <div class="card-body text-center" id="divPadre">
-                    <div id="circulo" class="card-title">
-                        <h3>10%</h3>
-                    </div>
-                    <h5 class="card-title">
-                        Nombre Producto
-                    </h5>
-                    <p class="card-text" style="font-size: 1.3em;">
-                        <span> Precio</span> <span>  L. </span> <span><s>COSTO</s></span>
-                    </p>
-                    <p class="card-text " style="font-size: 2em; color: rgb(0, 145, 77);">
-                        <span>  L. </span> <span>250</span>
-                    </p>
-                    <div class=" container">
-                        <div class="row">
-                            <div class=" col-8">
-                                <button type="button" class="btn btn-outline-success">Comprar Ahora</button>
-                            </div>
-                            <div class=" col-4">
-                                <i class="fas fa-shopping-cart icono"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-4 col-12">
-            <div class="card">
-                <div class="card-header ">
-                    <div class="img-animtion image-promo">
-                        <img src="assets/img/productos/lola.jpg" alt="" class="card-img-top imagenes">
-                    </div>
-                </div>
-                <div class="card-body text-center" id="divPadre">
-                    <div id="circulo" class="card-title">
-                        <h3>10%</h3>
-                    </div>
-                    <h5 class="card-title">
-                        Nombre Producto
-                    </h5>
-                    <p class="card-text" style="font-size: 1.3em;">
-                        <span> Precio</span> <span>  L. </span> <span><s>COSTO</s></span>
-                    </p>
-                    <p class="card-text " style="font-size: 2em; color: rgb(0, 145, 77);">
-                        <span>  L. </span> <span>250</span>
+                        <span>  L. </span> <span>{{promocion.preciocondescuento}}</span>
                     </p>
                     <div class=" container">
                         <div class="row">
