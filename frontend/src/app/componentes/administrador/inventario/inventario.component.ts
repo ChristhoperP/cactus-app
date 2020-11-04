@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2';
 import { ProductosService } from '../../../servicios/administrador/productos.service';
 import { FilterPipe } from 'ngx-filter-pipe';
@@ -13,6 +13,7 @@ import { PeticionesService } from 'src/app/servicios/peticiones.service';
   styleUrls: ['./inventario.component.css']
 })
 export class InventarioComponent implements OnInit {
+
 categorias:any = [];
 productos:any = [];
 productosFilterByName: any = { nombre: '' };
