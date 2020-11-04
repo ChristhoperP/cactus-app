@@ -323,7 +323,7 @@ var controller = {
     },
     informacionPromociones: async function(req, res) {
         try {
-            const response = await pool.query('SELECT promocion_idpromocion,idproducto , nombre , precio, porcentajedescuento, precioConDescuento, fechafin FROM INFORMACION_PROMOCIONES;');
+            const response = await pool.query('SELECT promocion_idpromocion,idproducto , nombre , precio, porcentajedescuento, precioConDescuento, fechafin,urlportada, idcategoria, nombreCategoria FROM INFORMACION_PROMOCIONES;');
             var respuesta = response.rows;
             return res.status(200).send(respuesta);
         } catch (err) {

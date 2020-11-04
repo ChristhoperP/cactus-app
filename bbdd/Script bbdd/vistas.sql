@@ -31,7 +31,9 @@ FROM USUARIO
 WHERE tipo_usuario_idtipo_usuario = 2;
 
 CREATE OR REPLACE VIEW INFORMACION_PROMOCIONES AS
-SELECT A.promocion_idpromocion , B.idproducto , B.nombre , B.precio, C.porcentajedescuento, trunc((B.precio - (B.precio * C.porcentajedescuento)/100),2) AS precioConDescuento,C.fechafin
+SELECT A.promocion_idpromocion , B.idproducto , B.nombre , B.precio, C.porcentajedescuento, trunc((B.precio - (B.precio * C.porcentajedescuento)/100),2) AS precioConDescuento,C.fechafin, B.urlportada, D.idcategoria, D.descripcion AS nombreCategoria 
 FROM promocion_has_producto AS A LEFT JOIN PRODUCTO AS B ON A.producto_idproducto = B.idproducto
 LEFT JOIN promocion AS C ON A.promocion_idpromocion = C.idpromocion
+LEFT JOIN categoria AS D ON B.categoria_idcategoria = D.idcategoria
 ORDER BY A.promocion_idpromocion;
+
