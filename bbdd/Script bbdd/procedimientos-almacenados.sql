@@ -783,3 +783,36 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+
+CREATE OR REPLACE FUNCTION SP_MODIFICAR_PROMOCION(
+  IN p_idpromocion INT,
+  IN p_fechafin DATE,
+  IN p_porcentajedescuento NUMERIC	
+)
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  
+   UPDATE promocion
+	 SET fechafin = p_fechafin
+	 WHERE idpromocion = p_idpromocion ;
+	 
+	 UPDATE promocion
+	 SET porcentajedescuento = p_porcentajedescuento
+	 WHERE idpromocion = p_idpromocion ;
+	 
+     FOR r IN SELECT A.promocion_idpromocion , B.idproducto , B.nombre , B.precio, C.porcentajedescuento, trunc((B.precio - (B.precio * C.porcentajedescuento)/100),2) AS precioConDescuento,C.fechafin
+            FROM promocion_has_producto AS A LEFT JOIN PRODUCTO AS B ON A.producto_idproducto = B.idproducto
+            LEFT JOIN promocion AS C ON A.promocion_idpromocion = C.idpromocion
+            WHERE idpromocion = p_idpromocion
+     LOOP
+       RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+ 
+END;
+$$
+LANGUAGE plpgsql;
