@@ -35,6 +35,7 @@ import { NoAuthGuard } from "./servicios/guards/no-auth.guard";
 import { IsAdminGuard } from './servicios/guards/is-admin.guard';
 import { PeticionesService } from "./servicios/peticiones.service";
 import { UploadService } from "./servicios/upload.service";
+import { BusquedaProductosService } from './servicios/busqueda-productos.service';
 
 
 //Formularios
@@ -103,6 +104,7 @@ import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/act
     AuthService,
     PeticionesService,
     ServAdminService,
+    BusquedaProductosService,
     UploadService,
     {
       provide: HTTP_INTERCEPTORS,
