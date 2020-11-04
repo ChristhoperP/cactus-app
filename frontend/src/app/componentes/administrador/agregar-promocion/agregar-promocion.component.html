@@ -1,10 +1,10 @@
   <!-- Modal -->
-  <div class="modal fade" id="addDiscountModal" tabindex="-1" aria-labelledby="addDiscountModal" aria-hidden="true">
+  <div class="modal fade" [class.show]="showModalAgregarPromocion" id="addDiscountModal" tabindex="-1" aria-labelledby="addDiscountModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Agregar Promoción</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" #closeAddExpenseModalPromocion class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -38,7 +38,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text">%</span>
                         </div>
-                        <input type="number" formControlName="porcentajedescuento" [class.is-invalid]="validation('porcentajedescuento')" class="form-control" aria-label="lempira">
+                        <input type="number" min="1" formControlName="porcentajedescuento" [class.is-invalid]="validation('porcentajedescuento')" class="form-control" aria-label="lempira">
                         <div class="invalid-feedback">
                           Campo obligatorio
                         </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-agregar" [disabled]="formularioPromocion.invalid" >Agregar</button>
+          <button type="button" class="btn btn-agregar" [disabled]="formularioPromocion.invalid" (click)="agregarPromocion()">Agregar</button>
         </div>
       </div>
     </div>

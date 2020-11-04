@@ -265,7 +265,7 @@ var controller = {
 
             try {
 
-                console.log(req.body);
+                console.log(req.body, "si recibe");
                 const response = await pool.query(
                     'SELECT SP_AGREGAR_PROMOCION($1,$2,$3,$4,$5);', [parseInt(idproducto), descripcion, fechainicio, fechafin, parseFloat(porcentajedescuento)]
                 );
