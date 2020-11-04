@@ -20,7 +20,7 @@ router.post('/actualizarInfoUsuario', auth.isAuth, UserController.actualizarInfo
 
 
 //Subida imagen de perfil
-router.post('/upload-image/', auth.isAuth, image.upload.single('image'), ImageController.subirImagenPerfil);
+router.post('/upload-image/', auth.isAuth, image.upload.single('image'), image.uploadGoogle, ImageController.subirImagenPerfil);
 
 // Informacion para llenar los selects de registrar productos
 router.get('/tipos-bases', productoController.getTiposBases);
@@ -31,7 +31,7 @@ router.get('/generos', productoController.getGenero);
 
 // Informacion para llenar la tabla de modificar 
 router.get('/productoporid/:idproducto', auth.isAdmin, AdminController.infoProductoPorId);
-router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), productoController.actualizarProducto);
+router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), image.uploadGoogle, productoController.actualizarProducto );
 
 //Visitas por mes y usuarios
 router.post('/registro-visita-inicio', VisitaController.visitaInicio);
@@ -46,8 +46,7 @@ router.get('/productos', auth.isAdmin, AdminController.infoInventario);
 router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategoria);
 
 //Registrar producto
-
-router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]),
+router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), image.uploadGoogle,
     AdminController.registroProducto);
 
 // Eliminar producto

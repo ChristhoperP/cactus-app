@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "primeval-legacy-289419",
+  "private_key_id": "76c808d809736b5e92b708ac87d560725dc86710",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6ri5rIvs4HGnS\np7yKJYTCs/nrDQK87f4BxifhgVOZTpqAgxbE5HLrIoq4OE7XVDATpBctKrVKH/a6\nKrYqTWuP405rxlngPQex8AG7s8Fq7qobM+ep8A683uGhPGie7G3lQwz5CFRs5Jb2\nj/Jh1HBmC3w2H7qFszk37mS+H0U9dudO1DCwKmLbrdF5+mtJ/ky5n77CQToptbUY\nS5m905N5IJLYm1I8PrQ6gLUUMQ+xk32WKQ6N92kiB//sW0XVQdfuwpvERkD36mDb\nXKm3/IqN4Qcbkfjc4jeClBa8SJG3B2ZvmgB4B5C25Ujo28l1CWv8AHXIdLc7sG2/\nTfKg5XJlAgMBAAECggEAITcgNbpX6iQuFQf41Ti3PkBxIYgjWlPbK9wi2O4enoq8\nlUydxsMiCmHPPldwecI2Oqxp3kS41HtK9lVmq7CySHwIhkcY0zvwrFGYsVnauojE\nFgp+d/9pU+QxT7O0psBJDm+HdaDsiqKClNTIau02YYW+IFA1axgYQHInlSdxta1t\nsrQEtvU7fOBCuGYR7cEDCf+AC2V/4Z57ZLE7LLBrWL+b8AbwfX4h/H8D0K85cV8X\nJtNjNSXCMLdAmY5AwnMaafLVPG7J0HDeflS2E+hq3zHn/m3QiNt48nrTi1GJekd2\nKkpKxEDghiK2KBy+R2dK3pDZl9UicFGGxWOhe0UriQKBgQD32fIueZrGQIxbp0ml\nbORkl/PU/XOj0GATZiBQsyDpC+9j/w5lS/ENg/CyeA9ooEV6HqLIoADbggvIfFcx\nFfkNf4yHZaXoXyV8Xb4bV0B8aQwSmF9d87qHmbUtp8iIbCp9z2A0/am8s6QUwls9\n3n7j+gNRITWbUMHFfeFmneX46QKBgQDA0WMASYT4giyunrar3PAWxcbZiqKP9pak\ngfuaqyFQJH4RObNgqN+Romza4p/2TCVs88F7euRZ979gB3rRWXhhCDxyme884Vsg\nCVi2J+gjYcO4+3zgU1Rx1I6rCPCIdDhXwccjjQkE8UC0DX+sy7Tm6DGOChhIb5na\nPbzmv+5AHQKBgQCrf9+YUQTL0bZNZUAMe4C+KnbKFmaCH5mbUrthm9FV8LBBHSe0\n6AtwMq/GjlT7LItmqPQypqRxP1cv7vnWOUIQGQYAWlGmrM+fcq4s9P7mFzoHU/AJ\nbrDPS4iWgta7rzznuSr0/+EHdbY/twyzjtV2onTRGo2hXwv1v9jLzM5ooQKBgHvn\nkdjjZaFT9WaY8wXpyha4LRoqLmCYsyEvrgEsKxIXATQMgiqBGnm5iH3315csQ3iK\nAzFYPVlbDQ2mgNP6zJJ9+moiZUwX/LjPiMQ1TMU/08gRQ6PbqI4lazCZZAgrtvEd\nwtwji0IzzcJmUj82AB/J4d5GumgB3zoRJkyZ1X45AoGBALkMNGbC3lAjnG2HBjiS\nLbxLMhNTqIvqALj+44W5LMeqNfXh/nL/fNdus40fUvI1mHkvJyuHSiaAzH0/k7yO\nqJ06ozptKojhLa+ZZLSeQfiE+c3BN9pODvCRP6ToACqb+mWhPWIYirKyw0IYtI7O\nLLI4k9EvMW86LQMR3jrtJutS\n-----END PRIVATE KEY-----\n",
+  "client_email": "nuevacuenta@primeval-legacy-289419.iam.gserviceaccount.com",
+  "client_id": "104526425755467646502",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nuevacuenta%40primeval-legacy-289419.iam.gserviceaccount.com"
+}
