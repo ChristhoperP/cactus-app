@@ -13,7 +13,7 @@ var VisitaController = require('../controllers/visita');
 var productoController = require('../controllers/producto');
 
 
-        /* RUTAS DE USUARIO */
+/* RUTAS DE USUARIO */
 
 //Visitas por mes y usuarios
 router.post('/registro-visita-inicio', VisitaController.visitaInicio);
@@ -33,11 +33,11 @@ router.post('/actualizarInfoUsuario', auth.isAuth, UserController.actualizarInfo
 router.post('/upload-image/', auth.isAuth, image.upload.single('image'), ImageController.subirImagenPerfil);
 
 
-        /* RUTAS DE PRODUCTOS */
+/* RUTAS DE PRODUCTOS */
 
 //Obtener información de los productos del inventario
 router.get('/productoslanding', AdminController.infoInventario);
-router.get('/productoslanding-logueado',auth.isAuth,  AdminController.infoInventario);
+router.get('/productoslanding-logueado', auth.isAuth, AdminController.infoInventario);
 
 //Obtener información de los productos del inventario
 router.get('/productos', auth.isAdmin, AdminController.infoInventario);
@@ -65,15 +65,21 @@ router.post('/registrarEspecie', productoController.registrarEspecie);
 router.get('/generos', productoController.getGenero);
 
 
-        /* RUTAS DE PROMOCIONES */
+/* RUTAS DE PROMOCIONES */
 
 // registrar promocion
-  router.post('/registro-promocion', /* auth.isAdmin, */ AdminController.registroPromocion);
-  
-// eliminar promocion
-  router.post('/eliminar-promocion', /* auth.isAdmin, */ AdminController.eliminarPromocion);
+router.post('/registro-promocion', /* auth.isAdmin, */ AdminController.registroPromocion);
 
-  
+// eliminar promocion
+router.post('/eliminar-promocion', /* auth.isAdmin, */ AdminController.eliminarPromocion);
+
+//obtener promociones
+router.get('/obtener-promocion', /* auth.isAdmin, */ AdminController.informacionPromociones);
+
+//Modificar una promoción 
+router.post('/modificar-promocion', /* auth.isAdmin, */ AdminController.modificarPromocion);
+
+
 
 //Obtener imagenes y eliminar
 router.get('/get-image/:image', ImageController.getImageFile);
