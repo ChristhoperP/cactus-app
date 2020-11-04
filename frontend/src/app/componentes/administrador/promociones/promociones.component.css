@@ -1,0 +1,17 @@
+.add{
+    color: cadetblue;
+    background-color: white;
+    border: none;
+    border-radius: 25px;
+}
+
+.modal-header{
+    background-color: #7AC1C0;
+    color: white;
+}
+
+.btn-agregar {
+    background: #50a1a5;
+    color: white;
+    border: none;
+  }

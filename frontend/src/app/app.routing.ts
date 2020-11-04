@@ -19,6 +19,8 @@ import { ControladorAdminComponent } from './componentes/administrador/controlad
 import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
 import { InicioAdminComponent } from './componentes/administrador/inicio-admin/inicio-admin.component';
 import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios.component';
+import { PromocionesComponent } from './componentes/administrador/promociones/promociones.component';
+
 
 
 
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
             {path: 'inicioadmin', component: InicioAdminComponent},
             {path: 'inventario', component: InventarioComponent},
             {path: 'usuarios', component: UsuariosComponent},
+            {path: 'promociones', component: PromocionesComponent},
             {path: '**', component: InicioAdminComponent}
         ],
         canActivate: [AuthGuard, IsAdminGuard]

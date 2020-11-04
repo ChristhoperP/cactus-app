@@ -7,9 +7,11 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageToDataUrlModule } from "ngx-image2dataurl";
 import { FilterPipeModule } from 'ngx-filter-pipe';
+
 //Graficos
 import { ChartsModule } from 'ng2-charts';
-import { AgmCoreModule } from '@agm/core';
+// import { AgmCoreModule } from '@agm/core';
+// import { GoogleMapsModule } from '@angular/google-maps'
 //cargar JS
 import {ServAdminService}  from "./servicios/administrador/serv-admin.service"
 
@@ -54,6 +56,8 @@ import { GraficoComponent } from './componentes/administrador/grafico/grafico.co
 import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
 import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios.component';
 import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/actualizar-usuario.component';
+import { PromocionesComponent } from './componentes/administrador/promociones/promociones.component';
+import { AgregarPromocionComponent } from './componentes/administrador/agregar-promocion/agregar-promocion.component';
 
 
 @NgModule({
@@ -80,7 +84,9 @@ import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/act
     GraficoComponent,
     FiltroUsuarioPipe,
     UsuariosComponent,
-    ActualizarUsuarioComponent
+    ActualizarUsuarioComponent,
+    PromocionesComponent,
+    AgregarPromocionComponent
   ],
   imports: [
     BrowserModule,
@@ -91,10 +97,11 @@ import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/act
     ChartsModule,
     ImageCropperModule,
     ImageToDataUrlModule,
-    FilterPipeModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCJzxAkEYyB2-ZosSZAnnX0kwI516q3t6c'    
-   })
+    FilterPipeModule
+  //   AgmCoreModule.forRoot({
+  //     apiKey: 'AIzaSyCJzxAkEYyB2-ZosSZAnnX0kwI516q3t6c'    
+  //  }),
+  //  GoogleMapsModule
   ],
   providers: [
     appRoutingProviders,
