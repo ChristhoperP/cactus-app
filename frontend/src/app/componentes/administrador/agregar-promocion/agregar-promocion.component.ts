@@ -9,11 +9,29 @@ import Swal, { SweetAlertResult } from 'sweetalert2';
 })
 export class AgregarPromocionComponent implements OnInit {
   modalPromocion;
-  showModalAgregarPromocion: boolean = true;
+  showModalAgregarPromocion: boolean = false;
 
+  idProducto:any;
+  descripcion:any;
+  
+  formularioPromocion:FormGroup = new FormGroup({
+    fechainicio: new FormControl('', [Validators.required]),
+    fechafin: new FormControl('',[Validators.required]),
+    porcentajedescuento: new FormControl('', [Validators.required])
+  });
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  getProductInfo( productId: string, nombre: string ): void {
+    this.idProducto = productId;
+    this.descripcion = nombre;
+    console.log(productId, nombre );
+  }
+
+
+  validation(campo){
+    return this.formularioPromocion.get(campo).invalid && this.formularioPromocion.get(campo).touched ;
+  }
 }

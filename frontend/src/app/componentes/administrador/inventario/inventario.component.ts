@@ -290,4 +290,10 @@ filtrados=[];
 
   }
 
+  getProductSelectedInfo(id, nombre){
+    console.log(id, nombre);
+    return id;
+    
+  }
+
 }

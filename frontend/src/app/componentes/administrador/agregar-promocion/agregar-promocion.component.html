@@ -9,13 +9,50 @@
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <div class="mb-4">
+            <h5>{{idProducto}} - {{descripcion}}</h5>
+            <hr>
+          </div>
+          
+          <form [formGroup]="formularioPromocion">
+            <div class="container">
+              <div class="row">
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationServer01">Fecha de inicio</label>
+                    <input type="date" formControlName="fechainicio" [class.is-invalid]="validation('fechainicio')" class="form-control form-control-sm" id="validationServer01" required>
+                    <div class="invalid-feedback">
+                      Campo obligatorio
+                    </div>
+                  </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="validationServer02">Fecha de finalización</label>
+                      <input type="date" formControlName="fechafin" [class.is-invalid]="validation('fechafin')" class="form-control form-control-sm" id="validationServer02" required>
+                      <div class="invalid-feedback">
+                        Campo obligatorio
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="validationServer03">Descuento</label>
+                      <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">%</span>
+                        </div>
+                        <input type="number" formControlName="porcentajedescuento" [class.is-invalid]="validation('porcentajedescuento')" class="form-control" aria-label="lempira">
+                        <div class="invalid-feedback">
+                          Campo obligatorio
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-agregar">Agregar</button>
+          <button type="button" class="btn btn-agregar" [disabled]="formularioPromocion.invalid" >Agregar</button>
         </div>
       </div>
     </div>
   </div>
-  
