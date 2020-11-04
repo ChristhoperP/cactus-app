@@ -37,21 +37,26 @@
                 </thead>
                 <tbody>
 
-                    <tr>
+                    <tr *ngFor="let promocion of promociones | filterBy: promocionesFilterByName">
                         <td>
                             <div class="form-check">
                                 <input class="form-check-input position-static" type="checkbox" id="blankCheckbox"  value="option1" aria-label="...">
                             </div>
                         </td>
-                        <th scope="row" class="product-id">1</th>
-                        <td>codigo producto</td>
-                        <td>nombre</td>
-                        <td>L precio</td>
-                        <td>% descuento</td>
-                        <td class="text-center">L precio con descuento</td>
-                        <td>fecha limite</td>
+                        <th scope="row" class="product-id">{{promocion.promocion_idpromocion}}</th>
+                        <td>{{promocion.idproducto}}</td>
+                        <td>{{promocion.nombre}}</td>
+                        <td>L {{promocion.precio}}</td>
+                        <td>% {{promocion.porcentajedescuento}}</td>
+                        <td class="text-center">L {{promocion.preciocondescuento}}</td>
+                        <td>{{promocion.fechafin | date:'mediumDate'}}</td>
                         <td>
                             <button class="btn btn-sm w-50" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="(promociones | filterBy: promocionesFilterByName).length === 0">
+                        <td>
+                            No hay resultados
                         </td>
                     </tr>
                 </tbody>
