@@ -1,79 +1,59 @@
-.container {
-    width: 80%;
-    margin: 50px auto;
+.image-promo {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    padding-top: 5%;
+    width: 100%;
 }
 
-.heading {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 50px;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-flow: wrap;
-}
-
-.card {
-    width: 20%;
-    background: #fff;
-    border: 1px solid #ccc;
-    margin-bottom: 50px;
-    transition: 0.3s;
-    height: 20%;
+h1 {
+    color: transparent;
+    background: url(/assets/img/1C.png) repeat;
+    -webkit-background-clip: text;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    font-size: 5vw;
+    font-weight: bold;
+    text-align: left;
+    letter-spacing: -2px;
+    line-height: 90px;
 }
 
 .card-header {
+    background-color: rgba(237, 200, 207, 0.3);
+}
+
+.imagenes {
+    width: 100%;
+    height: 300px;
+    object-fit: scale-down;
+}
+
+#circulo {
+    width: 50%;
+    height: 50px;
+    background-color: rgba(75, 219, 207);
+    border-radius: 80px;
+    margin: 0px auto;
+    margin-bottom: 3%;
+}
+
+#divPadre {
     text-align: center;
-    padding: 50px 10px;
-    background: linear-gradient(to right, #50a1a5, #00b319);
-    color: #fff;
 }
 
-.card-body {
-    padding: 30px 20px;
+h3 {
+    color: rgb(179, 247, 230);
+    text-shadow: -1px 0 rgb(0, 0, 0), 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 2em;
+    padding-top: 2%;
+}
+
+.icono {
+    font-size: 2em;
     text-align: center;
-    font-size: 18px;
 }
 
-.card-body .btn {
-    display: block;
-    color: #fff;
-    text-align: center;
-    background: linear-gradient(to right, #87ce91, #008513);
-    margin-top: 30px;
-    text-decoration: none;
-    padding: 10px 5px;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
-}
-
-@media screen and (max-width: 1000px) {
-    .card {
-        width: 40%;
-    }
-}
-
-@media screen and (max-width: 620px) {
-    .container {
-        width: 100%;
-    }
-    .heading {
-        padding: 20px;
-        font-size: 20px;
-    }
-    .card {
-        width: 60%;
-    }
-}
-
-h2 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 120%;
-    padding-top: 25px;
+.btn {
+    width: 100%;
 }
