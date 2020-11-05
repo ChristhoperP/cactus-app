@@ -8,11 +8,11 @@
 </div>
 
 <div class=" container">
-    <div class="input-group flex-nowrap " style="margin-top: 5px; width: 50%;">
+    <div class="input-group flex-nowrap " style="margin-top: 5px;">
         <div class="input-group-prepend">
             <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
         </div>
-        <input type="text" class="form-control" placeholder="Buscar Promoción" aria-label="Username" aria-describedby="addon-wrapping">
+        <input type="text" class="form-control" placeholder="Buscar Promoción" aria-label="Username" aria-describedby="addon-wrapping" [(ngModel)]="filtroPromo" name="filtroPromo">
     </div>
 </div>
 
@@ -22,12 +22,14 @@
 
     <div class="row justify-content-center">
 
+
         <div class="col-lg-4 col-md-6 col-12" >
             <!-- *ngFor="let promocion of promociones" -->
             <div class="card">
                 <div class="card-header p-0 ">
                     <div class="img-animtion imagenes">
                         <img src="assets/img/productos/11.jpg" alt="" class="card-img-top imagenes">
+
                     </div>
                 </div>
                 <div class="card-body text-center" id="divPadre">
@@ -94,6 +96,7 @@
 </div>
 
 
+
 <!-- <div id="circulo" class="card-title">
     <h3>{{promocion.porcentajedescuento}}%</h3>
 </div>
@@ -106,3 +109,4 @@
 <p class="card-text " style="font-size: 2em; color: rgb(0, 145, 77);">
     <span>  L. </span> <span>{{promocion.preciocondescuento}}</span>
 </p> -->
+

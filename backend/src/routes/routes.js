@@ -63,6 +63,7 @@ router.get('/categorias', productoController.getCategorias);
 router.get('/especies', productoController.getEspecies);
 router.post('/registrarEspecie', productoController.registrarEspecie);
 router.get('/generos', productoController.getGenero);
+router.get('/familia', productoController.getFamilia);
 
 
 /* RUTAS DE PROMOCIONES */
