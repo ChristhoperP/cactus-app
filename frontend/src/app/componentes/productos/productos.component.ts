@@ -13,6 +13,7 @@ export class ProductosComponent implements OnInit {
   productos:any = [];
   especies:any = [];
   generos:any = [];
+  familias:any = [];
   public url: string;
 
 
@@ -41,6 +42,11 @@ export class ProductosComponent implements OnInit {
         this.servicioProducto.getGeneros()
         .subscribe((res:any) => {
             this.generos = res;
+          } );
+
+          this.servicioProducto.getFamilia()
+        .subscribe((res:any) => {
+            this.familias = res;
           } );
 
   }
