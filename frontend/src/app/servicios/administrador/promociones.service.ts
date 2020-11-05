@@ -18,8 +18,6 @@ export class PromocionesService {
   ) { }
 
   agregarPromocion(promocion){
-    console.log(promocion);
-    
     return this._http.post<any>(this.url + "registro-promocion", promocion);
 
   }
