@@ -33,9 +33,6 @@ filtrados=[];
     private filter: FilterPipe,
     private router: Router
     ) {
-
-
-
     this.url = Global.url;
     this.productos;
    }
