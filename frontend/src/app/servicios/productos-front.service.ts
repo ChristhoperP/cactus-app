@@ -22,4 +22,8 @@ export class ProductosFrontService {
   getGeneros(){
     return this._http.get(this.url + 'generos', {headers: this.headers});
   }
+
+  getFamilia(){
+    return this._http.get(this.url + 'familia', {headers: this.headers});
+  }
 }
