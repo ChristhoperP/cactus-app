@@ -58,6 +58,7 @@ import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios
 import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/actualizar-usuario.component';
 import { PromocionesComponent } from './componentes/administrador/promociones/promociones.component';
 import { AgregarPromocionComponent } from './componentes/administrador/agregar-promocion/agregar-promocion.component';
+import { FiltroPromocionPipe } from './pipes/filtro-promocion.pipe';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { AgregarPromocionComponent } from './componentes/administrador/agregar-p
     UsuariosComponent,
     ActualizarUsuarioComponent,
     PromocionesComponent,
-    AgregarPromocionComponent
+    AgregarPromocionComponent,
+    FiltroPromocionPipe
   ],
   imports: [
     BrowserModule,
