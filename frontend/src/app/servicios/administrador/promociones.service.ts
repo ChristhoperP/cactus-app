@@ -25,4 +25,9 @@ export class PromocionesService {
   getPromociones(){
     return this._http.get(this.url + 'obtener-promocion', {headers: this.headers});
   }
+
+  modificarPromocion( promocion ){
+    return this._http.post<any>(this.url + 'modificar-promocion', promocion);
+  }
+
 }
