@@ -18,7 +18,7 @@ export class PromocionesService {
   ) { }
 
   agregarPromocion(promocion){
-    return this._http.post<any>(this.url + "registro-promocion", promocion);
+    return this._http.post<any>(this.url + 'registro-promocion', promocion);
 
   }
 
@@ -28,6 +28,11 @@ export class PromocionesService {
 
   modificarPromocion( promocion ){
     return this._http.post<any>(this.url + 'modificar-promocion', promocion);
+  }
+
+  eliminarPromocion( idpromocion:any ){
+    const params = JSON.stringify({idpromocion});
+    return this._http.post<any>(this.url + 'eliminar-promocion', params, {headers: this.headers});
   }
 
 }

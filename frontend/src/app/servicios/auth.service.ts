@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable, Output } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Global } from "./global";
@@ -11,9 +11,11 @@ import { SERVER_URL } from '../SERVER_URL';
 })
 export class AuthService {
 
+    @Output() updatedName: EventEmitter<string> = new EventEmitter();
+
     private url = Global.url;
     private headers = new HttpHeaders().set('Content-Type','application/json');
-    
+
     constructor(private _http: HttpClient, private _router: Router, public jwtHelper: JwtHelperService) { }
 
 
@@ -59,5 +61,9 @@ export class AuthService {
     getInfoUsuario() {
         return this._http.get(`${SERVER_URL}/infoPerfil`);
       }
+
+    setUpdatedName( name: string ): void {
+        this.updatedName.emit(name);
+    }
 
 }

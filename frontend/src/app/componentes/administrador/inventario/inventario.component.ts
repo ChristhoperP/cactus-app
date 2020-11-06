@@ -259,7 +259,7 @@ filtrados=[];
   manyProductsAlert(): void{
     Swal.fire({
       title: 'Atención!',
-      text: 'Solo puede modificar un archivo a la vez',
+      text: 'Solo puede modificar un producto a la vez',
       icon: 'warning',
       confirmButtonColor: `#50a1a5`
     });

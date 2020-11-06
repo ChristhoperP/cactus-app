@@ -60,6 +60,7 @@ import { PromocionesComponent } from './componentes/administrador/promociones/pr
 import { AgregarPromocionComponent } from './componentes/administrador/agregar-promocion/agregar-promocion.component';
 import { FiltroPromocionPipe } from './pipes/filtro-promocion.pipe';
 import { ModificarPromocionComponent } from './componentes/administrador/modificar-promocion/modificar-promocion.component';
+import { PrincipalComponent } from './componentes/principal/principal.component';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { ModificarPromocionComponent } from './componentes/administrador/modific
     PromocionesComponent,
     AgregarPromocionComponent,
     FiltroPromocionPipe,
-    ModificarPromocionComponent
+    ModificarPromocionComponent,
+    PrincipalComponent
   ],
   imports: [
     BrowserModule,
