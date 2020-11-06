@@ -5,8 +5,8 @@
     </div>
     <div>
         <div class="p-3 text-center">
-            <button class="btn btn-info col-4 col-sm-4 ml-3 mr-3 botones" style="width: 20%;" type="button" data-toggle="modal" data-target="#updateModal" >Modificar promoción</button>
-            <button class="btn btn-info col-4 col-sm-4 ml-3 mr-3 botones" style="width: 20%;" type="button" >Eliminar Promoción</button>
+            <button class="btn btn-info col-4 col-sm-4 ml-3 mr-3 botones" style="width: 20%;" type="button" data-toggle="modal" data-target="#updatePromoModal" (click)="(promosSeleccionadas) ? ((promosSeleccionadas.length === 1) ?  updatePromoModal.setPromo(promosSeleccionadas[0]) : (promosSeleccionadas.length > 1) ? manyPromosAlert() : emptyPromoAlert()) : emptyPromoAlert()">Modificar promoción</button>
+            <button class="btn btn-info col-4 col-sm-4 ml-3 mr-3 botones" style="width: 20%;" type="button">Eliminar Promoción</button>
         </div>
         <div class="table-responsive">
             <table class="table table-hover text-center">
@@ -23,7 +23,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-left p-0">
                                     <div class="input-group">
-                                        <input type="text" class="form-control"[(ngModel)]="promocionesFilterByName.nombre" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
+                                        <input type="text" class="form-control" [(ngModel)]="promocionesFilterByName.nombre" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
                                     </div>
                                 </div>
                             </div>
@@ -40,10 +40,10 @@
                     <tr *ngFor="let promocion of promociones | filterBy: promocionesFilterByName">
                         <td>
                             <div class="form-check">
-                                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox"  value="option1" aria-label="...">
+                                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" (input)='setPromoId( promocion.promocion_idpromocion )' aria-label="...">
                             </div>
                         </td>
-                        <th scope="row" class="product-id">{{promocion.promocion_idpromocion}}</th>
+                        <th scope="row" class="promo-id">{{promocion.promocion_idpromocion}}</th>
                         <td>{{promocion.idproducto}}</td>
                         <td>{{promocion.nombre}}</td>
                         <td>L {{promocion.precio}}</td>
@@ -64,3 +64,5 @@
         </div>
     </div>
 </div>
+
+<app-modificar-promocion #updatePromoModal (updatedPromo)="promoActualizada( $event )"></app-modificar-promocion>
