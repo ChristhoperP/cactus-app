@@ -6,7 +6,7 @@
     <div>
         <div class="p-3 text-center">
             <button class="btn btn-info col-4 col-sm-4 ml-3 mr-3 botones" style="width: 20%;" type="button" data-toggle="modal" data-target="#updatePromoModal" (click)="(promosSeleccionadas) ? ((promosSeleccionadas.length === 1) ?  updatePromoModal.setPromo(promosSeleccionadas[0]) : (promosSeleccionadas.length > 1) ? manyPromosAlert() : emptyPromoAlert()) : emptyPromoAlert()">Modificar promoción</button>
-            <button class="btn btn-info col-4 col-sm-4 ml-3 mr-3 botones" style="width: 20%;" type="button">Eliminar Promoción</button>
+            <button class="btn btn-info col-4 col-sm-4 ml-3 mr-3 botones" style="width: 20%;" type="button" (click)="(promosSeleccionadas && promosSeleccionadas.length > 0) ? deletePromociones() : emptyPromosAlert()">Eliminar Promoción</button>
         </div>
         <div class="table-responsive">
             <table class="table table-hover text-center">
@@ -51,7 +51,7 @@
                         <td class="text-center">L {{promocion.preciocondescuento}}</td>
                         <td>{{promocion.fechafin | date:'mediumDate'}}</td>
                         <td>
-                            <button class="btn btn-sm w-50" type="button"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
+                            <button class="btn btn-sm w-50" type="button" (click)="deletePromocion(promocion.promocion_idpromocion)"><i class="fa fa-trash mr-4" aria-hidden="true"></i></button>
                         </td>
                     </tr>
                     <tr *ngIf="(promociones | filterBy: promocionesFilterByName).length === 0">

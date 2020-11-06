@@ -23,12 +23,16 @@ export class EncabezadoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.authService.loggedIn()==true){
+    if (this.authService.loggedIn() === true){
       this.authService.getInfoUsuario().subscribe((data: any) => {
         this.nombreUsuario = data.nombre;
         console.log(data);
       });
     }
+
+    this.authService.updatedName.subscribe( newName => {
+      this.nombreActualizado = newName;
+    } );
   }
 
   searchProducts(): void {

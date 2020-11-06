@@ -1,4 +1,4 @@
-<app-encabezado></app-encabezado>
+<!-- <app-encabezado></app-encabezado> -->
 
 <body>
 
@@ -128,37 +128,74 @@
 
             <div class="container mt-3">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of productos ">
-                        <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
-                            <div class="img-animtion imagenes p-0 ">
-                                <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
+                    <div *ngIf="!filtrados || filtrados.length === 0">
+                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of productos ">
+                            <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
-                            </div>
+                                <div class="img-animtion imagenes p-0 ">
+                                    <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
 
-                            <div class="card-body text-center" id="divPadre">
+                                </div>
 
-                                <h5 class="card-title tuclase">
-                                    {{producto.nombre}}
-                                </h5>
+                                <div class="card-body text-center" id="divPadre">
 
-                                <p class="card-text mt-2 mb-4 " style="font-size: 1.3em;">
-                                    <span class=" mt-4"> Precio</span> <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.precio}}</span>
-                                </p>
+                                    <h5 class="card-title tuclase">
+                                        {{producto.nombre}}
+                                    </h5>
 
-                                <div class=" container">
-                                    <div class="row">
-                                        <div class=" col-8">
-                                            <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
-                                        </div>
-                                        <div class=" col-4">
-                                            <i class="fas fa-shopping-cart icono"></i>
+                                    <p class="card-text mt-2 mb-4 " style="font-size: 1.3em;">
+                                        <span class=" mt-4"> Precio</span> <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.precio}}</span>
+                                    </p>
+
+                                    <div class=" container">
+                                        <div class="row">
+                                            <div class=" col-8">
+                                                <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
+                                            </div>
+                                            <div class=" col-4">
+                                                <i class="fas fa-shopping-cart icono"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div *ngIf="filtrados">
+                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of filtrados ">
+                            <div class="card mb-5 mt-1 mr-3 ml-3">
+                                <div class="card-header p-0 ">
+                                    <div class="img-animtion imagenes">
+                                        <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes">
+
+                                    </div>
+                                </div>
+                                <div class="card-body text-center" id="divPadre">
+
+                                    <h5 class="card-title">
+                                        {{producto.nombre}}
+                                    </h5>
+                                    <p class="card-text" style="font-size: 1.3em;">
+                                        <span> Precio</span> <span>  L. </span> <span><s>{{producto.precio}}</s></span>
+                                    </p>
+
+                                    <div class=" container">
+                                        <div class="row">
+                                            <div class=" col-8">
+                                                <button type="button" class="btn btn-outline-success">Comprar Ahora</button>
+                                            </div>
+                                            <div class=" col-4">
+                                                <i class="fas fa-shopping-cart icono"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
