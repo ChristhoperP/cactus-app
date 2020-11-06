@@ -5,83 +5,101 @@
     <div class="d-flex" id="wrapper">
 
         <!-- Sidebar -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="list-group list-group-flush">
+        <div class="bg-light border-right " id="sidebar-wrapper">
+            <div class="list-group list-group-flush mt-3">
+                <div class=" container  mb-2">
+                    <h2 style="font-size: 1.4em; text-align: center;"> Filtrar Producto</h2>
+                </div>
 
-                <div class=" container">
+
+                <div class=" container opciones">
                     <div class=" row">
-                        <div class=" col-4">
+                        <div class=" col-4 texto-opcion">
                             Precio
                         </div>
                         <div class=" col-4">
-                            <input type="text" size="3">
+                            <input type="text" size="1" placeholder="L.">
                         </div>
                         <div class=" col-4">
-                            <input type="text" size="3">
+                            <input type="text" size="1" placeholder="L.">
                         </div>
                     </div>
                 </div>
 
-                <div class=" container">
+                <div class=" container opciones">
                     <div class=" row">
-                        <div class=" col-4">
+                        <div class=" col-4 texto-opcion">
                             Tamaño
                         </div>
                         <div class=" col-4">
-                            <input type="text" size="3">
+                            <input type="text" size="1" placeholder="cm">
                         </div>
                         <div class=" col-4">
-                            <input type="text" size="3">
+                            <input type="text" size="1" placeholder="cm">
                         </div>
                     </div>
                 </div>
 
-
-                <div class=" container">
+                <div class=" container opciones">
                     <div class=" row">
-                        <div class=" col-4">
-                            Familia
-                        </div>
-                        <div class=" col-8">
-                            <select>
-                                <option *ngFor="let familia of familias" [value]="familia.descripcion_familia">
-                                  {{familia.descripcion_familia}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class=" container">
-                    <div class=" row">
-                        <div class=" col-4">
-                            Genero
-                        </div>
-                        <div class=" col-8">
-                            <select>
-                                <option *ngFor="let genero of generos" [value]="genero.descripcion_genero">
-                                  {{genero.descripcion_genero}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class=" container">
-                    <div class=" row">
-                        <div class=" col-4">
+                        <div class=" col-4 texto-opcion">
                             Especie
                         </div>
                         <div class=" col-8">
-                            <select>
-                                <option *ngFor="let especie of especies" [value]="especie.descripcion_especie">
-                                  {{especie.descripcion_especie}}
-                                </option>
-                            </select>
+                            <form name="f2">
+                                <select class="custom-select" style="width: 100px;">
+                                    <option hidden selected class="uno" value="Especie"> Especie</option>
+                                    <option size="2" class="color" *ngFor="let especie of especies" [value]="especie.descripcion_especie">
+                                      {{especie.descripcion_especie}}
+                                    </option>
+                                </select>
+                            </form>
+
                         </div>
                     </div>
                 </div>
 
+
+                <div class=" container opciones ">
+                    <div>
+                        <div class="texto-opcion">
+                            Genero
+                        </div>
+                        <div>
+                            <form name="f1" class=" m-2">
+                                <select class="custom-select" style="width: 170px;" size=5>
+                                    <option hidden selected class="uno" value="Genero"> Genero</option>
+                                    <option  class="uno" *ngFor="let genero of generos" [value]="genero.descripcion_genero">
+                                      {{genero.descripcion_genero}}
+                                    </option>
+                                </select>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class=" container opciones">
+                    <div>
+                        <div class="  texto-opcion">
+                            Familia
+                        </div>
+                        <div>
+
+                            <form name="f2" class=" m-2">
+                                <select class="custom-select" style="width: 170px;" size=5>
+                                    <option hidden selected class="uno" value="Familia"> Familia</option>
+                                    <option  class="uno"*ngFor="let familia of familias" [value]="familia.descripcion_familia">
+                                      {{familia.descripcion_familia}}
+                                    </option>
+                                </select>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
@@ -92,7 +110,7 @@
         <div id="page-content-wrapper">
 
             <div class=" container" id="content-boton">
-                <button class="btn btn-primary boton-menu" id="menu-toggle"><i class="fas fa-filter"></i></button>
+                <button class="btn  boton-menu icono-filtro" id="menu-toggle"><i class="fas fa-filter"></i></button>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   </button>
             </div>
@@ -111,26 +129,27 @@
             <div class="container mt-3">
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of productos ">
-                        <div class="card mb-5 mt-1 mr-3 ml-3">
-                            <div class="card-header p-0 ">
-                                <div class="img-animtion imagenes">
-                                    <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes">
+                        <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
-                                </div>
+                            <div class="img-animtion imagenes p-0 ">
+                                <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
+
                             </div>
+
                             <div class="card-body text-center" id="divPadre">
 
-                                <h5 class="card-title">
+                                <h5 class="card-title tuclase">
                                     {{producto.nombre}}
                                 </h5>
-                                <p class="card-text" style="font-size: 1.3em;">
-                                    <span> Precio</span> <span>  L. </span> <span><s>{{producto.precio}}</s></span>
+
+                                <p class="card-text mt-2 mb-4 " style="font-size: 1.3em;">
+                                    <span class=" mt-4"> Precio</span> <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.precio}}</span>
                                 </p>
 
                                 <div class=" container">
                                     <div class="row">
                                         <div class=" col-8">
-                                            <button type="button" class="btn btn-outline-success">Comprar Ahora</button>
+                                            <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
                                         </div>
                                         <div class=" col-4">
                                             <i class="fas fa-shopping-cart icono"></i>
