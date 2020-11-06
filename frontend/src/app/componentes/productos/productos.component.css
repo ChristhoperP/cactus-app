@@ -26,6 +26,7 @@
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
+    background-image: url("../../../assets/img/fondo-filtro-producto.jpg");
 }
 
 #sidebar-wrapper .list-group {
@@ -114,6 +115,89 @@ h3 {
 }
 
 .icono {
-    font-size: 2em;
-    text-align: center;
+    color: black;
+}
+
+
+/*Select*/
+
+option {
+    color: white;
+    font-size: 1vw;
+}
+
+option:hover {
+    background-color: rgba(107, 218, 85, 0.8);
+}
+
+.option .color {
+    background-color: rgba(123, 211, 149, 0.8);
+}
+
+.option .color:hover {
+    background-color: rgba(107, 218, 85, 0.8);
+}
+
+.form-control {
+    color: black;
+}
+
+.form-control option {
+    border: black;
+}
+
+SELECT {
+    color: white;
+    background-color: rgba(75, 192, 192, 0.8);
+    border-radius: 5px;
+}
+
+.opciones {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.texto-opcion {
+    font-weight: bold;
+}
+
+.icono-filtro {
+    background-color: rgba(75, 192, 192, 0.8);
+    color: white;
+    font-size: 1.3em;
+}
+
+
+/*Estilo Carda*/
+
+.estilo-card {
+    border: 8px solid transparent;
+    border-image: linear-gradient(to left, #9cd6d7 0%, #b7aecd 100%) 1;
+}
+
+.card-encabezado {
+    border-bottom: 1px solid green;
+}
+
+.tuclase {
+    font-weight: bold;
+    background: #097957;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.4), 0px -1px 1px rgba(0, 105, 74, 0.3);
+    margin-bottom: 3%;
+}
+
+.boton-compra {
+    width: 100%;
+    border: 1.5px solid rgb(0, 128, 107);
+    color: rgb(0, 128, 107);
+    background-color: rgb(95, 211, 176, 0.2);
+}
+
+.boton-compra:hover {
+    color: rgb(224, 241, 239);
+    background-color: rgb(41, 151, 118);
 }
