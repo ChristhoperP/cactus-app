@@ -62,6 +62,9 @@ import { FiltroPromocionPipe } from './pipes/filtro-promocion.pipe';
 import { ModificarPromocionComponent } from './componentes/administrador/modificar-promocion/modificar-promocion.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { FiltroEspeciesPipe } from './pipes/filtro-especies.pipe';
+import { FiltroGeneroPipe } from './pipes/filtro-genero.pipe';
+import { FiltroFamiliaPipe } from './pipes/filtro-familia.pipe';
+
 
 
 @NgModule({
@@ -94,7 +97,9 @@ import { FiltroEspeciesPipe } from './pipes/filtro-especies.pipe';
     FiltroPromocionPipe,
     ModificarPromocionComponent,
     PrincipalComponent,
-    FiltroEspeciesPipe
+    FiltroEspeciesPipe,
+    FiltroGeneroPipe,
+    FiltroFamiliaPipe,
   ],
   imports: [
     BrowserModule,
