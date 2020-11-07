@@ -11,11 +11,14 @@ export class NoAdminGuard implements CanActivate {
   constructor(public auth: AuthService, public router: Router) {}
 
   canActivate(): boolean {
-    if (this.auth.getUserRole() === 'admin') {
-      this.router.navigate(['controlador-admin']);
-      return false;
+    if (this.auth.loggedIn()){
+      if (this.auth.getUserRole() === 'admin') {
+        this.router.navigate(['controlador-admin']);
+        return false;
+      } else {
+        return true;
+      }
     }
     return true;
   }
-
 }
