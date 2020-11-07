@@ -24,7 +24,6 @@ export class BusquedaProductosService {
 
     this.searchTerm = term;
     this.search.emit(this.searchTerm);
-    console.log('Buscando por: ' + this.searchTerm);
   }
 
   toggleSearchState( state: boolean): void {
