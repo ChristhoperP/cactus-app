@@ -80,6 +80,26 @@ var controller = {
             })
         }
     },
+    infoProducto: async function(req, res) {
+        try {
+            const response = await pool.query(
+                'SELECT * FROM INFORMACION_PRODUCTO order by idProducto;'
+            );
+
+            //console.log(response);
+            
+
+            var respuesta = response.rows;
+
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se ha podido obtener los productos.',
+            })
+        }
+    },
     cantidadCategoria: async function(req, res) {
         try {
             const response = await pool.query(
