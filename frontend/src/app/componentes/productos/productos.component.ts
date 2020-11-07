@@ -38,6 +38,8 @@ export class ProductosComponent implements OnInit {
       });
   }
 
+  filtro_Especie='';
+
 
   ngOnInit(): void {
     this.servicioProducto.getProducto()
