@@ -33,12 +33,17 @@
                         </div>
                         <div class=" col-8">
                             <form name="f2">
-                                <select class="custom-select" style="width: 100px;">
-                                    <option hidden selected class="uno" value="Especie"> Especie</option>
-                                    <option size="2" [(ngModel)]="filtro_Especie" name="filtro_Especie" class="color" *ngFor="let especie of especies" [value]="especie.descripcion_especie">
-                                      {{especie.descripcion_especie}}
-                                    </option>
-                                </select>
+
+                                <div class=" container">
+                                    <div class="input-group">
+                                        <select class="custom-select" style="width: 100px;" [(ngModel)]="filtro_Especie" name="filtro_Especie">
+                                            <option value="" disabled selected>Familia</option>
+                                            <option size="2"  name="filtro_Especie" class="color" *ngFor="let especie of especies" [value]="especie.descripcion_especie">
+                                              {{especie.descripcion_especie}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                             </form>
 
                         </div>
@@ -53,12 +58,19 @@
                         </div>
                         <div>
                             <form name="f1" class=" m-2">
-                                <select class="custom-select" style="width: 170px;" size=5>
-                                    <option hidden selected class="uno" value="Genero"> Genero</option>
-                                    <option  class="uno" *ngFor="let genero of generos" [value]="genero.descripcion_genero">
-                                      {{genero.descripcion_genero}}
-                                    </option>
-                                </select>
+                                <div class=" container">
+                                    <div class="input-group">
+                                        <select class="custom-select" style="width: 170px;" size=5 [(ngModel)]="filtro_Genero" name="filtro_Genero">
+                                            <option hidden selected class="uno" value="Genero"> Genero</option>
+                                            <option  class="uno" *ngFor="let genero of generos" [value]="genero.descripcion_genero">
+                                              {{genero.descripcion_genero}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
                             </form>
 
                         </div>
@@ -75,12 +87,19 @@
                         <div>
 
                             <form name="f2" class=" m-2">
-                                <select class="custom-select" style="width: 170px;" size=5>
-                                    <option hidden selected class="uno" value="Familia"> Familia</option>
+
+                                <div class=" container">
+                                    <div class="input-group">
+                                        <select class="custom-select" style="width: 170px;" size=5 [(ngModel)]="filtro_Familia" name="filtro_Familia">
+                                            <option hidden selected class="uno" value="Familia"> Familia</option>
                                     <option  class="uno"*ngFor="let familia of familias" [value]="familia.descripcion_familia">
                                       {{familia.descripcion_familia}}
                                     </option>
-                                </select>
+                                        </select>
+                                    </div>
+                                </div>
+
+
                             </form>
 
                         </div>
@@ -116,7 +135,8 @@
                 <div class="row justify-content-center">
 
                     <div *ngIf="!filtrados || filtrados.length === 0">
-                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of productos | filtroEspecies:filtro_Especie ">
+
+                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia">
                             <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
                                 <div class="img-animtion imagenes p-0 ">
@@ -149,38 +169,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="filtrados">
-                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of filtrados ">
-                            <div class="card mb-5 mt-1 mr-3 ml-3">
-                                <div class="card-header p-0 ">
-                                    <div class="img-animtion imagenes">
-                                        <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes">
 
-                                    </div>
-                                </div>
-                                <div class="card-body text-center" id="divPadre">
-
-                                    <h5 class="card-title">
-                                        {{producto.nombre}}
-                                    </h5>
-                                    <p class="card-text" style="font-size: 1.3em;">
-                                        <span> Precio</span> <span>  L. </span> <span><s>{{producto.precio}}</s></span>
-                                    </p>
-
-                                    <div class=" container">
-                                        <div class="row">
-                                            <div class=" col-8">
-                                                <button type="button" class="btn btn-outline-success">Comprar Ahora</button>
-                                            </div>
-                                            <div class=" col-4">
-                                                <i class="fas fa-shopping-cart icono"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>

@@ -17,7 +17,9 @@ export class ProductosComponent implements OnInit {
   generos:any = [];
   familias:any = [];
   public url: string;
-
+  filtro_Especie='';
+  filtro_Genero='';
+  filtro_Familia='';
   filtrados: Array<any>;
   filtro: string;
 
@@ -38,7 +40,7 @@ export class ProductosComponent implements OnInit {
       });
   }
 
-  filtro_Especie='';
+
 
 
   ngOnInit(): void {
