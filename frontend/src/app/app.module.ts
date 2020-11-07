@@ -61,6 +61,7 @@ import { AgregarPromocionComponent } from './componentes/administrador/agregar-p
 import { FiltroPromocionPipe } from './pipes/filtro-promocion.pipe';
 import { ModificarPromocionComponent } from './componentes/administrador/modificar-promocion/modificar-promocion.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';
+import { FiltroEspeciesPipe } from './pipes/filtro-especies.pipe';
 
 
 @NgModule({
@@ -92,7 +93,8 @@ import { PrincipalComponent } from './componentes/principal/principal.component'
     AgregarPromocionComponent,
     FiltroPromocionPipe,
     ModificarPromocionComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    FiltroEspeciesPipe
   ],
   imports: [
     BrowserModule,

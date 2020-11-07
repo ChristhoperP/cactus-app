@@ -29,27 +29,13 @@
                 <div class=" container opciones">
                     <div class=" row">
                         <div class=" col-4 texto-opcion">
-                            Tamaño
-                        </div>
-                        <div class=" col-4">
-                            <input type="text" size="1" placeholder="cm">
-                        </div>
-                        <div class=" col-4">
-                            <input type="text" size="1" placeholder="cm">
-                        </div>
-                    </div>
-                </div>
-
-                <div class=" container opciones">
-                    <div class=" row">
-                        <div class=" col-4 texto-opcion">
                             Especie
                         </div>
                         <div class=" col-8">
                             <form name="f2">
                                 <select class="custom-select" style="width: 100px;">
                                     <option hidden selected class="uno" value="Especie"> Especie</option>
-                                    <option size="2" class="color" *ngFor="let especie of especies" [value]="especie.descripcion_especie">
+                                    <option size="2" [(ngModel)]="filtro_Especie" name="filtro_Especie" class="color" *ngFor="let especie of especies" [value]="especie.descripcion_especie">
                                       {{especie.descripcion_especie}}
                                     </option>
                                 </select>
@@ -130,7 +116,7 @@
                 <div class="row justify-content-center">
 
                     <div *ngIf="!filtrados || filtrados.length === 0">
-                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of productos ">
+                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of productos | filtroEspecies:filtro_Especie ">
                             <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
                                 <div class="img-animtion imagenes p-0 ">
