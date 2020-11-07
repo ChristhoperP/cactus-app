@@ -36,8 +36,8 @@ router.post('/upload-image/', auth.isAuth, image.upload.single('image'), ImageCo
 /* RUTAS DE PRODUCTOS */
 
 //Obtener información de los productos del inventario
-router.get('/productoslanding', AdminController.infoInventario);
-router.get('/productoslanding-logueado', auth.isAuth, AdminController.infoInventario);
+router.get('/productoslanding', AdminController.infoProducto);
+
 
 //Obtener información de los productos del inventario
 router.get('/productos', auth.isAdmin, AdminController.infoInventario);
