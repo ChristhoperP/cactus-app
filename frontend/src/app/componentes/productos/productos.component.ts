@@ -22,6 +22,7 @@ export class ProductosComponent implements OnInit {
   filtro_Familia='';
   filtrados: Array<any>;
   filtro: string;
+  sinCoincidencias = false;
 
   constructor(
     private _cargar: ServAdminService, 
@@ -33,7 +34,6 @@ export class ProductosComponent implements OnInit {
 
       this.router.events.subscribe( evt => {
         if (evt instanceof NavigationEnd) {
-          console.log('Salió: ', evt);
           this._busquedaService.toggleSearchState( false );
           this.filtrados = new Array<any>();
         }
@@ -47,7 +47,7 @@ export class ProductosComponent implements OnInit {
     this.servicioProducto.getProducto()
       .subscribe( res => {
         this.productos = res;
-        console.log("Mostrar Promociones")
+        console.log("Mostrar Promociones");
       }, err => {
         console.log(err);
       });
@@ -70,7 +70,11 @@ export class ProductosComponent implements OnInit {
     this._busquedaService.search.subscribe( (term: string) => {
       this.filtrados = this.productos.filter( (product: any) => product.nombre.toLowerCase().includes(term.toLowerCase())
           || product.categoria.toLowerCase().includes(term.toLowerCase()));
-      console.log('Filtrados: ', this.filtrados);
+      if (this.filtrados.length === 0) {
+        this.sinCoincidencias = true;
+      } else {
+        this.sinCoincidencias = false;
+      }
     });
 
   }
