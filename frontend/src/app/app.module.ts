@@ -64,6 +64,7 @@ import { PrincipalComponent } from './componentes/principal/principal.component'
 import { FiltroEspeciesPipe } from './pipes/filtro-especies.pipe';
 import { FiltroGeneroPipe } from './pipes/filtro-genero.pipe';
 import { FiltroFamiliaPipe } from './pipes/filtro-familia.pipe';
+import { FiltroPrecioPipe } from './pipes/filtro-precio.pipe';
 
 
 
@@ -100,6 +101,7 @@ import { FiltroFamiliaPipe } from './pipes/filtro-familia.pipe';
     FiltroEspeciesPipe,
     FiltroGeneroPipe,
     FiltroFamiliaPipe,
+    FiltroPrecioPipe,
   ],
   imports: [
     BrowserModule,
