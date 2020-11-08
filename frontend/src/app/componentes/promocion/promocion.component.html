@@ -8,12 +8,15 @@
 </div>
 
 <div class=" container animated fadeIn">
-    <div class="input-group flex-nowrap " style="margin-top: 5px;">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
+    <div class="col-lg-4 col-sm-12">
+        <div class="input-group flex-nowrap " style="margin-top: 5px;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Buscar Promoción" aria-label="Username" aria-describedby="addon-wrapping" [(ngModel)]="filtroPromo" name="filtroPromo">
         </div>
-        <input type="text" class="form-control" placeholder="Buscar Promoción" aria-label="Username" aria-describedby="addon-wrapping" [(ngModel)]="filtroPromo" name="filtroPromo">
     </div>
+
 </div>
 
 

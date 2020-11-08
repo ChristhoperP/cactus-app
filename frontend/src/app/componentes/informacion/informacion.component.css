@@ -29,7 +29,6 @@ h1 {
 
 .lista {
     text-align: center;
-    padding-left: 30%;
 }
 
 .contenedor2 {
@@ -61,7 +60,6 @@ h1 {
     background: transparent;
     border: 0px;
     font-size: 100%;
-    padding-right: 60%;
 }
 
 .contenedor-mapa {
@@ -78,7 +76,7 @@ h1 {
 agm-map {
     width: 98%;
     height: 200px;
- }
+}
 
 @media screen and (max-width: 768px) {
     .contenedor1 {
