@@ -1,0 +1,37 @@
+import { Injectable, NgZone } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EventosService {
+
+  constructor(private _zone: NgZone) { }
+
+  getServerSentEvent(url: string): Observable<any> {
+    return new Observable( observer => {
+      const eventSource = this.getEventSource(url);
+
+      eventSource.onopen = evt => {
+        console.log('Abriendo conexión: ' + eventSource.readyState);
+      };
+
+      eventSource.onmessage = event => {
+        this._zone.run(() => {
+          observer.next(event);
+        });
+      };
+
+      eventSource.onerror = error => {
+        this._zone.run(() => {
+          observer.error(error);
+        });
+      };
+
+    });
+  }
+
+  private getEventSource(url: string): EventSource {
+    return new EventSource(url);
+  }
+}

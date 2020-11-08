@@ -142,6 +142,10 @@
                         <div class="col-lg-4 col-md-6 col-12 animated fadeIn" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia | filtroPrecio: filtro_Precio1:filtro_Precio2  ">
                             <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
+                                <div *ngIf="producto.porcentajedescuento" class="promo-percentage position-absolute">
+                                    <h4>{{producto.porcentajedescuento}}%</h4>
+                                </div>
+
                                 <div class="img-animtion imagenes p-0 ">
                                     <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
 
@@ -153,8 +157,14 @@
                                         {{producto.nombre}}
                                     </h5>
 
-                                    <p class="card-text mt-2 mb-4 " style="font-size: 1.3em;">
+                                    <p *ngIf="!producto.porcentajedescuento" class="card-text mt-2 mb-4" style="font-size: 1.3em;">
                                         <span class=" mt-4"> Precio</span> <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.precio}}</span>
+                                    </p>
+
+                                    <p *ngIf="producto.porcentajedescuento" class="card-text mt-2 mb-4">
+                                        <span class=" mt-4"> Precio regular</span> <span class=" mt-4" style="font-size:1em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1em; color: rgb(3, 121, 66); text-decoration: line-through;">{{producto.precio}}</span>
+                                        <br>
+                                        <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.preciocondescuento}}</span>
                                     </p>
 
                                     <div class=" container">
@@ -185,6 +195,10 @@
                         <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of filtrados | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia">
                             <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
+                                <div *ngIf="producto.porcentajedescuento" class="promo-percentage position-absolute">
+                                    <h4>{{producto.porcentajedescuento}}%</h4>
+                                </div>
+
                                 <div class="img-animtion imagenes p-0 ">
                                     <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
 
@@ -196,8 +210,14 @@
                                         {{producto.nombre}}
                                     </h5>
 
-                                    <p class="card-text mt-2 mb-4 " style="font-size: 1.3em;">
+                                    <p *ngIf="!producto.porcentajedescuento" class="card-text mt-2 mb-4" style="font-size: 1.3em;">
                                         <span class=" mt-4"> Precio</span> <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.precio}}</span>
+                                    </p>
+
+                                    <p *ngIf="producto.porcentajedescuento" class="card-text mt-2 mb-4">
+                                        <span class=" mt-4"> Precio regular</span> <span class=" mt-4" style="font-size:1em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1em; color: rgb(3, 121, 66); text-decoration: line-through;">{{producto.precio}}</span>
+                                        <br>
+                                        <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.preciocondescuento}}</span>
                                     </p>
 
                                     <div class=" container">
