@@ -17,16 +17,28 @@ export class BusquedaProductosService {
   ) {}
 
   searchProducts( term: string ): void {
+    this.searchTerm = term;
     if (!this.searchingNow) {
-      this.router.navigate(['productos']);
-      this.toggleSearchState( true );
+      this.redirect();
+      setTimeout(() => {
+        this.emitSearchTerm(this.searchTerm);
+      }, 100);
     }
 
-    this.searchTerm = term;
-    this.search.emit(this.searchTerm);
+    this.emitSearchTerm(term);
+    this.toggleSearchState( true );
   }
 
   toggleSearchState( state: boolean): void {
     this.searchingNow = state;
+  }
+
+  redirect(): void {
+    this.router.navigate(['productos']);
+  }
+
+  emitSearchTerm( term: string ): void {
+    this.searchTerm = term;
+    this.search.emit(this.searchTerm);
   }
 }

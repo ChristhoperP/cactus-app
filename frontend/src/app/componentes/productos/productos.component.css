@@ -201,3 +201,27 @@ SELECT {
     color: rgb(224, 241, 239);
     background-color: rgb(41, 151, 118);
 }
+
+
+/* Estilos prmoción del producto */
+
+.promo-percentage {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: auto;
+    height: auto;
+    top: 0;
+    right: 0;
+    padding: 12px 7px 10px 7px;
+    transform-origin: center;
+    transform: translate(50%, -50%);
+    font-weight: 800;
+    z-index: 100;
+    text-align: center;
+    box-shadow: 1px 1px 5px 4px rgba(0, 105, 74, 0.3);
+}
+
+.promo-percentage h4 {
+    margin-bottom: .25rem !important;
+}

@@ -3,6 +3,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
+// Notificaciones de eventos
+var notifier = require('./controllers/notifications');
+
 var app = express();
 
 //crgar archivos de Rutas
@@ -20,6 +23,9 @@ app.use((req, res, next) => {
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
+
+// Ruta de eventos
+app.get('/events', notifier.eventsHandler);
 
 //Rutas
 app.use('/api', user_routes);
