@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 const auth = require('../middlewares/auth');
 const image = require('../middlewares/images');
+const conf = require('../config')
 
 var UserController = require('../controllers/user');
 var ImageController = require('../controllers/image');

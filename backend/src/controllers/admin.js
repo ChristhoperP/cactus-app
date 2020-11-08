@@ -1,16 +1,11 @@
 'use strict'
 
-const { pool } = require('../conexion');
-const bcrypt = require('bcrypt');
-const rutas = require('../config');
-const services = require('../services/token');
-const image = require('../middlewares/images');
-var ImageController = require('../controllers/image');
+const conf = require('../config');
 
 var controller = {
     visitaUsuario: async function(req, res) {
         try {
-            const response = await pool.query(
+            const response = await conf.pool.query(
                 'SELECT SP_OBTENER_VISITA_USUARIO();'
             );
 
@@ -33,7 +28,7 @@ var controller = {
     },
     infoInventario: async function(req, res) {
         try {
-            const response = await pool.query(
+            const response = await conf.pool.query(
                 'SELECT * FROM INFORMACION_INVENTARIO order by idProducto;'
             );
 
@@ -82,7 +77,7 @@ var controller = {
     },
     cantidadCategoria: async function(req, res) {
         try {
-            const response = await pool.query(
+            const response = await conf.pool.query(
                 'SELECT * FROM CANTIDAD_INVENTARIO_POR_CATEGORIA;'
             );
 
@@ -103,7 +98,7 @@ var controller = {
         var idproducto = req.params.idproducto;
 
         try {
-            const response = await pool.query(
+            const response = await conf.pool.query(
                 /* 'SELECT * FROM MODIFICAR_INVENTARIO WHERE IDPRODUCTO = 43;' */
                 'SELECT * FROM MODIFICAR_INVENTARIO WHERE IDPRODUCTO = $1;', [idproducto]
             );
@@ -197,7 +192,7 @@ var controller = {
             try {
 
                 console.log(req.body);
-                const response = await pool.query(
+                const response = await conf.pool.query(
                     'SELECT SP_AGREGAR_PRODUCTO($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);', [nombre, parseInt(categoria), parseInt(tipobase), parseInt(especie), parseInt(cantidad), parseFloat(precio), tiemposol, frecuenciariego, tamanio, informacionadicional, portada[0].filename, galeria[0].filename, galeria[1].filename, galeria[2].filename]
                 );
                 console.log('se ha registrado exitosamente');
@@ -234,7 +229,7 @@ var controller = {
         if (idproducto != null) {
 
             try {
-                const response = await pool.query(
+                const response = await conf.pool.query(
                     'SELECT SP_ELIMINAR_PRODUCTO ($1);', [parseInt(idproducto)]
                 );
 
