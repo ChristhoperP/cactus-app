@@ -2,7 +2,7 @@
 
 <body>
 
-    <div class="d-flex" id="wrapper">
+    <div class="d-flex " id="wrapper">
 
         <!-- Sidebar -->
         <div class="bg-light border-right " id="sidebar-wrapper">
@@ -18,10 +18,10 @@
                             Precio
                         </div>
                         <div class=" col-4">
-                            <input type="text" size="1" placeholder="L.">
+                            <input type="text" size="1" placeholder="L." [(ngModel)]="filtro_Precio1" name="filtro_Precio" id="filtro1">
                         </div>
                         <div class=" col-4">
-                            <input type="text" size="1" placeholder="L.">
+                            <input type="text" size="1" placeholder="L." [(ngModel)]="filtro_Precio2" name="filtro_Precio2" id="filtro2">
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         <div class=" col-8">
                             <form name="f2">
 
-                                <div class=" container">
+                                <div class=" container animated ">
                                     <div class="input-group">
                                         <select class="custom-select" style="width: 100px;" [(ngModel)]="filtro_Especie" name="filtro_Especie">
                                             <option value="" disabled selected>Familia</option>
@@ -58,7 +58,7 @@
                         </div>
                         <div>
                             <form name="f1" class=" m-2">
-                                <div class=" container">
+                                <div class=" container animated ">
                                     <div class="input-group">
                                         <select class="custom-select" style="width: 170px;" size=5 [(ngModel)]="filtro_Genero" name="filtro_Genero">
                                             <option hidden selected class="uno" value="Genero"> Genero</option>
@@ -88,7 +88,7 @@
 
                             <form name="f2" class=" m-2">
 
-                                <div class=" container">
+                                <div class=" container animated ">
                                     <div class="input-group">
                                         <select class="custom-select" style="width: 170px;" size=5 [(ngModel)]="filtro_Familia" name="filtro_Familia">
                                             <option hidden selected class="uno" value="Familia"> Familia</option>
@@ -103,10 +103,13 @@
                             </form>
 
                         </div>
+
                     </div>
                 </div>
 
-
+                <div class=" container">
+                    <button onclick=window.location.reload(); type="button" class="btn btn-outline-success boton-compra">Restaurar</button>
+                </div>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -114,14 +117,14 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
-            <div class=" container" id="content-boton">
+            <div class=" container animated fadeIn" id="content-boton">
                 <button class="btn  boton-menu icono-filtro" id="menu-toggle"><i class="fas fa-filter"></i></button>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   </button>
             </div>
 
 
-            <div class=" container">
+            <div class=" container animated fadeIn">
                 <h1> PRODUCTOS </h1>
             </div>
 
@@ -136,7 +139,7 @@
 
                     <ng-container *ngIf="(!filtrados || filtrados.length === 0) && !sinCoincidencias">
 
-                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia">
+                        <div class="col-lg-4 col-md-6 col-12 animated fadeIn" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia | filtroPrecio: filtro_Precio1:filtro_Precio2  ">
                             <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
                                 <div class="img-animtion imagenes p-0 ">
@@ -226,3 +229,4 @@
 
 
 </body>
+<app-piepagina></app-piepagina>

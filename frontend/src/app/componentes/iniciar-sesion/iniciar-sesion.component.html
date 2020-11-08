@@ -1,7 +1,7 @@
 <div class="encabezado w-100">
     <app-encabezado class="fade-in"></app-encabezado>
 </div>
-<div class="container-fluid min-vh-100 p-0 d-flex align-items-center justify-content-center fondo-inicio">
+<div class="container-fluid min-vh-100 p-0 d-flex align-items-center justify-content-center fondo-inicio ">
     <div class="row w-100">
         <div class="mx-auto col-10 col-sm-8 col-md-6 col-lg-4 text-center pb-4 pt-0 px-3 rounded fondo-formulario">
             <div class="container py-0 my-0 icono-formulario">
@@ -10,30 +10,30 @@
             <div class="text-light mt-0 mb-3">
                 <h6>INICIAR SESIÓN</h6>
             </div>
-            
-            <form [formGroup]='formularioInicioSesion' class="form" (ngSubmit)="iniciarSesion()" validate>                
+
+            <form [formGroup]='formularioInicioSesion' class="form" (ngSubmit)="iniciarSesion()" validate>
                 <div class="form-group">
                     <input type="email" class="form-control" [class.is-invalid]="validarCampo('correo')" formControlName="correo" name="correo" required placeholder="Correo electrónico">
-                                        
+
                     <div class="invalid-feedback text-warning" *ngIf="correo.errors?.required">
-                        Debe ingresar su correo electrónico                
+                        Debe ingresar su correo electrónico
                     </div>
                     <div class="invalid-feedback text-warning" *ngIf="correo.errors?.pattern">
                         Ingrese una dirección de correo válida
-                    </div>                    
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <input type="password" class="form-control" [class.is-invalid]="validarCampo('contrasenia')" formControlName="contrasenia" name="contrasenia" required placeholder="Contraseña">
-                    
+
                     <div class="invalid-feedback text-warning">
-                        Debe ingresar su contraseña 
+                        Debe ingresar su contraseña
                     </div>
                 </div>
 
                 <!-- <div class="invalid-feedback mb-2" [class.d-block]="errorCredenciales">
                     Credenciales no válidas 
-                </div> --> 
+                </div> -->
 
                 <div class="invalid-feedback mb-2 text-warning" [class.d-block]="errorCredenciales">
                     Credenciales no válidas
@@ -41,12 +41,12 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn-success btn w-50">Entrar</button>
-                </div>                
+                </div>
             </form>
-            
+
             <br>
-            <span class="text-light d-block mb-2">¿Aún no eres miembro?</span>            
-            <button type="button" class="btn btn-success w-50" routerLink="../registro">Crear cuenta</button>        
+            <span class="text-light d-block mb-2">¿Aún no eres miembro?</span>
+            <button type="button" class="btn btn-success w-50" routerLink="../registro">Crear cuenta</button>
         </div>
     </div>
 </div>

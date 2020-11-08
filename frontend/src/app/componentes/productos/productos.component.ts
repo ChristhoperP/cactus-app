@@ -20,6 +20,8 @@ export class ProductosComponent implements OnInit {
   filtro_Especie='';
   filtro_Genero='';
   filtro_Familia='';
+  filtro_Precio1='';
+  filtro_Precio2='';
   filtrados: Array<any>;
   filtro: string;
   sinCoincidencias = false;

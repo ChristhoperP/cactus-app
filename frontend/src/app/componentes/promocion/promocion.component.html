@@ -3,11 +3,11 @@
 <app-carrusel-promo></app-carrusel-promo>
 
 
-<div class="container">
+<div class="container animated fadeIn">
     <h1>PROMOCIONES</h1>
 </div>
 
-<div class=" container">
+<div class=" container animated fadeIn">
     <div class="input-group flex-nowrap " style="margin-top: 5px;">
         <div class="input-group-prepend">
             <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
@@ -18,9 +18,9 @@
 
 
 
-<div class="container mt-3">
+<div class="container mt-3 ">
     <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-6 col-12" *ngFor="let promocion of promociones | filtroPromocion : filtroPromo">
+        <div class="col-lg-4 col-md-6 col-12 animated fadeIn" *ngFor="let promocion of promociones | filtroPromocion : filtroPromo">
             <div class="card mb-5 mt-1 mr-3 ml-3">
                 <div class="card-header p-0 ">
                     <div class="img-animtion imagenes">
@@ -56,3 +56,4 @@
         </div>
     </div>
 </div>
+<app-piepagina></app-piepagina>
