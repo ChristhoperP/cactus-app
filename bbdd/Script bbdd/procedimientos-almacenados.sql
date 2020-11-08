@@ -606,6 +606,7 @@ END;
 $$
 LANGUAGE plpgsql;
 
+/* ELIMINAR PRODUCTO */
 
 CREATE OR REPLACE FUNCTION SP_ELIMINAR_PRODUCTO(
 	IN p_idproducto INT,
@@ -662,3 +663,175 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+/* Agregar promocion */
+
+CREATE OR REPLACE FUNCTION SP_AGREGAR_PROMOCION
+( 
+      
+   IN p_idproducto INT,	 
+   IN p_descripcion VARCHAR(45),	 
+   IN p_fechainicio DATE, 
+   IN p_fechafin DATE, 
+   IN p_porcentajedescuento DECIMAL,
+   OUT p_ocurrioError INT,
+   OUT p_mensaje VARCHAR(200),
+   OUT p_id INT
+   
+)
+RETURNS RECORD AS $BODY$
+
+	DECLARE vnIdPromocion INT;
+
+    
+BEGIN
+    p_id = NULL;
+
+ 
+        IF(p_idproducto IS NULL OR p_descripcion IS NULL OR p_fechainicio IS NULL OR p_fechafin IS NULL OR p_porcentajedescuento IS NULL
+        ) THEN
+            p_ocurrioError := 1;
+            p_mensaje:= 'Error: campos incompletos';
+            RETURN;
+        END IF;    
+   
+               /* insert en promocion */
+			IF exists (select idproducto from producto where idproducto=p_idproducto) THEN
+			
+               INSERT INTO promocion(
+                  descripcion,
+                  fechainicio,
+                  fechafin,
+                  porcentajedescuento
+                  )
+               VALUES (
+                  p_descripcion,
+                  p_fechainicio,
+                  p_fechafin,
+                  p_porcentajedescuento
+               );
+
+                 
+        
+
+         SELECT max(idpromocion) INTO vnIdPromocion FROM promocion;  /* Se obtiene el ID de Promocion para insertar en tabla has*/
+       
+                 /* Se hace Insert en promocion_has_producto */
+                  INSERT INTO promocion_has_producto(
+                  promocion_idpromocion,
+                  producto_idproducto
+                  )
+               VALUES (
+                  vnIdPromocion,
+                  p_idproducto
+               );
+         
+         SELECT max(idpromocion) INTO p_id
+		   FROM promocion;     /* Se recupera el ID de promocion para mandarlo como respuesta*/
+		  
+                  p_ocurrioError := 0;
+                  p_mensaje:= 'Se ha registrado la promocion y su tabla asociada';
+		   RETURN;
+		ELSE 
+		   p_ocurrioError := 1;
+           p_mensaje:= 'Error: No se registro la promocion';
+		   RETURN;
+	   END IF ;
+END;
+$BODY$
+LANGUAGE 'plpgsql';
+
+/* Eliminar Promocion */
+
+CREATE OR REPLACE FUNCTION SP_ELIMINAR_PROMOCION(
+	IN p_idpromocion INT,
+	OUT p_ocurrioerror INT,
+	OUT p_mensaje VARCHAR(100)
+)	
+RETURNS record AS $BODY$
+DECLARE 
+BEGIN
+    
+    /* VERIFICANDO QUE EXISTA EL ID DEL PROMOCION Y QUE NO SEA NULL */
+        IF EXISTS(SELECT idpromocion from promocion where idpromocion=p_idpromocion) IS FALSE THEN
+           p_ocurrioError := 1;
+           p_mensaje := "Error: No se envia ningun ID de promocion para eliminar ";
+		   RETURN;
+        END IF;
+
+        IF p_idpromocion=0 or p_idpromocion is null THEN
+            p_mensaje:=p_mensaje||'p_idpromocion, ';
+        END IF;
+
+        /* BORRANDO EL PROMOCION Y DATOS DE TABLAS ASOCIADAS */
+
+	   /* tabla has asociada */
+
+	    DELETE FROM public.promocion_has_producto
+        WHERE promocion_idpromocion=p_idpromocion;
+		
+		/* Borrar la promocion */
+
+        DELETE FROM public.promocion
+        WHERE idpromocion = p_idpromocion;
+
+
+	     p_ocurrioError := 0;
+         p_mensaje := 'El promocion se elimino exitosamente y sus tablas asociadas';
+         RETURN;
+     
+END;
+$BODY$
+LANGUAGE 'plpgsql';
+
+
+CREATE OR REPLACE FUNCTION SP_MODIFICAR_PROMOCION(
+  IN p_idpromocion INT,
+  IN p_fechafin DATE,
+  IN p_porcentajedescuento NUMERIC	
+)
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  
+   UPDATE promocion
+	 SET fechafin = p_fechafin
+	 WHERE idpromocion = p_idpromocion ;
+	 
+	 UPDATE promocion
+	 SET porcentajedescuento = p_porcentajedescuento
+	 WHERE idpromocion = p_idpromocion ;
+	 
+     FOR r IN SELECT A.promocion_idpromocion , B.idproducto , B.nombre , B.precio, C.porcentajedescuento, trunc((B.precio - (B.precio * C.porcentajedescuento)/100),2) AS precioConDescuento,C.fechafin
+            FROM promocion_has_producto AS A LEFT JOIN PRODUCTO AS B ON A.producto_idproducto = B.idproducto
+            LEFT JOIN promocion AS C ON A.promocion_idpromocion = C.idpromocion
+            WHERE idpromocion = p_idpromocion
+     LOOP
+       RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+ 
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION SP_OBTENER_FAMILIA()
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  FOR r IN SELECT idfamilia, descripcion AS descripcion_familia
+           FROM familia 
+     LOOP
+	    RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+END;
+$$
+LANGUAGE plpgsql;
+
+

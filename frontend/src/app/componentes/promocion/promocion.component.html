@@ -1,69 +1,62 @@
-<app-encabezado></app-encabezado>
+<!-- <app-encabezado></app-encabezado> -->
 
 <app-carrusel-promo></app-carrusel-promo>
 
-<div class="container">
 
-    <div class="row">
-        <div class="card">
-            <div class="card-header">
-                <img src="assets/img/Cat1.jpg" class="card-img-top " alt="...">
-                <h2> Nombre Producto</h2>
+<div class="container animated fadeIn">
+    <h1>PROMOCIONES</h1>
+</div>
+
+<div class=" container animated fadeIn">
+    <div class="col-lg-4 col-sm-12">
+        <div class="input-group flex-nowrap " style="margin-top: 5px;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
             </div>
-            <div class="card-body">
-                <p>
-                    Precio Anterior:
-                </p>
-                <p>
-                    Precio Actual:
-                </p>
-                <a href="#" class="btn">Comprar Ahora</a>
-            </div>
+            <input type="text" class="form-control" placeholder="Buscar Promoción" aria-label="Username" aria-describedby="addon-wrapping" [(ngModel)]="filtroPromo" name="filtroPromo">
         </div>
-        <div class="card">
-            <div class="card-header">
-                <img src="assets/img/Cat1.jpg" class="card-img-top " alt="...">
-                <h2> Nombre Producto</h2>
-            </div>
-            <div class="card-body">
-                <p>
-                    Precio Anterior:
-                </p>
-                <p>
-                    Precio Actual:
-                </p>
-                <a href="#" class="btn">Comprar Ahora</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <img src="assets/img/Cat1.jpg" class="card-img-top " alt="...">
-                <h2> Nombre Producto</h2>
-            </div>
-            <div class="card-body">
-                <p>
-                    Precio Anterior:
-                </p>
-                <p>
-                    Precio Actual:
-                </p>
-                <a href="#" class="btn">Comprar Ahora</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <img src="assets/img/Cat1.jpg" class="card-img-top " alt="...">
-                <h2> Nombre Producto</h2>
-            </div>
-            <div class="card-body">
-                <p>
-                    Precio Anterior:
-                </p>
-                <p>
-                    Precio Actual:
-                </p>
-                <a href="#" class="btn">Comprar Ahora</a>
+    </div>
+
+</div>
+
+
+
+<div class="container mt-3 ">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 col-12 animated fadeIn" *ngFor="let promocion of promociones | filtroPromocion : filtroPromo">
+            <div class="card mb-5 mt-1 mr-3 ml-3">
+                <div class="card-header p-0 ">
+                    <div class="img-animtion imagenes">
+                        <img src="{{url+'get-image/'+promocion.urlportada}}" alt="" class="card-img-top imagenes">
+
+                    </div>
+                </div>
+                <div class="card-body text-center" id="divPadre">
+                    <div id="circulo" class="card-title">
+                        <h3>{{promocion.porcentajedescuento}}%</h3>
+                    </div>
+                    <h5 class="card-title">
+                        {{promocion.nombre}}
+                    </h5>
+                    <p class="card-text" style="font-size: 1.3em;">
+                        <span> Precio</span> <span>  L. </span> <span><s>{{promocion.precio}}</s></span>
+                    </p>
+                    <p class="card-text " style="font-size: 2em; color: rgb(0, 145, 77);">
+                        <span>  L. </span> <span>{{promocion.preciocondescuento}}</span>
+                    </p>
+                    <div class=" container">
+                        <div class="row">
+                            <div class=" col-8">
+                                <button type="button" class="btn btn-outline-success">Comprar Ahora</button>
+                            </div>
+                            <div class=" col-4">
+                                <i class="fas fa-shopping-cart icono"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<app-piepagina></app-piepagina>

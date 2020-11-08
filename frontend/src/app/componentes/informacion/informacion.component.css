@@ -4,10 +4,88 @@ h1 {
     -webkit-background-clip: text;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-transform: uppercase;
-    font-size: 50px;
+    font-size: 5vw;
     font-weight: bold;
     text-align: left;
     letter-spacing: -2px;
-    line-height: 110px;
-    margin-left: 50px;
+    line-height: 90px;
+}
+
+.contenedor1 {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas: "contenido contenido sidebar";
+}
+
+.titulo {
+    text-align: center;
+    padding-left: 38%;
+}
+
+.lista {
+    text-align: center;
+}
+
+.contenedor2 {
+    background-image: url("../../../assets/img/fondo-valores.png");
+}
+
+.contenedor1>div,
+.contenedor1 .contenido,
+.contenedor1 .sidebar {
+    padding: 20px;
+    border-radius: 0px;
+}
+
+.contenedor1 .contenido {
+    grid-area: contenido;
+}
+
+.contenedor1 .sidebar {
+    grid-column: 3 / 4;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    grid-area: sidebar;
+}
+
+.list-group-item {
+    background: transparent;
+    border: 0px;
+    font-size: 100%;
+}
+
+.contenedor-mapa {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas: "contenido contenido sidebar";
+}
+
+agm-map {
+    width: 98%;
+    height: 200px;
+}
+
+@media screen and (max-width: 768px) {
+    .contenedor1 {
+        grid-template-areas: "contenido contenido contenido" "sidebar sidebar sidebar";
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contenedor2 {
+        grid-template-areas: "contenido contenido contenido" "sidebar sidebar sidebar";
+    }
 }

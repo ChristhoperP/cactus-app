@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuariosService } from 'src/app/servicios/administrador/usuarios.service';
+import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
   selector: 'app-actualizar-usuario',
@@ -47,6 +48,7 @@ export class ActualizarUsuarioComponent implements OnInit {
   });
 
   constructor(
+    private authService: AuthService,
     private usuarioService: UsuariosService
   ) { }
 
@@ -67,6 +69,7 @@ export class ActualizarUsuarioComponent implements OnInit {
 
         if (res.nombre){
           this.datoActualizado.emit({ campo: 'nombre', nuevoValor: res.nombre});
+          this.authService.setUpdatedName(res.nombre);
         } else if (res.telefono){
           this.datoActualizado.emit({ campo: 'telefono', nuevoValor: res.telefono});
         } else if (res.direccion){

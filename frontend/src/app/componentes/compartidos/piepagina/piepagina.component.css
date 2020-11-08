@@ -1,0 +1,15 @@
+.iconos {
+    text-align: center;
+}
+
+p {
+    font-size: 110%;
+    margin-bottom: 6%;
+    font-weight: bold;
+    color: rgb(0, 133, 104);
+}
+
+.facebook1:hover {
+    color: white;
+    font-size: 210%;
+}

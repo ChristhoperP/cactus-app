@@ -14,7 +14,7 @@
             </li>
 
             <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/productos']">Categorías</a>
+                <a class="nav-link" [routerLink]="['/productos']">Productos</a>
             </li>
 
             <li class="nav-item" routerLinkActive="active">
@@ -44,7 +44,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="addon-wrapping"><i class="fas fa-search"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Buscar Producto" aria-label="Username" aria-describedby="addon-wrapping">
+                        <input type="text" class="form-control" placeholder="Buscar Producto" [(ngModel)]="terminoBusqueda" name="terminoBusqueda" (input)='searchProducts()' aria-label="Username" aria-describedby="addon-wrapping">
                     </div>
                 </li>
 

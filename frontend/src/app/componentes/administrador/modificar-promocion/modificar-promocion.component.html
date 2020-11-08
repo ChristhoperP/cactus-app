@@ -1,0 +1,69 @@
+<div *ngIf="promocionActual" class="modal fade" id="updatePromoModal" tabindex="-1" aria-labelledby="productUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productUpdateModalLabel"><i class="fas fa-tags fa-1x"></i> Modificar Promoción</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="container">
+
+                    <h6 class="text-center">Detalle de promoción</h6>
+                    <hr class="mb-2 mt-0">
+
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <img [src]="'http://localhost:3000/api/get-image/' + promocionActual.urlportada" alt="" class="img-thumbnail">
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <p><span class="text-info font-weight-bold">Código promoción:</span> {{ promocionActual.promocion_idpromocion }}</p>
+                            <p><span class="text-info font-weight-bold">Producto:</span> {{ promocionActual.nombre }}</p>
+                            <p><span class="text-info font-weight-bold">Precio regular:</span> {{ promocionActual.precio }}</p>
+                        </div>
+                    </div>
+                    <hr class="mb-4 mt-2">
+
+                    <form [formGroup]="formModPromocion" class="form" validate>
+
+                        <div class="form-group row">
+                            <label for="descuento" class="col-sm-6 col-form-label">Porcentaje de descuento</label>
+                            <div class="col-sm-6">
+                                <input type="number" [class.is-invalid]="porcentajedescuento.invalid && porcentajedescuento.touched" formControlName="porcentajedescuento" name="porcentajedescuento" id="descuento" class="form-control" placeholder="1 - 99" min="1" max="99" step="1" required>
+                                <div class="invalid-feedback" *ngIf="porcentajedescuento.errors?.required">
+                                    Este campo es obligatorio
+                                </div>
+                                <div class="invalid-feedback" *ngIf="porcentajedescuento.errors?.min">
+                                    El valor mínimo es 1
+                                </div>
+                                <div class="invalid-feedback" *ngIf="porcentajedescuento.errors?.max">
+                                    El valor máximo es 99
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="fechaFinal" class="col-sm-3 col-form-label">Fecha final</label>
+                            <div class="col-sm-9">
+                                <input type="date" [class.is-invalid]="fechafin.invalid && fechafin.touched" formControlName="fechafin" name="fechafin" id="fechaFinal" class="form-control" placeholder="Fecha final" required>
+                                <div class="invalid-feedback">
+                                    Este campo es obligatorio
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" [disabled]="formModPromocion.invalid || formModPromocion.pristine" (click)="updatePromo()">Guardar Cambios</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" #closeModal (click)="resetForm()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -29,3 +29,19 @@ CREATE OR REPLACE VIEW INFORMACION_USUARIOS_REGISTRADOS AS
 SELECT idusuario, nombre, correo, telefono, direccion, fecharegistro 
 FROM USUARIO
 WHERE tipo_usuario_idtipo_usuario = 2;
+
+CREATE OR REPLACE VIEW INFORMACION_PROMOCIONES AS
+SELECT A.promocion_idpromocion , B.idproducto , B.nombre , B.precio, C.porcentajedescuento, trunc((B.precio - (B.precio * C.porcentajedescuento)/100),2) AS precioConDescuento,C.fechafin, B.urlportada, D.idcategoria, D.descripcion AS nombreCategoria 
+FROM promocion_has_producto AS A LEFT JOIN PRODUCTO AS B ON A.producto_idproducto = B.idproducto
+LEFT JOIN promocion AS C ON A.promocion_idpromocion = C.idpromocion
+LEFT JOIN categoria AS D ON B.categoria_idcategoria = D.idcategoria
+ORDER BY A.promocion_idpromocion;
+
+CREATE OR REPLACE VIEW INFORMACION_PRODUCTO AS
+SELECT PR.IDPRODUCTO,PR.URLPORTADA,PR.NOMBRE, ES.DESCRIPCION as especie, GE.DESCRIPCION as Genero, FA.DESCRIPCION as Familia, PR.INFORMACIONADICIONAL, CAT.DESCRIPCION as categoria, PR.CANTIDAD, PR.PRECIO FROM PRODUCTO PR
+INNER JOIN CATEGORIA CAT ON CAT.IDCATEGORIA=PR.CATEGORIA_IDCATEGORIA
+INNER JOIN PRODUCTO_HAS_ESPECIE PRES ON PRES.PRODUCTO_IDPRODUCTO=PR.IDPRODUCTO
+INNER JOIN ESPECIE ES ON ES.IDESPECIE=PRES.ESPECIE_IDESPECIE
+INNER JOIN GENERO GE ON GE.IDGENERO=ES.GENERO_IDGENERO
+INNER JOIN FAMILIA FA ON FA.IDFAMILIA=GE.FAMILIA_IDFAMILIA;
+

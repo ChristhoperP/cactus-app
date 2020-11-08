@@ -1,99 +1,203 @@
+#content-boton {
+    margin-top: 2%;
+}
+
+#wrapper {
+    overflow-x: hidden;
+    background-color: transparent;
+}
+
+#nav {
+    background-color: transparent;
+}
+
+
+/*navbar*/
+
+.icono {
+    padding-left: 20px;
+    font-size: 150%;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+    background-image: url("../../../assets/img/fondo-filtro-producto.jpg");
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+.container-fluid {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+.image-promo {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 25%;
+    padding-top: 5%;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    height: 350px;
+}
+
 h1 {
     color: transparent;
     background: url(/assets/img/1C.png) repeat;
     -webkit-background-clip: text;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-transform: uppercase;
-    font-size: 50px;
+    font-size: 5vw;
     font-weight: bold;
     text-align: left;
     letter-spacing: -2px;
-    line-height: 110px;
-    margin-left: 20px;
-}
-
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-.container {
-    width: 80%;
-    margin: 50px auto;
-}
-
-.heading {
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 50px;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-flow: wrap;
-}
-
-.card {
-    width: 20%;
-    background: #fff;
-    border: 1px solid #ccc;
-    margin-bottom: 50px;
-    transition: 0.3s;
-    height: 20%;
+    line-height: 90px;
 }
 
 .card-header {
+    background-color: white !important;
+}
+
+.imagenes {
+    width: 100%;
+    height: 250px;
+    object-fit: scale-down;
+}
+
+#circulo {
+    width: 50%;
+    height: 50px;
+    background-color: rgba(75, 219, 207);
+    border-radius: 80px;
+    margin: 0px auto;
+    margin-bottom: 3%;
+}
+
+#divPadre {
     text-align: center;
-    padding: 50px 10px;
-    background: linear-gradient(to right, #50a1a5, #00b319);
-    color: #fff;
 }
 
-.card-body {
-    padding: 30px 20px;
-    text-align: center;
-    font-size: 18px;
+h3 {
+    color: rgb(179, 247, 230);
+    text-shadow: -1px 0 rgb(0, 0, 0), 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 2em;
+    padding-top: 2%;
 }
 
-.card-body .btn {
-    display: block;
-    color: #fff;
-    text-align: center;
-    background: linear-gradient(to right, #87ce91, #008513);
-    margin-top: 30px;
-    text-decoration: none;
-    padding: 10px 5px;
+.icono {
+    color: black;
 }
 
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
+
+/*Select*/
+
+option {
+    color: white;
+    font-size: 1vw;
 }
 
-@media screen and (max-width: 1000px) {
-    .card {
-        width: 40%;
-    }
+option:hover {
+    background-color: rgba(107, 218, 85, 0.8);
 }
 
-@media screen and (max-width: 620px) {
-    .container {
-        width: 100%;
-    }
-    .heading {
-        padding: 20px;
-        font-size: 20px;
-    }
-    .card {
-        width: 60%;
-    }
+.option .color {
+    background-color: rgba(123, 211, 149, 0.8);
 }
 
-h2 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 120%;
-    padding-top: 25px;
+.option .color:hover {
+    background-color: rgba(107, 218, 85, 0.8);
+}
+
+.form-control {
+    color: black;
+}
+
+.form-control option {
+    border: black;
+}
+
+SELECT {
+    color: white;
+    background-color: rgba(75, 192, 192, 0.8);
+    border-radius: 5px;
+}
+
+.opciones {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.texto-opcion {
+    font-weight: bold;
+}
+
+.icono-filtro {
+    background-color: rgba(75, 192, 192, 0.8);
+    color: white;
+    font-size: 1.3em;
+}
+
+
+/*Estilo Carda*/
+
+.estilo-card {
+    border: 8px solid transparent;
+    border-image: linear-gradient(to left, #9cd6d7 0%, #b7aecd 100%) 1;
+}
+
+.card-encabezado {
+    border-bottom: 1px solid green;
+}
+
+.tuclase {
+    font-weight: bold;
+    background: #097957;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.4), 0px -1px 1px rgba(0, 105, 74, 0.3);
+    margin-bottom: 3%;
+}
+
+.boton-compra {
+    width: 100%;
+    border: 1.5px solid rgb(0, 128, 107);
+    color: rgb(0, 128, 107);
+    background-color: rgb(95, 211, 176, 0.2);
+}
+
+.boton-compra:hover {
+    color: rgb(224, 241, 239);
+    background-color: rgb(41, 151, 118);
 }

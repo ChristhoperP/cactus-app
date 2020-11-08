@@ -1,69 +1,232 @@
-<app-encabezado></app-encabezado>
+<!-- <app-encabezado></app-encabezado> -->
 
-<h1 id="cactus">Categorías</h1>
+<body>
 
-<div class="container">
+    <div class="d-flex " id="wrapper">
 
-    <div class="row">
-        <div class="card">
-            <div class="card-header">
-                <img src="assets/img/Cat1.jpg" class="card-img-top rounded-circle" alt="...">
-                <h2> Nombre Categoría</h2>
-            </div>
-            <div class="card-body">
-                <p>
-                    Especie:
-                </p>
-                <p>
-                    Genero:
-                </p>
-                <a href="#" class="btn">Ver Producto</a>
+        <!-- Sidebar -->
+        <div class="bg-light border-right " id="sidebar-wrapper">
+            <div class="list-group list-group-flush mt-3">
+                <div class=" container  mb-2">
+                    <h2 style="font-size: 1.4em; text-align: center;"> Filtrar Producto</h2>
+                </div>
+
+
+                <div class=" container opciones">
+                    <div class=" row">
+                        <div class=" col-4 texto-opcion">
+                            Precio
+                        </div>
+                        <div class=" col-4">
+                            <input type="text" size="1" placeholder="L." [(ngModel)]="filtro_Precio1" name="filtro_Precio" id="filtro1">
+                        </div>
+                        <div class=" col-4">
+                            <input type="text" size="1" placeholder="L." [(ngModel)]="filtro_Precio2" name="filtro_Precio2" id="filtro2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" container opciones">
+                    <div class=" row">
+                        <div class=" col-4 texto-opcion">
+                            Especie
+                        </div>
+                        <div class=" col-8">
+                            <form name="f2">
+
+                                <div class=" container animated ">
+                                    <div class="input-group">
+                                        <select class="custom-select" style="width: 100px;" [(ngModel)]="filtro_Especie" name="filtro_Especie">
+                                            <option value="" disabled selected>Familia</option>
+                                            <option size="2"  name="filtro_Especie" class="color" *ngFor="let especie of especies" [value]="especie.descripcion_especie">
+                                              {{especie.descripcion_especie}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class=" container opciones ">
+                    <div>
+                        <div class="texto-opcion">
+                            Genero
+                        </div>
+                        <div>
+                            <form name="f1" class=" m-2">
+                                <div class=" container animated ">
+                                    <div class="input-group">
+                                        <select class="custom-select" style="width: 170px;" size=5 [(ngModel)]="filtro_Genero" name="filtro_Genero">
+                                            <option hidden selected class="uno" value="Genero"> Genero</option>
+                                            <option  class="uno" *ngFor="let genero of generos" [value]="genero.descripcion_genero">
+                                              {{genero.descripcion_genero}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class=" container opciones">
+                    <div>
+                        <div class="  texto-opcion">
+                            Familia
+                        </div>
+                        <div>
+
+                            <form name="f2" class=" m-2">
+
+                                <div class=" container animated ">
+                                    <div class="input-group">
+                                        <select class="custom-select" style="width: 170px;" size=5 [(ngModel)]="filtro_Familia" name="filtro_Familia">
+                                            <option hidden selected class="uno" value="Familia"> Familia</option>
+                                    <option  class="uno"*ngFor="let familia of familias" [value]="familia.descripcion_familia">
+                                      {{familia.descripcion_familia}}
+                                    </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class=" container">
+                    <button onclick=window.location.reload(); type="button" class="btn btn-outline-success boton-compra">Restaurar</button>
+                </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <img src="assets/img/Cat1.jpg" class="card-img-top rounded-circle" alt="...">
-                <h2> Nombre Categoría</h2>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <div class=" container animated fadeIn" id="content-boton">
+                <button class="btn  boton-menu icono-filtro" id="menu-toggle"><i class="fas fa-filter"></i></button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  </button>
             </div>
-            <div class="card-body">
-                <p>
-                    Especie:
-                </p>
-                <p>
-                    Genero:
-                </p>
-                <a href="#" class="btn">Ver Producto</a>
+
+
+            <div class=" container animated fadeIn">
+                <h1> PRODUCTOS </h1>
+            </div>
+
+
+
+
+
+
+
+            <div class="container mt-3">
+                <div class="row justify-content-center">
+
+                    <ng-container *ngIf="(!filtrados || filtrados.length === 0) && !sinCoincidencias">
+
+                        <div class="col-lg-4 col-md-6 col-12 animated fadeIn" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia | filtroPrecio: filtro_Precio1:filtro_Precio2  ">
+                            <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
+
+                                <div class="img-animtion imagenes p-0 ">
+                                    <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
+
+                                </div>
+
+                                <div class="card-body text-center" id="divPadre">
+
+                                    <h5 class="card-title tuclase">
+                                        {{producto.nombre}}
+                                    </h5>
+
+                                    <p class="card-text mt-2 mb-4 " style="font-size: 1.3em;">
+                                        <span class=" mt-4"> Precio</span> <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.precio}}</span>
+                                    </p>
+
+                                    <div class=" container">
+                                        <div class="row">
+                                            <div class=" col-8">
+                                                <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
+                                            </div>
+                                            <div class=" col-4">
+                                                <i class="fas fa-shopping-cart icono"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="sinCoincidencias">
+                        <div class="text-danger mt-5">
+                            <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
+                        </div>
+                    </ng-container>
+
+
+                    <ng-container *ngIf="filtrados && filtrados.length > 0">
+
+                        <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of filtrados | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia">
+                            <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
+
+                                <div class="img-animtion imagenes p-0 ">
+                                    <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
+
+                                </div>
+
+                                <div class="card-body text-center" id="divPadre">
+
+                                    <h5 class="card-title tuclase">
+                                        {{producto.nombre}}
+                                    </h5>
+
+                                    <p class="card-text mt-2 mb-4 " style="font-size: 1.3em;">
+                                        <span class=" mt-4"> Precio</span> <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.precio}}</span>
+                                    </p>
+
+                                    <div class=" container">
+                                        <div class="row">
+                                            <div class=" col-8">
+                                                <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
+                                            </div>
+                                            <div class=" col-4">
+                                                <i class="fas fa-shopping-cart icono"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-container>
+
+
+
+
+                </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <img src="assets/img/Cat1.jpg" class="card-img-top rounded-circle" alt="...">
-                <h2> Nombre Categoría</h2>
-            </div>
-            <div class="card-body">
-                <p>
-                    Especie:
-                </p>
-                <p>
-                    Genero:
-                </p>
-                <a href="#" class="btn">Ver Producto</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <img src="assets/img/Cat1.jpg" class="card-img-top rounded-circle" alt="...">
-                <h2> Nombre Categoría</h2>
-            </div>
-            <div class="card-body">
-                <p>
-                    Especie:
-                </p>
-                <p>
-                    Genero:
-                </p>
-                <a href="#" class="btn">Ver Producto</a>
-            </div>
-        </div>
+        <!-- /#page-content-wrapper -->
+
     </div>
-</div>
+    <!-- /#wrapper -->
+
+
+</body>
+<app-piepagina></app-piepagina>

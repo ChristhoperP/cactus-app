@@ -75,6 +75,26 @@ var controller = {
             })
         }
     },
+    infoProducto: async function(req, res) {
+        try {
+            const response = await pool.query(
+                'SELECT * FROM INFORMACION_PRODUCTO order by idProducto;'
+            );
+
+            //console.log(response);
+            
+
+            var respuesta = response.rows;
+
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se ha podido obtener los productos.',
+            })
+        }
+    },
     cantidadCategoria: async function(req, res) {
         try {
             const response = await conf.pool.query(
@@ -248,6 +268,111 @@ var controller = {
             })
         }
 
+    },
+
+    registroPromocion: async function(req, res) {
+
+
+        var { idproducto, descripcion, fechainicio, fechafin, porcentajedescuento } = req.body;
+        console.log(idproducto, descripcion, fechainicio, fechafin, porcentajedescuento);
+
+        if (idproducto != null && descripcion != null && fechainicio != null && porcentajedescuento != null) {
+
+            try {
+
+                console.log(req.body, "si recibe");
+                const response = await pool.query(
+                    'SELECT SP_AGREGAR_PROMOCION($1,$2,$3,$4,$5);', [parseInt(idproducto), descripcion, fechainicio, fechafin, parseFloat(porcentajedescuento)]
+                );
+                console.log('se ha registrado exitosamente');
+                var respuesta = response.rows[0].sp_agregar_promocion;
+                var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
+                var arregloRes = respuesta1.split(',');
+                var mensaje = arregloRes[1];
+                var idPromocion = arregloRes[2];
+
+                return res.status(200).send({
+                    message: mensaje,
+                    body: req.body,
+                    idPromocion: idPromocion
+                });
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha registrado la promocion',
+                })
+            }
+        } else {
+            return res.status(500).send({
+                message: 'Error: Faltan campos, no se registro la promocion'
+            })
+        }
+    },
+
+    eliminarPromocion: async function(req, res) {
+        var { idpromocion } = req.body;
+
+        if (idpromocion != null) {
+
+            try {
+                const response = await pool.query(
+                    'SELECT SP_ELIMINAR_PROMOCION ($1);', [parseInt(idpromocion)]
+                );
+
+
+                return res.status(200).send({ message: "promocion eliminada con exito" });
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha podido eliminar la promocion',
+                })
+            }
+        } else {
+            return res.status(500).send({
+                message: 'Error: campo incompleto no recupera el id',
+            })
+        }
+
+    },
+    informacionPromociones: async function(req, res) {
+        try {
+            const response = await pool.query('SELECT promocion_idpromocion,idproducto , nombre , precio, porcentajedescuento, precioConDescuento, fechafin,urlportada, idcategoria, nombreCategoria FROM INFORMACION_PROMOCIONES;');
+            var respuesta = response.rows;
+            return res.status(200).send(respuesta);
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No es posible obtener las promociones disponibles.',
+            })
+        }
+    },
+    modificarPromocion: async function(req, res) {
+        var { idpromocion, fechafin, porcentajedescuento } = req.body;
+        if (idpromocion != null) {
+            try {
+                console.log(req.body);
+                var a = 'SELECT promocion_idpromocion, idproducto, nombre , precio, porcentajedescuento, precioConDescuento, fechafin'
+                var b = ' FROM SP_MODIFICAR_PROMOCION($1,$2,$3) AS ( promocion_idpromocion INT, idproducto INT, nombre VARCHAR(45), precio NUMERIC, porcentajedescuento NUMERIC, precioConDescuento NUMERIC, fechafin DATE);'
+                var c = a + b;
+                const response = await pool.query(c, [parseInt(idpromocion), fechafin, parseFloat(porcentajedescuento)]);
+                var respuesta = response.rows;
+                return res.status(200).send({
+                    respuesta
+                });
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha modificado la promocion',
+                })
+            }
+        } else {
+            return res.status(500).send({
+                message: 'Error: Faltan campos'
+            })
+        }
     }
 };
 
