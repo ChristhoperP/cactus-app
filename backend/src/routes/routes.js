@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 const auth = require('../middlewares/auth');
 const image = require('../middlewares/images');
+const conf = require('../config')
 
 var UserController = require('../controllers/user');
 var ImageController = require('../controllers/image');
@@ -30,7 +31,7 @@ router.get('/obtenerUsuariosRegistrados', UserController.obtenerUsuariosRegistra
 router.post('/actualizarInfoUsuario', auth.isAuth, UserController.actualizarInfoUsuarios);
 
 //Subida imagen de perfil
-router.post('/upload-image/', auth.isAuth, image.upload.single('image'), ImageController.subirImagenPerfil);
+router.post('/upload-image/', auth.isAuth, image.upload.single('image'), image.uploadGoogle, ImageController.subirImagenPerfil);
 
 
 /* RUTAS DE PRODUCTOS */
@@ -44,12 +45,11 @@ router.get('/productos', auth.isAdmin, AdminController.infoInventario);
 router.get('/productosCategoria', auth.isAdmin, AdminController.cantidadCategoria);
 
 //Registrar producto
-
-router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]),
+router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), image.uploadGoogle,
     AdminController.registroProducto);
 
 // Modificar Producto     
-router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), productoController.actualizarProducto);
+router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), image.uploadGoogle, productoController.actualizarProducto );
 
 // Eliminar producto
 router.post('/eliminar-producto', auth.isAdmin, AdminController.eliminarProducto);

@@ -1,11 +1,11 @@
 'use strict'
 
-const { pool } = require('../conexion');
+const conf = require('../config');
 
 var controller = {
     visitaInicio: async function (req, res) {
         try {
-            const response = await pool.query(
+            const response = await conf.pool.query(
                 'INSERT INTO public.visita(fechavisita) VALUES (CURRENT_TIMESTAMP) RETURNING idvisita;'
             );
 
@@ -20,7 +20,7 @@ var controller = {
     },
     visitaFinal: async function (req, res) {
         try {
-            await pool.query(
+            await conf.pool.query(
                 `UPDATE public.visita SET fechafinvisita=CURRENT_TIMESTAMP WHERE idvisita=${req.params.id};`
             );
 

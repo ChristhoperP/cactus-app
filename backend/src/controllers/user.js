@@ -1,9 +1,7 @@
 'use strict'
 
-const { request } = require('express');
-const { pool } = require('../conexion');
 const bcrypt = require('bcrypt');
-const rutas = require('../config');
+const conf = require('../config');
 const services = require('../services/token');
 
 var controller = {
@@ -18,7 +16,7 @@ var controller = {
                 try {
                     contrasenia = data;
                     console.log(data);
-                    const response = await pool.query(
+                    const response = await conf.pool.query(
                         'SELECT SP_AGREGAR_USUARIO($1,$2,$3,$4,$5,$6);', [nombre, correo, contrasenia, " ", " ", tipoUsuario]
                     );
 
@@ -57,7 +55,7 @@ var controller = {
         var { correo, contrasenia } = req.body;
         if (correo != null && contrasenia != null) {
             try {
-                const response = await pool.query(
+                const response = await conf.pool.query(
                     'SELECT SP_VALIDAR_USUARIO($1);', [correo]
                 );
                 var respuesta = response.rows[0].sp_validar_usuario;
@@ -96,7 +94,7 @@ var controller = {
     infoPerfilUsuario: async function (req, res) {
 
         try {
-            const response = await pool.query(
+            const response = await conf.pool.query(
                 `SELECT * FROM INFORMACION_USUARIO_PERFIL WHERE idusuario = ${req.user.id};`
             );
 
@@ -115,7 +113,7 @@ var controller = {
 
     },
     obtenerUsuariosRegistrados: async function (req, res) {
-        const response = await pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');
+        const response = await conf.pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');
         res.json(response.rows);
     },
     actualizarInfoUsuarios: async function (req, res) {
@@ -125,7 +123,7 @@ var controller = {
         switch (parseInt(opcion)) {
             case 1: //modifica el nombre
                 if (idUsuario && nombre) {
-                    await pool.query(`UPDATE public.usuario SET nombre='${nombre}' WHERE idusuario=${idUsuario};`);
+                    await conf.pool.query(`UPDATE public.usuario SET nombre='${nombre}' WHERE idusuario=${idUsuario};`);
                     res.status(200).send({ nombre: nombre, message: "Se actualizó el nombre correctamente." });
                 } else {
                     res.status(500).send({
@@ -135,7 +133,7 @@ var controller = {
                 break;
             case 2://actualiza la contrasenia
                 if (idUsuario && contraseniaAnterior && contraseniaNueva) {
-                    const response = await pool.query(`SELECT contrasenia FROM public.usuario where idusuario=${idUsuario};`);
+                    const response = await conf.pool.query(`SELECT contrasenia FROM public.usuario where idusuario=${idUsuario};`);
 
                     const resultadoMatch = await bcrypt.compare(contraseniaAnterior, response.rows[0].contrasenia);
 
@@ -145,7 +143,7 @@ var controller = {
                                 try {
                                     contraseniaNueva = data;
 
-                                    await pool.query(`UPDATE public.usuario SET contrasenia='${contraseniaNueva}' WHERE idusuario=${idUsuario};`);
+                                    await conf.pool.query(`UPDATE public.usuario SET contrasenia='${contraseniaNueva}' WHERE idusuario=${idUsuario};`);
                                     res.status(200).send({ message: "Se actualizó la contrasenia correctamente." });
 
                                 } catch (err) {
@@ -172,7 +170,7 @@ var controller = {
                 break;
             case 3://actualizar el telefono
                 if (idUsuario && telefono) {
-                    await pool.query(`UPDATE public.usuario SET telefono='${telefono}' WHERE idusuario=${idUsuario};`);
+                    await conf.pool.query(`UPDATE public.usuario SET telefono='${telefono}' WHERE idusuario=${idUsuario};`);
                     res.status(200).send({ telefono: telefono, message: "Se actualizó el telefono correctamente." });
                 } else {
                     res.status(500).send({
@@ -182,7 +180,7 @@ var controller = {
                 break;
             case 4:
                 if (idUsuario && direccion) {
-                    await pool.query(`UPDATE public.usuario SET direccion='${direccion}' WHERE idusuario=${idUsuario};`);
+                    await conf.pool.query(`UPDATE public.usuario SET direccion='${direccion}' WHERE idusuario=${idUsuario};`);
                     res.status(200).send({ direccion: direccion, message: "Se actualizó la direccion correctamente." });
                 } else {
                     res.status(500).send({
