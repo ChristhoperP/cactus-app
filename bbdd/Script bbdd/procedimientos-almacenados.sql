@@ -614,7 +614,8 @@ CREATE OR REPLACE FUNCTION SP_ELIMINAR_PRODUCTO(
 	OUT p_mensaje VARCHAR(100)
 )	
 RETURNS record AS $BODY$
-DECLARE --imagenes_eliminadas INT[];
+DECLARE idpromocionvariable INT; 
+--imagenes_eliminadas INT[];
 BEGIN
     
     /* VERIFICANDO QUE EXISTA EL ID DEL PRODUCTO Y QUE NO SEA NULL */
@@ -634,8 +635,7 @@ BEGIN
 
 	    DELETE FROM public.producto_has_especie
         WHERE producto_idproducto=p_idproducto;
-		
-		
+				
 		--imagenes_eliminadas = 
 		--(SELECT ARRAY (SELECT imagenproducto_idimagenproducto FROM producto_has_imagenproducto WHERE producto_idproducto = p_idproducto));
 
@@ -650,6 +650,32 @@ BEGIN
 		END LOOP; */
        
 
+        /* Promociones Eliminadas SOLO si tienen */
+
+        idpromocionvariable = (SELECT promocion_idpromocion FROM promocion_has_producto WHERE producto_idproducto = p_idproducto)
+
+         IF EXISTS(SELECT promocion_idpromocion from promocion_has_producto where producto_idproducto=p_idproducto) THEN
+
+         	   /* tabla has asociada */
+
+	    DELETE FROM public.promocion_has_producto
+        WHERE producto_idproducto=p_idproducto;
+
+            	/* Borrar la promocion */
+
+        DELETE FROM public.promocion
+        WHERE idpromocion = idpromocionvariable;
+
+           
+        END IF;
+
+        
+
+        /* BORRANDO EL PROMOCION Y DATOS DE TABLAS ASOCIADAS */
+
+
+		
+	
         /* el producto */
 
         DELETE FROM public.producto
@@ -687,6 +713,11 @@ RETURNS RECORD AS $BODY$
 BEGIN
     p_id = NULL;
 
+           IF EXISTS(SELECT promocion_idpromocion from promocion_has_producto where producto_idproducto=p_idproducto) THEN
+           p_ocurrioError := 1;
+           p_mensaje := "Error: Ya tiene una promocion asignada al producto ";
+		   RETURN;
+        END IF;
  
         IF(p_idproducto IS NULL OR p_descripcion IS NULL OR p_fechainicio IS NULL OR p_fechafin IS NULL OR p_porcentajedescuento IS NULL
         ) THEN
