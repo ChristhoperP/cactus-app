@@ -12,6 +12,7 @@ export class FiltroEspeciesPipe implements PipeTransform {
       if (productos.especie.toLowerCase().indexOf(arg.toLowerCase()) > -1){
         resultEspecie.push(productos);
       }
+    
     }
     
     return resultEspecie;
