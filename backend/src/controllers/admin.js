@@ -77,7 +77,7 @@ var controller = {
     },
     infoProducto: async function(req, res) {
         try {
-            const response = await pool.query(
+            const response = await conf.pool.query(
                 'SELECT * FROM INFORMACION_PRODUCTO order by idProducto;'
             );
 
@@ -281,7 +281,7 @@ var controller = {
             try {
 
                 console.log(req.body, "si recibe");
-                const response = await pool.query(
+                const response = await conf.pool.query(
                     'SELECT SP_AGREGAR_PROMOCION($1,$2,$3,$4,$5);', [parseInt(idproducto), descripcion, fechainicio, fechafin, parseFloat(porcentajedescuento)]
                 );
                 console.log('se ha registrado exitosamente');
@@ -316,7 +316,7 @@ var controller = {
         if (idpromocion != null) {
 
             try {
-                const response = await pool.query(
+                const response = await conf.pool.query(
                     'SELECT SP_ELIMINAR_PROMOCION ($1);', [parseInt(idpromocion)]
                 );
 
@@ -338,7 +338,7 @@ var controller = {
     },
     informacionPromociones: async function(req, res) {
         try {
-            const response = await pool.query('SELECT promocion_idpromocion,idproducto , nombre , precio, porcentajedescuento, precioConDescuento, fechafin,urlportada, idcategoria, nombreCategoria FROM INFORMACION_PROMOCIONES;');
+            const response = await conf.pool.query('SELECT promocion_idpromocion,idproducto , nombre , precio, porcentajedescuento, precioConDescuento, fechafin,urlportada, idcategoria, nombreCategoria FROM INFORMACION_PROMOCIONES;');
             var respuesta = response.rows;
             return res.status(200).send(respuesta);
         } catch (err) {
@@ -356,7 +356,7 @@ var controller = {
                 var a = 'SELECT promocion_idpromocion, idproducto, nombre , precio, porcentajedescuento, precioConDescuento, fechafin'
                 var b = ' FROM SP_MODIFICAR_PROMOCION($1,$2,$3) AS ( promocion_idpromocion INT, idproducto INT, nombre VARCHAR(45), precio NUMERIC, porcentajedescuento NUMERIC, precioConDescuento NUMERIC, fechafin DATE);'
                 var c = a + b;
-                const response = await pool.query(c, [parseInt(idpromocion), fechafin, parseFloat(porcentajedescuento)]);
+                const response = await conf.pool.query(c, [parseInt(idpromocion), fechafin, parseFloat(porcentajedescuento)]);
                 var respuesta = response.rows;
                 return res.status(200).send({
                     respuesta
