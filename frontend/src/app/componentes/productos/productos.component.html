@@ -1,5 +1,3 @@
-<!-- <app-encabezado></app-encabezado> -->
-
 <body>
 
     <div class="d-flex " id="wrapper">
@@ -27,59 +25,6 @@
                 </div>
 
                 <div class=" container opciones">
-                    <div class=" row">
-                        <div class=" col-4 texto-opcion">
-                            Especie
-                        </div>
-                        <div class=" col-8">
-                            <form name="f2">
-
-                                <div class=" container animated ">
-                                    <div class="input-group">
-                                        <select class="custom-select" style="width: 100px;" [(ngModel)]="filtro_Especie" name="filtro_Especie">
-                                            <option value="" disabled selected>Familia</option>
-                                            <option size="2"  name="filtro_Especie" class="color" *ngFor="let especie of especies" [value]="especie.descripcion_especie">
-                                              {{especie.descripcion_especie}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class=" container opciones ">
-                    <div>
-                        <div class="texto-opcion">
-                            Genero
-                        </div>
-                        <div>
-                            <form name="f1" class=" m-2">
-                                <div class=" container animated ">
-                                    <div class="input-group">
-                                        <select class="custom-select" style="width: 170px;" size=5 [(ngModel)]="filtro_Genero" name="filtro_Genero">
-                                            <option hidden selected class="uno" value="Genero"> Genero</option>
-                                            <option  class="uno" *ngFor="let genero of generos" [value]="genero.descripcion_genero">
-                                              {{genero.descripcion_genero}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class=" container opciones">
                     <div>
                         <div class="  texto-opcion">
                             Familia
@@ -90,7 +35,7 @@
 
                                 <div class=" container animated ">
                                     <div class="input-group">
-                                        <select class="custom-select" style="width: 170px;" size=5 [(ngModel)]="filtro_Familia" name="filtro_Familia">
+                                        <select class="custom-select" (change)="filtrarGenero()" style="width: 170px;" size=5 [(ngModel)]="filtro_Familia" name="filtro_Familia">
                                             <option hidden selected class="uno" value="Familia"> Familia</option>
                                     <option  class="uno"*ngFor="let familia of familias" [value]="familia.descripcion_familia">
                                       {{familia.descripcion_familia}}
@@ -107,8 +52,64 @@
                     </div>
                 </div>
 
+                <div class=" container opciones ">
+                    <div>
+                        <div class="texto-opcion">
+                            Genero
+                        </div>
+                        <div>
+                            <form name="f1" class=" m-2">
+                                <div class=" container animated ">
+                                    <div class="input-group">
+                                        <select class="custom-select" (change)="filtrarEspecie()" style="width: 170px;" size=5 [(ngModel)]="filtro_Genero" name="filtro_Genero">
+                                            <option hidden selected class="uno" value="Genero"> Genero</option>
+                                            <option  class="uno" *ngFor="let genero of generosFiltrado | filtroNivel1:filtro_nivel1" [value]="genero.descripcion_genero">
+                                              {{genero.descripcion_genero}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class=" container opciones">
+                    <div class=" row">
+                        <div class=" col-4 texto-opcion">
+                            Especie
+                        </div>
+                        <div class=" col-8">
+                            <form name="f2">
+
+                                <div class=" container animated ">
+                                    <div class="input-group">
+                                        <select class="custom-select" style="width: 100px;" [(ngModel)]="filtro_Especie" name="filtro_Especie">
+                                            <option value="" disabled selected>Especie</option>
+                                            <option size="2"   name="filtro_Especie" class="color" *ngFor="let especie of especiesFiltrado  " [value]="especie.descripcion_especie">
+                                              {{especie.descripcion_especie}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class=" container">
-                    <button onclick=window.location.reload(); type="button" class="btn btn-outline-success boton-compra">Restaurar</button>
+                    <button (click)="restaurar();" type="button" class="btn btn-outline-success boton-compra">Restaurar</button>
                 </div>
             </div>
         </div>
@@ -139,7 +140,7 @@
 
                     <ng-container *ngIf="(!filtrados || filtrados.length === 0) && !sinCoincidencias">
 
-                        <div class="col-lg-4 col-md-6 col-12 animated fadeIn" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia | filtroPrecio: filtro_Precio1:filtro_Precio2  ">
+                        <div class="col-lg-4 col-md-6 col-12 animated fadeIn" id="cards-productos" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia | filtroPrecio: filtro_Precio1:filtro_Precio2  ">
                             <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
 
                                 <div class="img-animtion imagenes p-0 ">
@@ -178,6 +179,13 @@
                             <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
                         </div>
                     </ng-container>
+
+                    <ng-container *ngIf="(productos | filtroEspecies:filtro_Especie ).length === 0">
+                        <div class="text-danger mt-5">
+                            <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
+                        </div>
+                    </ng-container>
+
 
 
                     <ng-container *ngIf="filtrados && filtrados.length > 0">

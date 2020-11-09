@@ -16,12 +16,16 @@ export class ProductosComponent implements OnInit {
   especies:any = [];
   generos:any = [];
   familias:any = [];
+  generosFiltrado:any = [];
+  especiesFiltrado:any = [];
+
   public url: string;
   filtro_Especie='';
   filtro_Genero='';
   filtro_Familia='';
   filtro_Precio1='';
   filtro_Precio2='';
+  filtro_nivel1='';
   filtrados: Array<any>;
   filtro: string;
   sinCoincidencias = false;
@@ -57,12 +61,16 @@ export class ProductosComponent implements OnInit {
     this.servicioProducto.getEspecies()
       .subscribe((res:any) => {
         this.especies = res;
+        this.especiesFiltrado=this.especies
       } );
 
     this.servicioProducto.getGeneros()
       .subscribe((res:any) => {
         this.generos = res;
+        this.generosFiltrado=this.generos;
       } );
+
+
 
     this.servicioProducto.getFamilia()
       .subscribe((res:any) => {
@@ -79,6 +87,26 @@ export class ProductosComponent implements OnInit {
       }
     });
 
+  }
+
+   restaurar():void{
+    this.filtro_Especie='';
+    this.filtro_Genero='';
+    this.filtro_Familia='';
+    this.filtro_Precio1='';
+    this.filtro_Precio2='';
+    this.generosFiltrado=this.generos;
+    this.especiesFiltrado=this.especies;
+  }
+
+  filtrarGenero():void{
+    this.generosFiltrado=this.generos.filter(gen => gen.descripcion_familia === this.filtro_Familia);
+    console.log(this.filtro_Familia);
+  }
+
+  filtrarEspecie():void{
+    this.especiesFiltrado=this.especies.filter(esp => esp.descripcion_genero === this.filtro_Genero);
+    console.log(this.filtro_Genero);
   }
 
 }
