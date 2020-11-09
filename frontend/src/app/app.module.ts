@@ -10,8 +10,8 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 
 //Graficos
 import { ChartsModule } from 'ng2-charts';
-// import { AgmCoreModule } from '@agm/core';
-// import { GoogleMapsModule } from '@angular/google-maps'
+import { AgmCoreModule } from '@agm/core';
+import { GoogleMapsModule } from '@angular/google-maps'
 //cargar JS
 import {ServAdminService}  from "./servicios/administrador/serv-admin.service"
 
@@ -114,11 +114,11 @@ import { FiltroNivel1Pipe } from './pipes/filtro-nivel-1.pipe';
     ChartsModule,
     ImageCropperModule,
     ImageToDataUrlModule,
-    FilterPipeModule
-  //   AgmCoreModule.forRoot({
-  //     apiKey: 'AIzaSyCJzxAkEYyB2-ZosSZAnnX0kwI516q3t6c'    
-  //  }),
-  //  GoogleMapsModule
+    FilterPipeModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCJzxAkEYyB2-ZosSZAnnX0kwI516q3t6c'    
+   }),
+   GoogleMapsModule
   ],
   providers: [
     appRoutingProviders,
