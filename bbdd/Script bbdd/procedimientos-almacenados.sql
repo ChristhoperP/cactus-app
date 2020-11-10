@@ -617,7 +617,7 @@ RETURNS record AS $BODY$
 DECLARE idpromocionvariable INT; 
 --imagenes_eliminadas INT[];
 BEGIN
-    
+    	
     /* VERIFICANDO QUE EXISTA EL ID DEL PRODUCTO Y QUE NO SEA NULL */
         IF EXISTS(SELECT * from producto where idproducto=p_idproducto) IS FALSE THEN
            p_ocurrioError := 1;
@@ -652,30 +652,26 @@ BEGIN
 
         /* Promociones Eliminadas SOLO si tienen */
 
-        idpromocionvariable = (SELECT promocion_idpromocion FROM promocion_has_producto WHERE producto_idproducto = p_idproducto)
+      
 
          IF EXISTS(SELECT promocion_idpromocion from promocion_has_producto where producto_idproducto=p_idproducto) THEN
-
+		 	
+		SELECT promocion_idpromocion INTO idpromocionvariable FROM promocion_has_producto WHERE producto_idproducto = p_idproducto;
+		
          	   /* tabla has asociada */
 
-	    DELETE FROM public.promocion_has_producto
-        WHERE producto_idproducto=p_idproducto;
+			DELETE FROM public.promocion_has_producto
+			WHERE producto_idproducto=p_idproducto;
 
-            	/* Borrar la promocion */
+					/* Borrar la promocion */
 
-        DELETE FROM public.promocion
-        WHERE idpromocion = idpromocionvariable;
-
+			DELETE FROM public.promocion
+			WHERE idpromocion = idpromocionvariable;
+			
            
         END IF;
-
-        
-
-        /* BORRANDO EL PROMOCION Y DATOS DE TABLAS ASOCIADAS */
-
-
 		
-	
+
         /* el producto */
 
         DELETE FROM public.producto

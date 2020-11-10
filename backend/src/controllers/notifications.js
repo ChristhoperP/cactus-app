@@ -23,7 +23,7 @@ dbEventEmitter.on('deleted_promo', (msg) => {
 
 let pgClient = new pg.Client('postgres://postgres:postgres@localhost:5432/cactus');
 
-pgClient.connect(
+/* pgClient.connect(
     function(err, client) {
         if (err) {
             console.log(err);
@@ -37,7 +37,7 @@ pgClient.connect(
         client.query('LISTEN deleted_promo');
     }
 );
-
+ */
 var controller = {
 
     eventsHandler: function(req, res, next) {
