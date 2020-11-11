@@ -862,4 +862,4 @@ $$
 LANGUAGE plpgsql;
 
 
-/* Agregar carrito de compras */
+/* Agregar carrito */
