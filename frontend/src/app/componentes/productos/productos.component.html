@@ -196,6 +196,17 @@
                         </div>
                     </ng-container>
 
+                    <ng-container *ngIf="(productos | filtroGenero:filtro_Genero ).length === 0">
+                        <div class="text-danger mt-5">
+                            <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="(productos | filtroFamilia:filtro_Familia ).length === 0">
+                        <div class="text-danger mt-5">
+                            <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
+                        </div>
+                    </ng-container>
 
 
                     <ng-container *ngIf="filtrados && filtrados.length > 0">

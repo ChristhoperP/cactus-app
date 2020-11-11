@@ -59,7 +59,7 @@ export class AuthService {
     }
 
     getInfoUsuario() {
-        return this._http.get(`${SERVER_URL}/infoPerfil`);
+        return this._http.get(this.url + 'infoPerfil', {headers: this.headers});
       }
 
     setUpdatedName( name: string ): void {
