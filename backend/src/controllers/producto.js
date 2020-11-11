@@ -131,7 +131,7 @@ var controller = {
     getFamilia: async function(req, res) {
         try {
             let s = 'SELECT idfamilia, descripcion_familia FROM SP_OBTENER_FAMILIA() AS ( idfamilia INT, descripcion_familia VARCHAR(200));';
-            const response = await pool.query(s);
+            const response = await conf.pool.query(s);
             res.json(response.rows);
 
         } catch (e) {
