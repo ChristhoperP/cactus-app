@@ -1,6 +1,7 @@
 const pg = require('pg');
 var EventEmitter = require('events');
 var util = require('util');
+var conf = require('../config');
 
 var clients = [];
 
@@ -21,9 +22,9 @@ dbEventEmitter.on('deleted_promo', (msg) => {
     controller.sendEventsToAll(msg);
 });
 
-let pgClient = new pg.Client('postgres://postgres:postgres@localhost:5432/cactus');
+//let pgClient = new pg.Client('postgres://postgres:postgres@localhost:5432/cactus');
 
-/* pgClient.connect(
+conf.pool.connect(
     function(err, client) {
         if (err) {
             console.log(err);
@@ -37,7 +38,7 @@ let pgClient = new pg.Client('postgres://postgres:postgres@localhost:5432/cactus
         client.query('LISTEN deleted_promo');
     }
 );
- */
+
 var controller = {
 
     eventsHandler: function(req, res, next) {

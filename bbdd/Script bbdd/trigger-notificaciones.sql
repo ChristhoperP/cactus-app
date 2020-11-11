@@ -10,5 +10,5 @@ BEGIN
 END;
 $function$
 
-CREATE TRIGGER deleted_promo_trigger BEFORE DELETE ON promocion
+CREATE TRIGGER deleted_promo_trigger AFTER DELETE ON promocion
 FOR EACH ROW EXECUTE PROCEDURE notify_deleted_promo();
