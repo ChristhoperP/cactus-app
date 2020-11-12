@@ -21,7 +21,7 @@
                   </div>
                     <div class="col-md-3 mb-3">
                       <label for="validationServer02">Cantidad</label>
-                      <input type="number" formControlName="cantidad" [class.is-invalid]="validation('cantidad')" class="form-control form-control-sm" id="validationServer02" required>
+                      <input type="number" min="1" formControlName="cantidad" [class.is-invalid]="validation('cantidad')" class="form-control form-control-sm" id="validationServer02" required>
                       <div class="invalid-feedback">
                         Campo obligatorio
                       </div>
@@ -32,7 +32,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text">L</span>
                         </div>
-                        <input type="number" formControlName="precio" [class.is-invalid]="validation('precio')" class="form-control" aria-label="lempira">
+                        <input type="number" min="1" formControlName="precio" [class.is-invalid]="validation('precio')" class="form-control" aria-label="lempira">
                         <div class="invalid-feedback">
                           Campo obligatorio
                         </div>
