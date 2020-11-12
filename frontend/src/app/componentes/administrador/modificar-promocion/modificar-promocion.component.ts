@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, Output, ViewChild, EventEmitter } from '
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { PromocionesService } from 'src/app/servicios/administrador/promociones.service';
 import Swal from 'sweetalert2';
+import { Global } from "src/app/servicios/global";
 
 @Component({
   selector: 'app-modificar-promocion',
@@ -22,9 +23,13 @@ export class ModificarPromocionComponent implements OnInit {
     fechafin: new FormControl(null, [Validators.required, Validators.minLength(4)])
   });
 
+  public url:string;
+
   constructor(
     private _promoService: PromocionesService
-  ) { }
+  ) {
+    this.url = Global.url;
+  }
 
   ngOnInit(): void {
   }
@@ -33,7 +38,7 @@ export class ModificarPromocionComponent implements OnInit {
   get porcentajedescuento(): AbstractControl { return this.formModPromocion.get('porcentajedescuento'); }
   get fechafin(): AbstractControl { return this.formModPromocion.get('fechafin'); }
 
-  setPromo( promo: any): void {
+  setPromo(promo: any): void {
     const fecha: Date = new Date(promo.fechafin);
     const dia = fecha.getDate();
     const mes = fecha.getMonth() + 1;
@@ -52,8 +57,8 @@ export class ModificarPromocionComponent implements OnInit {
   updatePromo(): void {
     console.log(this.formModPromocion.value);
 
-    this._promoService.modificarPromocion( this.formModPromocion.value )
-      .subscribe( res => {
+    this._promoService.modificarPromocion(this.formModPromocion.value)
+      .subscribe(res => {
         console.log(res);
         this.successAlert();
         this.closeModal.nativeElement.click();
@@ -76,7 +81,7 @@ export class ModificarPromocionComponent implements OnInit {
     });
   }
 
-  errorAlert( msg: string ): void {
+  errorAlert(msg: string): void {
     Swal.fire({
       title: 'Ha ocurrido un error',
       text: msg,

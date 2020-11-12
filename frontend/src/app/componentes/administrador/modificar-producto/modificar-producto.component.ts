@@ -4,6 +4,7 @@ import { ProductosService } from 'src/app/servicios/administrador/productos.serv
 import Swal, { SweetAlertResult } from 'sweetalert2';
 import { Router } from '@angular/router';
 import { PeticionesService } from 'src/app/servicios/peticiones.service';
+import { Global } from "src/app/servicios/global";
 
 
 @Component({
@@ -114,7 +115,7 @@ export class ModificarProductoComponent implements OnInit {
               // portada: res[0].urlportada
             });
 
-            this.imgPortada = 'http://localhost:3000/api/get-image/' + res[0].urlportada;
+            this.imgPortada = Global.url+'get-image/' + res[0].urlportada;
             this.urlPortada = res[0].urlportada;
 
             this.imgsActuales = res[0].galeria;
