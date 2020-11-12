@@ -565,6 +565,17 @@ INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Opuntia monacan
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Opuntia monacantha','111');
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Opuntia microdasy amarilla','111');
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Austrocylindropuntia subulata','112');
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Monadenium ritchiei variegata', 1);
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Kalanchoe thyrsiflora', 30);
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Crassula perforata', 29);
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Crassula brides bouquet', 29); 
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Injerto sulcorebutia rauschii', 102);
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Astrophytum myriostigma Quadricostatum', 64);
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Haworthia limifolia', 40);
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Opuntia microdasys', 111);
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Lithop',16 );
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Echeveria Neon Breakers', 32);
+INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Echeveria Super Boom', 32);
 
 
 
