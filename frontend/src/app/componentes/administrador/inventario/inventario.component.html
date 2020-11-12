@@ -70,8 +70,7 @@
                         <td>L {{producto.precio}}</td>
                         <td>
                             <button class="btn btn-sm w-50" type="button"><i class="fa fa-trash mr-4" aria-hidden="true" (click)="deleteProduct(producto.idproducto, 1)"></i></button>
-                            <img class="ml-1 add-discount" style="width: 20px;" src="assets/img/administrador/offer.png" alt="add-promocion" data-toggle="modal" data-target="#addDiscountModal" data-placement="bottom" title="Añadir promoción" (click)="modalPromocion.getProductInfo(producto.idproducto, producto.nombre)">
-
+                            <img class="ml-1 add-discount" style="width: 20px;" src="assets/img/administrador/offer.png" alt="add-promocion" data-toggle="modal" [attr.data-target]="'#' + modalPromocion.OpenModal"  data-placement="bottom" title="Añadir promoción" (click)="modalPromocion.getProductInfo(producto.idproducto, producto.nombre)">
                         </td>
                     </tr>
                     <tr *ngIf="(productos | filterBy: productosFilterByName || productos | filterBy: productosFilterByName).length === 0">
@@ -84,6 +83,6 @@
         </div>
     </div>
 </div>
-<app-agregar-promocion #modalPromocion></app-agregar-promocion>
+<app-agregar-promocion  #modalPromocion></app-agregar-promocion>
 <app-modificar-producto #updateModal></app-modificar-producto>
 <app-agregar-producto (nuevoProducto)="recibeNuevoProducto($event)"></app-agregar-producto>
