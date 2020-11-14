@@ -1,7 +1,7 @@
 'use strict'
 const { Pool } = require('pg');
 
-var produccion = true;//cambiar valor dependiendo el entorno
+var produccion = true; //cambiar valor dependiendo el entorno
 
 if (produccion) {
     module.exports = {
@@ -15,7 +15,7 @@ if (produccion) {
             database: 'cactus',
             port: 5432
         }),
-        produccion:true
+        produccion: true
     }
 } else {
     module.exports = {
@@ -28,7 +28,6 @@ if (produccion) {
             database: 'cactus',
             port: 5434
         }),
-        produccion:false
+        produccion: false
     }
 }
-

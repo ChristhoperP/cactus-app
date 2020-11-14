@@ -22,6 +22,8 @@ import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios
 import { PromocionesComponent } from './componentes/administrador/promociones/promociones.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { NoAdminGuard } from './servicios/guards/no-admin.guard';
+import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
+
 
 
 
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
             {path: 'inicio', component: InicioComponent},
             {path: 'productos', component: ProductosComponent, canActivate: [NoAdminGuard]},
             {path: 'promocion', component: PromocionComponent, canActivate: [NoAdminGuard]},
+            {path: 'detalle', component: DetalleProductoComponent, canActivate: [NoAdminGuard]},
             {path: 'informacion', component: InformacionComponent, canActivate: [NoAdminGuard]},
             {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard, NoAdminGuard]}
         ]
