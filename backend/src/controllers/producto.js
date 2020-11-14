@@ -140,6 +140,62 @@ var controller = {
             });
         }
     },
+    detalleProducto: async function(req, res) {
+        var { idproducto } = req.body;
+        
+
+        try {
+            const response = await conf.pool.query(
+          
+                'SELECT * FROM DETALLE_PRODUCTO WHERE IDPRODUCTO = $1;', [idproducto]
+            );
+
+            //console.log(response);
+            var respuesta = response.rows;
+
+            var idproductoAnt = 0;
+            var idproducto1 = 0;
+            var indiceProducto = 0;
+            var galeria = [];
+            var idimagen = [];
+            var elementosAEliminar = [];
+
+            respuesta.forEach((element, indice) => {
+                idproducto1 = element.idproducto; //Se obtiene el id del elemento actual
+                galeria = []; //se establece un arreglo vacio para almacenar la galeria
+                if (idproducto1 == idproductoAnt) { //Si el id del elemento actual coincide con el id del elemento anterior:
+                    respuesta[indiceProducto].galeria.push(element.galeria); //La galeria del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
+                    respuesta[indiceProducto].idimagen.push(element.idimagen); //La galeria del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
+                    elementosAEliminar.push(indice);
+                } else {
+                    //Si no es igual el elemento anterior con el actual:
+                    galeria.push(element.galeria); //la galeria actual se almacena en un arreglo
+                    idimagen.push(element.idimagen); //la galeria actual se almacena en un arreglo
+                    element.galeria = galeria; //la galeria del elemento actual se convierte en un arreglo
+                    element.idimagen = idimagen; //la galeria del elemento actual se convierte en un arreglo
+                    indiceProducto = indice; //se almacena el indice del array que contiene el elemento actual
+                    idproductoAnt = idproducto1; //el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
+                }
+            });
+
+            //Se eliminan los elementos que no se necesitan
+            var respuesta1 = [];
+            respuesta.forEach((element, indice) => {
+                if (!(elementosAEliminar.indexOf(indice) >= 0)) {
+                    respuesta1.push(element);
+                }
+            });
+
+            return res.status(200).send(respuesta1);
+
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se ha podido obtener los productos por ID.',
+            })
+        }
+    },
 }
 
 module.exports = controller;
