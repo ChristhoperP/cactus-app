@@ -66,6 +66,7 @@ import { FiltroGeneroPipe } from './pipes/filtro-genero.pipe';
 import { FiltroFamiliaPipe } from './pipes/filtro-familia.pipe';
 import { FiltroPrecioPipe } from './pipes/filtro-precio.pipe';
 import { FiltroNivel1Pipe } from './pipes/filtro-nivel-1.pipe';
+import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
 
 
 
@@ -104,6 +105,7 @@ import { FiltroNivel1Pipe } from './pipes/filtro-nivel-1.pipe';
     FiltroFamiliaPipe,
     FiltroPrecioPipe,
     FiltroNivel1Pipe,
+    DetalleProductoComponent,
   ],
   imports: [
     BrowserModule,

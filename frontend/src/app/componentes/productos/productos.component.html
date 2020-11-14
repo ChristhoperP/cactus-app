@@ -169,6 +169,15 @@
                                     </p>
 
                                     <div class=" container">
+
+                                        <div>
+                                            <button type="button" [routerLink]="['/detalle']" class="btn btn-secondary btn-sm pequenio">Detalle de Producto</button>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class=" container">
                                         <div class="row">
                                             <div class=" col-8">
                                                 <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
@@ -190,23 +199,12 @@
                         </div>
                     </ng-container>
 
-                    <ng-container *ngIf="(productos | filtroEspecies:filtro_Especie ).length === 0">
+                    <ng-container *ngIf="((productos | filtroEspecies:filtro_Especie ).length === 0) || ((productos | filtroGenero:filtro_Genero ).length === 0) || ((productos | filtroFamilia:filtro_Familia ).length === 0)">
                         <div class="text-danger mt-5">
                             <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
                         </div>
                     </ng-container>
 
-                    <ng-container *ngIf="(productos | filtroGenero:filtro_Genero ).length === 0">
-                        <div class="text-danger mt-5">
-                            <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
-                        </div>
-                    </ng-container>
-
-                    <ng-container *ngIf="(productos | filtroFamilia:filtro_Familia ).length === 0">
-                        <div class="text-danger mt-5">
-                            <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
-                        </div>
-                    </ng-container>
 
 
                     <ng-container *ngIf="filtrados && filtrados.length > 0">
@@ -238,6 +236,10 @@
                                         <br>
                                         <span class=" mt-4" style="font-size:1.5em; color:rgb(28, 145, 115)">  L </span> <span class=" mt-4" style="font-size:1.5em; color: rgb(3, 121, 66);">{{producto.preciocondescuento}}</span>
                                     </p>
+
+
+
+
 
                                     <div class=" container">
                                         <div class="row">
