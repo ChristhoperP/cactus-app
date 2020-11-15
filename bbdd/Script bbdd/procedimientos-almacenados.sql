@@ -863,3 +863,60 @@ LANGUAGE plpgsql;
 
 
 /* Agregar carrito */
+
+CREATE OR REPLACE FUNCTION SP_AGREGAR_PRODUCTO_CARRITO
+( 
+      
+   IN p_idproducto INT,	 
+   IN p_idusuario INT,	 
+   IN p_cantidad INT,	 
+   OUT p_ocurrioError INT,
+   OUT p_mensaje VARCHAR(200)
+   
+)
+RETURNS RECORD AS $BODY$
+
+	DECLARE vnidcarrito INT;
+
+    
+BEGIN
+    
+
+
+        IF (p_idproducto IS NULL OR p_idusuario IS NULL OR p_cantidad IS NULL) THEN
+            p_ocurrioError := 1;
+            p_mensaje:= 'Error: campos incompletos';
+            RETURN;
+        END IF;    
+
+
+        IF NOT EXISTS(SELECT idcarrito from carrito where usuario_idusuario=p_idusuario) THEN
+
+                INSERT INTO CARRITO(usuario_idusuario) VALUES (p_idusuario);
+
+        END IF;
+ 
+
+        SELECT idcarrito INTO vnidcarrito FROM CARRITO WHERE usuario_idusuario=p_idusuario ;  /* Se obtiene el ID del CARRITO de el usuario logueado para insertar en tablas has*/
+   
+             
+       
+                 /* Se hace Insert en carrito_has_producto */
+                  INSERT INTO carrito_has_producto(
+                  carrito_idcarrito,
+                  producto_idproducto,
+                  cantidad
+                  )
+               VALUES (
+                  vnidcarrito,
+                  p_idproducto,
+                  p_cantidad
+               );
+        
+		  
+                  p_ocurrioError := 0;
+                  p_mensaje:= 'Exito: Se ha registrado el producto en el carrito de compra';
+		   RETURN;
+END;
+$BODY$
+LANGUAGE 'plpgsql';

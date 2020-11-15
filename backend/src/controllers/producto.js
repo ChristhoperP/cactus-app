@@ -196,22 +196,43 @@ var controller = {
             })
         }
     },
+    registroCarrito: async function(req, res) {
+
+        var { idproducto,/*  idusuario, */ cantidad } = req.body;
+    
+
+        if (idproducto != null /* && idusuario != null */ && cantidad != null ) {
+
+            try {
+
+                /* console.log(req.body, "si recibe"); */
+                const response = await conf.pool.query(
+                    'SELECT SP_AGREGAR_PRODUCTO_CARRITO($1,$2,$3);', [parseInt(idproducto), parseInt(req.user.id), /* parseInt(idusuario) */ ,parseInt(cantidad)]
+                );
+                console.log('se ha registrado exitosamente en el carrito de compras');
+                var respuesta = response.rows[0].sp_agregar_producto_carrito;
+                var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
+                var arregloRes = respuesta1.split(',');
+                var mensaje = arregloRes[1];
+               
+
+                return res.status(200).send({
+                    message: mensaje,
+                    body: req.body,
+                });
+
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha registrado el producto en el carrito de compra',
+                })
+            }
+        } else {
+            return res.status(500).send({
+                message: 'Error: Faltan campos, no se registro el producto en el carrito de compra'
+            })
+        }
+    },
 }
 
 module.exports = controller;
-//Prueba
-/*
-{
-    "idproducto": 1,       
-    "nombre": "Echeveria Super Boom",
-    "informacionadicional": "lorem",
-    "urlportada": "Ninguna 123",
-    "precio": 220,
-    "cantidad": 2,
-    "idtipobase": 12,
-    "tiemposol": "7:00am-11:00am",
-    "frecuenciariego": "2 veces por semana",
-    "tamanio": "8x12cm",
-    "idcategoria": 2
-}
-*/
