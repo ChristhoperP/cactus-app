@@ -83,6 +83,10 @@ router.get('/obtener-promocion', /* auth.isAdmin, */ AdminController.informacion
 //Modificar una promoción 
 router.post('/modificar-promocion', /* auth.isAdmin, */ AdminController.modificarPromocion);
 
+/* RUTAS CARRITO DE COMPRAS */
+
+router.post('/registro-carrito', auth.isAuth,  productoController.registroCarrito);
+
 
 
 //Obtener imagenes y eliminar
