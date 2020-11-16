@@ -12,6 +12,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { ChartsModule } from 'ng2-charts';
 import { AgmCoreModule } from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps'
+
 //cargar JS
 import {ServAdminService}  from "./servicios/administrador/serv-admin.service"
 
@@ -28,6 +29,15 @@ import { PerfilComponent } from './componentes/perfil/perfil.component';
 import { PromocionComponent } from './componentes/promocion/promocion.component';
 import { InformacionComponent } from './componentes/informacion/informacion.component';
 import { CarruselPromoComponent } from './componentes/compartidos/carrusel-promo/carrusel-promo.component';
+import { CarritoComponent } from './componentes/carrito/carrito.component';
+
+//componentes del administrador
+import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
+import { PromocionesComponent } from './componentes/administrador/promociones/promociones.component';
+
+//componentes modales del administrador 
+import { AgregarPromocionComponent } from './componentes/administrador/agregar-promocion/agregar-promocion.component';
+import { AgregarProductoComponent } from './componentes/administrador/agregar-producto/agregar-producto.component';
 
 //servicios
 import { AuthService } from "./servicios/auth.service";
@@ -43,21 +53,19 @@ import { BusquedaProductosService } from './servicios/busqueda-productos.service
 //Formularios
 import { RegistroComponent } from './componentes/registro/registro.component';
 
+//pipes
+
 //Rutas
 import { rutas_encabezado, appRoutingProviders} from "./app.routing";
 import { EncabezadoAdminComponent } from './componentes/administrador/encabezado-admin/encabezado-admin.component';
 import { ControladorAdminComponent } from './componentes/administrador/controlador-admin/controlador-admin.component';
-import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
 import { ModificarProductoComponent } from './componentes/administrador/modificar-producto/modificar-producto.component';
 import { FotoModProductoComponent } from './componentes/administrador/foto-mod-producto/foto-mod-producto.component';
-import { AgregarProductoComponent } from './componentes/administrador/agregar-producto/agregar-producto.component';
 import { InicioAdminComponent } from './componentes/administrador/inicio-admin/inicio-admin.component';
 import { GraficoComponent } from './componentes/administrador/grafico/grafico.component';
 import { FiltroUsuarioPipe } from './pipes/filtro-usuario.pipe';
 import { UsuariosComponent } from './componentes/administrador/usuarios/usuarios.component';
 import { ActualizarUsuarioComponent } from './componentes/actualizar-usuario/actualizar-usuario.component';
-import { PromocionesComponent } from './componentes/administrador/promociones/promociones.component';
-import { AgregarPromocionComponent } from './componentes/administrador/agregar-promocion/agregar-promocion.component';
 import { FiltroPromocionPipe } from './pipes/filtro-promocion.pipe';
 import { ModificarPromocionComponent } from './componentes/administrador/modificar-promocion/modificar-promocion.component';
 import { PrincipalComponent } from './componentes/principal/principal.component';
@@ -106,6 +114,7 @@ import { DetalleProductoComponent } from './componentes/detalle-producto/detalle
     FiltroPrecioPipe,
     FiltroNivel1Pipe,
     DetalleProductoComponent,
+    CarritoComponent,
   ],
   imports: [
     BrowserModule,

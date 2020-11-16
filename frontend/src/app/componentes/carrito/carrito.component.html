@@ -1,0 +1,59 @@
+<app-encabezado></app-encabezado>
+<div class="container pt-5">
+    <div class="row">
+        <h3 style="font-size: revert"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Carrito de compras</h3>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="table-responsive">
+        <table class="table table-borderless">
+            <thead class="text-center">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Descuento</th>
+                  <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center ">
+                <td >
+                    <div class="form-check">
+                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+                    </div>
+                </td>
+                <th scope="row">
+                    <!-- <div class="imagen-producto ml-auto mr-auto">
+                        <img class="img-fluid" src="{{url+'get-image/'+producto.urlportada}}" alt="nombre">
+                    </div> -->
+                    <div class="imagen-producto ml-auto mr-auto">
+                        <img class="img-fluid" src="assets/img/productos/lola.jpg" alt="nombre producto">
+                    </div>
+                </th>
+                <td>nombre</td>
+                <td>
+                    <div class="input-group input-group-sm mb-3 m-auto w-50">
+                        <input type="number" min="1" max="10" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                </td>
+                <td>precio</td>
+                <td>descuento</td>
+                <td class="pr-0 pl-0">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <hr>
+    <div class="row text-center">
+        <p class="text-center w-100"><b>Total a pagar:</b> L 250</p>
+    </div>
+    <div class="row my-3">
+        <button type="button" class="btn btn-info  m-auto">Proceder a pagar</button>
+    </div>
+</div>

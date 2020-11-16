@@ -23,6 +23,8 @@ import { PromocionesComponent } from './componentes/administrador/promociones/pr
 import { PrincipalComponent } from './componentes/principal/principal.component';
 import { NoAdminGuard } from './servicios/guards/no-admin.guard';
 import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
+import { CarritoComponent } from './componentes/carrito/carrito.component';
+
 
 // Array de rutas
 const appRoutes: Routes = [
@@ -54,6 +56,7 @@ const appRoutes: Routes = [
         ],
         canActivate: [AuthGuard, IsAdminGuard]
     },
+    {path: 'carrito', component: CarritoComponent},
     {path: '**', component: InicioComponent}
 ];
 
