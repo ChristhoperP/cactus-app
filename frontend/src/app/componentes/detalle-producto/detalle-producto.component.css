@@ -7,6 +7,19 @@
     border: rgb(2, 2, 2) 1px solid;
 }
 
+h1 {
+    color: transparent;
+    background: url(/assets/img/1C.png) repeat;
+    -webkit-background-clip: text;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    font-size: 3vw;
+    font-weight: bold;
+    text-align: left;
+    letter-spacing: -2px;
+    line-height: 70px;
+}
+
 .caracteristicas {
     background-color: rgba(75, 192, 192, 0.3);
     padding-top: 2%;
@@ -14,6 +27,7 @@
     margin-top: 1%;
     margin-bottom: 1%;
     border-radius: 10px;
+    border: rgb(2, 2, 2) 1px solid;
 }
 
 .imagenes {

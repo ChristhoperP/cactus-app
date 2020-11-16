@@ -1,54 +1,41 @@
 <div class=" mt-4">
 
     <div class=" container">
-        <h2>Detalle Producto</h2>
+        <div class="row">
+            <div class=" col-8">
+                <h1>Detalle Producto</h1>
+            </div>
+            <div class=" col-4">
+                <div class=" container" style="text-align: right ;">
+                    <button type="button" [routerLink]="['/productos']" class="btn btn-outline-success"><i class="fas fa-arrow-circle-left"></i> Volver</button>
+                </div>
+            </div>
+        </div>
+
         <hr>
     </div>
 
-    <div class=" container">
+    <div class=" container" *ngIf="!cargando">
         <div class=" row">
             <div class=" col-lg-5 col-sm-10  galeria">
                 <div class="img-animtion imagenes p-0  ">
-                    <img src="assets/img/productos/5.jpg" alt="" class="card-img-top imagenes ">
+                    <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
                 </div>
 
 
-                <div id="carouselExampleIndicators" class="carousel slide" data-interval="false" data-ride="carousel">
+                <div id="carouselExampleIndicators" *ngIf="producto.galeria[0]!==null" class="carousel slide" data-interval="false" data-ride="carousel">
 
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
+                        <div class="carousel-item" *ngFor="let  galeria of producto.galeria; let i=index" [class.active]="i===1">
                             <div class="row">
-                                <div class=" col-6 ">
-                                    <img src="assets/img/productos/neon.jpg" alt="" class=" d-blockcard-img-top imagenes2">
+                                <div class=" col-12">
+                                    <img src="{{url+'get-image/'+galeria}}" alt="" class=" d-blockcard-img-top imagenes2">
                                 </div>
 
-                                <div class=" col-6 ">
-                                    <img src="assets/img/productos/13.jpg" alt="" class="card-img-top imagenes2">
-                                </div>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class=" col-6 ">
-                                    <img src="assets/img/productos/11.jpg" alt="" class=" d-blockcard-img-top imagenes2">
-                                </div>
 
-                                <div class=" col-6 ">
-                                    <img src="assets/img/productos/6.jpg" alt="" class="card-img-top imagenes2">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class=" col-6 ">
-                                    <img src="assets/img/productos/lola.jpg" alt="" class=" d-blockcard-img-top imagenes2">
-                                </div>
 
-                                <div class=" col-6 ">
-                                    <img src="assets/img/productos/4.jpg" alt="" class="card-img-top imagenes2">
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <a class="carousel-control-prev diseño-slide" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" style="font-size: 300px;" aria-hidden="true"></span>
@@ -74,7 +61,7 @@
                             <strong> <p>Nombre:</p></strong>
                         </div>
                         <div class="col-8">
-                            <p>Terrario Grande</p>
+                            <p>{{producto.nombre}}</p>
                         </div>
                     </div>
                 </div>
@@ -85,7 +72,7 @@
                             <strong> <p>Cantidad:</p></strong>
                         </div>
                         <div class="col-8">
-                            <input type="number" id="tentacles" name="tentacles" min="10" max="100">
+                            <input type="number" id="tentacles" name="tentacles" min="1" max="{{producto.cantidad}}">
                         </div>
                     </div>
                 </div>
@@ -99,7 +86,7 @@
                             <span>L</span>
                         </div>
                         <div class="col-2">
-                            <span>200</span>
+                            <span>{{producto.precio}}</span>
                         </div>
                         <div class="col-5 pl-4">
                             <button type="button" class="btn btn-outline-success">Comprar Ahora</button>
@@ -118,19 +105,19 @@
                         <tbody>
                             <tr>
                                 <strong> <td>Categoría: </td></strong>
-                                <td>Cactus y Suculentas </td>
+                                <td>{{producto.categoria}} </td>
                             </tr>
                             <tr>
                                 <strong> <td>Tipo de Base:</td></strong>
-                                <td>Vidrio </td>
+                                <td>{{producto.tipobase}} </td>
                             </tr>
                             <tr>
                                 <strong><td>Tiempo de Sol:</td></strong>
-                                <td>Medio </td>
+                                <td>{{producto.tiemposol}} </td>
                             </tr>
                             <tr>
                                 <strong><td>Frecuencia de Riego:</td></strong>
-                                <td>1 vez por semana </td>
+                                <td>{{producto.frecuenciariego}}</td>
                             </tr>
 
 
