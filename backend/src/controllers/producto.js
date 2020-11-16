@@ -141,12 +141,12 @@ var controller = {
         }
     },
     detalleProducto: async function(req, res) {
-        var { idproducto } = req.body;
-        
+        var { idproducto } = req.params;
+
 
         try {
             const response = await conf.pool.query(
-          
+
                 'SELECT * FROM DETALLE_PRODUCTO WHERE IDPRODUCTO = $1;', [idproducto]
             );
 

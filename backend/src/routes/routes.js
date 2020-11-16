@@ -40,7 +40,7 @@ router.post('/upload-image/', auth.isAuth, image.upload.single('image'), image.u
 router.get('/productoslanding', AdminController.infoProducto);
 
 //llenar informacion de detalle producto
-router.get('/detalleproducto', productoController.detalleProducto);
+router.get('/detalleproducto/:idproducto', productoController.detalleProducto);
 
 
 //Obtener información de los productos del inventario
@@ -52,7 +52,7 @@ router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'po
     AdminController.registroProducto);
 
 // Modificar Producto     
-router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), image.uploadGoogle, productoController.actualizarProducto );
+router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), image.uploadGoogle, productoController.actualizarProducto);
 
 // Eliminar producto
 router.post('/eliminar-producto', auth.isAdmin, AdminController.eliminarProducto);
