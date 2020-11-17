@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {ServAdminService} from "../../servicios/administrador/serv-admin.service";
 import {ProductosFrontService} from "src/app/servicios/productos-front.service";
 import {Global} from '../../servicios/global';
@@ -6,6 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { BusquedaProductosService } from '../../servicios/busqueda-productos.service';
 import { PromocionesFrontService } from '../../servicios/promociones-front.service';
 import { EventosService } from '../../servicios/eventos.service';
+import { AuthService } from 'src/app/servicios/auth.service';
 
 
 @Component({
@@ -33,11 +34,16 @@ export class ProductosComponent implements OnInit {
   filtro: string;
   sinCoincidencias = false;
 
+  productoAgregado = '';
+  @ViewChild('toast') addedToast: ElementRef<HTMLDivElement>;
+  @ViewChild('alertToast') alertToast: ElementRef<HTMLDivElement>;
+
   constructor(
     private _cargar: ServAdminService,
     private servicioProducto: ProductosFrontService,
     private _promocionesService: PromocionesFrontService,
     private _busquedaService: BusquedaProductosService,
+    private _authService: AuthService,
     private eventService: EventosService,
     private router: Router) {
       this.url = Global.url;
@@ -159,6 +165,39 @@ export class ProductosComponent implements OnInit {
   filtrarEspecie():void{
     this.especiesFiltrado=this.especies.filter(esp => esp.descripcion_genero === this.filtro_Genero);
     console.log(this.filtro_Genero);
+  }
+
+  agregarCarrito( idproducto, nombre, cantidad ): void {
+
+    this.productoAgregado = nombre;
+
+    if (this._authService.loggedIn()){
+      this.servicioProducto.addToCartLogged(idproducto, cantidad)
+        .subscribe( res => {
+          console.log(res);
+          this.mostrarAddedToast();
+        }, err => { console.log(err); });
+    } else {
+        const res = this.servicioProducto.addToCartNoLogged(idproducto, cantidad);
+
+        if (res) {
+          this.mostrarAddedToast();
+        } else {
+          this.mostrarAlertToast();
+          console.log('Ocurrió un error');
+        }
+    }
+
+  }
+
+  mostrarAddedToast(): void {
+    this.addedToast.nativeElement.style.opacity = '1';
+    setTimeout(() => { this.addedToast.nativeElement.style.opacity = '0'; }, 3000);
+  }
+
+  mostrarAlertToast(): void {
+    this.alertToast.nativeElement.style.opacity = '1';
+    setTimeout(() => { this.alertToast.nativeElement.style.opacity = '0'; }, 3000);
   }
 
 }

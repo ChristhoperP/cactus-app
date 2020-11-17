@@ -230,3 +230,49 @@ SELECT {
     margin-bottom: 15px;
     background-color: rgb(31, 148, 148);
 }
+
+
+/* Estilos botón carrito */
+
+.shop-icon-bg {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.shop-icon-bg:hover {
+    background-color: rgb(41, 151, 118);
+    border-radius: 0.25rem;
+}
+
+.shop-icon-bg:hover i {
+    color: white;
+}
+
+.shop-icon-wrapper {
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    transform: translate(-50%, -50%);
+}
+
+
+/* Estilos toast de agregado al carrito */
+
+.added-toast,
+.alert-toast {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    z-index: 100;
+    font-size: 1rem;
+}
+
+.added-toast .toast-header {
+    color: white;
+    background-color: rgb(41, 151, 118);
+}
+
+.alert-toast .toast-header {
+    color: white;
+    background-color: rgb(215, 50, 50);
+}
