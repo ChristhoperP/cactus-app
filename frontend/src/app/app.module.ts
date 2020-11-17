@@ -48,6 +48,7 @@ import { IsAdminGuard } from './servicios/guards/is-admin.guard';
 import { PeticionesService } from "./servicios/peticiones.service";
 import { UploadService } from "./servicios/upload.service";
 import { BusquedaProductosService } from './servicios/busqueda-productos.service';
+import { CarritoService } from './servicios/carrito.service';
 
 
 //Formularios
@@ -140,6 +141,7 @@ import { DetalleProductoComponent } from './componentes/detalle-producto/detalle
     PeticionesService,
     ServAdminService,
     BusquedaProductosService,
+    CarritoService,
     UploadService,
     {
       provide: HTTP_INTERCEPTORS,
