@@ -54,3 +54,10 @@ INNER JOIN CATEGORIA CAT ON CAT.IDCATEGORIA=PR.CATEGORIA_IDCATEGORIA
 INNER JOIN PRODUCTO_HAS_ESPECIE PRES ON PRES.PRODUCTO_IDPRODUCTO=PR.IDPRODUCTO
 INNER JOIN ESPECIE ES ON ES.IDESPECIE=PRES.ESPECIE_IDESPECIE
 INNER JOIN TIPOBASE TP ON TP.IDTIPOBASE = PR.TIPOBASE_IDTIPOBASE;
+
+ CREATE OR REPLACE VIEW PRODUCTOS_Y_PROMOCIONES AS
+ SELECT B.idproducto,  B.urlportada, B.nombre, B.cantidad,  
+ B.precio, C.porcentajedescuento, trunc((B.precio - (B.precio * C.porcentajedescuento)/100),2) AS precioConDescuento		   
+ FROM promocion_has_producto AS A LEFT JOIN PRODUCTO AS B ON A.producto_idproducto = B.idproducto
+ LEFT JOIN promocion AS C ON A.promocion_idpromocion = C.idpromocion
+

@@ -920,3 +920,53 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+
+
+CREATE OR REPLACE FUNCTION SP_OBTENER_INFORMACION_PRODUCTO_CARRITO(
+	IN idcarrito INT
+)
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+	FOR r IN  SELECT A.producto_idproducto AS idproducto, A.cantidad AS cantidadEnCarrito,
+                      B.urlportada, B.nombre, B.cantidad AS cantidadInventario, B.precio, B.porcentajedescuento, B.precioConDescuento		   
+              FROM carrito_has_producto AS A LEFT JOIN PRODUCTOS_Y_PROMOCIONES AS B ON A.producto_idproducto = B.idproducto
+			  WHERE A.carrito_idcarrito = idcarrito
+    LOOP
+       RETURN NEXT r;
+	END LOOP;
+	RETURN;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION SP_ELIMINAR_PRODUCTO_CARRITO(
+  IN p_idcarrito INT,
+  IN p_idproducto INT
+)
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+	DELETE FROM carrito_has_producto
+	WHERE producto_idproducto = p_idproducto AND carrito_idcarrito = p_idcarrito;
+     
+	FOR r IN  SELECT  A.producto_idproducto AS idproducto, A.cantidad AS cantidadEnCarrito,
+                      B.urlportada, B.nombre, B.cantidad AS cantidadInventario, B.precio, B.porcentajedescuento, B.precioConDescuento		   
+              FROM carrito_has_producto AS A LEFT JOIN PRODUCTOS_Y_PROMOCIONES AS B ON A.producto_idproducto = B.idproducto
+			  WHERE A.carrito_idcarrito = p_idcarrito
+    LOOP
+       RETURN NEXT r;
+	END LOOP;
+	RETURN;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+
+

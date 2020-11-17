@@ -142,11 +142,11 @@ var controller = {
     },
     detalleProducto: async function(req, res) {
         var { idproducto } = req.body;
-        
+
 
         try {
             const response = await conf.pool.query(
-          
+
                 'SELECT * FROM DETALLE_PRODUCTO WHERE IDPRODUCTO = $1;', [idproducto]
             );
 
@@ -198,23 +198,23 @@ var controller = {
     },
     registroCarrito: async function(req, res) {
 
-        var { idproducto,/*  idusuario, */ cantidad } = req.body;
-    
+        var { idproducto, /*  idusuario, */ cantidad } = req.body;
 
-        if (idproducto != null /* && idusuario != null */ && cantidad != null ) {
+
+        if (idproducto != null /* && idusuario != null */ && cantidad != null) {
 
             try {
 
                 /* console.log(req.body, "si recibe"); */
                 const response = await conf.pool.query(
-                    'SELECT SP_AGREGAR_PRODUCTO_CARRITO($1,$2,$3);', [parseInt(idproducto), parseInt(req.user.id), /* parseInt(idusuario) */ ,parseInt(cantidad)]
+                    'SELECT SP_AGREGAR_PRODUCTO_CARRITO($1,$2,$3);', [parseInt(idproducto), parseInt(req.user.id), /* parseInt(idusuario) */ , parseInt(cantidad)]
                 );
                 console.log('se ha registrado exitosamente en el carrito de compras');
                 var respuesta = response.rows[0].sp_agregar_producto_carrito;
                 var respuesta1 = respuesta.substring(1, respuesta.length - 1).replace('"', '').replace('"', '');
                 var arregloRes = respuesta1.split(',');
                 var mensaje = arregloRes[1];
-               
+
 
                 return res.status(200).send({
                     message: mensaje,

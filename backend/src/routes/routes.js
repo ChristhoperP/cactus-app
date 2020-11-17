@@ -52,10 +52,16 @@ router.post('/registro-producto', auth.isAdmin, image.upload.fields([{ name: 'po
     AdminController.registroProducto);
 
 // Modificar Producto     
-router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), image.uploadGoogle, productoController.actualizarProducto );
+router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCount: 1 }, { name: 'gallery', maxCount: 3 }]), image.uploadGoogle, productoController.actualizarProducto);
 
 // Eliminar producto
 router.post('/eliminar-producto', auth.isAdmin, AdminController.eliminarProducto);
+
+// Eliminar producto del carrito 
+router.post('/eliminar-producto-carrito', AdminController.eliminarProductoCarrito);
+
+//traer la información del carrito
+router.get('/productos-carrito/:idcarrito', AdminController.traerInformacionCarrito);
 
 // Informacion para llenar la tabla de modificar 
 router.get('/productoporid/:idproducto', auth.isAdmin, AdminController.infoProductoPorId);
@@ -85,7 +91,7 @@ router.post('/modificar-promocion', /* auth.isAdmin, */ AdminController.modifica
 
 /* RUTAS CARRITO DE COMPRAS */
 
-router.post('/registro-carrito', auth.isAuth,  productoController.registroCarrito);
+router.post('/registro-carrito', auth.isAuth, productoController.registroCarrito);
 
 
 

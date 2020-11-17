@@ -1,5 +1,6 @@
 'use strict'
 
+const { pool } = require('../config');
 const conf = require('../config');
 
 
@@ -83,7 +84,7 @@ var controller = {
             );
 
             //console.log(response);
-            
+
 
             var respuesta = response.rows;
 
@@ -372,6 +373,50 @@ var controller = {
         } else {
             return res.status(500).send({
                 message: 'Error: Faltan campos'
+            })
+        }
+    },
+    eliminarProductoCarrito: async function(req, res) {
+
+        var { idCarrito, idProducto } = req.body;
+
+        if (idCarrito != null && idProducto != null) {
+            try {
+                var a = 'SELECT idproducto,cantidadEnCarrito, urlportada, nombre, cantidadInventario, precio, porcentajedescuento, precioConDescuento ';
+                var b = 'FROM SP_ELIMINAR_PRODUCTO_CARRITO($1,$2) AS (idproducto INT,cantidadEnCarrito INT, urlportada VARCHAR(200), nombre VARCHAR(45),cantidadInventario INT, precio NUMERIC, porcentajedescuento NUMERIC, precioConDescuento NUMERIC);'
+                var c = a + b;
+                const response = await conf.pool.query(c, [parseInt(idCarrito), parseInt(idProducto)]);
+                var respuesta = response.rows;
+                return res.status(200).send({
+                    respuesta
+                });
+            } catch (err) {
+                console.log(err);
+                return res.status(500).send({
+                    message: 'Error: No se ha eliminado el producto del carrito',
+                })
+            }
+        } else {
+            return res.status(500).send({
+                message: 'Error: Faltan campos'
+            })
+        }
+    },
+    traerInformacionCarrito: async function(req, res) {
+        var idCarrito = req.params.idcarrito;
+
+        try {
+            var a = 'SELECT idproducto,cantidadEnCarrito, urlportada, nombre, cantidadInventario, precio, porcentajedescuento, precioConDescuento ';
+            var b = 'FROM SP_OBTENER_INFORMACION_PRODUCTO_CARRITO($1) AS (idproducto INT,cantidadEnCarrito INT, urlportada VARCHAR(200), nombre VARCHAR(45),cantidadInventario INT, precio NUMERIC, porcentajedescuento NUMERIC, precioConDescuento NUMERIC);';
+            var c = a + b;
+            const response = await conf.pool.query(c, [parseInt(idCarrito)]);
+            var respuesta = response.rows;
+            return res.status(200).send({
+                respuesta
+            });
+        } catch (err) {
+            return res.status(500).send({
+                message: 'Error: No se puede obtener esta informacón'
             })
         }
     }
