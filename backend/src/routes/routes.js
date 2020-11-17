@@ -57,6 +57,12 @@ router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCo
 // Eliminar producto
 router.post('/eliminar-producto', auth.isAdmin, AdminController.eliminarProducto);
 
+// Eliminar producto del carrito 
+router.post('/eliminar-producto-carrito', AdminController.eliminarProductoCarrito);
+
+//traer la información del carrito
+router.get('/productos-carrito/:idcarrito', AdminController.traerInformacionCarrito);
+
 // Informacion para llenar la tabla de modificar 
 router.get('/productoporid/:idproducto', auth.isAdmin, AdminController.infoProductoPorId);
 
@@ -85,7 +91,7 @@ router.post('/modificar-promocion', /* auth.isAdmin, */ AdminController.modifica
 
 /* RUTAS CARRITO DE COMPRAS */
 
-router.post('/registro-carrito', auth.isAuth,  productoController.registroCarrito);
+router.post('/registro-carrito', auth.isAuth, productoController.registroCarrito);
 
 
 
