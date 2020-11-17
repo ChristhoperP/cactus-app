@@ -1,10 +1,7 @@
 .galeria {
-    background-color: rgb(244, 196, 208, 0.5);
-    padding-top: 2%;
-    padding-bottom: 2%;
+    background-color: transparent;
     margin-top: 1%;
     margin-bottom: 1%;
-    border: rgb(2, 2, 2) 1px solid;
 }
 
 h1 {
@@ -21,13 +18,12 @@ h1 {
 }
 
 .caracteristicas {
-    background-color: rgba(75, 192, 192, 0.3);
+    background-color: rgba(75, 192, 192, 0.1);
     padding-top: 2%;
     padding-bottom: 2%;
     margin-top: 1%;
     margin-bottom: 1%;
     border-radius: 10px;
-    border: rgb(2, 2, 2) 1px solid;
 }
 
 .imagenes {
@@ -43,12 +39,25 @@ h1 {
 }
 
 .margen {
-    border: rgb(3, 3, 3) 0.5px solid;
+    border: rgb(0, 97, 68) 0.5px solid;
+    margin-bottom: 2%;
+}
+
+.letra {
+    font-size: 1.3em;
 }
 
 .diseño-slide {
-    background-color: rgb(129, 250, 230);
-    width: 20px;
+    background-color: rgba(11, 124, 124, 0.8);
+    width: 40px;
+}
+
+.fondo {
+    background-color: rgba(75, 192, 192, 0.1);
+}
+
+.color-text {
+    color: rgb(5, 105, 63);
 }
 
 table {
@@ -92,4 +101,37 @@ tbody td:hover:before {
 
 hr {
     border-color: rgb(18, 155, 121);
+}
+
+.volver {
+    color: white;
+    background-color: rgb(71, 150, 120);
+    border: rgb(0, 97, 68) 0.5px solid;
+}
+
+#btn-volver:hover {
+    color: black;
+    background-color: rgba(27, 153, 105, 0.4);
+    border: rgb(0, 97, 68) 0.5px solid;
+}
+
+.btn-compra {
+    color: white;
+    background-color: rgb(71, 150, 120);
+    border: rgb(0, 97, 68) 0.5px solid;
+}
+
+#btn-compra:hover {
+    color: black;
+    background-color: rgba(27, 153, 105, 0.4);
+    border: rgb(0, 97, 68) 0.5px solid;
+}
+
+.contenedor:hover .imagen {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+.contenedor {
+    overflow: hidden;
 }
