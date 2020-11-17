@@ -1,3 +1,25 @@
+<div class="position-relative">
+    <div class="toast d-block added-toast animated fade-in" #toast>
+        <div class="toast-header">
+            <strong class="mr-auto">Producto agregado!</strong>
+        </div>
+        <div class="toast-body">
+            Agregó {{ productoAgregado || 'El producto ' }} a su carrito de compras
+        </div>
+    </div>
+</div>
+
+<div class="position-relative">
+    <div class="toast d-block alert-toast animated fade-in" #alertToast>
+        <div class="toast-header">
+            <strong class="mr-auto">Producto agregado!</strong>
+        </div>
+        <div class="toast-body">
+            {{ productoAgregado || 'El producto ' }} ya se encuentra en su carrito de compras
+        </div>
+    </div>
+</div>
+
 <body>
 
     <div class="d-flex " id="wrapper">
@@ -185,7 +207,11 @@
                                                 <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
                                             </div>
                                             <div class=" col-4">
-                                                <i class="fas fa-shopping-cart icono"></i>
+                                                <div class="position-relative h-100 shop-icon-bg" title="Agregar al carrito" (click)="agregarCarrito(producto.idproducto, producto.nombre, 1)">
+                                                    <div class="position-absolute shop-icon-wrapper">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -249,7 +275,11 @@
                                                 <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
                                             </div>
                                             <div class=" col-4">
-                                                <i class="fas fa-shopping-cart icono"></i>
+                                                <div class="position-relative h-100 shop-icon-bg" title="Agregar al carrito" (click)="agregarCarrito(producto.idproducto, producto.nombre, 1)">
+                                                    <div class="position-absolute shop-icon-wrapper">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
