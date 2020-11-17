@@ -57,3 +57,7 @@
 .dropdown-item:hover {
     background-color: rgba(75, 192, 91, 0.5);
 }
+
+.fa-shopping-cart:hover{
+    cursor: pointer;
+}

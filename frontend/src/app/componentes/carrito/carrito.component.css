@@ -1,0 +1,26 @@
+.imagen-producto{
+    width: 60px;
+    height: 60px;
+    background: #CCC;
+    overflow: hidden;
+    text-align: center;
+}
+
+.imagen-producto img{
+    width: 100%;
+    height:120%;
+    vertical-align: middle;
+
+}
+
+@supports(object-fit: cover){
+    .imagen-producto img{
+      height: 120%;
+      object-fit: cover;
+      object-position: center center;
+    }
+}
+
+td {
+    vertical-align: middle !important;
+}

@@ -156,6 +156,8 @@
 
                                     <h5 class="card-title tuclase">
                                         {{producto.nombre}}
+                                        <br>
+
                                     </h5>
 
                                     <p *ngIf="!producto.porcentajedescuento" class="card-text mt-2 mb-4" style="font-size: 1.3em;">
@@ -171,7 +173,7 @@
                                     <div class=" container">
 
                                         <div>
-                                            <button type="button" [routerLink]="['/detalle']" class="btn btn-secondary btn-sm pequenio">Detalle de Producto</button>
+                                            <button type="button" [routerLink]="['/detalle',producto.idproducto]" class="btn btn-secondary btn-sm pequenio">Detalle de Producto</button>
                                         </div>
 
 

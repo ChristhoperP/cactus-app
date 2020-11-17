@@ -141,7 +141,8 @@ var controller = {
         }
     },
     detalleProducto: async function(req, res) {
-        var { idproducto } = req.body;
+
+        var { idproducto } = req.params;
 
 
         try {
