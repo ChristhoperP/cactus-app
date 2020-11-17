@@ -6,8 +6,8 @@
                 <h1>Detalle Producto</h1>
             </div>
             <div class=" col-4">
-                <div class=" container" style="text-align: right ;">
-                    <button type="button" [routerLink]="['/productos']" class="btn btn-outline-success"><i class="fas fa-arrow-circle-left"></i> Volver</button>
+                <div class=" container mt-4 " style="text-align: right ;">
+                    <button type="button" [routerLink]="['/productos']" class="btn btn-outline-success volver" id="btn-volver"><i class="fas fa-arrow-circle-left"></i> Volver</button>
                 </div>
             </div>
         </div>
@@ -18,18 +18,22 @@
     <div class=" container" *ngIf="!cargando">
         <div class=" row">
             <div class=" col-lg-5 col-sm-10  galeria">
-                <div class="img-animtion imagenes p-0  ">
-                    <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
+                <div class=" container margen fondo">
+                    <div class="img-animtion imagenes p-0  ">
+                        <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes  ">
+                    </div>
+
                 </div>
 
 
-                <div id="carouselExampleIndicators" *ngIf="producto.galeria[0]!==null" class="carousel slide" data-interval="false" data-ride="carousel">
+                <div id="carouselExampleIndicators" *ngIf="producto.galeria[0]!==null" class="carousel slide  fondo" data-interval="false" data-ride="carousel">
 
                     <div class="carousel-inner">
                         <div class="carousel-item" *ngFor="let  galeria of producto.galeria; let i=index" [class.active]="i===1">
                             <div class="row">
-                                <div class=" col-12">
-                                    <img src="{{url+'get-image/'+galeria}}" alt="" class=" d-blockcard-img-top imagenes2">
+                                <div class=" col-12 contenedor">
+                                    <img src="{{url+'get-image/'+galeria}}" alt="" class=" d-blockcard-img-top imagenes2 imagen">
+
                                 </div>
 
                             </div>
@@ -54,79 +58,109 @@
 
             </div>
 
-            <div class=" col-lg-5 col-sm-10 caracteristicas">
-                <div class=" container mt-4">
-                    <div class="row">
-                        <div class="col-4 pl-4">
-                            <strong> <p>Nombre:</p></strong>
-                        </div>
-                        <div class="col-8">
-                            <p>{{producto.nombre}}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class=" container mt-4">
-                    <div class="row">
-                        <div class="col-4 pl-4">
-                            <strong> <p>Cantidad:</p></strong>
-                        </div>
-                        <div class="col-8">
-                            <input type="number" id="tentacles" name="tentacles" min="1" max="{{producto.cantidad}}">
+            <div class=" col-lg-5 col-sm-8 caracteristicas">
+                <form [formGroup]="formularioCaracteristicas" class="form" enctype="multipart/form-data" validate>
+                    <div class=" container mt-4">
+                        <div class="row">
+                            <div class="col-4 pl-4">
+                                <strong> <p>Nombre:</p></strong>
+                            </div>
+                            <div class="col-8">
+                                <p class="letra">{{producto.nombre}}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class=" container mt-4">
-                    <div class="row">
-                        <div class="col-4 pl-4">
-                            <strong><p>Precio:</p></strong>
-                        </div>
-                        <div class="col-1">
-                            <span>L</span>
-                        </div>
-                        <div class="col-2">
-                            <span>{{producto.precio}}</span>
-                        </div>
-                        <div class="col-5 pl-4">
-                            <button type="button" class="btn btn-outline-success">Comprar Ahora</button>
+                    <div class=" container mt-4">
+                        <div class="row">
+                            <div class="col-4 pl-4">
+                                <strong> <p>Cantidad:</p></strong>
+                            </div>
+                            <div class=" col-4">
+                                <div class="form-group row">
+
+
+                                    <input type="number" [class.is-invalid]="cantidad.invalid && cantidad.touched" formControlName="cantidad" name="cantidad" id="cantidad" class="form-control" placeholder="1 - {{producto.cantidad}}" min="1" max="{{producto.cantidad}}" step="1" required>
+                                    <div class="invalid-feedback" *ngIf="cantidad.errors?.required">
+                                        Este campo es obligatorio
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="cantidad.errors?.min">
+                                        El valor mínimo es 1
+                                    </div>
+                                    <div class="invalid-feedback" *ngIf="cantidad.errors?.max">
+                                        El valor máximo es <span>{{producto.cantidad}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
 
-                <br>
-                <div class=" container">
-                    <strong><p>Descripción:</p></strong>
-                </div>
-                <br>
-                <div class="container">
-                    <table>
+                    <div class=" container mt-4">
+                        <div class="row">
+                            <div class="col-4 pl-4">
+                                <strong><p>Precio:</p></strong>
+                            </div>
+                            <div class="col-1">
+                                <span class="letra">L</span>
+                            </div>
+                            <div class="col-2">
+                                <span class="letra">{{producto.precio}}</span>
+                            </div>
+                            <div class="col-5 pl-4">
+                                <button type="button" id="btn-compra" class="btn btn-outline-success btn-compra ">Comprar Ahora</button>
+                            </div>
+                        </div>
+                    </div>
 
-                        <tbody>
-                            <tr>
-                                <strong> <td>Categoría: </td></strong>
-                                <td>{{producto.categoria}} </td>
-                            </tr>
-                            <tr>
-                                <strong> <td>Tipo de Base:</td></strong>
-                                <td>{{producto.tipobase}} </td>
-                            </tr>
-                            <tr>
-                                <strong><td>Tiempo de Sol:</td></strong>
-                                <td>{{producto.tiemposol}} </td>
-                            </tr>
-                            <tr>
-                                <strong><td>Frecuencia de Riego:</td></strong>
-                                <td>{{producto.frecuenciariego}}</td>
-                            </tr>
+                    <br>
+                    <div class=" container">
+                        <strong><p>Descripción:</p></strong>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <table>
+
+                            <tbody>
+                                <tr>
+                                    <strong> <td class="color-text">Categoría: </td></strong>
+                                    <td>{{producto.categoria}} </td>
+                                </tr>
+                                <tr>
+                                    <strong> <td class="color-text">Tipo de Base:</td></strong>
+                                    <td>{{producto.tipobase}} </td>
+                                </tr>
 
 
-                        </tbody>
-                    </table>
-                </div>
+                                <tr *ngIf="producto.tiemposol!==''">
+                                    <strong><td class="color-text">Tiempo de Sol:</td></strong>
+                                    <td>{{producto.tiemposol}}</td>
+
+                                </tr>
+                                <tr *ngIf="producto.tiemposol===''">
+                                    <strong><td class="color-text">Tiempo de Sol:</td></strong>
+                                    <td>---------------</td>
+
+                                </tr>
+                                <tr *ngIf="producto.frecuenciariego!==''">
+                                    <strong><td class="color-text">Frecuencia de Riego:</td></strong>
+                                    <td>{{producto.frecuenciariego}}</td>
+
+                                </tr>
+                                <tr *ngIf="producto.frecuenciariego===''">
+                                    <strong><td class="color-text">Frecuencia de Riego:</td></strong>
+                                    <td>---------------</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
             </div>
-        </div>
 
+
+        </div>
 
 
     </div>
