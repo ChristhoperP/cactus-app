@@ -19,31 +19,31 @@
                 </tr>
             </thead>
             <tbody>
-              <tr class="text-center ">
+              <tr class="text-center " *ngFor="let producto of productosCarrito">
                 <td >
                     <div class="form-check">
-                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{producto.idproducto}}" aria-label="...">
                     </div>
                 </td>
                 <th scope="row">
-                    <!-- <div class="imagen-producto ml-auto mr-auto">
-                        <img class="img-fluid" src="{{url+'get-image/'+producto.urlportada}}" alt="nombre">
-                    </div> -->
                     <div class="imagen-producto ml-auto mr-auto">
-                        <img class="img-fluid" src="assets/img/productos/lola.jpg" alt="nombre producto">
+                        <img class="img-fluid" src="{{url+'get-image/'+producto.urlportada}}" alt="nombre">
                     </div>
                 </th>
-                <td>nombre</td>
+                <td>{{producto.nombre}}</td>
                 <td>
                     <div class="input-group input-group-sm mb-3 m-auto w-50">
-                        <input type="number" min="1" max="10" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        <input type="number" min="1" max="{{producto.cantidadinventario}}" class="form-control" value="{{producto.cantidadencarrito}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                     </div>
                 </td>
-                <td>precio</td>
-                <td>descuento</td>
+                <td>L {{producto.precio}}</td>
+                <td>{{producto.porcentajedescuento}} %</td>
                 <td class="pr-0 pl-0">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </td>
+              </tr>
+              <tr *ngIf="productosCarrito.lenght ===0">
+                  <td>No tiene ningún producto agregado al carrito</td>
               </tr>
             </tbody>
           </table>
