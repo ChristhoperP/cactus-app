@@ -11,8 +11,8 @@ export class CarritoService {
 
   constructor(private _http: HttpClient) { }
 
-  obtenerProductosCarrito(id: any){
-    return this._http.get(this.url + 'productos-carrito/'+id);
+  obtenerProductosCarrito(){
+    return this._http.get(this.url + 'productos-carrito');
 
   }
 }
