@@ -10,30 +10,29 @@ import { Global } from "../../servicios/global";
 export class CarritoComponent implements OnInit {
 public url: string;
 
-  productosCarrito: any = [
-                            { //datos de prueba
-                            "idproducto": 1,
-                            "cantidadencarrito": 2,
-                            "urlportada": "1df4d600-0508-4d58-a23b-f8b3d366eab6.jpg", 
-                            "nombre": "cajita", 
-                            "cantidadinventario": "5", 
-                            "precio": 140, 
-                            "porcentajedescuento":  10
-                            }
-                          ];
+  productosCarrito: any = [];
   idCarrito;
 
+ //datos de prueba
+                            // "idproducto": 1,
+                            // "cantidadencarrito": 2,
+                            // "urlportada": "1df4d600-0508-4d58-a23b-f8b3d366eab6.jpg", 
+                            // "nombre": "cajita", 
+                            // "cantidadinventario": "5", 
+                            // "precio": 140, 
+                            // "porcentajedescuento":  10
+                            // }
   constructor(private _carritoService: CarritoService) { 
     this.url = Global.url;
 
   }
 
   ngOnInit(): void {
-    // this._carritoService.obtenerProductosCarrito(this.idCarrito)
-    // .subscribe(res => {
-    //   console.log(res);
-    //   this.productosCarrito = res;
-    // });
+    this._carritoService.obtenerProductosCarrito(this.idCarrito)
+    .subscribe(res => {
+      console.log(res);
+      this.productosCarrito = res;
+    });
   }
 
 }

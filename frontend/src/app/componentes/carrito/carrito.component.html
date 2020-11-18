@@ -29,9 +29,6 @@
                     <div class="imagen-producto ml-auto mr-auto">
                         <img class="img-fluid" src="{{url+'get-image/'+producto.urlportada}}" alt="nombre">
                     </div>
-                    <!-- <div class="imagen-producto ml-auto mr-auto">
-                        <img class="img-fluid" src="assets/img/productos/lola.jpg" alt="nombre producto">
-                    </div> -->
                 </th>
                 <td>{{producto.nombre}}</td>
                 <td>
@@ -44,6 +41,9 @@
                 <td class="pr-0 pl-0">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </td>
+              </tr>
+              <tr *ngIf="productosCarrito.lenght ===0">
+                  <td>No tiene ningún producto agregado al carrito</td>
               </tr>
             </tbody>
           </table>
