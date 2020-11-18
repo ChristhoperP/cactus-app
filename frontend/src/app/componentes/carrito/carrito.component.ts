@@ -12,6 +12,7 @@ public url: string;
 
   productosCarrito: any = [];
   idCarrito;
+  totalPagar;
 
  //datos de prueba
                             // "idproducto": 1,
@@ -33,6 +34,13 @@ public url: string;
       console.log(res);
       this.productosCarrito = res;
     });
+  }
+
+  calcularTotalPagar(){
+    for (let i = 0; i < this.productosCarrito.length; i++) {
+      this.totalPagar += this.productosCarrito[i].precio;
+      
+    }
   }
 
 }
