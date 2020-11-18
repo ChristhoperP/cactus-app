@@ -43,8 +43,7 @@
                 </td>
               </tr>
               <tr *ngIf="productosCarrito.length ===0">
-                  <td></td>
-                  <td>No tiene ningún producto agregado al carrito</td>
+                  <td colspan="4" style="color: #daa6b0;">No tiene ningún producto agregado al carrito</td>
               </tr>
             </tbody>
           </table>
@@ -52,7 +51,7 @@
     </div>
     <hr>
     <div class="row text-center">
-        <p class="text-center w-100"><b>Total a pagar:</b> L 250</p>
+        <p class="text-center w-100"><b>Total a pagar:</b> L {{totalPagar}}</p>
     </div>
     <div class="row my-3">
         <button type="button" class="btn btn-info  m-auto">Proceder a pagar</button>
