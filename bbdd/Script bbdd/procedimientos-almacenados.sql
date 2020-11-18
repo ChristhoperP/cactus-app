@@ -49,9 +49,11 @@ BEGIN
            p_ocurrioError := 0;
            p_mensaje:= 'Se ha registrado el usuario';
 		   
-       SELECT idusuario INTO p_id
+         SELECT idusuario INTO p_id
 		   FROM usuario
 		   WHERE correo =  p_correo;
+
+         INSERT INTO CARRITO(usuario_idusuario) VALUES (p_id);
 
          SELECT rol INTO p_rol
 		   FROM TipoUsuario
@@ -890,12 +892,6 @@ BEGIN
         END IF;    
 
 
-        IF NOT EXISTS(SELECT idcarrito from carrito where usuario_idusuario=p_idusuario) THEN
-
-                INSERT INTO CARRITO(usuario_idusuario) VALUES (p_idusuario);
-
-        END IF;
- 
 
         SELECT idcarrito INTO vnidcarrito FROM CARRITO WHERE usuario_idusuario=p_idusuario ;  /* Se obtiene el ID del CARRITO de el usuario logueado para insertar en tablas has*/
    
