@@ -37,7 +37,7 @@ userLogged: boolean;
   // carritoLocalStorage = JSON.parse(localStorage.getItem('productos-carrito'));
   // productosLocalStorage = this.carritoLocalStorage.productos;
 
-  carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'));
+  carritoLocalStorage = JSON.parse(localStorage.getItem('productos-carrito'));
   productosLocalStorage = this.carritoLocalStorage;
 
   totalPagar;
@@ -73,8 +73,8 @@ userLogged: boolean;
   calcularTotalPagar(){
     var total=0;
     for (let i = 0; i < this.productosCarrito.length; i++) {
-      total += this.productosCarrito[i].preciocondescuento;
+      total += parseInt(this.productosCarrito[i].preciocondescuento, 10);
     }
-    this.totalPagar =total;    
+    this.totalPagar = total;
   }
 }

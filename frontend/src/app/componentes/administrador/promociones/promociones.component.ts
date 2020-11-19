@@ -168,9 +168,6 @@ promosSeleccionadas: any = [];
   }
 
   checkAllPromos( evt ): void {
-
-    console.log(evt.target.checked);
-
     const checks: NodeListOf<HTMLInputElement> = document.querySelectorAll('.form-check input[type="checkbox"]');
 
     checks.forEach(check => {
@@ -179,8 +176,6 @@ promosSeleccionadas: any = [];
 
     const sel = this.getSelectedPromos();
     this.promosSeleccionadas = sel;
-
-    console.log(this.promosSeleccionadas);
   }
 
 }

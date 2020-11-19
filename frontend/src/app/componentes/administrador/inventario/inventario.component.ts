@@ -295,13 +295,9 @@ filtrados=[];
   getProductSelectedInfo(id, nombre){
     console.log(id, nombre);
     return id;
-    
   }
 
   checkAllProducts( evt ): void {
-
-    console.log(evt.target.checked);
-
     const checks: NodeListOf<HTMLInputElement> = document.querySelectorAll('.form-check input[type="checkbox"]');
 
     checks.forEach(check => {
@@ -310,10 +306,5 @@ filtrados=[];
 
     const sel = this.getSelectedProducts();
     this.idproductos = sel;
-
-    console.log(this.idproductos);
   }
-
-  
-
 }
