@@ -185,7 +185,10 @@ export class ProductosComponent implements OnInit {
         .subscribe( res => {
           console.log(res);
           this.mostrarAddedToast();
-        }, err => { console.log(err); });
+        }, err => { 
+          console.log(err);
+          this.mostrarAlertToast();
+        });
     } else {
 
       const addProd: object = {

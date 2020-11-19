@@ -1,52 +1,52 @@
 <app-encabezado></app-encabezado>
 <div class="container pt-5">
     <div class="row">
-        <h3 class="ml-3" style="font-size: revert"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Carrito de compras</h3>
+        <h3 class="ml-3" style="font-size: revert"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Carrito de compras</h3>
     </div>
     <hr>
     <div class="row">
         <div class="table-responsive">
-        <table class="table table-borderless">
-            <thead class="text-center">
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                  <th scope="col">Producto</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col">Precio</th>
-                  <th scope="col">Descuento</th>
-                  <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-              <tr class="text-center " *ngFor="let producto of productosCarrito">
-                <td >
-                    <div class="form-check">
-                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{producto.idproducto}}" aria-label="...">
-                    </div>
-                </td>
-                <th scope="row">
-                    <div class="imagen-producto ml-auto mr-auto">
-                        <img class="img-fluid" src="{{url+'get-image/'+producto.urlportada}}" alt="nombre">
-                    </div>
-                </th>
-                <td>{{producto.nombre}}</td>
-                <td>
-                    <div class="input-group input-group-sm mb-3 m-auto w-50">
-                        <input type="number" min="1" max="{{producto.cantidadinventario}}" class="form-control" value="{{producto.cantidadencarrito}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                </td>
-                <td>L {{producto.precio}}</td>
-                <td>{{producto.porcentajedescuento}} {{producto.porcentajedescuento === ' ' ? ' ' : '%'}} </td>
-                <td class="pr-0 pl-0">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                </td>
-              </tr>
-              <tr *ngIf="productosCarrito.length ===0">
-                  <td colspan="4" style="color: #daa6b0;">No tiene ningún producto agregado al carrito</td>
-              </tr>
-            </tbody>
-          </table>
+            <table class="table table-borderless">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Descuento</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center " *ngFor="let producto of productosCarrito">
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{producto.idproducto}}" aria-label="...">
+                            </div>
+                        </td>
+                        <th scope="row">
+                            <div class="imagen-producto ml-auto mr-auto">
+                                <img class="img-fluid" src="{{url+'get-image/'+producto.urlportada}}" alt="nombre">
+                            </div>
+                        </th>
+                        <td>{{producto.nombre}}</td>
+                        <td>
+                            <div class="input-group input-group-sm mb-3 m-auto w-50">
+                                <input type="number" min="1" max="{{producto.cantidadinventario}}" class="form-control" value="{{producto.cantidadencarrito}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </td>
+                        <td>L {{producto.precio}}</td>
+                        <td>{{producto.porcentajedescuento}} {{(producto.porcentajedescuento === '' || producto.porcentajedescuento === null) ? ' ' : '%'}} </td>
+                        <td class="pr-0 pl-0">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                    <tr *ngIf="productosCarrito.length ===0">
+                        <td colspan="4" style="color: #daa6b0;">No tiene ningún producto agregado al carrito</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <hr>

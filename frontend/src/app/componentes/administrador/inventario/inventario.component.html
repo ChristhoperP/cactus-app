@@ -15,7 +15,9 @@
                 <thead>
 
                     <tr>
-                        <th scope="col" style="width:1%"></th>
+                        <th scope="col" style="width:1%">
+                            <input type="checkbox" name="checkAll" id="checkAll" [title]=" (idproductos && idproductos.length === productos.length) ? 'Quitar selección' : 'Seleccionar todos'" (input)="checkAllProducts($event)">
+                        </th>
                         <th scope="col">#</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre
@@ -51,7 +53,7 @@
                 </thead>
                 <tbody>
 
-                    <tr *ngFor="let producto of productosInventario | filterBy: productosFilterByName">
+                    <tr *ngFor="let producto of productosInventario | filterBy: productosFilterByName" class="product-row">
                         <td>
                             <div class="form-check">
                                 <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" (input)='setProductId( producto.idproducto )' value="option1" aria-label="...">
@@ -70,7 +72,7 @@
                         <td>L {{producto.precio}}</td>
                         <td>
                             <button class="btn btn-sm w-50" type="button"><i class="fa fa-trash mr-4" aria-hidden="true" (click)="deleteProduct(producto.idproducto, 1)"></i></button>
-                            <img class="ml-1 add-discount" style="width: 20px;" src="assets/img/administrador/offer.png" alt="add-promocion" data-toggle="modal" [attr.data-target]="'#' + modalPromocion.OpenModal"  data-placement="bottom" title="Añadir promoción" (click)="modalPromocion.getProductInfo(producto.idproducto, producto.nombre)">
+                            <img class="ml-1 add-discount" style="width: 20px;" src="assets/img/administrador/offer.png" alt="add-promocion" data-toggle="modal" [attr.data-target]="'#' + modalPromocion.OpenModal" data-placement="bottom" title="Añadir promoción" (click)="modalPromocion.getProductInfo(producto.idproducto, producto.nombre)">
                         </td>
                     </tr>
                     <tr *ngIf="(productos | filterBy: productosFilterByName || productos | filterBy: productosFilterByName).length === 0">
@@ -83,6 +85,6 @@
         </div>
     </div>
 </div>
-<app-agregar-promocion  #modalPromocion></app-agregar-promocion>
+<app-agregar-promocion #modalPromocion></app-agregar-promocion>
 <app-modificar-producto #updateModal></app-modificar-producto>
 <app-agregar-producto (nuevoProducto)="recibeNuevoProducto($event)"></app-agregar-producto>
