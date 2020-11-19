@@ -51,30 +51,37 @@ userLogged: boolean;
 
   ngOnInit(): void {
     if (this.userLogged) {
-      this.productosCarrito = this.productos;
-      this.calcularTotalPagar();
-
-    // this._carritoService.obtenerProductosCarrito()
-    // .subscribe(res => {
-    //   console.log(res);
-    //   this.productosCarrito = res;
-    //   this.calcularTotalPagar();
-    // });
+      /* this.productosCarrito = this.productos;
+      this.calcularTotalPagar(); */
+      this._carritoService.obtenerProductosCarrito()
+      .subscribe((res: any) => {
+        console.log(res.respuesta);
+        this.productosCarrito = res.respuesta;
+        this.calcularTotalPagar();
+      });
     }else {
       this.productosCarrito = this.productosLocalStorage;
       this.calcularTotalPagar();
-       console.log(this.productosCarrito);
-
+      console.log(this.productosCarrito);
     }
 
 
   }
 
   calcularTotalPagar(){
-    var total=0;
-    for (let i = 0; i < this.productosCarrito.length; i++) {
-      total += parseInt(this.productosCarrito[i].preciocondescuento, 10);
+    var total = 0;
+
+    for (const producto of this.productosCarrito) {
+      if(producto.preciocondescuento !== null) {
+        total += parseInt(producto.preciocondescuento, 10);
+      } else {
+        total += parseInt(producto.precio, 10);
+      }
     }
+    /* for (let i = 0; i < this.productosCarrito.length; i++) {
+      if ()
+      total += parseInt(this.productosCarrito[i].preciocondescuento, 10);
+    } */
     this.totalPagar = total;
   }
 }
