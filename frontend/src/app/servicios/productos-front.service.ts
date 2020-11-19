@@ -30,31 +30,4 @@ export class ProductosFrontService {
     return this._http.get(this.url + 'familia', {headers: this.headers});
   }
 
-  addToCartNoLogged(idproducto, cantidad): boolean {
-    let productosCarrito = { productos: [] };
-
-    if (!localStorage.getItem('productos-carrito')) {
-      productosCarrito.productos.push({idproducto, cantidad});
-      localStorage.setItem('productos-carrito', JSON.stringify(productosCarrito));
-      console.log('Agregó el producto con id ' + idproducto + ' a su carrito de compras');
-      return true;
-    } else {
-
-      productosCarrito = JSON.parse(localStorage.getItem('productos-carrito'));
-
-      if (productosCarrito.productos.findIndex( (prod: any) => prod.idproducto === idproducto) > -1){        
-        return false;
-      } else {
-        productosCarrito.productos.push({idproducto, cantidad});
-        localStorage.setItem('productos-carrito', JSON.stringify(productosCarrito));
-        console.log('Agregó el producto con id ' + idproducto + ' a su carrito de compras');
-        return true;
-      }
-    }
-
-  }
-
-  addToCartLogged(idproducto, cantidad) {
-    return this._http.post<any>(this.url + 'registro-carrito', {idproducto, cantidad} , {headers: this.headers});
-  }
 }

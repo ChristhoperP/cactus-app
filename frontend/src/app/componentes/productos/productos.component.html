@@ -4,7 +4,7 @@
             <strong class="mr-auto">Producto agregado!</strong>
         </div>
         <div class="toast-body">
-            Agregó {{ productoAgregado || 'El producto ' }} a su carrito de compras
+            Agregó {{ (productoAgregado || productoAgregado.nombre) ? productoAgregado.nombre : 'El producto ' }} a su carrito de compras
         </div>
     </div>
 </div>
@@ -15,7 +15,7 @@
             <strong class="mr-auto">Producto agregado!</strong>
         </div>
         <div class="toast-body">
-            {{ productoAgregado || 'El producto ' }} ya se encuentra en su carrito de compras
+            {{ (productoAgregado || productoAgregado.nombre) ? productoAgregado.nombre : 'El producto ' }} ya se encuentra en su carrito de compras
         </div>
     </div>
 </div>
@@ -207,7 +207,7 @@
                                                 <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
                                             </div>
                                             <div class=" col-4">
-                                                <div class="position-relative h-100 shop-icon-bg" title="Agregar al carrito" (click)="agregarCarrito(producto.idproducto, producto.nombre, 1)">
+                                                <div class="position-relative h-100 shop-icon-bg" title="Agregar al carrito" (click)="agregarCarrito(producto, 1)">
                                                     <div class="position-absolute shop-icon-wrapper">
                                                         <i class="fas fa-cart-plus"></i>
                                                     </div>
@@ -275,7 +275,7 @@
                                                 <button type="button" class="btn btn-outline-success boton-compra">Comprar Ahora</button>
                                             </div>
                                             <div class=" col-4">
-                                                <div class="position-relative h-100 shop-icon-bg" title="Agregar al carrito" (click)="agregarCarrito(producto.idproducto, producto.nombre, 1)">
+                                                <div class="position-relative h-100 shop-icon-bg" title="Agregar al carrito" (click)="agregarCarrito(producto, 1)">
                                                     <div class="position-absolute shop-icon-wrapper">
                                                         <i class="fas fa-cart-plus"></i>
                                                     </div>
