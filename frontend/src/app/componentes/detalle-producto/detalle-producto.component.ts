@@ -4,8 +4,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Global} from '../../servicios/global';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/servicios/auth.service';
+
+import Swal, { SweetAlertResult } from 'sweetalert2';
+import {ServAdminService} from 'src/app/servicios/administrador/serv-admin.service';
+
 import { CarritoService } from 'src/app/servicios/carrito.service';
 import { PromocionesFrontService } from 'src/app/servicios/promociones-front.service';
+
 
 @Component({
   selector: 'app-detalle-producto',
@@ -34,8 +39,11 @@ export class DetalleProductoComponent implements OnInit {
     private ServicioAuth: AuthService,
     private ServicioPromociones: PromocionesFrontService,
     private _route: ActivatedRoute,
-    private _router: Router) { 
+    private _router: Router,
+    private _cargar: ServAdminService) { 
       this.url = Global.url;
+      _cargar.Carga(["galeria"]);
+
       this.id = this._route.snapshot.paramMap.get('id');
       this._route.params.subscribe(paramst =>{
         console.log(paramst['id']);
@@ -71,6 +79,10 @@ export class DetalleProductoComponent implements OnInit {
           });
     });
 
+  }
+
+  onBack(): void{
+    this._router.navigate(['/productos']);
   }
 
   get cantidad(): AbstractControl { return this.formularioCaracteristicas.get('cantidad'); }
@@ -114,7 +126,11 @@ export class DetalleProductoComponent implements OnInit {
         }
       }
     } else {
-      alert('Ingrese la cantidad');
+      Swal.fire({
+        title: 'Ingrese la Cantidad',
+        icon: 'warning',
+        confirmButtonColor: `#50a1a5`
+      });
     }
   }
 
