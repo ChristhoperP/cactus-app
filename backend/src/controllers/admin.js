@@ -378,14 +378,14 @@ var controller = {
     },
     eliminarProductoCarrito: async function(req, res) {
 
-        var { idCarrito, idProducto } = req.body;
+        var { idproducto } = req.body;
 
-        if (idCarrito != null && idProducto != null) {
+        if (idusuario != null && idproducto != null) {
             try {
                 var a = 'SELECT idproducto,cantidadEnCarrito, urlportada, nombre, cantidadInventario, precio, porcentajedescuento, precioConDescuento ';
                 var b = 'FROM SP_ELIMINAR_PRODUCTO_CARRITO($1,$2) AS (idproducto INT,cantidadEnCarrito INT, urlportada VARCHAR(200), nombre VARCHAR(45),cantidadInventario INT, precio NUMERIC, porcentajedescuento NUMERIC, precioConDescuento NUMERIC);'
                 var c = a + b;
-                const response = await conf.pool.query(c, [parseInt(idCarrito), parseInt(idProducto)]);
+                const response = await conf.pool.query(c, [parseInt(req.user.id), parseInt(idproducto)]);
                 var respuesta = response.rows;
                 return res.status(200).send({
                     respuesta
@@ -403,13 +403,13 @@ var controller = {
         }
     },
     traerInformacionCarrito: async function(req, res) {
-        var idCarrito = req.params.idcarrito;
+        var idusuario = req.user.id;
 
         try {
             var a = 'SELECT idproducto,cantidadEnCarrito, urlportada, nombre, cantidadInventario, precio, porcentajedescuento, precioConDescuento ';
             var b = 'FROM SP_OBTENER_INFORMACION_PRODUCTO_CARRITO($1) AS (idproducto INT,cantidadEnCarrito INT, urlportada VARCHAR(200), nombre VARCHAR(45),cantidadInventario INT, precio NUMERIC, porcentajedescuento NUMERIC, precioConDescuento NUMERIC);';
             var c = a + b;
-            const response = await conf.pool.query(c, [parseInt(idCarrito)]);
+            const response = await conf.pool.query(c, [parseInt(idusuario)]);
             var respuesta = response.rows;
             return res.status(200).send({
                 respuesta

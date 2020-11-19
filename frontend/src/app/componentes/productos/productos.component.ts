@@ -7,6 +7,7 @@ import { BusquedaProductosService } from '../../servicios/busqueda-productos.ser
 import { PromocionesFrontService } from '../../servicios/promociones-front.service';
 import { EventosService } from '../../servicios/eventos.service';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { CarritoService } from 'src/app/servicios/carrito.service';
 
 
 @Component({
@@ -34,13 +35,14 @@ export class ProductosComponent implements OnInit {
   filtro: string;
   sinCoincidencias = false;
 
-  productoAgregado = '';
+  productoAgregado: any = {};
   @ViewChild('toast') addedToast: ElementRef<HTMLDivElement>;
   @ViewChild('alertToast') alertToast: ElementRef<HTMLDivElement>;
 
   constructor(
     private _cargar: ServAdminService,
     private servicioProducto: ProductosFrontService,
+    private servicioCarrito: CarritoService,
     private _promocionesService: PromocionesFrontService,
     private _busquedaService: BusquedaProductosService,
     private _authService: AuthService,
@@ -167,25 +169,47 @@ export class ProductosComponent implements OnInit {
     console.log(this.filtro_Genero);
   }
 
-  agregarCarrito( idproducto, nombre, cantidad ): void {
+  agregarCarrito( producto, cantidad ): void {
 
-    this.productoAgregado = nombre;
+    this.productoAgregado = producto;
+    this.productoAgregado.cantidadencarrito = cantidad;
+    this.productoAgregado.cantidadinventario = producto.cantidad;
+
+    if (!producto.porcentajedescuento) {
+      this.productoAgregado.porcentajedescuento = '';
+      this.productoAgregado.preciocondescuento = producto.precio;
+    }
 
     if (this._authService.loggedIn()){
-      this.servicioProducto.addToCartLogged(idproducto, cantidad)
+      this.servicioCarrito.agregarCarritoLogged(producto.idproducto, cantidad)
         .subscribe( res => {
           console.log(res);
           this.mostrarAddedToast();
-        }, err => { console.log(err); });
-    } else {
-        const res = this.servicioProducto.addToCartNoLogged(idproducto, cantidad);
-
-        if (res) {
-          this.mostrarAddedToast();
-        } else {
+        }, err => { 
+          console.log(err);
           this.mostrarAlertToast();
-          console.log('Ocurrió un error');
-        }
+        });
+    } else {
+
+      const addProd: object = {
+        idproducto: this.productoAgregado.idproducto,
+        nombre: this.productoAgregado.nombre,
+        precio: this.productoAgregado.precio,
+        urlportada: this.productoAgregado.urlportada,
+        cantidadencarrito: this.productoAgregado.cantidadencarrito,
+        cantidadinventario: this.productoAgregado.cantidadinventario,
+        porcentajedescuento: this.productoAgregado.porcentajedescuento,
+        preciocondescuento: this.productoAgregado.preciocondescuento
+      };
+
+      const res = this.servicioCarrito.agregarCarritoNoLogged(addProd);
+
+      if (res) {
+        this.mostrarAddedToast();
+      } else {
+        this.mostrarAlertToast();
+        console.log('Ocurrió un error');
+      }
     }
 
   }

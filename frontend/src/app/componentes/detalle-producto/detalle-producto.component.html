@@ -4,7 +4,7 @@
             <strong class="mr-auto">Producto agregado!</strong>
         </div>
         <div class="toast-body">
-            Agregó {{ producto.nombre || 'El producto ' }} a su carrito de compras
+            Agregó {{ (producto || producto.nombre) ? producto.nombre : 'El producto ' }} a su carrito de compras
         </div>
     </div>
 </div>

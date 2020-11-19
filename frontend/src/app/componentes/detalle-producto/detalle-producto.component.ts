@@ -3,10 +3,14 @@ import {DetalleProductoService} from 'src/app/servicios/detalle-producto.service
 import {ActivatedRoute, Router} from '@angular/router';
 import {Global} from '../../servicios/global';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProductosFrontService } from 'src/app/servicios/productos-front.service';
 import { AuthService } from 'src/app/servicios/auth.service';
+
 import Swal, { SweetAlertResult } from 'sweetalert2';
 import {ServAdminService} from 'src/app/servicios/administrador/serv-admin.service';
+
+import { CarritoService } from 'src/app/servicios/carrito.service';
+import { PromocionesFrontService } from 'src/app/servicios/promociones-front.service';
+
 
 @Component({
   selector: 'app-detalle-producto',
@@ -15,7 +19,7 @@ import {ServAdminService} from 'src/app/servicios/administrador/serv-admin.servi
 })
 export class DetalleProductoComponent implements OnInit {
   public url: string;
-  producto: any;
+  producto: any = {};
   id: string;
   cargando: boolean = true;
 
@@ -31,8 +35,9 @@ export class DetalleProductoComponent implements OnInit {
 
   constructor(
     private ServicioDetalle: DetalleProductoService,
-    private ServicioProductos: ProductosFrontService,
+    private ServicioCarrito: CarritoService,
     private ServicioAuth: AuthService,
+    private ServicioPromociones: PromocionesFrontService,
     private _route: ActivatedRoute,
     private _router: Router,
     private _cargar: ServAdminService) { 
@@ -54,6 +59,24 @@ export class DetalleProductoComponent implements OnInit {
       this.cantidad.setValidators([Validators.required, Validators.min(1), Validators.max(this.producto.cantidad)]);
       this.cantidad.updateValueAndValidity();
       console.log(data);
+
+      this.ServicioPromociones.getPromocion()
+          .subscribe( (resp: any) => {
+
+            for (const promo of resp) {
+
+              const fechafin = new Date(promo.fechafin);
+              const fechaActual = new Date();
+
+              if ((fechaActual < fechafin) && (promo.idproducto === this.producto.idproducto)) {
+                this.producto.porcentajedescuento = promo.porcentajedescuento;
+                this.producto.preciocondescuento = promo.preciocondescuento;
+              }
+            }
+
+          }, errr => {
+            console.log(errr);
+          });
     });
 
   }
@@ -69,13 +92,32 @@ export class DetalleProductoComponent implements OnInit {
     if (!this.cantidad.errors?.min && !this.cantidad.errors?.max && !this.cantidad.errors?.required) {
 
       if (this.ServicioAuth.loggedIn()){
-        this.ServicioProductos.addToCartLogged(this.id, this.cantidad.value)
+        this.ServicioCarrito.agregarCarritoLogged(this.id, this.cantidad.value)
         .subscribe( res => {
           console.log(res);
           this.mostrarAddedToast();
         }, err => { console.log(err); });
       } else {
-        const res = this.ServicioProductos.addToCartNoLogged(this.id, this.cantidad.value);
+
+        const nProd = this.producto;
+
+        if (!this.producto.porcentajedescuento) {
+          nProd.porcentajedescuento = '';
+          nProd.preciocondescuento = this.producto.precio;
+        }
+
+        const addProd: object = {
+          idproducto: nProd.idproducto,
+          nombre: nProd.nombre,
+          precio: nProd.precio,
+          urlportada: nProd.urlportada,
+          cantidadencarrito: this.cantidad.value,
+          cantidadinventario: nProd.cantidad,
+          porcentajedescuento: nProd.porcentajedescuento,
+          preciocondescuento: nProd.preciocondescuento
+        };
+
+        const res = this.ServicioCarrito.agregarCarritoNoLogged(addProd);
 
         if (res) {
           this.mostrarAddedToast();

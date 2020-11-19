@@ -13,7 +13,9 @@
                 <thead>
 
                     <tr>
-                        <th scope="col" style="width:1%"></th>
+                        <th scope="col" style="width:1%">
+                            <input type="checkbox" name="checkAll" id="checkAll" [title]=" (promosSeleccionadas && promosSeleccionadas.length === promociones.length) ? 'Quitar selección' : 'Seleccionar todos'" (input)="checkAllPromos($event)">
+                        </th>
                         <th scope="col">#</th>
                         <th scope="col">Código producto</th>
                         <th scope="col">Nombre
@@ -37,7 +39,7 @@
                 </thead>
                 <tbody>
 
-                    <tr *ngFor="let promocion of promociones | filterBy: promocionesFilterByName">
+                    <tr *ngFor="let promocion of promociones | filterBy: promocionesFilterByName" class="promo-row">
                         <td>
                             <div class="form-check">
                                 <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" (input)='setPromoId( promocion.promocion_idpromocion )' aria-label="...">

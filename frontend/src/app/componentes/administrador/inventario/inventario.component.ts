@@ -232,16 +232,27 @@ filtrados=[];
   setProductId( id: number ): void {
     const sel = this.getSelectedProducts();
     this.idproductos = sel;
+
+    const elem: HTMLInputElement = document.querySelector('#checkAll');
+    if (this.idproductos.length === this.productos.length){
+      elem.checked = true;
+    } else {
+      elem.checked = false;
+    }
   }
 
   getSelectedProducts(): number[] {
-    const checks: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"');
+    const checks: NodeListOf<HTMLInputElement> = document.querySelectorAll('.form-check input[type="checkbox"]');
     const ths: NodeListOf<HTMLTableHeaderCellElement> = document.querySelectorAll('.product-id');
+    const rows: NodeListOf<HTMLTableRowElement> = document.querySelectorAll('.product-row');
     const ids = [];
 
     for (let i = 0; i < checks.length; i++) {
        if (checks[i].checked){
          ids.push(parseInt(ths[i].innerText, 10));
+         rows[i].classList.add('table-active');
+       } else {
+        rows[i].classList.remove('table-active');
        }
     }
     return ids;
@@ -265,12 +276,6 @@ filtrados=[];
     });
   }
 
-  reloadComponent(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['controlador-admin/inventario']);
-  }
-
   deleteFromArray( id: string ): void {
 
     console.log('Id a eliminar: ' + id/* , this.productos */);
@@ -290,9 +295,16 @@ filtrados=[];
   getProductSelectedInfo(id, nombre){
     console.log(id, nombre);
     return id;
-    
   }
 
-  
+  checkAllProducts( evt ): void {
+    const checks: NodeListOf<HTMLInputElement> = document.querySelectorAll('.form-check input[type="checkbox"]');
 
+    checks.forEach(check => {
+      check.checked = evt.target.checked;
+    });
+
+    const sel = this.getSelectedProducts();
+    this.idproductos = sel;
+  }
 }
