@@ -918,19 +918,24 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 
-
 CREATE OR REPLACE FUNCTION SP_OBTENER_INFORMACION_PRODUCTO_CARRITO(
-	IN idcarrito INT
+	IN p_idusuario INT
 )
 RETURNS SETOF "record" 
 AS $$
 DECLARE 
   r RECORD;
+  v_idcarrito INT;
 BEGIN
+    
+	SELECT 	idcarrito INTO v_idcarrito
+	FROM carrito
+	WHERE usuario_idusuario = p_idusuario;
+	
 	FOR r IN  SELECT A.producto_idproducto AS idproducto, A.cantidad AS cantidadEnCarrito,
                       B.urlportada, B.nombre, B.cantidad AS cantidadInventario, B.precio, B.porcentajedescuento, B.precioConDescuento		   
               FROM carrito_has_producto AS A LEFT JOIN PRODUCTOS_Y_PROMOCIONES AS B ON A.producto_idproducto = B.idproducto
-			  WHERE A.carrito_idcarrito = idcarrito
+			  WHERE A.carrito_idcarrito = v_idcarrito
     LOOP
        RETURN NEXT r;
 	END LOOP;
@@ -939,22 +944,29 @@ END;
 $$
 LANGUAGE plpgsql;
 
+
 CREATE OR REPLACE FUNCTION SP_ELIMINAR_PRODUCTO_CARRITO(
-  IN p_idcarrito INT,
+  IN p_idusuario INT,
   IN p_idproducto INT
 )
 RETURNS SETOF "record" 
 AS $$
 DECLARE 
   r RECORD;
+  v_idcarrito INT;
 BEGIN
+
+	SELECT idcarrito INTO v_idcarrito
+	FROM carrito
+	WHERE usuario_idusuario = p_idusuario;
+	
 	DELETE FROM carrito_has_producto
-	WHERE producto_idproducto = p_idproducto AND carrito_idcarrito = p_idcarrito;
+	WHERE producto_idproducto = p_idproducto AND carrito_idcarrito = v_idcarrito;
      
 	FOR r IN  SELECT  A.producto_idproducto AS idproducto, A.cantidad AS cantidadEnCarrito,
                       B.urlportada, B.nombre, B.cantidad AS cantidadInventario, B.precio, B.porcentajedescuento, B.precioConDescuento		   
               FROM carrito_has_producto AS A LEFT JOIN PRODUCTOS_Y_PROMOCIONES AS B ON A.producto_idproducto = B.idproducto
-			  WHERE A.carrito_idcarrito = p_idcarrito
+			  WHERE A.carrito_idcarrito = v_idcarrito
     LOOP
        RETURN NEXT r;
 	END LOOP;
@@ -962,6 +974,7 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql;
+
 
 
 
