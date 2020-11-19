@@ -32,17 +32,27 @@ promosSeleccionadas: any = [];
   setPromoId( id: number ): void {
     const sel = this.getSelectedPromos();
     this.promosSeleccionadas = sel;
+
+    const elem: HTMLInputElement = document.querySelector('#checkAll');
+
+    if (this.promosSeleccionadas.length === this.promociones.length){
+      elem.checked = true;
+    } else {
+      elem.checked = false;
+    }
   }
 
   getSelectedPromos(): any[] {
-    const checks: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"');
-    // const ths: NodeListOf<HTMLTableHeaderCellElement> = document.querySelectorAll('.promo-id');
+    const checks: NodeListOf<HTMLInputElement> = document.querySelectorAll('.form-check input[type="checkbox"]');
+    const rows: NodeListOf<HTMLTableRowElement> = document.querySelectorAll('.promo-row');
     const promos = [];
 
     for (let i = 0; i < checks.length; i++) {
        if (checks[i].checked){
          promos.push( this.promociones[i] );
-         // promos.push(parseInt(ths[i].innerText, 10));
+         rows[i].classList.add('table-active');
+       } else {
+         rows[i].classList.remove('table-active');
        }
     }
     return promos;
@@ -155,6 +165,22 @@ promosSeleccionadas: any = [];
       icon: 'warning',
       confirmButtonColor: `#50a1a5`
     });
+  }
+
+  checkAllPromos( evt ): void {
+
+    console.log(evt.target.checked);
+
+    const checks: NodeListOf<HTMLInputElement> = document.querySelectorAll('.form-check input[type="checkbox"]');
+
+    checks.forEach(check => {
+      check.checked = evt.target.checked;
+    });
+
+    const sel = this.getSelectedPromos();
+    this.promosSeleccionadas = sel;
+
+    console.log(this.promosSeleccionadas);
   }
 
 }
