@@ -39,4 +39,10 @@ export class EncabezadoComponent implements OnInit {
     this.busquedaService.searchProducts( this.terminoBusqueda);
   }
 
+  cerrarSesion(){
+    this.authService.logoutUser();
+    localStorage.removeItem('productos-carrito');
+
+  }
+
 }
