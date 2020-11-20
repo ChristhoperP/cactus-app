@@ -58,10 +58,10 @@ router.post('/actualizarProducto', image.upload.fields([{ name: 'portada', maxCo
 router.post('/eliminar-producto', auth.isAdmin, AdminController.eliminarProducto);
 
 // Eliminar producto del carrito 
-router.get('/eliminar-producto-carrito/:idproducto', AdminController.eliminarProductoCarrito);
+router.post('/eliminar-producto-carrito', auth.isAuth, AdminController.eliminarProductoCarrito);
 
 //traer la información del carrito
-router.get('/productos-carrito', AdminController.traerInformacionCarrito);
+router.get('/productos-carrito', auth.isAuth, AdminController.traerInformacionCarrito);
 
 // Informacion para llenar la tabla de modificar 
 router.get('/productoporid/:idproducto', auth.isAdmin, AdminController.infoProductoPorId);

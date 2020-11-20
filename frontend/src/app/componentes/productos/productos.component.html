@@ -162,15 +162,16 @@
 
                     <ng-container *ngIf="(!filtrados || filtrados.length === 0) && !sinCoincidencias">
 
-                        <div class="col-lg-4 col-md-6 col-12 animated fadeIn" id="cards-productos" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia | filtroPrecio: filtro_Precio1:filtro_Precio2  ">
-                            <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
+                        <div class="col-lg-4 col-md-6 col-12 animated fadeIn" *ngFor="let producto of productos | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia | filtroPrecio: filtro_Precio1:filtro_Precio2  ">
+                            <div class="card mb-5 mt-1  estilo-card" id="cards-productos">
 
                                 <div *ngIf="producto.porcentajedescuento" class="promo-percentage position-absolute">
                                     <h4>{{producto.porcentajedescuento}}%</h4>
                                 </div>
 
                                 <div class="img-animtion imagenes p-0 ">
-                                    <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes ">
+                                    <a [routerLink]="['/detalle',producto.idproducto]"> <img src="{{url+'get-image/'+producto.urlportada}}" alt="" class="card-img-top imagenes "></a>
+
 
                                 </div>
 
@@ -194,9 +195,7 @@
 
                                     <div class=" container">
 
-                                        <div>
-                                            <button type="button" [routerLink]="['/detalle',producto.idproducto]" class="btn btn-secondary btn-sm pequenio">Detalle de Producto</button>
-                                        </div>
+
 
 
                                     </div>
@@ -228,7 +227,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="((productos | filtroEspecies:filtro_Especie ).length === 0) || ((productos | filtroGenero:filtro_Genero ).length === 0) || ((productos | filtroFamilia:filtro_Familia ).length === 0)">
-                        <div class="text-danger mt-5">
+                        <div class="text-danger mt-5" style="display: block;" id="mi_div">
                             <h4 class="d-inline">No hay productos que coincidan con el término buscado</h4>
                         </div>
                     </ng-container>
@@ -238,7 +237,7 @@
                     <ng-container *ngIf="filtrados && filtrados.length > 0">
 
                         <div class="col-lg-4 col-md-6 col-12" *ngFor="let producto of filtrados | filtroEspecies:filtro_Especie | filtroGenero:filtro_Genero |filtroFamilia:filtro_Familia">
-                            <div class="card mb-5 mt-1 mr-3 ml-3 estilo-card">
+                            <div class="card mb-5 mt-1  estilo-card">
 
                                 <div *ngIf="producto.porcentajedescuento" class="promo-percentage position-absolute">
                                     <h4>{{producto.porcentajedescuento}}%</h4>

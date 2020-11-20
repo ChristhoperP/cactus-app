@@ -16,8 +16,13 @@ public url: string;
 
 userLogged: boolean;
 
+
   storageName = 'productos-carrito';
   productosCarrito:any = [];
+  // carritoLocalStorage = JSON.parse(localStorage.getItem('productos-carrito'));
+  // productosLocalStorage = this.carritoLocalStorage.productos;
+
+ 
   totalPagar;
 
   constructor(private authService: AuthService, private _carritoService: CarritoService, private _location: Location) { 
@@ -27,6 +32,7 @@ userLogged: boolean;
 
   ngOnInit(): void {
     if (this.userLogged) {
+
     this._carritoService.obtenerProductosCarrito()
       .subscribe(res => {
         console.log(res);
@@ -47,11 +53,26 @@ userLogged: boolean;
   }
 
   calcularTotalPagar(){
+
     var total=0;
     for (let i = 0; i < this.productosCarrito.length; i++) {
       total += Number(this.productosCarrito[i].preciocondescuento);
+  /*
+    var total = 0;
+
+    for (const producto of this.productosCarrito) {
+      if(producto.preciocondescuento !== null) {
+        total += parseInt(producto.preciocondescuento, 10);
+      } else {
+        total += parseInt(producto.precio, 10);
+      }
+
     }
-    this.totalPagar =total;    
+    /* for (let i = 0; i < this.productosCarrito.length; i++) {
+      if ()
+      total += parseInt(this.productosCarrito[i].preciocondescuento, 10);
+    } */
+    this.totalPagar = total;
   }
 
   eliminarTodosProductos(){
