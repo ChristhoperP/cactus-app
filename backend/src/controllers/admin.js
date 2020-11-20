@@ -411,9 +411,11 @@ var controller = {
             var c = a + b;
             const response = await conf.pool.query(c, [parseInt(idusuario)]);
             var respuesta = response.rows;
-            return res.status(200).send({
-                respuesta
-            });
+            // return res.status(200).send({
+            //     respuesta
+            // });
+            return res.status(200).send(respuesta);
+
         } catch (err) {
             return res.status(500).send({
                 message: 'Error: No se puede obtener esta informacón'
