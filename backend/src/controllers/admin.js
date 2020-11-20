@@ -380,16 +380,14 @@ var controller = {
 
         var { idproducto } = req.body;
 
-        if (idusuario != null && idproducto != null) {
+        if (req.user.id != null && idproducto != null) {
             try {
                 var a = 'SELECT idproducto,cantidadEnCarrito, urlportada, nombre, cantidadInventario, precio, porcentajedescuento, precioConDescuento ';
                 var b = 'FROM SP_ELIMINAR_PRODUCTO_CARRITO($1,$2) AS (idproducto INT,cantidadEnCarrito INT, urlportada VARCHAR(200), nombre VARCHAR(45),cantidadInventario INT, precio NUMERIC, porcentajedescuento NUMERIC, precioConDescuento NUMERIC);'
                 var c = a + b;
                 const response = await conf.pool.query(c, [parseInt(req.user.id), parseInt(idproducto)]);
                 var respuesta = response.rows;
-                return res.status(200).send({
-                    respuesta
-                });
+                return res.status(200).send(respuesta);
             } catch (err) {
                 console.log(err);
                 return res.status(500).send({
