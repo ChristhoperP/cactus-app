@@ -44,4 +44,8 @@ export class CarritoService {
     return this._http.post<any>(this.url + 'registro-carrito', {idproducto, cantidad} , {headers: this.headers});
   }
 
+  eliminarProductoCarrito( idproducto ){
+    return this._http.post(this.url + 'eliminar-producto-carrito', {idproducto}, {headers: this.headers});
+  }
+
 }
