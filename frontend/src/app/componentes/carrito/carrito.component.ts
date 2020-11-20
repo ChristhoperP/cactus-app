@@ -19,13 +19,7 @@ checkAll: boolean;
 
 
   storageName = 'productos-carrito';
-
   productosCarrito:any = [];
-  // carritoLocalStorage = JSON.parse(localStorage.getItem('productos-carrito'));
-  // productosLocalStorage = this.carritoLocalStorage.productos;
-
-
-
   totalPagar;
 
   constructor(
@@ -42,7 +36,7 @@ checkAll: boolean;
     this._carritoService.obtenerProductosCarrito()
       .subscribe((res: any) => {
         console.log(res);
-        this.productosCarrito = res.respuesta;
+        this.productosCarrito = res;
 
         for (const producto of this.productosCarrito) {
           producto.checked = true;
@@ -66,12 +60,6 @@ checkAll: boolean;
   }
 
   calcularTotalPagar(): void{
-
-    /* var total = 0;
-
-    for (let i = 0; i < this.productosCarrito.length; i++) {
-    total += Number(this.productosCarrito[i].preciocondescuento); */
-    
     var total = 0;
 
     if (this.userLogged){
@@ -93,14 +81,8 @@ checkAll: boolean;
         }
       }
     }
-
-    /* for (let i = 0; i < this.productosCarrito.length; i++) {
-      if ()
-      total += parseInt(this.productosCarrito[i].preciocondescuento, 10);
-    } */
     this.totalPagar = total;
   }
-}
 
   eliminarTodosProductos(): void{
     Swal.fire({
@@ -115,10 +97,16 @@ checkAll: boolean;
       if (result.isConfirmed) {
         if (this.userLogged) {
           console.log('logueado');
+          for (let i = 0; i < this.productosCarrito.length; i++) {
+            this._carritoService.eliminarProductoCarrito(this.productosCarrito[i].idproducto)
+            .subscribe(res => {
+                console.log(res);
+                this.productosCarrito = [];
+            });
+          }
         }else{
           localStorage.removeItem(this.storageName);
           this.productosCarrito = [];
-          // this.totalPagar=0;
         }
       }
     });
@@ -147,6 +135,7 @@ checkAll: boolean;
                   .subscribe(res => {
                       console.log(res);
                       this.productosCarrito;
+                      this.calcularTotalPagar();
                   });
                   
                 }else{
