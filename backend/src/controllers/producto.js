@@ -208,7 +208,7 @@ var controller = {
 
                 /* console.log(req.body, "si recibe"); */
                 const response = await conf.pool.query(
-                    'SELECT SP_AGREGAR_PRODUCTO_CARRITO($1,$2,$3);', [parseInt(idproducto), parseInt(req.user.id), /* parseInt(idusuario) */ , parseInt(cantidad)]
+                    'SELECT SP_AGREGAR_PRODUCTO_CARRITO($1,$2,$3);', [parseInt(idproducto), parseInt(req.user.id), /* parseInt(idusuario) */ parseInt(cantidad)]
                 );
                 console.log('se ha registrado exitosamente en el carrito de compras');
                 var respuesta = response.rows[0].sp_agregar_producto_carrito;

@@ -19,9 +19,11 @@ checkAll: boolean;
 
 
   storageName = 'productos-carrito';
-  productosCarrito: any = [];
+
+  productosCarrito:any = [];
   // carritoLocalStorage = JSON.parse(localStorage.getItem('productos-carrito'));
   // productosLocalStorage = this.carritoLocalStorage.productos;
+
 
 
   totalPagar;
@@ -98,6 +100,7 @@ checkAll: boolean;
     } */
     this.totalPagar = total;
   }
+}
 
   eliminarTodosProductos(): void{
     Swal.fire({
@@ -138,13 +141,19 @@ checkAll: boolean;
             if ( this.productosCarrito[i].idproducto === id){
               console.log('Eliminando: ' + id + ' / ' + this.productosCarrito[i]);
               this.productosCarrito.splice(i, 1);
-              if (this.userLogged) {
-                console.log('logueado');
-                this._carritoService.eliminarProductoCarrito(id);
-              }else{
-                this.calcularTotalPagar();
-                return this.actualizarLocalStorage();
-              }
+
+                if (this.userLogged) {
+                  this._carritoService.eliminarProductoCarrito(id)
+                  .subscribe(res => {
+                      console.log(res);
+                      this.productosCarrito;
+                  });
+                  
+                }else{
+                  this.calcularTotalPagar();
+                  return this.actualizarLocalStorage();
+                }
+
             }
           }
         }
