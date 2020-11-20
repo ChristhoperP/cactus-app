@@ -19,10 +19,6 @@ userLogged: boolean;
 
   storageName = 'productos-carrito';
   productosCarrito:any = [];
-  // carritoLocalStorage = JSON.parse(localStorage.getItem('productos-carrito'));
-  // productosLocalStorage = this.carritoLocalStorage.productos;
-
- 
   totalPagar;
 
   constructor(private authService: AuthService, private _carritoService: CarritoService, private _location: Location) { 
@@ -74,6 +70,7 @@ userLogged: boolean;
     } */
     this.totalPagar = total;
   }
+}
 
   eliminarTodosProductos(){
     Swal.fire({
@@ -116,7 +113,11 @@ userLogged: boolean;
               console.log('Eliminando: ' + id + ' / ' + this.productosCarrito[i]);
               this.productosCarrito.splice(i, 1);
                 if (this.userLogged) {
-                  console.log('logueado');
+                  this._carritoService.eliminarProductoCarrito(id)
+                  .subscribe(res => {
+                      console.log(res);
+                      this.productosCarrito;
+                  });
                   
                 }else{
                   this.calcularTotalPagar();
