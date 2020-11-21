@@ -36,7 +36,7 @@ checkAll: boolean;
     this._carritoService.obtenerProductosCarrito()
       .subscribe((res: any) => {
         console.log(res);
-        this.productosCarrito = res.respuesta;
+        this.productosCarrito = res;
 
         for (const producto of this.productosCarrito) {
           producto.checked = true;
