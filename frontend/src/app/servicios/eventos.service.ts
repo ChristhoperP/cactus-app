@@ -12,10 +12,6 @@ export class EventosService {
     return new Observable( observer => {
       const eventSource = this.getEventSource(url);
 
-      eventSource.onopen = evt => {
-        console.log('Abriendo conexión: ' + eventSource.readyState);
-      };
-
       eventSource.onmessage = event => {
         this._zone.run(() => {
           observer.next(event);

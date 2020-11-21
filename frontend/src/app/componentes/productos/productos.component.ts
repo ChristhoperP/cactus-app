@@ -77,7 +77,7 @@ export class ProductosComponent implements OnInit {
     this.servicioProducto.getProducto()
       .subscribe( res => {
         this.productos = res;
-        console.log("Mostrar Promociones");
+        console.log("Mostrar Productos", res);
 
         this._promocionesService.getPromocion()
           .subscribe( (resp: any) => {
