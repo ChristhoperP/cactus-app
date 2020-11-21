@@ -24,20 +24,19 @@ dbEventEmitter.on('deleted_promo', (msg) => {
 
 //let pgClient = new pg.Client('postgres://postgres:postgres@localhost:5432/cactus');
 
-// conf.pool.connect(
-//     function(err, client) {
-//         if (err) {
-//             console.log(err);
-//         }
-
-//         client.on('notification', function(msg) {
-//             console.log('Channel: ' + msg.channel);
-//             dbEventEmitter.emit(msg.channel, msg.payload);
-//         });
-
-//         client.query('LISTEN deleted_promo');
-//     }
-// );
+/*  conf.pool.connect(
+     function(err, client) {
+         if (err) {
+             console.log(err);
+         
+         client.on('notification', function(msg) {
+             console.log('Channel: ' + msg.channel);
+             dbEventEmitter.emit(msg.channel, msg.payload);
+         })
+         client.query('LISTEN deleted_promo');
+     }
+    }
+     );  */
 
 var controller = {
 
