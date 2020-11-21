@@ -40,7 +40,7 @@
                         <td>{{producto.nombre}}</td>
                         <td>
                             <div class="input-group input-group-sm mb-3 m-auto w-50">
-                                <input type="number" min="1" max="{{producto.cantidadinventario}}" class="form-control" value="{{producto.cantidadencarrito}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                <input type="number" min="1" max="{{producto.cantidadinventario}}" class="form-control" value="{{producto.cantidadencarrito}}" (input)="cambiarCantidadProducto( producto.idproducto, $event)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                             </div>
                         </td>
                         <td>L {{producto.precio}}</td>
