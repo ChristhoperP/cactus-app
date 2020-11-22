@@ -112,7 +112,7 @@
                                 <div class="form-group row">
 
 
-                                    <input type="number" [class.is-invalid]="cantidad.invalid && cantidad.touched" formControlName="cantidad" name="cantidad" id="cantidad" class="form-control" placeholder="1 - {{producto.cantidad}}" min="1" max="{{producto.cantidad}}" step="1" required>
+                                    <input type="number" [class.is-invalid]="cantidad.invalid && cantidad.touched" formControlName="cantidad" name="cantidad" id="cantidad" class="form-control" min="1" max="{{producto.cantidad}}" step="1" required>
                                     <div class="invalid-feedback" *ngIf="cantidad.errors?.required">
                                         Este campo es obligatorio
                                     </div>
@@ -125,37 +125,71 @@
 
                                 </div>
                             </div>
+                            <div class=" col-4 pt-1">
+                                <strong><span style="color:green">{{producto.cantidad}} </span></strong> <span *ngIf="producto.cantidad > 1">Disponibles</span> <span *ngIf="producto.cantidad ===1">Disponible</span>
+                            </div>
 
                         </div>
                     </div>
 
                     <div class=" container mt-4">
                         <div class="row">
-                            <div class="col-4 pl-4">
-                                <strong><p>Precio:</p></strong>
+                            <div class="row pl-3" *ngIf="!producto.porcentajedescuento">
+                                <div class="col-4 pl-4">
+                                    <strong><p class="pt-1">Precio:</p></strong>
+                                </div>
+                                <div class="col-1">
+                                    <span class="letra pl-3">L</span>
+                                </div>
+
+                                <div class="col-2">
+                                    <span class="letra pl-3">{{producto.precio}}</span>
+                                </div>
                             </div>
-                            <div class="col-1">
-                                <span class="letra">L</span>
+
+
+
+
+                            <div class="row pl-3" *ngIf="producto.porcentajedescuento">
+                                <div class="col-4 pl-4">
+                                    <strong><p class="pt-1">Precio:</p></strong>
+                                </div>
+                                <div class="col-1">
+                                    <span class="letra pl-3">L</span>
+                                </div>
+
+                                <div class="col-2">
+                                    <span class="letra pl-3">{{producto.preciocondescuento}}</span>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <span class="letra">{{producto.precio}}</span>
-                            </div>
+
+
+
                             <div class="col-5 pl-4">
                                 <button type="button" id="btn-compra" class="btn btn-outline-success btn-compra ">Comprar Ahora</button>
                             </div>
                         </div>
                     </div>
 
+
+
+
+
+
+
+                    <br>
                     <div class="container mt-3">
                         <div class="row">
-                            <div class="col-6"></div>
+                            <div class="col-6">
+
+                            </div>
+
                             <div class="col-6 pr-4">
                                 <button type="button" class="btn btn-success float-right shop-cart-btn" (click)="agregarCarrito()"><span>Agregar al carrito &nbsp;</span><i class="fas fa-cart-plus"></i></button>
                             </div>
                         </div>
                     </div>
 
-                    <br>
                     <div class=" container">
                         <strong><p>Descripción:</p></strong>
                     </div>
@@ -169,6 +203,7 @@
                                 <p>{{producto.categoria}}</p>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class=col-4>
                                 <strong><p  class="color-text">Tipo de Base: </p></strong>
@@ -215,6 +250,8 @@
                                 <p>-----------------</p>
                             </div>
                         </div>
+
+
 
                     </div>
                 </form>
