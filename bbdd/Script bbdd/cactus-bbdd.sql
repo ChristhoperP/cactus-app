@@ -148,6 +148,7 @@ CREATE TABLE IF NOT EXISTS TipoBase (
 CREATE TABLE IF NOT EXISTS Categoria (
   idCategoria SERIAL NOT NULL,
   descripcion VARCHAR(200) NULL,
+  imagenCategoria VARCHAR(200) NULL,
   PRIMARY KEY (idCategoria))
 ;
 
@@ -218,6 +219,7 @@ CREATE TABLE IF NOT EXISTS Pedido (
   idPedido SERIAL NOT NULL,
   fechaPedido DATE NULL,
   total DECIMAL NULL,
+  estado VARCHAR(45) NULL,
   Usuario_idUsuario INT NOT NULL,
   InformacionEnvio_idInformacionEnvio INT NOT NULL,
   PRIMARY KEY (idPedido),
