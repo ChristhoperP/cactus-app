@@ -30,6 +30,7 @@ import { PromocionComponent } from './componentes/promocion/promocion.component'
 import { InformacionComponent } from './componentes/informacion/informacion.component';
 import { CarruselPromoComponent } from './componentes/compartidos/carrusel-promo/carrusel-promo.component';
 import { CarritoComponent } from './componentes/carrito/carrito.component';
+import { InformacionPagoComponent } from './componentes/proceso-pago/informacion-pago/informacion-pago.component';
 
 //componentes del administrador
 import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
@@ -116,6 +117,7 @@ import { DetalleProductoComponent } from './componentes/detalle-producto/detalle
     FiltroNivel1Pipe,
     DetalleProductoComponent,
     CarritoComponent,
+    InformacionPagoComponent,
   ],
   imports: [
     BrowserModule,

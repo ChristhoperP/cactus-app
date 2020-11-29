@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarritoService } from '../../servicios/carrito.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Global } from '../../servicios/global';
+import { Router } from '@angular/router';
 import {Location} from '@angular/common';
 import Swal from 'sweetalert2';
 
@@ -25,7 +26,8 @@ checkAll: boolean;
   constructor(
     private authService: AuthService,
     private _carritoService: CarritoService,
-    private _location: Location) {
+    private _location: Location,
+    private router: Router) {
       this.url = Global.url;
       this.userLogged = this.authService.loggedIn();
   }
