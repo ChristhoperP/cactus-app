@@ -12,6 +12,7 @@ var ImageController = require('../controllers/image');
 var AdminController = require('../controllers/admin');
 var VisitaController = require('../controllers/visita');
 var productoController = require('../controllers/producto');
+var envioController = require('../controllers/envio');
 
 
 /* RUTAS DE USUARIO */
@@ -93,6 +94,10 @@ router.post('/modificar-promocion', /* auth.isAdmin, */ AdminController.modifica
 
 router.post('/registro-carrito', auth.isAuth, productoController.registroCarrito);
 
+/* RUTAS DE INFORMACION DE ENVIO */
+router.get('/departamento', envioController.getDepartamento);
+router.get('/municipio', envioController.getMunicipio);
+router.get('/agencia-envio', envioController.getAgenciaEnvio);
 
 
 //Obtener imagenes y eliminar

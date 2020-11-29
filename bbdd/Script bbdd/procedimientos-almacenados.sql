@@ -975,7 +975,24 @@ END;
 $$
 LANGUAGE plpgsql;
 
+/* OBTENER MUNICIPIO CON SU DEPARTAMENTO */
 
+CREATE OR REPLACE FUNCTION SP_OBTENER_MUNICIPIO()
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  FOR r IN SELECT  A.idmunicipio, A.descripcion AS descripcion_municipio,
+                    B.iddepartamento, B.descripcion AS descripcion_departamento
+           FROM municipio AS A  LEFT JOIN departamento AS B on A.departamento_iddepartamento = B.iddepartamento
+     LOOP
+	    RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+END;
+$$
+LANGUAGE plpgsql;
 
 
 
