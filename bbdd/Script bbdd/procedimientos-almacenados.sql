@@ -994,5 +994,61 @@ END;
 $$
 LANGUAGE plpgsql;
 
+/* REGISTRAR LA INFORMACION DEL ENVIO */
 
+CREATE OR REPLACE FUNCTION SP_REGISTRAR_INFOENVIO
+( 
+      
+   IN p_nombrecompleto VARCHAR(200),	 
+   IN p_direccioncompleta VARCHAR(500),	 
+   IN p_domicilio VARCHAR(300), 
+   IN p_idagenciaenvio INT, 
+   IN p_idmunicipio INT,
+   OUT p_ocurrioError INT,
+   OUT p_mensaje VARCHAR(200),
+   OUT p_id INT
+   
+)
+RETURNS RECORD AS $BODY$
 
+	DECLARE vnIdPromocion INT;
+
+    
+BEGIN
+    p_id = NULL;
+
+ 
+        IF(p_nombrecompleto IS NULL OR p_direccioncompleta IS NULL OR p_domicilio IS NULL OR p_idmunicipio IS NULL OR p_idagenciaenvio IS NULL
+        ) THEN
+            p_ocurrioError := 1;
+            p_mensaje:= 'Error: campos incompletos';
+            RETURN;
+        END IF;    
+   
+       
+                 /* Se hace Insert en INFORMACIONENVIO */
+                  INSERT INTO INFORMACIONENVIO(
+                  nombrecompletoremitente,
+                  direccioncompleta,
+                  domicilio,    
+                  agenciaenvio_idagenciaenvio,
+                  municipio_idmunicipio
+                  )
+               VALUES (
+                  p_nombrecompleto,
+                  p_direccioncompleta,
+                  p_domicilio, 
+                  p_idagenciaenvio,
+                  p_idmunicipio
+               );
+         
+         SELECT max(idinformacionenvio) INTO p_id
+		   FROM INFORMACIONENVIO;     /* Se recupera el ID de informacion de envio para mandarlo como respuesta*/
+		  
+                  p_ocurrioError := 0;
+                  p_mensaje:= 'Se ha registrado la informacion del envio';
+		   RETURN;
+		
+END;
+$BODY$
+LANGUAGE 'plpgsql';
