@@ -22,4 +22,8 @@ export class ProcesoPagoService {
   obtenerAgenciasEnvio(){
     return this._http.get(this.url + 'agencia-envio');
   }
+
+  registrarInformacionEnvio(informacion){
+    return this._http.post<any>(this.url + "registro-informacion-envio", informacion);
+  }
 }
