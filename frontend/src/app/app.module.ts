@@ -77,6 +77,7 @@ import { FiltroFamiliaPipe } from './pipes/filtro-familia.pipe';
 import { FiltroPrecioPipe } from './pipes/filtro-precio.pipe';
 import { FiltroNivel1Pipe } from './pipes/filtro-nivel-1.pipe';
 import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
+import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 
 
 
@@ -117,7 +118,8 @@ import { DetalleProductoComponent } from './componentes/detalle-producto/detalle
     FiltroNivel1Pipe,
     DetalleProductoComponent,
     CarritoComponent,
-    InformacionPagoComponent,
+    HistorialComprasComponent,
+    InformacionPagoComponent
   ],
   imports: [
     BrowserModule,
