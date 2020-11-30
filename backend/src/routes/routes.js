@@ -30,6 +30,7 @@ router.post('/registro', auth.noAuth, UserController.registrar);
 router.post('/validarUsuario', auth.noAuth, UserController.validarUsuario);
 router.get('/obtenerUsuariosRegistrados', UserController.obtenerUsuariosRegistrados);
 router.post('/actualizarInfoUsuario', auth.isAuth, UserController.actualizarInfoUsuarios);
+router.get('/historialCompras', auth.isAuth, UserController.historialCompraPorUsuario);
 
 //Subida imagen de perfil
 router.post('/upload-image/', auth.isAuth, image.upload.single('image'), image.uploadGoogle, ImageController.subirImagenPerfil);
