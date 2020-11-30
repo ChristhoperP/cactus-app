@@ -77,6 +77,10 @@ import { FiltroFamiliaPipe } from './pipes/filtro-familia.pipe';
 import { FiltroPrecioPipe } from './pipes/filtro-precio.pipe';
 import { FiltroNivel1Pipe } from './pipes/filtro-nivel-1.pipe';
 import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
+import { ReporteVentasComponent } from './componentes/administrador/reportes/reporte-ventas/reporte-ventas.component';
+import { ReporteInventarioComponent } from './componentes/administrador/reportes/reporte-inventario/reporte-inventario.component';
+import { FiltroVentasComponent } from './componentes/administrador/reportes/modales/filtro-ventas/filtro-ventas.component';
+import { FiltroInventarioComponent } from './componentes/administrador/reportes/modales/filtro-inventario/filtro-inventario.component';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 
 
@@ -118,8 +122,12 @@ import { HistorialComprasComponent } from './componentes/historial-compras/histo
     FiltroNivel1Pipe,
     DetalleProductoComponent,
     CarritoComponent,
-    HistorialComprasComponent,
-    InformacionPagoComponent
+    InformacionPagoComponent,
+    ReporteVentasComponent,
+    ReporteInventarioComponent,
+    FiltroVentasComponent,
+    FiltroInventarioComponent,
+    HistorialComprasComponent
   ],
   imports: [
     BrowserModule,
