@@ -98,10 +98,12 @@ router.post('/registro-carrito', auth.isAuth, productoController.registroCarrito
 router.get('/departamento', envioController.getDepartamento);
 router.get('/municipio', envioController.getMunicipio);
 router.get('/agencia-envio', envioController.getAgenciaEnvio);
-
+router.post('/registro-informacion-envio', envioController.registroInfoEnvio);
 
 //Obtener imagenes y eliminar
 router.get('/get-image/:image', ImageController.getImageFile);
 router.delete('/delete-image/:image', ImageController.DeleteImageFile);
 
+//LANDING PAGE CATEGORIAS 
+router.get('/categoriaLanding', productoController.getCategoriasLanding);
 module.exports = router;

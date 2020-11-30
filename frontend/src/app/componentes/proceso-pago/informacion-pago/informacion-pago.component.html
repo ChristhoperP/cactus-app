@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row">
+        <h4 class="ml-3 mt-5"><b>Información de facturación <i class="fa fa-chevron-right" aria-hidden="true"></i> Paso 1</b></h4>
+    </div>
+    <hr>
+    <div class="row">
+        <form class="col-lg-6 col-md-10 ml-auto mr-auto needs-validation ng-invalid ng-pristine ng-touched pl-5 pr-5 rounded text-center w-100" [formGroup]="formularioPago" validate>
+            <div class="ml-auto mr-auto">
+                <div class="form-row mt-3">
+                    <div class="w-100 mb-3">
+                        <input formControlName="nombre" type="text" class="form-control form-control-sm p-2" id="validationCustom01" placeholder="{{usuario.nombre}}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="w-100 mb-3">
+                        <input formControlName="direccion" [class.is-invalid]="validation('direccion')" type="text" class="form-control form-control-sm p-2" id="validationCustom02" placeholder="Dirección" required>
+                        <div class="invalid-feedback">
+                            No válido
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="w-100 mb-3">
+                        <input formControlName="domicilio" [class.is-invalid]="validation('domicilio')" type="text" class="form-control form-control-sm p-2" id="validationCustom03" placeholder="Dirección de domicilio" required>
+                        <div class="invalid-feedback">
+                            No válido
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-6 pl-0">
+                        <div class="w-100 mb-3">
+                            <select class="custom-select custom-select-sm" formControlName="departamento" [class.is-invalid]="validation('departamento')" id="validationCustom04" required (change)="obtenerMunicipiosDepartamento($event.target.value)">
+                                <option selected disabled active value="">Departamento</option>
+                                <option  *ngFor="let departamento of departamentos" [value]="departamento.iddepartamento">{{departamento.descripcion}}</option>
+                              </select>
+                            <div class="invalid-feedback">
+                                No válido
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 pr-0">
+                        <div class="w-100 mb-3">
+                            <select class="custom-select custom-select-sm" formControlName="municipio" [class.is-invalid]="validation('municipio')" id="validationCustom05" required>
+                                <option selected disabled active value="">Municipio</option>
+                                <option value="{{municipio.idmunicipio}}" *ngFor="let municipio of municipios">{{municipio.descripcion_municipio}}</option>
+                              </select>
+                            <div class="invalid-feedback">
+                                No válido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="w-100 mb-3">
+                        <select class="custom-select custom-select-sm" formControlName="agencia" [class.is-invalid]="validation('agencia')" id="validationCustom06" required>
+                            <option selected disabled active value="">Agencia de envío</option>
+                            <option value="{{agencia.idagenciaenvio}}" *ngFor="let agencia of agencias">{{agencia.nombre}}</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            No válido
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2 mb-4 text-center">
+                    <div>
+                        <button [disabled]="formularioPago.invalid" class="btn btn-info  w-50" type="button" (click)="registrarInformacion()">Continuar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <img src="assets/img/suculentas.jpg" class="position-fixed w-50" alt="suculentas">
+    </div>
+</div>
