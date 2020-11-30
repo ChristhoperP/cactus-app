@@ -1052,3 +1052,24 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
+
+
+
+CREATE OR REPLACE FUNCTION SP_OBTENER_CATEGORIAS_PRODUCTOS_LANDING()
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  FOR r IN SELECT idcategoria, descripcion, imagencategoria 
+           FROM categoria
+           ORDER BY idcategoria
+     LOOP
+	    RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+END;
+$$
+LANGUAGE plpgsql;
+
+

@@ -234,6 +234,10 @@ var controller = {
             })
         }
     },
+    getCategoriasLanding: async function(req, res) {
+        const response = await conf.pool.query('SELECT idcategoria, descripcion, imagencategoria  FROM SP_OBTENER_CATEGORIAS_PRODUCTOS_LANDING() AS (idcategoria INT, descripcion VARCHAR(200), imagencategoria  VARCHAR(200));');
+        res.json(response.rows);
+    },
 }
 
 module.exports = controller;
