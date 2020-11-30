@@ -81,6 +81,7 @@ import { ReporteVentasComponent } from './componentes/administrador/reportes/rep
 import { ReporteInventarioComponent } from './componentes/administrador/reportes/reporte-inventario/reporte-inventario.component';
 import { FiltroVentasComponent } from './componentes/administrador/reportes/modales/filtro-ventas/filtro-ventas.component';
 import { FiltroInventarioComponent } from './componentes/administrador/reportes/modales/filtro-inventario/filtro-inventario.component';
+import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 
 
 
@@ -126,6 +127,7 @@ import { FiltroInventarioComponent } from './componentes/administrador/reportes/
     ReporteInventarioComponent,
     FiltroVentasComponent,
     FiltroInventarioComponent,
+    HistorialComprasComponent
   ],
   imports: [
     BrowserModule,
