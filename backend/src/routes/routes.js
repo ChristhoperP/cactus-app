@@ -107,4 +107,7 @@ router.delete('/delete-image/:image', ImageController.DeleteImageFile);
 
 //LANDING PAGE CATEGORIAS 
 router.get('/categoriaLanding', productoController.getCategoriasLanding);
+
+//PEDIDOS
+router.get('/traerPedidosUsuarios', AdminController.traerPedidosUsuarios);
 module.exports = router;

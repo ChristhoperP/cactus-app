@@ -1081,10 +1081,10 @@ DECLARE
   r RECORD;
 BEGIN
   FOR r IN SELECT A.idPedido, A.fechaPedido AS fecha, C.idproducto,C.nombre,
-	               B.precioproducto AS precio_unitario, B.cantidad, (B.precioproducto* B.cantidad) AS total
+	               B.precioproducto AS precio_unitario, B.cantidad, (B.precioproducto* B.cantidad) AS subtotal
 	       FROM PEDIDO AS A LEFT JOIN PEDIDO_HAS_PRODUCTO AS B ON A.idpedido = B.pedido_idpedido
 	       LEFT JOIN PRODUCTO AS C ON B.producto_idproducto = C.idProducto
-	       WHERE Usuario_idUsuario = p_idusuario 
+	       WHERE A.Usuario_idUsuario = p_idusuario  ORDER BY A.idPedido
      LOOP
 	    RETURN NEXT r;
 	 END LOOP;
