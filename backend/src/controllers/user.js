@@ -199,8 +199,8 @@ var controller = {
         var idusuario = req.user.id;
 
         try {
-            var a = 'SELECT idPedido, fecha, idproducto,nombre, precio_unitario, cantidad, total ';
-            var b = 'FROM SP_OBTENER_HISTORIAL_COMPRA_POR_USUARIO($1) AS (idPedido INT, fecha DATE, idproducto INT,nombre VARCHAR(45), precio_unitario NUMERIC, cantidad INT, total NUMERIC);';
+            var a = 'SELECT idPedido, fecha, idproducto,nombre, precio_unitario, cantidad, subtotal ';
+            var b = 'FROM SP_OBTENER_HISTORIAL_COMPRA_POR_USUARIO($1) AS (idPedido INT, fecha DATE, idproducto INT,nombre VARCHAR(45), precio_unitario NUMERIC, cantidad INT, subtotal NUMERIC);';
 
             var c = a + b;
             const response = await conf.pool.query(c, [parseInt(idusuario)]);

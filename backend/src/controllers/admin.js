@@ -419,6 +419,16 @@ var controller = {
                 message: 'Error: No se puede obtener esta informacón'
             })
         }
+    },
+    traerPedidosUsuarios: async function(req, res) {
+        try {
+            const response = await conf.pool.query('SELECT * FROM  pedidos_usuarios_admin ;');
+            var respuesta = response.rows;
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 };
 

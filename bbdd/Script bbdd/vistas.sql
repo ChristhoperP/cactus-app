@@ -61,3 +61,8 @@ INNER JOIN TIPOBASE TP ON TP.IDTIPOBASE = PR.TIPOBASE_IDTIPOBASE;
  FROM PRODUCTO AS A  LEFT JOIN promocion_has_producto AS B ON A.idproducto = B.producto_idproducto 
  LEFT JOIN promocion AS C ON B.promocion_idpromocion = C.idpromocion;
 
+ CREATE OR REPLACE VIEW pedidos_usuarios_admin AS
+SELECT A.idpedido, A.fechapedido, A.total,
+        A.estado, B.idusuario, B.nombre AS nombre_usuario
+FROM pedido A LEFT JOIN usuario B ON A.usuario_idusuario = B.idusuario;
+
