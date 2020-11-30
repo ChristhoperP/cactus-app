@@ -1,35 +1,38 @@
-<div class="titulo">
+<div class="titulo container">
     <h1 id="cactus">Historial de Compras</h1>
 </div>
 
-<div class=" container">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
+
+
+<div>
+
+    <div>
+
+
+        <div class="table-responsive">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Id Pedido</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre de Usuario</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Teléfono</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pedido of pedidos">
+                        <td>{{ pedido.idpedido }}</td>
+                        <td>{{ pedido.nombre }}</td>
+                        <td>{{ pedido.precio_unitario }}</td>
+                        <td>{{ pedido.cantidad }}</td>
+                        <td>{{ pedido.fecha | date:'d/MM/y' }}</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

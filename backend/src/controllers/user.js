@@ -205,7 +205,7 @@ var controller = {
             var c = a + b;
             const response = await conf.pool.query(c, [parseInt(idusuario)]);
             var respuesta = response.rows;
-
+            console.log(respuesta);
             return res.status(200).send(respuesta);
 
         } catch (err) {

@@ -24,7 +24,7 @@ if (produccion) {
         pool: new Pool({
             host: 'localhost',
             user: 'postgres',
-            password: 'password',
+            password: 'postgres',
             database: 'cactus',
             port: 5432
         }),
