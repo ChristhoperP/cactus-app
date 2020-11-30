@@ -5,14 +5,14 @@ const conf = require('../config');
 const services = require('../services/token');
 
 var controller = {
-    registrar: function (req, res) {
+    registrar: function(req, res) {
         var { nombre, correo, contrasenia } = req.body;
 
         //Tipo de usuario cliente
         var tipoUsuario = 2;
 
         if (nombre != null && correo != null && contrasenia != null && tipoUsuario != null) {
-            bcrypt.hash(contrasenia, 10, async (err, data) => {
+            bcrypt.hash(contrasenia, 10, async(err, data) => {
                 try {
                     contrasenia = data;
                     console.log(data);
@@ -51,7 +51,7 @@ var controller = {
             })
         }
     },
-    validarUsuario: async function (req, res) {
+    validarUsuario: async function(req, res) {
         var { correo, contrasenia } = req.body;
         if (correo != null && contrasenia != null) {
             try {
@@ -91,7 +91,7 @@ var controller = {
         }
     },
 
-    infoPerfilUsuario: async function (req, res) {
+    infoPerfilUsuario: async function(req, res) {
 
         try {
             const response = await conf.pool.query(
@@ -112,11 +112,11 @@ var controller = {
 
 
     },
-    obtenerUsuariosRegistrados: async function (req, res) {
+    obtenerUsuariosRegistrados: async function(req, res) {
         const response = await conf.pool.query('SELECT * FROM INFORMACION_USUARIOS_REGISTRADOS');
         res.json(response.rows);
     },
-    actualizarInfoUsuarios: async function (req, res) {
+    actualizarInfoUsuarios: async function(req, res) {
         var { nombre, contraseniaAnterior, contraseniaNueva, telefono, direccion, opcion } = req.body;
         var idUsuario = req.user.id;
 
@@ -131,7 +131,7 @@ var controller = {
                     });
                 }
                 break;
-            case 2://actualiza la contrasenia
+            case 2: //actualiza la contrasenia
                 if (idUsuario && contraseniaAnterior && contraseniaNueva) {
                     const response = await conf.pool.query(`SELECT contrasenia FROM public.usuario where idusuario=${idUsuario};`);
 
@@ -139,7 +139,7 @@ var controller = {
 
                     if (resultadoMatch) {
                         try {
-                            bcrypt.hash(contraseniaNueva, 10, async (err, data) => {
+                            bcrypt.hash(contraseniaNueva, 10, async(err, data) => {
                                 try {
                                     contraseniaNueva = data;
 
@@ -168,7 +168,7 @@ var controller = {
                     });
                 }
                 break;
-            case 3://actualizar el telefono
+            case 3: //actualizar el telefono
                 if (idUsuario && telefono) {
                     await conf.pool.query(`UPDATE public.usuario SET telefono='${telefono}' WHERE idusuario=${idUsuario};`);
                     res.status(200).send({ telefono: telefono, message: "Se actualizó el telefono correctamente." });
@@ -193,6 +193,26 @@ var controller = {
                     message: 'No se han enviado datos para actualizar.'
                 });
                 break;
+        }
+    },
+    historialCompraPorUsuario: async function(req, res) {
+        var idusuario = req.user.id;
+
+        try {
+            var a = 'SELECT idPedido, fecha, idproducto,nombre, precio_unitario, cantidad, total ';
+            var b = 'FROM SP_OBTENER_HISTORIAL_COMPRA_POR_USUARIO($1) AS (idPedido INT, fecha DATE, idproducto INT,nombre VARCHAR(45), precio_unitario NUMERIC, cantidad INT, total NUMERIC);';
+
+            var c = a + b;
+            const response = await conf.pool.query(c, [parseInt(idusuario)]);
+            var respuesta = response.rows;
+
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se puede obtener esta informacón'
+            })
         }
     }
 };
