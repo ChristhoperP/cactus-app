@@ -416,7 +416,7 @@ var controller = {
 
         } catch (err) {
             return res.status(500).send({
-                message: 'Error: No se puede obtener esta informacón'
+                message: 'Error: No se puede obtener esta información'
             })
         }
     },
@@ -428,6 +428,64 @@ var controller = {
 
         } catch (err) {
             console.log(err);
+        }
+    },
+    traerPedidosDetalleProductos: async function(req, res) {
+        var idpedido = req.params.idpedido;
+
+
+
+        try {
+            var a = 'SELECT idproducto, nombre, precio_unitario, cantidad, subtotalPorProducto ';
+            var b = 'FROM SP_DETALLE_PEDIDO_PRODUCTOS($1) AS (idproducto INT, nombre VARCHAR(45), precio_unitario NUMERIC, cantidad INT, subtotalPorProducto NUMERIC);'
+            var c = a + b;
+
+            const response1 = await conf.pool.query(c, [parseInt(idpedido)]);
+            var respuestaProductos = response1.rows;
+
+
+            const response2 = await conf.pool.query('SELECT SP_DETALLE_PEDIDO_DATOS_CLIENTE($1);', [
+                parseInt(idpedido)
+            ]);
+
+
+            var respuestaDatos = response2.rows[0].sp_detalle_pedido_datos_cliente;
+            var respuestaDatos2 = respuestaDatos.substring(1, respuestaDatos.length - 1).replace('"', '').replace('"', '');
+            var arregloRes = respuestaDatos2.split(',');
+            console.log(arregloRes);
+
+            var nombreRemitente = arregloRes[0];
+            var totalPagado = parseInt(arregloRes[1]);
+            var agenciaEnvio = arregloRes[2];
+            var precioEnvio = parseInt(arregloRes[3]);
+            var municipio = arregloRes[4];
+            var departamento = arregloRes[5].replace('"', '').replace('"', '');
+            var direccioncompleta = arregloRes[6].replace('"', '').replace('"', '');
+            var domicilio = arregloRes[7].replace('"', '').replace('"', '');
+            var subtotal = totalPagado - precioEnvio;
+
+            console.log(domicilio);
+
+            return res.status(200).send({
+                productos: respuestaProductos,
+                datos: {
+                    nombreRemitente,
+                    totalPagado,
+                    agenciaEnvio,
+                    precioEnvio,
+                    municipio,
+                    departamento,
+                    direccioncompleta,
+                    domicilio,
+                    subtotal
+                }
+            });
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se puede obtener esta información'
+            })
         }
     }
 };
