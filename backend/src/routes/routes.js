@@ -110,4 +110,5 @@ router.get('/categoriaLanding', productoController.getCategoriasLanding);
 
 //PEDIDOS
 router.get('/traerPedidosUsuarios', AdminController.traerPedidosUsuarios);
+router.get('/traerPedidoDetalleProductos/:idpedido', AdminController.traerPedidosDetalleProductos);
 module.exports = router;

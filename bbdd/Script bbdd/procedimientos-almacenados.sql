@@ -1094,3 +1094,86 @@ $$
 LANGUAGE plpgsql;
 
 
+
+CREATE OR REPLACE FUNCTION SP_DETALLE_PEDIDO_PRODUCTOS(
+     IN p_idpedido INT
+)
+RETURNS SETOF "record" 
+AS $$
+DECLARE 
+  r RECORD;
+BEGIN
+  FOR r IN SELECT C.idproducto,C.nombre,  B.precioproducto AS precio_unitario, B.cantidad, (B.precioproducto* B.cantidad) AS subtotalPorProducto
+	       FROM PEDIDO AS A LEFT JOIN PEDIDO_HAS_PRODUCTO AS B ON A.idpedido = B.pedido_idpedido
+	       LEFT JOIN PRODUCTO AS C ON B.producto_idproducto = C.idProducto
+	       WHERE A.idpedido = p_idpedido 
+     LOOP
+	    RETURN NEXT r;
+	 END LOOP;
+	 RETURN;
+END;
+$$
+LANGUAGE plpgsql; 
+
+
+CREATE OR REPLACE FUNCTION SP_DETALLE_PEDIDO_DATOS_CLIENTE
+(
+   IN p_idpedido INT,
+	OUT p_nombreRemitente VARCHAR(200),
+	OUT p_totalPagado NUMERIC,
+	OUT p_agenciaEnvio VARCHAR(100),
+	OUT p_precioEnvio NUMERIC,
+	OUT p_municipio VARCHAR(45),
+	OUT p_departamento VARCHAR(45),
+	OUT p_direccioncompleta VARCHAR(500),
+	OUT p_domicilio VARCHAR(300)
+)
+RETURNS RECORD AS $BODY$
+DECLARE 
+BEGIN
+  
+  SELECT B.nombrecompletoremitente INTO p_nombreRemitente     
+  FROM PEDIDO AS A LEFT JOIN INFORMACIONENVIO AS B ON A.informacionenvio_idinformacionenvio = B.idinformacionenvio
+  WHERE A.idpedido = p_idpedido;
+  
+  SELECT total INTO p_totalPagado
+  FROM PEDIDO 
+  WHERE idpedido = p_idpedido;
+  
+  SELECT C.nombre INTO p_agenciaEnvio
+  FROM PEDIDO AS A LEFT JOIN INFORMACIONENVIO AS B ON A.informacionenvio_idinformacionenvio = B.idinformacionenvio
+  LEFT JOIN AGENCIAENVIO AS C ON B.agenciaenvio_idagenciaenvio = C.idagenciaenvio
+  WHERE A.idpedido = p_idpedido;
+  
+  SELECT C.precio INTO p_precioEnvio
+  FROM PEDIDO AS A LEFT JOIN INFORMACIONENVIO AS B ON A.informacionenvio_idinformacionenvio = B.idinformacionenvio
+  LEFT JOIN AGENCIAENVIO AS C ON B.agenciaenvio_idagenciaenvio = C.idagenciaenvio
+  WHERE A.idpedido = p_idpedido;
+  
+  SELECT C.descripcion INTO p_municipio
+  FROM PEDIDO AS A LEFT JOIN INFORMACIONENVIO AS B ON A.informacionenvio_idinformacionenvio = B.idinformacionenvio
+  LEFT JOIN MUNICIPIO AS C ON B.municipio_idmunicipio = C.idmunicipio
+  WHERE A.idpedido = p_idpedido;
+  
+  SELECT D.descripcion INTO p_departamento
+  FROM PEDIDO AS A LEFT JOIN INFORMACIONENVIO AS B ON A.informacionenvio_idinformacionenvio = B.idinformacionenvio
+  LEFT JOIN MUNICIPIO AS C ON B.municipio_idmunicipio = C.idmunicipio
+  LEFT JOIN DEPARTAMENTO AS D ON C.departamento_iddepartamento = D.iddepartamento
+  WHERE A.idpedido = p_idpedido;
+  
+  SELECT B.direccioncompleta INTO p_direccioncompleta  
+  FROM PEDIDO AS A LEFT JOIN INFORMACIONENVIO AS B ON A.informacionenvio_idinformacionenvio = B.idinformacionenvio
+  WHERE A.idpedido = p_idpedido;
+  
+  
+  SELECT B.domicilio INTO p_domicilio     
+  FROM PEDIDO AS A LEFT JOIN INFORMACIONENVIO AS B ON A.informacionenvio_idinformacionenvio = B.idinformacionenvio
+  WHERE A.idpedido = p_idpedido;
+  
+  RETURN; 
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+
+
