@@ -1,3 +1,16 @@
+h1 {
+    color: transparent;
+    background: url(/assets/img/1C.png) repeat;
+    -webkit-background-clip: text;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    font-size: 5vw;
+    font-weight: bold;
+    text-align: left;
+    letter-spacing: -2px;
+    line-height: 90px;
+}
+
 * {
     padding: 0;
     margin: 0;

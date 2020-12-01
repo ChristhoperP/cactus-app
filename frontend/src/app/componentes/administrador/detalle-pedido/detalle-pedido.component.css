@@ -1,0 +1,12 @@
+.titulo {
+    color: rgb(11, 109, 80);
+    font-weight: bold;
+}
+
+.header {
+    background-color: rgb(6, 128, 67, 0.3);
+}
+
+.componentes {
+    font-weight: bold;
+}

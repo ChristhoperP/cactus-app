@@ -1,5 +1,8 @@
 <!-- <app-encabezado></app-encabezado> -->
 <app-carruzel></app-carruzel>
+<div class=" container">
+    <h1>Categorías</h1>
+</div>
 
 <div class="container">
 
@@ -7,8 +10,11 @@
 
         <div class="card ml-1 " *ngFor="let categoria of categorias">
             <div class="card-header">
-                <img src="{{url+'get-image/'+categoria.imagencategoria}}" class="card-img-top rounded-circle" alt="...">
-                <h2> {{categoria.descripcion}}</h2>
+                <a> <img src="{{url+'get-image/'+categoria.imagencategoria}}" class="card-img-top rounded-circle" alt="..."></a>
+                <a [routerLink]="['/productos',categoria.idcategoria]">
+                    <h2> {{categoria.descripcion}}</h2>
+                </a>
+
             </div>
 
         </div>
