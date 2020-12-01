@@ -109,6 +109,6 @@ router.delete('/delete-image/:image', ImageController.DeleteImageFile);
 router.get('/categoriaLanding', productoController.getCategoriasLanding);
 
 //PEDIDOS
-router.get('/traerPedidosUsuarios', AdminController.traerPedidosUsuarios);
-router.get('/traerPedidoDetalleProductos/:idpedido', AdminController.traerPedidosDetalleProductos);
+router.get('/traerPedidosUsuarios', auth.isAdmin, AdminController.traerPedidosUsuarios);
+router.get('/traerPedidoDetalleProductos/:idpedido', auth.isAdmin, AdminController.traerPedidosDetalleProductos);
 module.exports = router;
