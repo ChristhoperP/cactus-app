@@ -26,6 +26,8 @@ import { DetalleProductoComponent } from './componentes/detalle-producto/detalle
 import { CarritoComponent } from './componentes/carrito/carrito.component';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { InformacionPagoComponent } from './componentes/proceso-pago/informacion-pago/informacion-pago.component';
+import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
+import { DetallePedidoComponent } from './componentes/administrador/detalle-pedido/detalle-pedido.component';
 
 
 
@@ -38,9 +40,11 @@ const appRoutes: Routes = [
             {path: '', redirectTo: 'inicio', pathMatch: 'full'},
             {path: 'inicio', component: InicioComponent},
             {path: 'productos', component: ProductosComponent, canActivate: [NoAdminGuard]},
+            {path: 'productos/:id', component: ProductosComponent, canActivate: [NoAdminGuard]},
             {path: 'promocion', component: PromocionComponent, canActivate: [NoAdminGuard]},
             {path: 'informacion', component: InformacionComponent, canActivate: [NoAdminGuard]},
             {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard, NoAdminGuard]},
+            
             {path: 'historial-compra', component: HistorialComprasComponent, canActivate: [AuthGuard, NoAdminGuard]},
             {path: 'detalle/:id', component: DetalleProductoComponent,canActivate: [NoAdminGuard]},
             {path: 'informacionPago', component: InformacionPagoComponent, canActivate: [AuthGuard, NoAdminGuard]}
@@ -56,6 +60,8 @@ const appRoutes: Routes = [
             {path: 'inventario', component: InventarioComponent},
             {path: 'usuarios', component: UsuariosComponent},
             {path: 'promociones', component: PromocionesComponent},
+            {path: 'reportes', component: ReportesComponent},
+           
             {path: '**', component: InicioAdminComponent}
         ],
         canActivate: [AuthGuard, IsAdminGuard]

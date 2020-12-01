@@ -1,0 +1,115 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header">
+                <h5 class="modal-title titulo " id="exampleModalLabel">DETALLE DEL PEDIDO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+            </div>
+
+            <div class="modal-body">
+                <hr>
+                <div class=" container mb-3">
+                    <div class=" row">
+                        <div class="col-4">
+                            <p class="componentes">Cliente: </p>
+                        </div>
+
+                        <div class="col-8">
+                            <p>Nombre Cliente</p>
+                        </div>
+                    </div>
+                </div>
+                <div class=" container">
+                    <p class="componentes">Productos: </p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" container" style="text-align: right;">
+                    <p class=" mr-4"> <span class="componentes pr-1">Total Pagado:</span> <span class=" pr-1"> L</span><span>250</span></p>
+                </div>
+
+
+                <div class=" container mb-3 mt-3">
+                    <div class=" row">
+                        <div class="col-4">
+                            <p class="componentes">Agencia de Envio: </p>
+                        </div>
+
+                        <div class="col-8">
+                            <p>Cargo Express</p>
+                        </div>
+                    </div>
+
+                    <div class=" row">
+                        <div class="col-4">
+                            <p class="componentes">Departamento: </p>
+                        </div>
+
+                        <div class="col-8">
+                            <p>Frnaciso Morazan</p>
+                        </div>
+                    </div>
+
+                    <div class=" row">
+                        <div class="col-4">
+                            <p class="componentes">Municipio: </p>
+                        </div>
+
+                        <div class="col-8">
+                            <p>Distrito Central</p>
+                        </div>
+                    </div>
+
+                    <div class=" row">
+                        <div class="col-4">
+                            <p class="componentes">Dirección: </p>
+                        </div>
+
+                        <div class="col-8">
+                            <p>Col. Jardines</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

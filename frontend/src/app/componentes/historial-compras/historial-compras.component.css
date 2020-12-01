@@ -20,3 +20,15 @@ h1 {
     width: 80%;
     margin-left: 8%;
 }
+
+.encabezado-tabla {
+    background-color: #4bc0c04d;
+    border: rgb(53, 110, 112) 2px solid;
+}
+
+body {
+    margin-top: 20px;
+    color: #1a202c;
+    text-align: left;
+    background-image: url("../../../assets/img/fondo-valores.png");
+}
