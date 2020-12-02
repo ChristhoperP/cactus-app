@@ -3,10 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageToDataUrlModule } from "ngx-image2dataurl";
 import { FilterPipeModule } from 'ngx-filter-pipe';
+
+//stripe
+import { NgxStripeModule } from "ngx-stripe";
 
 //Graficos
 import { ChartsModule } from 'ng2-charts';
@@ -14,7 +17,7 @@ import { AgmCoreModule } from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps'
 
 //cargar JS
-import {ServAdminService}  from "./servicios/administrador/serv-admin.service"
+import { ServAdminService } from "./servicios/administrador/serv-admin.service"
 
 
 //componentes
@@ -58,7 +61,7 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 //pipes
 
 //Rutas
-import { rutas_encabezado, appRoutingProviders} from "./app.routing";
+import { rutas_encabezado, appRoutingProviders } from "./app.routing";
 import { EncabezadoAdminComponent } from './componentes/administrador/encabezado-admin/encabezado-admin.component';
 import { ControladorAdminComponent } from './componentes/administrador/controlador-admin/controlador-admin.component';
 import { ModificarProductoComponent } from './componentes/administrador/modificar-producto/modificar-producto.component';
@@ -130,9 +133,10 @@ import { DetalleProductoComponent } from './componentes/detalle-producto/detalle
     ImageToDataUrlModule,
     FilterPipeModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCJzxAkEYyB2-ZosSZAnnX0kwI516q3t6c'    
-   }),
-   GoogleMapsModule
+      apiKey: 'AIzaSyCJzxAkEYyB2-ZosSZAnnX0kwI516q3t6c'
+    }),
+    GoogleMapsModule,
+    NgxStripeModule.forRoot('pk_test_51Hm92eAIJI4gLSIF6E5PbHEVBJpCPb2Y1oBAc847bcAfbWhiFk7Spkx8GVNCNAQx9kGL5LM2xlTcBwW2iVkysHh100bJaj5l3u')
   ],
   providers: [
     appRoutingProviders,
@@ -151,7 +155,7 @@ import { DetalleProductoComponent } from './componentes/detalle-producto/detalle
       multi: true
     },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-        JwtHelperService
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })

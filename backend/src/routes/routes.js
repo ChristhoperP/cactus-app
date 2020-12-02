@@ -13,6 +13,7 @@ var AdminController = require('../controllers/admin');
 var VisitaController = require('../controllers/visita');
 var productoController = require('../controllers/producto');
 var envioController = require('../controllers/envio');
+var PagoController = require('../controllers/pagos');
 
 
 /* RUTAS DE USUARIO */
@@ -103,5 +104,9 @@ router.post('/registro-informacion-envio',envioController.registroInfoEnvio);
 //Obtener imagenes y eliminar
 router.get('/get-image/:image', ImageController.getImageFile);
 router.delete('/delete-image/:image', ImageController.DeleteImageFile);
+
+//Rutas de pagos
+router.post('/checkout', auth.isAuth, PagoController.setPago);
+router.post('/calcularTotal', PagoController.getMonto);
 
 module.exports = router;

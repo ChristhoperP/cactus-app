@@ -198,4 +198,15 @@ checkAll: boolean;
     }
     this.calcularTotalPagar();
   }
+
+  productosPagar(): void {
+    var productos=[];
+    this.productosCarrito.forEach(element => {
+      if (element.checked) {
+        productos.push({ "idproducto": +element.idproducto, "cantidad": + element.cantidadencarrito});
+      }
+    });
+    
+    localStorage.setItem("productos", JSON.stringify(productos));
+  }
 }

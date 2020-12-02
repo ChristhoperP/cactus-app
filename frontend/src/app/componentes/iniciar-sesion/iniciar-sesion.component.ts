@@ -19,42 +19,42 @@ export class IniciarSesionComponent implements OnInit {
 
   constructor(
     private servicioAuth: AuthService,
-    private router: Router  
+    private router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
-  get correo(){ return this.formularioInicioSesion.get('correo')};
-  get contrasenia(){ return this.formularioInicioSesion.get('contrasenia')};
+  get correo() { return this.formularioInicioSesion.get('correo') };
+  get contrasenia() { return this.formularioInicioSesion.get('contrasenia') };
 
-  validarCampo(campo: string){
+  validarCampo(campo: string) {
     return this.formularioInicioSesion.get(campo).invalid && this.formularioInicioSesion.get(campo).touched;
   }
 
-  iniciarSesion(){
+  iniciarSesion() {
     this.errorCredenciales = false;
 
-    if(this.formularioInicioSesion.invalid){
+    if (this.formularioInicioSesion.invalid) {
       return;
     }
 
     this.servicioAuth.iniciarSesion(this.formularioInicioSesion.value)
-        .subscribe(res => {
-          this.servicioAuth.setToken(res.token);
-          this.servicioAuth.setUserRole(res.rol);
+      .subscribe(res => {
+        this.servicioAuth.setToken(res.token);
+        this.servicioAuth.setUserRole(res.rol);
 
-          if (res.rol === 'admin' ){
-            this.router.navigate(['/controlador-admin']);
-          } else {
-            this.router.navigate(['/inicio']);
-          }
-        },
+        if (res.rol === 'admin') {
+          this.router.navigate(['/controlador-admin']);
+        } else {
+          this.router.navigate(['/inicio']);
+        }
+      },
         err => {
           console.log(err);
           this.errorCredenciales = true;
-        });    
+        });
   }
- 
+
 
 }

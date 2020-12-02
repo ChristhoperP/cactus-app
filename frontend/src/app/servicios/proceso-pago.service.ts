@@ -11,15 +11,27 @@ export class ProcesoPagoService {
 
   constructor(private _http: HttpClient) { }
 
-  obtenerDepartamentos(){
+  obtenerDepartamentos() {
     return this._http.get(this.url + 'departamento');
   }
 
-  obtenerMunicipios(){
+  obtenerMunicipios() {
     return this._http.get(this.url + 'municipio');
   }
 
-  obtenerAgenciasEnvio(){
+  obtenerAgenciasEnvio() {
     return this._http.get(this.url + 'agencia-envio');
+  }
+
+  procederPago(informacionPago) {
+    let params = JSON.stringify(informacionPago);
+
+    return this._http.post<any>(this.url + "checkout", params, { headers: this.headers });
+  }
+
+  calcularTotal(productos, idAgenciaEnvio){
+    let params = JSON.stringify([productos, idAgenciaEnvio]);
+    //let params2 = JSON.stringify(idAgenciaEnvio);
+    return this._http.post<any>(this.url + "calcularTotal", params, { headers: this.headers });
   }
 }
