@@ -44,7 +44,6 @@ const appRoutes: Routes = [
             {path: 'promocion', component: PromocionComponent, canActivate: [NoAdminGuard]},
             {path: 'informacion', component: InformacionComponent, canActivate: [NoAdminGuard]},
             {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard, NoAdminGuard]},
-            
             {path: 'historial-compra', component: HistorialComprasComponent, canActivate: [AuthGuard, NoAdminGuard]},
             {path: 'detalle/:id', component: DetalleProductoComponent,canActivate: [NoAdminGuard]},
             {path: 'informacionPago', component: InformacionPagoComponent, canActivate: [AuthGuard, NoAdminGuard]}
