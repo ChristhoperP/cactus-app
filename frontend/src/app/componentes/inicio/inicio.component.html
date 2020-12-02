@@ -9,13 +9,16 @@
     <div class="row">
 
         <div class="card ml-1 " *ngFor="let categoria of categorias">
-            <div class="card-header">
-                <a> <img src="{{url+'get-image/'+categoria.imagencategoria}}" class="card-img-top rounded-circle" alt="..."></a>
-                <a [routerLink]="['/productos',categoria.idcategoria]">
-                    <h2> {{categoria.descripcion}}</h2>
-                </a>
+            <a [routerLink]="['/productos',categoria.descripcion]" style="text-decoration:none;">
+                <div class="card-header">
+                    <img src="{{url+'get-image/'+categoria.imagencategoria}}" class="card-img-top rounded-circle" alt="...">
 
-            </div>
+                    <h2 style="color: rgb(4, 117, 65);"> {{categoria.descripcion}}</h2>
+
+
+                </div>
+            </a>
+
 
         </div>
 
@@ -35,23 +38,24 @@
         </div>
 
         <div class="col-lg-6 col-12 anuncio1 ">
-            <p class="letra pt-2">Realizamos Arreglos Especiales</p>
-            <p class="letra">para cada Ocasión</p>
+            <p class="letra pt-2 texto_arreglos">Realizamos Arreglos Especiales</p>
+            <p class="letra texto_arreglos">para cada Ocasión</p>
             <div class=" container  pt-4">
                 <div class="row">
 
                     <div class="col-3 alineado">
-                        <i class="fas fa-baby-carriage iconos"></i>
+                        <img src="assets/img/boda.png" alt="">
                     </div>
                     <div class="col-3 alineado">
-                        <i class="fas fa-birthday-cake iconos"></i>
+                        <img src="assets/img/baby.png" alt="">
                     </div>
                     <div class="col-3 alineado">
-                        <i class="fas fa-glass-cheers iconos"></i>
+                        <img src="assets/img/soltera.png" alt="">
                     </div>
                     <div class="col-3 alineado">
-                        <i class="fas fa-gifts iconos"></i>
+                        <img src="assets/img/cumple.png" alt="">
                     </div>
+
                 </div>
             </div>
 
@@ -66,35 +70,36 @@
     <div class="row">
 
 
-        <div class="col-lg-6 col-12 anuncio1 ">
-            <p class="letra pt-2">Obtén tu paquete</p>
-            <p class="letra">de forma segura</p>
-            <div class=" container  pt-4">
+        <div class="col-lg-6 col-12 anuncio2 ">
+            <p class="letra pt-2 texto_arreglos">Obtén tu paquete</p>
+            <p class="letra texto_arreglos">de forma segura</p>
+
+            <div class=" container">
                 <div class="row">
+                    <div class="col-3 alineado">
+                        <img src="assets/img/d2.jpg" alt="">
+                    </div>
 
                     <div class="col-3 alineado">
-                        <i class="fas fa-baby-carriage iconos"></i>
+                        <img src="assets/img/hugo.png" alt="">
                     </div>
                     <div class="col-3 alineado">
-                        <i class="fas fa-birthday-cake iconos"></i>
+                        <img src="assets/img/cargo.png" alt="">
                     </div>
                     <div class="col-3 alineado">
-                        <i class="fas fa-glass-cheers iconos"></i>
-                    </div>
-                    <div class="col-3 alineado">
-                        <i class="fas fa-gifts iconos"></i>
+                        <img src="assets/img/d1.png" alt=" ">
                     </div>
                 </div>
             </div>
-
         </div>
 
 
         <div class=" col-lg-6 col-12 pl-0 pr-0 ">
             <div class="img-animtion imagenes p-0 ">
-                <img src="assets/img/a1.jpg" alt="" class="card-img-top imagenes ">
-
+                <img src="assets/img/a2.jpg" alt="" class="card-img-top imagenes ">
             </div>
+
+
         </div>
 
     </div>

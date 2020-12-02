@@ -83,8 +83,8 @@ import { FiltroVentasComponent } from './componentes/administrador/reportes/moda
 import { FiltroInventarioComponent } from './componentes/administrador/reportes/modales/filtro-inventario/filtro-inventario.component';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
-import { DetallePedidoComponent } from './componentes/administrador/detalle-pedido/detalle-pedido.component';
-import { PedidosComponent } from './componentes/administrador/pedidos/pedidos.component';
+import { DetallePedidoComponent } from './componentes/administrador/reportes/modales/detalle-pedido/detalle-pedido.component';
+import { ReporteUsuariosComponent } from './componentes/administrador/reportes/reporte-usuarios/reporte-usuarios.component';
 
 
 
@@ -133,7 +133,7 @@ import { PedidosComponent } from './componentes/administrador/pedidos/pedidos.co
     HistorialComprasComponent,
     ReportesComponent,
     DetallePedidoComponent,
-    PedidosComponent
+    ReporteUsuariosComponent
   ],
   imports: [
     BrowserModule,

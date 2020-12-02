@@ -22,4 +22,6 @@ export class UsuariosService {
     const params = JSON.stringify(user);
     return this._http.post<any>(this.url + 'actualizarInfoUsuario', user);
   }
+
+
 }
