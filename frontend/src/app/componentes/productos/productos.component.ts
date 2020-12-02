@@ -23,7 +23,7 @@ export class ProductosComponent implements OnInit {
   familias:any = [];
   generosFiltrado:any = [];
   especiesFiltrado:any = [];
-  id: string;
+  categoria: string;
 
   public url: string;
   filtro_Especie='';
@@ -75,16 +75,16 @@ export class ProductosComponent implements OnInit {
       });
 
 
-      this.id = this._route.snapshot.paramMap.get('id');
-      this._route.params.subscribe(paramst =>{
-        console.log(paramst['id']);
-      })
+     
   }
 
 
 
 
   ngOnInit(): void {
+
+
+
     this.servicioProducto.getProducto()
       .subscribe( res => {
         this.productos = res;
@@ -97,6 +97,7 @@ export class ProductosComponent implements OnInit {
             this.promociones = resp;
             console.log('Promociones: ', resp);
 
+
             for (const promo of this.promociones) {
 
               const fechafin = new Date(promo.fechafin);
@@ -108,6 +109,14 @@ export class ProductosComponent implements OnInit {
                 this.productos[ this.productos.findIndex( prod => prod.idproducto === promo.idproducto) ].preciocondescuento = promo.preciocondescuento;
               }
             }
+
+            this.categoria = this._route.snapshot.paramMap.get('categoria');
+            this._route.params.subscribe(paramst =>{
+              console.log(paramst['categoria']);
+    if (paramst['categoria'])
+              this.filtrados = this.productos.filter( (product: any) => product.categoria.toLowerCase()===this.categoria.toLowerCase());
+      
+            })
 
           }, errr => {
             console.log(errr);
@@ -166,6 +175,7 @@ export class ProductosComponent implements OnInit {
     this.filtro_Familia='';
     this.filtro_Precio1='';
     this.filtro_Precio2='';
+    this.filtrados=this.productos;
     this.generosFiltrado=this.generos;
     this.especiesFiltrado=this.especies;
   }

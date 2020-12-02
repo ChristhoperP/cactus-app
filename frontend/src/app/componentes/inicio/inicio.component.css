@@ -47,7 +47,7 @@ h1 {
 .card-header {
     text-align: center;
     padding: 50px 10px;
-    background: linear-gradient(to right, #50a1a5, #00b319);
+    background: linear-gradient(to right, #9de5e9, #a2ebac);
     color: #fff;
 }
 
@@ -98,8 +98,16 @@ h2 {
 }
 
 .anuncio1 {
-    background: linear-gradient(to top, #88df8f, #b3ebee);
-    border: rgb(122, 243, 213) 5px inset;
+    background: rgb(250, 232, 232);
+}
+
+.texto_arreglos {
+    color: rgb(56, 173, 124);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.anuncio2 {
+    background: transparent;
 }
 
 .letra {
