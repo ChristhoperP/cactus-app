@@ -84,6 +84,7 @@ import { FiltroInventarioComponent } from './componentes/administrador/reportes/
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
 import { DetallePedidoComponent } from './componentes/administrador/detalle-pedido/detalle-pedido.component';
+import { PedidosComponent } from './componentes/administrador/pedidos/pedidos.component';
 
 
 
@@ -131,7 +132,8 @@ import { DetallePedidoComponent } from './componentes/administrador/detalle-pedi
     FiltroInventarioComponent,
     HistorialComprasComponent,
     ReportesComponent,
-    DetallePedidoComponent
+    DetallePedidoComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,

@@ -28,6 +28,7 @@ import { HistorialComprasComponent } from './componentes/historial-compras/histo
 import { InformacionPagoComponent } from './componentes/proceso-pago/informacion-pago/informacion-pago.component';
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
 import { DetallePedidoComponent } from './componentes/administrador/detalle-pedido/detalle-pedido.component';
+import { PedidosComponent } from './componentes/administrador/pedidos/pedidos.component';
 
 
 
@@ -44,7 +45,6 @@ const appRoutes: Routes = [
             {path: 'promocion', component: PromocionComponent, canActivate: [NoAdminGuard]},
             {path: 'informacion', component: InformacionComponent, canActivate: [NoAdminGuard]},
             {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard, NoAdminGuard]},
-            
             {path: 'historial-compra', component: HistorialComprasComponent, canActivate: [AuthGuard, NoAdminGuard]},
             {path: 'detalle/:id', component: DetalleProductoComponent,canActivate: [NoAdminGuard]},
             {path: 'informacionPago', component: InformacionPagoComponent, canActivate: [AuthGuard, NoAdminGuard]}
@@ -61,7 +61,7 @@ const appRoutes: Routes = [
             {path: 'usuarios', component: UsuariosComponent},
             {path: 'promociones', component: PromocionesComponent},
             {path: 'reportes', component: ReportesComponent},
-           
+            {path: 'pedidos', component: PedidosComponent},
             {path: '**', component: InicioAdminComponent}
         ],
         canActivate: [AuthGuard, IsAdminGuard]
