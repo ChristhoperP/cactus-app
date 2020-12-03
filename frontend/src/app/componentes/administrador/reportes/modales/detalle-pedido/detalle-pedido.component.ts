@@ -7,7 +7,8 @@ import { PedidosService } from 'src/app/servicios/administrador/pedidos.service'
   styleUrls: ['./detalle-pedido.component.css']
 })
 export class DetallePedidoComponent implements OnInit {
-
+  pedido: any ;
+  productos_lista: any= [] ;
   constructor(
     private pedidoService: PedidosService
   ) { }
@@ -18,8 +19,10 @@ export class DetallePedidoComponent implements OnInit {
   setPedido(idpedido): void {
     console.log('Idpedido: ', idpedido);
     this.pedidoService.getDetallePedido(idpedido)
-      .subscribe( res => {
+      .subscribe( (res:any) => {
         console.log(res);
+        this.pedido = res.datos;
+        this.productos_lista = res.productos;
       }, err => { console.log(err); });
   }
 

@@ -85,7 +85,7 @@ import { HistorialComprasComponent } from './componentes/historial-compras/histo
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
 import { DetallePedidoComponent } from './componentes/administrador/reportes/modales/detalle-pedido/detalle-pedido.component';
 import { ReporteUsuariosComponent } from './componentes/administrador/reportes/reporte-usuarios/reporte-usuarios.component';
-
+import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.component';
 
 
 @NgModule({
@@ -133,7 +133,8 @@ import { ReporteUsuariosComponent } from './componentes/administrador/reportes/r
     HistorialComprasComponent,
     ReportesComponent,
     DetallePedidoComponent,
-    ReporteUsuariosComponent
+    ReporteUsuariosComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import {HistorialCompraService} from 'src/app/servicios/historial-compra.service
 })
 export class HistorialComprasComponent implements OnInit {
   pedidos: any = [];
+  productosPedidos: any =[];
 
 
   constructor(private servicioHistorial: HistorialCompraService) { }
@@ -16,21 +17,30 @@ export class HistorialComprasComponent implements OnInit {
     this.servicioHistorial.getHistorial()
     .subscribe( res => {
       this.pedidos = res;
-      console.log("PEDIDOS", res);
+for(const pedido of this.pedidos){
+  const index= this.productosPedidos.findIndex(ped=>ped.idpedido===pedido.idpedido);
+  
+  if(!this.productosPedidos.length || this.productosPedidos.length<1 || index <0){
+    this.productosPedidos.push(
+      { idpedido:pedido.idpedido, productos: [{ idproducto: pedido.idproducto, nombre: pedido.nombre, precio_unitario: pedido.precio_unitario, cantidad: pedido.cantidad}] , fecha: pedido.fecha}
+    );
+  }
+
+  if (index > -1){
+    this.productosPedidos[index].productos.push({idproducto: pedido.idproducto, nombre: pedido.nombre, precio_unitario: pedido.precio_unitario, cantidad: pedido.cantidad, fecha: pedido.fecha})
+  }
+
+}
+
+      console.log('Union:', this.productosPedidos);
     }, err => {
       console.log(err);
     });
-
-
-
-
-
-
-
-
 
 
     
   }
 
 }
+
+
