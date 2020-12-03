@@ -117,3 +117,4 @@ module.exports = router;
 /* RUTAS PARA REPORTES */
 
 router.get('/reporteUsuario', /* auth.isAdmin, */ reporteController.reporteUsuario);
+router.get('/reporteInventario', /* auth.isAdmin, */ reporteController.reporteInventario);
