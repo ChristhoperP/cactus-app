@@ -487,6 +487,36 @@ var controller = {
                 message: 'Error: No se puede obtener esta información'
             })
         }
+    },
+    actualizarEstadoPedido: async function(req, res) {
+        var { idPedido, nuevoEstado } = req.body;
+
+        if (idPedido != null && nuevoEstado != '') {
+            try {
+                var c = 'SELECT SP_ACTUALIZAR_ESTADO_PEDIDO($1,$2);'
+                const response = await conf.pool.query(c, [parseInt(idPedido), nuevoEstado]);
+
+                var respuestaDatos = response.rows[0].sp_actualizar_estado_pedido;
+                var respuestaDatos2 = respuestaDatos.substring(1, respuestaDatos.length - 1).replace('"', '').replace('"', '');
+                var arregloRes = respuestaDatos2.split(',');
+                var mensaje = arregloRes[0];
+
+                console.log(mensaje);
+                return res.status(200).send({
+                    message: mensaje
+                })
+            } catch (err) {
+                console.log(err);
+                return res.status(500).res({
+                    message: 'Estado no actualizado'
+                });
+            }
+        } else {
+            return res.status(500).res({
+                message: 'Campos incompletos'
+            });
+        }
+
     }
 };
 
