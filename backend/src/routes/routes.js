@@ -13,6 +13,7 @@ var AdminController = require('../controllers/admin');
 var VisitaController = require('../controllers/visita');
 var productoController = require('../controllers/producto');
 var envioController = require('../controllers/envio');
+var reporteController = require('../controllers/reporte');
 
 
 /* RUTAS DE USUARIO */
@@ -112,3 +113,7 @@ router.get('/categoriaLanding', productoController.getCategoriasLanding);
 router.get('/traerPedidosUsuarios', auth.isAdmin, AdminController.traerPedidosUsuarios);
 router.get('/traerPedidoDetalleProductos/:idpedido', auth.isAdmin, AdminController.traerPedidosDetalleProductos);
 module.exports = router;
+
+/* RUTAS PARA REPORTES */
+
+router.get('/reporteUsuario', /* auth.isAdmin, */ reporteController.reporteUsuario);
