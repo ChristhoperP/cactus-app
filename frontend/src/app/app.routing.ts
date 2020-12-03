@@ -29,7 +29,7 @@ import { InformacionPagoComponent } from './componentes/proceso-pago/informacion
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
 import { DetallePedidoComponent } from './componentes/administrador/reportes/modales/detalle-pedido/detalle-pedido.component';
 import { ReporteUsuariosComponent } from './componentes/administrador/reportes/reporte-usuarios/reporte-usuarios.component';
-
+import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.component';
 
 // Array de rutas
 const appRoutes: Routes = [
@@ -59,8 +59,8 @@ const appRoutes: Routes = [
             {path: 'inventario', component: InventarioComponent},
             {path: 'usuarios', component: UsuariosComponent},
             {path: 'promociones', component: PromocionesComponent},
-            {path: 'reportes',  component: ReportesComponent,},
-            
+            {path: 'reportes',  component: ReportesComponent},
+            {path: 'pedidos',  component: PedidosComponent},
             {path: '**', component: InicioAdminComponent}
         ],
         canActivate: [AuthGuard, IsAdminGuard]

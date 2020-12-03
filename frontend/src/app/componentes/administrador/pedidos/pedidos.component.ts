@@ -35,6 +35,10 @@ export class PedidosComponent implements OnInit {
         }
         console.log(res);
       }, err => { console.log(err); });
+
+
+
+
   }
 
   cambiarEstadoPedido(idpedido): void {
