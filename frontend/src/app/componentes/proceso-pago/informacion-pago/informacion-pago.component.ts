@@ -64,7 +64,8 @@ export class InformacionPagoComponent implements OnInit {
   });
 
 
-  constructor(private _usuarioService:AuthService ,private _pagoService: ProcesoPagoService, private fb: FormBuilder, private stripeService: StripeService, private router: Router) {
+
+  constructor(private _pagoService: ProcesoPagoService, private _usuarioService: AuthService, private fb: FormBuilder, private stripeService: StripeService, private router: Router) {
   }
 
 

@@ -44,6 +44,8 @@ import { ReporteVentasComponent } from './componentes/administrador/reportes/rep
 //componentes modales del administrador 
 import { AgregarPromocionComponent } from './componentes/administrador/agregar-promocion/agregar-promocion.component';
 import { AgregarProductoComponent } from './componentes/administrador/agregar-producto/agregar-producto.component';
+import { FiltroVentasComponent } from './componentes/administrador/reportes/modales/filtro-ventas/filtro-ventas.component';
+import { FiltroInventarioComponent } from './componentes/administrador/reportes/modales/filtro-inventario/filtro-inventario.component';
 
 //servicios
 import { AuthService } from "./servicios/auth.service";
@@ -82,8 +84,6 @@ import { FiltroFamiliaPipe } from './pipes/filtro-familia.pipe';
 import { FiltroPrecioPipe } from './pipes/filtro-precio.pipe';
 import { FiltroNivel1Pipe } from './pipes/filtro-nivel-1.pipe';
 import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
-import { FiltroVentasComponent } from './componentes/administrador/reportes/modales/filtro-ventas/filtro-ventas.component';
-import { FiltroInventarioComponent } from './componentes/administrador/reportes/modales/filtro-inventario/filtro-inventario.component';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
 import { DetallePedidoComponent } from './componentes/administrador/reportes/modales/detalle-pedido/detalle-pedido.component';
