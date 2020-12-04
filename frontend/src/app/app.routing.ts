@@ -63,9 +63,9 @@ const appRoutes: Routes = [
             {path: 'usuarios', component: UsuariosComponent},
             {path: 'promociones', component: PromocionesComponent},
             {path: 'reportes', component: ReportesComponent},
-            {path: 'pedidos',  component: PedidosComponent},
-            {path: 'reporte-inventario', component: ReporteInventarioComponent},
             {path: 'reporte-ventas', component: ReporteVentasComponent},
+            {path: 'reporte-inventario', component: ReporteInventarioComponent},
+            {path: 'pedidos',  component: PedidosComponent},
             {path: '**', component: InicioAdminComponent}
         ],
         canActivate: [AuthGuard, IsAdminGuard]

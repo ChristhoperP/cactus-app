@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter  } from '@angular/core';
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
 import { ProductosService } from '../../../../../servicios/administrador/productos.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-filtro-ventas',
@@ -53,6 +53,18 @@ export class FiltroVentasComponent implements OnInit {
     .subscribe((res:any)=> {
         this.generos = res;
     } );
+
+    this.router.events.subscribe(event =>{
+      if (event instanceof NavigationStart){
+   		
+      }
+   })
+  }
+
+  cerrarModal(){
+    this.showModalVentas=false;
+    this.closeAddExpenseModalVentas.nativeElement.click();
+
   }
 
 }

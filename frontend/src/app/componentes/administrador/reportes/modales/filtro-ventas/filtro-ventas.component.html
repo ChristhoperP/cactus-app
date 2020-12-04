@@ -1,10 +1,10 @@
   <!-- Modal  -->
-  <div class="modal fade"  id="filtroVentas" tabindex="-1" aria-labelledby="addFilterModal" aria-hidden="true">
+  <div class="modal fade" [class.show]="showModalVentas" id="filtroVentas" tabindex="-1" aria-labelledby="addFilterModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Filtrar información de ventas</h5>
-          <button type="button" #closeAddExpenseModalInventario class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" #closeAddExpenseModalVentas class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -79,7 +79,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-agregar" [routerLink]="['/reporte-ventas']">Generar</button>
+          <button type="button" class="btn btn-agregar" (click)="cerrarModal()">Generar</button>
         </div>
       </div>
     </div>

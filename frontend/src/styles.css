@@ -53,3 +53,8 @@ app-encabezado {
 .fadeIn {
     animation-name: fadeIn;
 }
+
+.btn-volver{
+    background-color: #f0cdd4;
+    color: brown;
+}
