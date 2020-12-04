@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/f
 import { ProductosService } from '../../../../../servicios/administrador/productos.service';
 import { ReportesService } from '../../../../../servicios/administrador/reportes.service';
 import { Router } from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-filtro-inventario',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class FiltroInventarioComponent implements OnInit {
   @ViewChild('closeAddExpenseModalInventario') closeAddExpenseModalInventario: ElementRef;
   showModalInventario: boolean = true;
-  
+
   @Output() 
   inventarioFiltrado = new EventEmitter<Object>();
   
@@ -32,14 +33,15 @@ export class FiltroInventarioComponent implements OnInit {
     base: new FormControl('')
   });
 
-  constructor(private _productoService: ProductosService, private _reporteService: ReportesService, private router: Router) { }
+  constructor(private _productoService: ProductosService, 
+              private _reporteService: ReportesService, 
+              private router: Router,
+              private _location: Location) { }
 
   ngOnInit(): void {
     this._productoService.getCategorias()
     .subscribe((res:any)=> {
         this.categorias = res;
-        console.log(this.categorias);
-        
       } );
 
     this._productoService.getEspecies ()
@@ -60,7 +62,6 @@ export class FiltroInventarioComponent implements OnInit {
     this._reporteService.getInventarioReporte()
     .subscribe((res:any)=> {
       this.inventario = res;
-      console.log(res);
     });
   }
 
@@ -91,6 +92,10 @@ export class FiltroInventarioComponent implements OnInit {
     }
 
     return console.log(this.filtro);
+  }
+
+  regresar() {
+    this._location.back();
   }
 
 }
