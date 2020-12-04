@@ -13,7 +13,7 @@
                 </div>
 
                 <a [routerLink]="[ '../reporte-ventas']"> <img src="assets/img/ventas.png" class="card-img-top rounded-circle" data-toggle="modal" data-target="#filtroVentas" alt="..."></a>
-  
+
             </div>
 
             <div class="card ml-1 ">
@@ -21,12 +21,9 @@
                 <div class=" container texto">
                     Reporte de Ingresos
                 </div>
-                <a> <img src="assets/img/ingresos.png" class="card-img-top rounded-circle" alt="..." data-toggle="modal" data-target="#ModalIngreso"></a>
+                <a> <img src="assets/img/ingresos.png" class="card-img-top rounded-circle" alt="..." data-toggle="modal" data-target="#filtroIngresos"></a>
 
             </div>
-
-
-
 
         </div>
 
@@ -41,7 +38,7 @@
                 <div class=" container texto">
                     Reporte de Usuarios
                 </div>
-                <a> <img src="assets/img/usuarios.png" class="card-img-top rounded-circle" alt="..." data-toggle="modal" data-target="#filtroUsuarios"></a>
+                <a [routerLink]="[ '../reporte-usuarios']"> <img src="assets/img/usuarios.png" class="card-img-top rounded-circle" alt="..." data-toggle="modal" data-target="#filtroUsuarios"></a>
 
             </div>
 
@@ -50,9 +47,10 @@
                 <div class=" container texto">
                     Reporte de Inventario
                 </div>
-    
+
                 <a [routerLink]="[ '../reporte-inventario']"> <img src="assets/img/inventario.png" class="card-img-top rounded-circle" data-toggle="modal" data-target="#filtroInventario" alt="..." ></a>
     
+
             </div>
         </div>
 
@@ -63,4 +61,3 @@
 <app-filtro-ventas></app-filtro-ventas>
 <app-filtro-usuarios></app-filtro-usuarios>
 <app-filtro-ingresos></app-filtro-ingresos>
-

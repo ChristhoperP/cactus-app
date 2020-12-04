@@ -1,40 +1,64 @@
-<!-- Modal -->
-<div class="modal fade" id="ModalIngreso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<!-- Modal  -->
+<div class="modal fade" id="filtroIngresos" tabindex="-1" aria-labelledby="addFilterModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">Filtrar información de Ingresos</h5>
+                <button type="button" #closeAddExpenseModalUsuarios class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
             </div>
             <div class="modal-body">
-                <form (ngSubmit)='onSubmit(Form)' #Form="ngForm">
-                    <div class=" form-group col-12">
-                        <label for="name">Nombre</label>
-                        <input type="text" class=" form-control" #name="ngModel" ngModel name="propName" required>
-                        <span *ngIf="!name.valid && name.touched" class=" error-block">
-                            Por favor ingrese un nombre
-                        </span>
-                    </div>
+                <form [formGroup]="formularioVentas">
+                    <div class="container">
+                        <div class="row">
 
-                    <div class=" form-group col-12">
-                        <label for="tipo">Tipo</label>
-                        <input type="text" class=" form-control" ngModel name="tipo">
-                    </div>
+                            <div class="col-md-9 mb-1">
+                                <label for="validationServer02">Año</label>
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="number" formControlName="nombreUsuario" class="form-control" aria-label="nombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <p> Mes</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <select name="select">
+                                    <option value="value1">Enero</option> 
+                                    <option value="value2" >Febrero</option>
+                                    <option value="value3">Marzo</option>
+                                    <option value="value1">Abril</option> 
+                                    <option value="value2" >Mayo</option>
+                                    <option value="value3">Junio</option>
+                                    <option value="value1">Julio</option> 
+                                    <option value="value2" >Agosto</option>
+                                    <option value="value3">Septiembre</option>
+                                    <option value="value1">Octubre</option> 
+                                    <option value="value2" >Noviembre</option>
+                                    <option value="value3">Diciembre</option>
+                                  </select>
+                                <div class="invalid-feedback">
+                                    Campo obligatorio
+                                </div>
+                            </div>
 
-                    <div class=" form-group col-12">
-                        <label for="precio">Precio</label>
-                        <input type="text" class=" form-control" ngModel name="precio">
-                    </div>
-                    <div class=" form-group col-12">
-                        <button [disabled]="!Form.valid" type="submit" class=" btn-primary mr-2">Guardar </button>
-                        <button type="reset" class=" btn-primary">Cancelar</button>
+                        </div>
+
+                        <div class="row">
+
+
+                        </div>
+
                     </div>
                 </form>
-
             </div>
+            <div class="modal-footer">
 
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-agregar" (click)="cerrarModal()">Generar</button>
+            </div>
         </div>
     </div>
 </div>
