@@ -10,8 +10,8 @@
 
 
             <div class="table-responsive">
-                <table class="table  text-center table-striped">
-                    <thead class="encabezado-tabla ">
+                <table class="table table-hover text-center">
+                    <thead class="encabezado-tabla">
                         <tr>
 
                             <th scope="col">Producto</th>
@@ -22,15 +22,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let pedido of productosPedidos">
-                            <tr *ngFor="let producto  of pedido.productos , let i=index">
+                        <tr *ngFor="let pedido of pedidos">
 
-                                <td>{{ producto.nombre }}</td>
-                                <td>{{ producto.precio_unitario }}</td>
-                                <td>{{ producto.cantidad }}</td>
-                                <td *ngIf="i === 0" [attr.rowspan]="(i===0) ? pedido.productos.length:1" style="vertical-align: middle;">{{ pedido.fecha | date:'d/MM/y' }}</td>
-                            </tr>
-                        </ng-container>
+                            <td>{{ pedido.nombre }}</td>
+                            <td>{{ pedido.precio_unitario }}</td>
+                            <td>{{ pedido.cantidad }}</td>
+                            <td>{{ pedido.fecha | date:'d/MM/y' }}</td>
+                        </tr>
+
 
                     </tbody>
                 </table>

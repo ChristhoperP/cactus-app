@@ -27,10 +27,8 @@ import { CarritoComponent } from './componentes/carrito/carrito.component';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { InformacionPagoComponent } from './componentes/proceso-pago/informacion-pago/informacion-pago.component';
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
+import { DetallePedidoComponent } from './componentes/administrador/reportes/modales/detalle-pedido/detalle-pedido.component';
 import { ReporteUsuariosComponent } from './componentes/administrador/reportes/reporte-usuarios/reporte-usuarios.component';
-import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.component';
-import { ReporteInventarioComponent } from './componentes/administrador/reportes/reporte-inventario/reporte-inventario.component';
-import { ReporteVentasComponent } from './componentes/administrador/reportes/reporte-ventas/reporte-ventas.component';
 
 
 // Array de rutas
@@ -46,6 +44,7 @@ const appRoutes: Routes = [
             {path: 'promocion', component: PromocionComponent, canActivate: [NoAdminGuard]},
             {path: 'informacion', component: InformacionComponent, canActivate: [NoAdminGuard]},
             {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard, NoAdminGuard]},
+            
             {path: 'historial-compra', component: HistorialComprasComponent, canActivate: [AuthGuard, NoAdminGuard]},
             {path: 'detalle/:id', component: DetalleProductoComponent,canActivate: [NoAdminGuard]},
             {path: 'informacionPago', component: InformacionPagoComponent, canActivate: [AuthGuard, NoAdminGuard]}
@@ -61,15 +60,14 @@ const appRoutes: Routes = [
             {path: 'inventario', component: InventarioComponent},
             {path: 'usuarios', component: UsuariosComponent},
             {path: 'promociones', component: PromocionesComponent},
-            {path: 'reportes', component: ReportesComponent},
-            {path: 'pedidos',  component: PedidosComponent},
-            {path: 'reporte-inventario', component: ReporteInventarioComponent},
-            {path: 'reporte-ventas', component: ReporteVentasComponent},
-            {path: 'reporte-usuarios', component: ReporteUsuariosComponent},
+            {path: 'reportes',  component: ReportesComponent,},
+            
             {path: '**', component: InicioAdminComponent}
         ],
         canActivate: [AuthGuard, IsAdminGuard]
     },
+
+    
     {path: 'carrito', component: CarritoComponent},
     {path: '**', component: InicioComponent}
 ];

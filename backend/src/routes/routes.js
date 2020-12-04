@@ -13,8 +13,6 @@ var AdminController = require('../controllers/admin');
 var VisitaController = require('../controllers/visita');
 var productoController = require('../controllers/producto');
 var envioController = require('../controllers/envio');
-var reporteController = require('../controllers/reporte');
-const { reporteVentas } = require('../controllers/reporte');
 
 
 /* RUTAS DE USUARIO */
@@ -113,15 +111,4 @@ router.get('/categoriaLanding', productoController.getCategoriasLanding);
 //PEDIDOS
 router.get('/traerPedidosUsuarios', auth.isAdmin, AdminController.traerPedidosUsuarios);
 router.get('/traerPedidoDetalleProductos/:idpedido', auth.isAdmin, AdminController.traerPedidosDetalleProductos);
-router.post('/actualizarEstadoPedido', auth.isAdmin, AdminController.actualizarEstadoPedido);
-
 module.exports = router;
-
-/* RUTAS PARA REPORTES */
-
-
-router.get('/reporteUsuario', /* auth.isAdmin, */ reporteController.reporteUsuario);
-router.get('/reporteInventario', /* auth.isAdmin, */ reporteController.reporteInventario);
-router.get('/reporteVentas', auth.isAdmin, reporteController.reporteVentas);
-router.get('/ingresosPorMes', auth.isAdmin, reporteController.ingresosPorMes);
-
