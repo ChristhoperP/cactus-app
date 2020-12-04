@@ -27,7 +27,6 @@ import { CarritoComponent } from './componentes/carrito/carrito.component';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { InformacionPagoComponent } from './componentes/proceso-pago/informacion-pago/informacion-pago.component';
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
-import { DetallePedidoComponent } from './componentes/administrador/reportes/modales/detalle-pedido/detalle-pedido.component';
 import { ReporteUsuariosComponent } from './componentes/administrador/reportes/reporte-usuarios/reporte-usuarios.component';
 import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.component';
 import { ReporteInventarioComponent } from './componentes/administrador/reportes/reporte-inventario/reporte-inventario.component';
@@ -66,6 +65,7 @@ const appRoutes: Routes = [
             {path: 'reporte-ventas', component: ReporteVentasComponent},
             {path: 'reporte-inventario', component: ReporteInventarioComponent},
             {path: 'pedidos',  component: PedidosComponent},
+            {path: 'reporte-usuarios', component: ReporteUsuariosComponent},
             {path: '**', component: InicioAdminComponent}
         ],
         canActivate: [AuthGuard, IsAdminGuard]
