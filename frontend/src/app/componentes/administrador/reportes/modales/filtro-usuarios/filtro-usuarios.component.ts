@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter  } from '@angular/core';
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
-import {ReporteUsuarioService} from 'src/app/servicios/administrador/reporte-usuario.service';
-import { Router, NavigationStart } from '@angular/router';
+import { ReportesService } from '../../../../../servicios/administrador/reportes.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-filtro-usuarios',
@@ -9,44 +10,60 @@ import { Router, NavigationStart } from '@angular/router';
   styleUrls: ['./filtro-usuarios.component.css']
 })
 export class FiltroUsuariosComponent implements OnInit {
-  @Output() 
-  nuevoUsuario = new EventEmitter<Object>();
-  @ViewChild('closeAddExpenseModalUsuarios') closeAddExpenseModalVentas: ElementRef;
-
+  @ViewChild('closeAddExpenseModalUsuarios') closeAddExpenseModalUsuarios: ElementRef;
+  showModalUsuarios: boolean = true;
   
+  @Output() 
+  usuarioFiltrado = new EventEmitter<Object>();
 
-  showModalVentas: boolean = true;
-  usuarios: any = [];
-  formularioVentas:FormGroup = new FormGroup({
+  usuarios:any = [];
+  filtro;
+
+  formularioUsuario:FormGroup = new FormGroup({
     fechainicio: new FormControl(''),
     fechafin: new FormControl(''),
     idUsuario: new FormControl(''),
     nombreUsuario: new FormControl(''),
   
   });
-  constructor(private servicioUsuariosReportes: ReporteUsuarioService, private router: Router) { }
+  constructor(private _reporteService: ReportesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.servicioUsuariosReportes.getUsuariosReporte()
+    this._reporteService.getUsuariosReporte()
       .subscribe( res => {
         this.usuarios = res;
-        
         console.log(res);
       }, err => {
         console.log(err);
       });
 
-      this.router.events.subscribe(event =>{
-        if (event instanceof NavigationStart){
-         
-        }
-     })
   }
 
-  cerrarModal(){
-    this.showModalVentas=false;
-    this.closeAddExpenseModalVentas.nativeElement.click();
-
+  filtrar(){ 
+    this.filtrosUsuarios();
+    this.showModalUsuarios=false;
+    this.closeAddExpenseModalUsuarios.nativeElement.click();
   }
 
+
+  filtrosUsuarios(){
+    var filtro = {
+      "id":this.formularioUsuario.get("idUsuario").value,
+      "nombre":this.formularioUsuario.get("nombreUsuario").value,
+      "fechainicio":this.formularioUsuario.get("fechainicio").value,
+      "fechafin":this.formularioUsuario.get("fechafin").value
+    }
+    this.filtro=filtro;
+
+    if (filtro.fechafin==="" &&
+    filtro.fechainicio==="" &&
+      filtro.id==="" && 
+        filtro.nombre==="" ) 
+    {
+    this.usuarioFiltrado.emit(this.usuarios);
+    console.log("sin filtro");
+    }
+
+    return console.log(this.filtro);
+  }
 }

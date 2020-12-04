@@ -7,12 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReporteUsuariosComponent implements OnInit {
   usuarios:any = [];
-  constructor() { }
+  constructor() {
+    this.usuarios;
+    console.log(this.usuarios);
+   }
 
   ngOnInit(): void {
   }
-  nuevoUsuario(producto){
-    console.log(producto);
-    this.usuarios.push(producto);
+  recibeUsuario(usuarios){
+    console.log(usuarios);
+    this.usuarios=usuarios;
   }
 }
