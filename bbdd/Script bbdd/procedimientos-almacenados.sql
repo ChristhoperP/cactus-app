@@ -1054,6 +1054,97 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 
+CREATE OR REPLACE FUNCTION SP_REGISTRAR_PEDIDO
+( 
+	In p_total DECIMAL,
+	In p_estado VARCHAR(45),
+	In p_IdEnvio INT,
+	In p_idUsuario INT,
+	IN p_productos INT[][], 
+	OUT p_ocurrioError INT,
+	OUT p_mensajePedido VARCHAR(200),
+	OUT p_mensajeProductos VARCHAR(200),
+	OUT p_id INT
+)
+RETURNS RECORD AS $BODY$
+	DECLARE vnIdPedido INT;
+	DECLARE vnIdPromocionAplicada INT;
+	DECLARE vnPrecio DECIMAL;
+	DECLARE vnIdPromocion INT;
+	DECLARE vcDescripcion VARCHAR(200);
+	DECLARE vnPorcentaje DECIMAL;
+BEGIN
+	--Validar que los campos no sean null
+	IF(p_total IS NULL OR p_estado IS NULL OR p_IdEnvio IS NULL OR p_idUsuario IS NULL OR p_productos IS NULL) THEN
+		p_ocurrioError := 1;
+		p_mensajePedido:= 'Error: campos incompletos';
+		RETURN;
+	END IF; 
+	
+	--Valida que la informacion de envio existe
+	IF EXISTS(SELECT * FROM informacionenvio WHERE idinformacionenvio = p_IdEnvio) IS FALSE THEN
+		p_ocurrioError := 1;
+		p_mensajePedido:= 'Error: no hay información de envío disponible';
+		RETURN;
+	END IF;
+
+	--Registrar pedido
+	INSERT INTO pedido(fechapedido, total, estado, usuario_idusuario, informacionenvio_idinformacionenvio)
+		VALUES (CURRENT_DATE, p_total, p_estado, p_idUsuario, p_IdEnvio) RETURNING idpedido INTO vnIdPedido;
+	p_mensajePedido:='Se registró el pedido exitosamente.';
+   p_id:=vnIdPedido;
+
+	--Registrar los pedido_has_producto
+    for i in 1..array_length(p_productos, 1)
+	loop
+		--Obtener precio del producto, id de la promocion, descripcion y % de descuento
+		--Validar que los productos existan
+		IF EXISTS(SELECT precio, prom.idpromocion, prom.descripcion, prom.porcentajeDescuento FROM producto AS prod 
+		LEFT JOIN promocion_has_producto AS php ON prod.idproducto = php.producto_idproducto 
+		LEFT JOIN promocion AS prom ON php.promocion_idpromocion = prom.idpromocion
+		WHERE idproducto=p_productos[i][1]) IS TRUE THEN
+		
+			SELECT precio, prom.idpromocion, prom.descripcion, prom.porcentajeDescuento
+			INTO vnPrecio, vnIdPromocion, vcDescripcion, vnPorcentaje
+			FROM producto AS prod 
+			LEFT JOIN promocion_has_producto AS php ON prod.idproducto = php.producto_idproducto 
+			LEFT JOIN promocion AS prom ON php.promocion_idpromocion = prom.idpromocion
+			WHERE idproducto=p_productos[i][1];
+		
+			--REGISTRAR EN PEDIDO_HAS_PRODUCTO
+			INSERT INTO pedido_has_producto(
+			pedido_idpedido, producto_idproducto, precioproducto, cantidad)
+			VALUES (vnIdPedido, p_productos[i][1], vnPrecio, p_productos[i][2]);
+
+			--Validar si el producto tiene alguna promocion
+			IF (vnIdPromocion IS NOT NULL) THEN
+				--REGISTRAR EN PROMOCION_APLICADA
+				INSERT INTO promocionaplicada(
+				descripcion, porcentajedescuento)
+				VALUES (vcDescripcion, vnPorcentaje) RETURNING idpromocionaplicada INTO vnIdPromocionAplicada;
+
+				--REGISTRAR EN PROMOCIONAPLICADA_HAS_PEDIDO_HAS_PRODUCTO
+				INSERT INTO promocionaplicada_has_pedido_has_producto(
+				promocionaplicada_idpromocionaplicada, pedido_has_producto_pedido_idpedido, pedido_has_producto_producto_idproducto)
+				VALUES (vnIdPromocionAplicada, vnIdPedido, p_productos[i][1]);
+			END IF;
+			
+		ELSE
+			p_mensajeProductos:='No se registraron todos los productos.';
+		END IF;
+		--p_mensaje:= CONCAT_WS(', ',p_mensaje, p_productos[i]);
+	end loop;
+
+		IF(p_mensajeProductos IS NULL) THEN
+			p_mensajeProductos:='Se registraron todos los productos con éxito.';
+		END IF;
+		
+	RETURN;
+END;
+$BODY$
+LANGUAGE 'plpgsql';
+
+
 
 CREATE OR REPLACE FUNCTION SP_OBTENER_CATEGORIAS_PRODUCTOS_LANDING()
 RETURNS SETOF "record" 
@@ -1205,7 +1296,4 @@ BEGIN
 END;
 $BODY$
 LANGUAGE 'plpgsql';
-
-
-
 
