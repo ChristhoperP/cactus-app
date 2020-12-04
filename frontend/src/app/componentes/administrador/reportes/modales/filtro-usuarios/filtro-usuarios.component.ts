@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter  } from '@angular/core';
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
-import { Router } from '@angular/router';
 import {ReporteUsuarioService} from 'src/app/servicios/administrador/reporte-usuario.service';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-filtro-usuarios',
@@ -9,7 +9,12 @@ import {ReporteUsuarioService} from 'src/app/servicios/administrador/reporte-usu
   styleUrls: ['./filtro-usuarios.component.css']
 })
 export class FiltroUsuariosComponent implements OnInit {
+  @Output() 
+  nuevoUsuario = new EventEmitter<Object>();
   @ViewChild('closeAddExpenseModalUsuarios') closeAddExpenseModalVentas: ElementRef;
+
+  
+
   showModalVentas: boolean = true;
   usuarios: any = [];
   formularioVentas:FormGroup = new FormGroup({
@@ -19,16 +24,29 @@ export class FiltroUsuariosComponent implements OnInit {
     nombreUsuario: new FormControl(''),
   
   });
-  constructor(private servicioUsuariosReportes: ReporteUsuarioService, router: Router) { }
+  constructor(private servicioUsuariosReportes: ReporteUsuarioService, private router: Router) { }
 
   ngOnInit(): void {
     this.servicioUsuariosReportes.getUsuariosReporte()
       .subscribe( res => {
         this.usuarios = res;
+        
         console.log(res);
       }, err => {
         console.log(err);
       });
+
+      this.router.events.subscribe(event =>{
+        if (event instanceof NavigationStart){
+         
+        }
+     })
+  }
+
+  cerrarModal(){
+    this.showModalVentas=false;
+    this.closeAddExpenseModalVentas.nativeElement.click();
+
   }
 
 }
