@@ -229,6 +229,7 @@ filtrados=[];
     this.productos.push(producto);
   }
 
+
   setProductId( id: number ): void {
     const sel = this.getSelectedProducts();
     this.idproductos = sel;

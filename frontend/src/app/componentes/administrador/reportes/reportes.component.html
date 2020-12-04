@@ -12,7 +12,7 @@
                     Reporte de Ventas
                 </div>
 
-                <a> <img src="assets/img/ventas.png" class="card-img-top rounded-circle" [routerLink]="[ '../reporte-ventas']" alt="..."></a>
+                <a [routerLink]="[ '../reporte-ventas']"> <img src="assets/img/ventas.png" class="card-img-top rounded-circle" data-toggle="modal" data-target="#filtroVentas" alt="..."></a>
   
             </div>
 
@@ -51,7 +51,7 @@
                     Reporte de Inventario
                 </div>
     
-                <a > <img src="assets/img/inventario.png" class="card-img-top rounded-circle" alt="..." [routerLink]="[ '../reporte-inventario']"></a>
+                <a [routerLink]="[ '../reporte-inventario']"> <img src="assets/img/inventario.png" class="card-img-top rounded-circle" data-toggle="modal" data-target="#filtroInventario" alt="..." ></a>
     
             </div>
         </div>

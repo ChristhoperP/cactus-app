@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter  } from '@angular/core';
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
 import { ProductosService } from '../../../../../servicios/administrador/productos.service';
-import { Router, NavigationStart } from '@angular/router';
+import { ReportesService } from '../../../../../servicios/administrador/reportes.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-filtro-ventas',
@@ -16,7 +17,7 @@ export class FiltroVentasComponent implements OnInit {
   especies:any = [];
   tipoBases:any = [];
   generos:any= [];
-
+  ventas:any=[];
 
   formularioVentas:FormGroup = new FormGroup({
     fechainicio: new FormControl(''),
@@ -29,7 +30,7 @@ export class FiltroVentasComponent implements OnInit {
     base: new FormControl('')
   });
 
-  constructor(private _productoService: ProductosService, private router: Router) { }
+  constructor(private _productoService: ProductosService, private _reporteService: ReportesService, private router: Router) { }
 
   ngOnInit(): void {
     this._productoService.getCategorias()
@@ -54,17 +55,16 @@ export class FiltroVentasComponent implements OnInit {
         this.generos = res;
     } );
 
-    this.router.events.subscribe(event =>{
-      if (event instanceof NavigationStart){
-   		
-      }
-   })
+    this._reporteService.getVentasReporte()
+    .subscribe((res:any)=> {
+      this.ventas = res;
+      console.log(res);
+    });
   }
 
-  cerrarModal(){
+  filtrar(){
     this.showModalVentas=false;
     this.closeAddExpenseModalVentas.nativeElement.click();
-
   }
 
 }
