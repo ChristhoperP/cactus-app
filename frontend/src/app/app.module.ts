@@ -86,6 +86,9 @@ import { ReportesComponent } from './componentes/administrador/reportes/reportes
 import { DetallePedidoComponent } from './componentes/administrador/reportes/modales/detalle-pedido/detalle-pedido.component';
 import { ReporteUsuariosComponent } from './componentes/administrador/reportes/reporte-usuarios/reporte-usuarios.component';
 import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.component';
+import { FiltroUsuariosComponent } from './componentes/administrador/reportes/modales/filtro-usuarios/filtro-usuarios.component';
+import { FiltroIngresosComponent } from './componentes/administrador/reportes/modales/filtro-ingresos/filtro-ingresos.component';
+import { ReporteIngresosComponent } from './componentes/administrador/reportes/reporte-ingresos/reporte-ingresos.component';
 
 
 @NgModule({
@@ -134,7 +137,10 @@ import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.comp
     ReportesComponent,
     DetallePedidoComponent,
     ReporteUsuariosComponent,
-    PedidosComponent
+    PedidosComponent,
+    FiltroUsuariosComponent,
+    FiltroIngresosComponent,
+    ReporteIngresosComponent
   ],
   imports: [
     BrowserModule,
