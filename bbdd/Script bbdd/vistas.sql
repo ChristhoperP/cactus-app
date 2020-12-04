@@ -71,9 +71,29 @@ SELECT us.idusuario, us.nombre, us.correo, us.telefono, us.direccion, us.fechare
 FROM pedido pe LEFT JOIN usuario us ON pe.usuario_idusuario = us.idusuario
 WHERE tipo_usuario_idtipo_usuario = 2;
 
+
 CREATE OR REPLACE VIEW REPORTE_INVENTARIO AS
 SELECT PR.IDPRODUCTO,PR.NOMBRE,PR.URLPORTADA,CAT.DESCRIPCION as categoria,TP.DESCRIPCION as TipoDeBase, ES.DESCRIPCION as especie, PR.CANTIDAD, PR.PRECIO FROM PRODUCTO PR
 INNER JOIN CATEGORIA CAT ON CAT.IDCATEGORIA=PR.CATEGORIA_IDCATEGORIA
 INNER JOIN PRODUCTO_HAS_ESPECIE PRES ON PRES.PRODUCTO_IDPRODUCTO=PR.IDPRODUCTO
 INNER JOIN ESPECIE ES ON ES.IDESPECIE=PRES.ESPECIE_IDESPECIE
 INNER JOIN TIPOBASE TP ON TP.IDTIPOBASE = PR.TIPOBASE_IDTIPOBASE;
+
+CREATE OR REPLACE VIEW reporte_ventas AS
+SELECT C.idproducto, C.nombre AS nombre_producto, A.fechapedido, B.precioproducto AS precio_venta, 
+        B.cantidad AS cantidad_vendida, D.descripcion AS categoria, E.descripcion AS tipobase,
+	G.descripcion AS especie, H.idusuario, H.nombre AS nombre_usuario
+FROM pedido AS A LEFT JOIN pedido_has_producto AS B ON A.idpedido = B.pedido_idpedido 
+LEFT JOIN producto AS C ON B.producto_idproducto = C.idproducto
+LEFT JOIN categoria AS D ON C.categoria_idcategoria = D.idcategoria
+LEFT JOIN tipobase AS E ON C.tipobase_idtipobase = E.idtipobase
+LEFT JOIN producto_has_especie AS F ON C.idproducto = F.producto_idproducto
+LEFT JOIN especie AS G ON F.especie_idespecie = G.idespecie
+LEFT JOIN usuario AS H ON A.usuario_idusuario = H.idusuario;
+
+
+CREATE OR REPLACE VIEW ingresos_por_mes AS
+SELECT to_char(fechapedido, 'YYYY-MM') AS fecha, sum(total) AS ventas_mes
+FROM pedido
+GROUP BY fecha;
+

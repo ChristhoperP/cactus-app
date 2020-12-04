@@ -35,6 +35,8 @@ import { InformacionPagoComponent } from './componentes/proceso-pago/informacion
 //componentes del administrador
 import { InventarioComponent } from './componentes/administrador/inventario/inventario.component';
 import { PromocionesComponent } from './componentes/administrador/promociones/promociones.component';
+import { ReporteInventarioComponent } from './componentes/administrador/reportes/reporte-inventario/reporte-inventario.component';
+import { ReporteVentasComponent } from './componentes/administrador/reportes/reporte-ventas/reporte-ventas.component';
 
 //componentes modales del administrador 
 import { AgregarPromocionComponent } from './componentes/administrador/agregar-promocion/agregar-promocion.component';
@@ -77,15 +79,13 @@ import { FiltroFamiliaPipe } from './pipes/filtro-familia.pipe';
 import { FiltroPrecioPipe } from './pipes/filtro-precio.pipe';
 import { FiltroNivel1Pipe } from './pipes/filtro-nivel-1.pipe';
 import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
-import { ReporteVentasComponent } from './componentes/administrador/reportes/reporte-ventas/reporte-ventas.component';
-import { ReporteInventarioComponent } from './componentes/administrador/reportes/reporte-inventario/reporte-inventario.component';
 import { FiltroVentasComponent } from './componentes/administrador/reportes/modales/filtro-ventas/filtro-ventas.component';
 import { FiltroInventarioComponent } from './componentes/administrador/reportes/modales/filtro-inventario/filtro-inventario.component';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { ReportesComponent } from './componentes/administrador/reportes/reportes.component';
 import { DetallePedidoComponent } from './componentes/administrador/reportes/modales/detalle-pedido/detalle-pedido.component';
 import { ReporteUsuariosComponent } from './componentes/administrador/reportes/reporte-usuarios/reporte-usuarios.component';
-
+import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.component';
 
 
 @NgModule({
@@ -133,7 +133,8 @@ import { ReporteUsuariosComponent } from './componentes/administrador/reportes/r
     HistorialComprasComponent,
     ReportesComponent,
     DetallePedidoComponent,
-    ReporteUsuariosComponent
+    ReporteUsuariosComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,

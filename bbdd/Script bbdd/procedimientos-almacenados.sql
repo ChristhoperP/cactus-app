@@ -1176,4 +1176,36 @@ $BODY$
 LANGUAGE plpgsql;
 
 
+CREATE OR REPLACE FUNCTION SP_ACTUALIZAR_ESTADO_PEDIDO
+(    
+   IN p_idpedido INT,
+   IN p_estadopedido VARCHAR(50),
+   OUT p_mensaje VARCHAR(200),
+   OUT p_ocurrioError INT	
+)
+RETURNS RECORD AS $BODY$
+DECLARE cantidad INT;  
+BEGIN
+   SELECT COUNT(*) INTO cantidad
+   FROM PEDIDO 
+   WHERE idpedido = p_idpedido;
+   
+   IF (cantidad != 0) THEN
+     UPDATE pedido
+     SET estado = p_estadopedido
+     WHERE idpedido = p_idpedido;
+   
+     p_mensaje:= 'Estado actualizado';
+     p_ocurrioError := 0;
+   ELSE	 
+     p_mensaje:= 'Pedido no encontrado';
+     p_ocurrioError := 1;
+   END IF; 
+   RETURN;
+END;
+$BODY$
+LANGUAGE 'plpgsql';
+
+
+
 
