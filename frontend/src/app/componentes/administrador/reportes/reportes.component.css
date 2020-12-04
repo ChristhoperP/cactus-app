@@ -110,3 +110,7 @@ h2 {
 .alineado {
     text-align: center;
 }
+
+img:hover{
+cursor: pointer;
+}

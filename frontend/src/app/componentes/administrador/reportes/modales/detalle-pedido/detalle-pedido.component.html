@@ -1,11 +1,11 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Launch demo modal
-  </button>
+  </button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="exampleModal" *ngIf="this.pedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header">
                 <h5 class="modal-title titulo " id="exampleModalLabel">DETALLE DEL PEDIDO</h5>
@@ -19,89 +19,101 @@
                 <hr>
                 <div class=" container mb-3">
                     <div class=" row">
-                        <div class="col-4">
+                        <div class="col-2">
                             <p class="componentes">Cliente: </p>
                         </div>
 
-                        <div class="col-8">
-                            <p>Nombre Cliente</p>
+                        <div class="col-10">
+                            <p>{{pedido.nombreRemitente}}</p>
                         </div>
                     </div>
                 </div>
                 <div class=" container">
                     <p class="componentes">Productos: </p>
-                    <table class="table">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Codigo</th>
-                                <th scope="col">Nombre</th>
+                                <th scope="col">Id Producto</th>
+                                <th scope="col">Nombre Producto</th>
+                                <th scope="col">Precio Unitario</th>
                                 <th scope="col">Cantidad</th>
                                 <th scope="col">Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                            <tr *ngFor="let producto of  productos_lista ">
+                                <th style="text-align: center;">{{producto.idproducto}}</th>
+                                <td>{{producto.nombre}}</td>
+                                <td style="text-align: center;">{{producto.precio_unitario}}</td>
+                                <td style="text-align: center;">{{producto.cantidad}}</td>
+                                <td style="text-align: center;"><span class=" pr-2">L</span>{{producto.subtotalporproducto}}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
+
 
                         </tbody>
                     </table>
                 </div>
                 <div class=" container" style="text-align: right;">
-                    <p class=" mr-4"> <span class="componentes pr-1">Total Pagado:</span> <span class=" pr-1"> L</span><span>250</span></p>
+                    <p class=" mr-4"> <span class="componentes pr-1">Costo Envio:</span> <span class=" pr-1"> L</span><span>{{pedido.precioEnvio}}</span></p>
+                </div>
+                <hr id="hr2">
+                <div class=" container" style="text-align: right;">
+                    <p class=" mr-4"> <span class="componentes pr-1">Total Pagado:</span> <span class=" pr-1"> L</span><span>{{pedido.totalPagado}}</span></p>
                 </div>
 
-
-                <div class=" container mb-3 mt-3">
+                <div class=" container ml-4 mt-4 mb-4">
+                    <h5>Información Agencia de Envio</h5>
+                </div>
+                <div class=" container ml-4 mb-3 mt-3">
                     <div class=" row">
-                        <div class="col-4">
+                        <div class="col-3">
                             <p class="componentes">Agencia de Envio: </p>
                         </div>
 
-                        <div class="col-8">
-                            <p>Cargo Express</p>
+                        <div class="col-9">
+                            <p>{{pedido.agenciaEnvio}}</p>
                         </div>
                     </div>
 
                     <div class=" row">
-                        <div class="col-4">
+                        <div class="col-3">
                             <p class="componentes">Departamento: </p>
                         </div>
 
-                        <div class="col-8">
-                            <p>Frnaciso Morazan</p>
+                        <div class="col-9">
+                            <p>{{pedido.departamento}}</p>
                         </div>
                     </div>
 
                     <div class=" row">
-                        <div class="col-4">
+                        <div class="col-3">
                             <p class="componentes">Municipio: </p>
                         </div>
 
-                        <div class="col-8">
-                            <p>Distrito Central</p>
+                        <div class="col-9">
+                            <p>{{pedido.municipio}}</p>
                         </div>
                     </div>
 
                     <div class=" row">
-                        <div class="col-4">
+                        <div class="col-3">
                             <p class="componentes">Dirección: </p>
                         </div>
 
-                        <div class="col-8">
-                            <p>Col. Jardines</p>
+                        <div class="col-9">
+                            <p>{{pedido.direccioncompleta}}</p>
                         </div>
                     </div>
 
+                    <div class=" row">
+                        <div class="col-3">
+                            <p class="componentes">Domicilio: </p>
+                        </div>
+
+                        <div class="col-9">
+                            <p>{{pedido.domicilio}}</p>
+                        </div>
+                    </div>
                 </div>
 
 
