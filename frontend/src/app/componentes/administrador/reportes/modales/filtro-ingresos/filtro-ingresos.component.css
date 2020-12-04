@@ -5,3 +5,14 @@
 .error-block {
     color: red;
 }
+
+.modal-header {
+    background-color: #e6c0c9;
+    color: white;
+}
+
+.btn-agregar {
+    background-color: #50a1a5;
+    color: white;
+    border: none;
+}

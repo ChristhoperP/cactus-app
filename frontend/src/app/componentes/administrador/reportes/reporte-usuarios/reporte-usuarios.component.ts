@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reporte-usuarios.component.css']
 })
 export class ReporteUsuariosComponent implements OnInit {
-
+  usuarios:any = [];
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  nuevoUsuario(producto){
+    console.log(producto);
+    this.usuarios.push(producto);
+  }
 }
