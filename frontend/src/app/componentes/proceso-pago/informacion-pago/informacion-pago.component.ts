@@ -1,11 +1,13 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, MaxLengthValidator } from '@angular/forms';
 import { ProcesoPagoService } from '../../../servicios/proceso-pago.service';
+import { AuthService } from '../../../servicios/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
+
 
 @Component({
   selector: 'app-informacion-pago',
@@ -13,6 +15,7 @@ import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-
   styleUrls: ['./informacion-pago.component.css']
 })
 export class InformacionPagoComponent implements OnInit {
+
   //Stripe
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
@@ -38,7 +41,7 @@ export class InformacionPagoComponent implements OnInit {
   stripeTest: FormGroup;
 
   /////////
-
+  usuario:any='';
   departamentos: any = [];
   municipios: any = [];
   agencias: any = [];
@@ -50,8 +53,9 @@ export class InformacionPagoComponent implements OnInit {
   envio: number = 0;
   total: number = 0;
 
-  formularioPago: FormGroup = new FormGroup({
-    nombre: new FormControl('', [Validators.required]),
+  formularioPago:FormGroup = new FormGroup({
+    nombre: new FormControl({value: this.usuario.nombre, disabled: true}),
+
     direccion: new FormControl('', [Validators.required]),
     domicilio: new FormControl('', [Validators.required]),
     agencia: new FormControl('', [Validators.required]),
@@ -59,10 +63,17 @@ export class InformacionPagoComponent implements OnInit {
     municipio: new FormControl('', [Validators.required])
   });
 
+
   constructor(private _pagoService: ProcesoPagoService, private fb: FormBuilder, private stripeService: StripeService, private router: Router) {
   }
 
+
   ngOnInit(): void {
+    this._usuarioService.getInfoUsuario()
+      .subscribe(res => {
+        this.usuario = res;
+      });
+
     this._pagoService.obtenerDepartamentos()
       .subscribe(res => {
         this.departamentos = res;
@@ -78,24 +89,62 @@ export class InformacionPagoComponent implements OnInit {
     });
   }
 
+
   obtenerIDdepto(id: any) {
     console.log(id);
     this.id_depto = id;
     this.obtenerMunicipiosDepartamento(id);
   }
-
-
-  obtenerMunicipiosDepartamento(id: any): void {
+  obtenerMunicipiosDepartamento(id:any): void {
     this._pagoService.obtenerMunicipios()
       .subscribe(res => {
         var municipiosDepa: any = [];
-        municipiosDepa = res;
+        municipiosDepa = res;      
 
-        this.municipios = municipiosDepa.filter(municipio => municipio.iddepartamento === 15);
-        console.log(this.municipios);
-      });
+        this.municipios=municipiosDepa.filter(municipio => municipio.iddepartamento === parseInt(id));
+        console.log(this.municipios);      
+        });
+
   }
 
+  registrarInformacion(){
+    Swal.fire({
+      title: '¿Está seguro que desea continuar?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: `Continuar`,
+      cancelButtonText: `Cancelar`,
+      confirmButtonColor: `#50a1a5`,
+      cancelButtonColor: `red`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (
+          this.formularioPago.get("direccion").valid &&
+          this.formularioPago.get("domicilio").valid &&
+          this.formularioPago.get("agencia").valid &&
+          this.formularioPago.get("departamento").valid &&
+          this.formularioPago.get("municipio").valid
+      ) {
+        var informacion = {
+          "nombrecompleto": this.usuario.nombre, 
+          "direccioncompleta": this.formularioPago.get("direccion").value,
+          "domicilio": this.formularioPago.get("domicilio").value,
+          "idagenciaenvio": this.formularioPago.get("agencia").value,
+          "idmunicipio": this.formularioPago.get("municipio").value
+        }
+        console.log(informacion);
+        
+          this._pagoService.registrarInformacionEnvio(informacion)
+          .subscribe(res => {
+            console.log("se registró la información", res);
+          },
+          err => {
+            console.log(err);
+          });
+        }
+      }
+    });
+  }
 
   validation(campo) {
     return this.formularioPago.get(campo).invalid && this.formularioPago.get(campo).touched;
@@ -177,3 +226,8 @@ export class InformacionPagoComponent implements OnInit {
   }
 
 }
+
+
+// INSERT INTO public.agenciaenvio(
+// 	idagenciaenvio, nombre, precio, urlperfil)
+// 	VALUES (1, 'Cargo Expreso', 115, '');

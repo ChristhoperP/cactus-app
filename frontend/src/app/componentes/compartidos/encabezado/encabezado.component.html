@@ -32,6 +32,8 @@
                     <li class="nav-item" routerLinkActive="active">
                         <a class="nav-link" [routerLink]="['/registro']">Registrarse</a>
                     </li>
+
+
                 </ng-container>
 
             </ul>
@@ -58,7 +60,7 @@
                 </button>
                                     <div class="dropdown-menu dropdown-menu-lg-right" routerLinkActive="active">
                                         <button class="dropdown-item" type="button" [routerLink]="['/perfil']">Mi Perfil</button>
-                                        <button class="dropdown-item" type="button">Historial de Compras</button>
+                                        <button class="dropdown-item" type="button" [routerLink]="['/historial-compra']">Historial de Compras</button>
                                         <button class="dropdown-item" type="button" (click)="cerrarSesion()">Cerrar Sesión</button>
                                     </div>
                                 </div>

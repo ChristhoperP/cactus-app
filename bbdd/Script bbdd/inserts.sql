@@ -383,18 +383,18 @@ INSERT INTO public.tipobase(descripcion)VALUES ('Base de madera triangular  AxLx
 INSERT INTO public.tipobase(descripcion)VALUES ('Base de madera con alambre doble AxL xH1 y H2 cm y dos cristales de Ø 4 cm c/u');
 INSERT INTO public.tipobase(descripcion)VALUES ('Base de madera cuadrada  AxLxH cm y cristal de Ø 6 cm');
 
-INSERT INTO public.categoria(descripcion)VALUES ('Maceteras de barro');
-INSERT INTO public.categoria(descripcion)VALUES ('Maceteras de cerámica');
-INSERT INTO public.categoria(descripcion)VALUES ('Terrarios colgantes');
-INSERT INTO public.categoria(descripcion)VALUES ('Terrarios');
-INSERT INTO public.categoria(descripcion)VALUES ('Mini terrarios');
-INSERT INTO public.categoria(descripcion)VALUES ('Cajitas');
-INSERT INTO public.categoria(descripcion)VALUES ('Arreglos');
-INSERT INTO public.categoria(descripcion)VALUES ('Bicicletas');
-INSERT INTO public.categoria(descripcion)VALUES ('Muñequitos');
-INSERT INTO public.categoria(descripcion)VALUES ('Baldes');
-INSERT INTO public.categoria(descripcion)VALUES ('Maceteras de vidrio');
-INSERT INTO public.categoria(descripcion)VALUES ('Carretitas');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Maceteras de barro','cat_maceterasbarro.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Maceteras de cerámica','cat_maceterasceramica.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Terrarios colgantes','cat_terrarioscolgantes.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Terrarios','cat_terrarios.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Mini terrarios','cat_miniterrarios.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Cajitas','cat_cajitas.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Arreglos','cat_arreglos.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Bicicletas','cat_bicicletas.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Muñequitos','cat_munequitos.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Baldes','cat_baldes.png');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Maceteras de vidrio','cat_maceterasvidrio.jpg');
+INSERT INTO public.categoria(descripcion,imagencategoria)VALUES ('Carretitas','cat_carretitas.png');
 
 INSERT INTO public.familia(descripcion)VALUES ('Euphorbiaceae');
 INSERT INTO public.familia(descripcion)VALUES ('Didieraceae');
@@ -577,7 +577,11 @@ INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Lithop',16 );
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Echeveria Neon Breakers', 32);
 INSERT INTO public.especie(descripcion, genero_idgenero)VALUES ('Echeveria Super Boom', 32);
 
+/* AGENCIAS DE ENVIO */
 
+INSERT INTO public.agenciaenvio(nombre, precio, urlperfil) VALUES ('Cargo Expreso', 115, '');
+INSERT INTO public.agenciaenvio(nombre, precio, urlperfil) VALUES ('Glovo', 60, '');
+INSERT INTO public.agenciaenvio(nombre, precio, urlperfil) VALUES ('Hugo', 70, '');
 
 
 

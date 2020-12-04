@@ -39,4 +39,8 @@ export class ProcesoPagoService {
     let params = JSON.stringify(JSON.parse('{"idproducto":'+idProducto+'}'));
     return this._http.post<any>(this.url + "eliminar-producto-carrito", params, { headers: this.headers });
   }
+  registrarInformacionEnvio(informacion){
+    return this._http.post<any>(this.url + "registro-informacion-envio", informacion);
+  }
+  
 }

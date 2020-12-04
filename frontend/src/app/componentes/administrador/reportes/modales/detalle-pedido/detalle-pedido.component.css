@@ -1,0 +1,30 @@
+.titulo {
+    color: rgb(11, 109, 80);
+    font-weight: bold;
+}
+
+.header {
+    background-color: rgb(6, 128, 67, 0.3);
+}
+
+.componentes {
+    font-weight: bold;
+}
+
+#hr2 {
+    height: 5px;
+    width: 30%;
+    margin-left: 70%;
+}
+
+.btn-secondary {
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    background: rgb(14, 143, 126);
+    border: 2px solid #68c1c5;
+    outline: none;
+    transition: 1s ease-in-out;
+    color: white;
+    margin-left: 15px;
+}

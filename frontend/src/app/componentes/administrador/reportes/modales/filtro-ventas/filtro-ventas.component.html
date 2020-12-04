@@ -1,0 +1,86 @@
+  <!-- Modal  -->
+  <div class="modal fade"  id="filtroVentas" tabindex="-1" aria-labelledby="addFilterModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Filtrar información de ventas</h5>
+          <button type="button" #closeAddExpenseModalInventario class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formularioVentas">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 mb-1">
+                        <label for="validationServer01">ID Producto</label>
+                        <div class="input-group input-group-sm mb-3">
+                          <input type="text" formControlName="idProducto"  class="form-control" aria-label="id">
+                        </div>
+                    </div>
+                    <div class="col-md-9 mb-1">
+                        <label for="validationServer02">Nombre de Producto</label>
+                        <div class="input-group input-group-sm mb-3">
+                          <input type="text" formControlName="nombreProducto"  class="form-control" aria-label="nombre">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationServer03">Fecha de inicio</label>
+                    <input type="date" formControlName="fechainicio"  class="form-control form-control-sm" id="validationServer15" required>
+                    <div class="invalid-feedback">
+                      Campo obligatorio
+                    </div>
+                  </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="validationServer04">Fecha fin</label>
+                      <input type="date" formControlName="fechafin"  class="form-control form-control-sm" id="validationServer16" required>
+                      <div class="invalid-feedback">
+                        Campo obligatorio
+                      </div>
+                    </div>
+                </div>
+              
+                <div class="row">
+                    <div class="col-md-6 mb-1">
+                        <label for="validationServer05">Categoría</label>
+                        <select class="custom-select custom-select-sm" formControlName="categoria">
+                            <option disabled active value="">Seleccionar...</option>  
+                            <option *ngFor="let categoria of categorias" value="{{categoria.idcategoria}}">{{categoria.descripcion}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="validationServer06">Tipo de base</label>
+                        <select class="custom-select custom-select-sm" formControlName="base"  >
+                            <option disabled active value="">Seleccionar...</option>  
+                            <option *ngFor="let base of tipoBases" value="{{base.idtipobase}}">{{base.descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-1">
+                        <label for="validationServer07">Género</label>
+                        <select class="custom-select custom-select-sm" formControlName="genero">
+                            <option  disabled active value="" >Seleccionar...</option>  
+                            <option *ngFor="let genero of generos" value="{{genero.idgenero}}">{{genero.descripcion_genero}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <label for="validationServer08">Especie</label>
+                        <select  class="custom-select custom-select-sm" data-live-search="true" formControlName="especie">
+                            <option  disabled active value="" >Seleccionar...</option>  
+                            <option *ngFor="let especie of especies" value="{{especie.idespecie}}">{{especie.descripcion_especie}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-agregar" [routerLink]="['/reporte-ventas']">Generar</button>
+        </div>
+      </div>
+    </div>
+  </div>

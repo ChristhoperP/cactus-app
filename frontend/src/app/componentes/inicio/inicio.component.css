@@ -1,3 +1,22 @@
+h1 {
+    color: transparent;
+    background: url(/assets/img/1C.png) repeat;
+    -webkit-background-clip: text;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    font-size: 5vw;
+    font-weight: bold;
+    text-align: left;
+    letter-spacing: -2px;
+    line-height: 90px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .container {
     width: 80%;
     margin: 50px auto;
@@ -19,11 +38,17 @@
 .card {
     width: 20%;
     background: #fff;
+    border: 1px solid #ccc;
     margin-bottom: 50px;
-    border: none;
     transition: 0.3s;
     height: 20%;
-    padding-left: 25px;
+}
+
+.card-header {
+    text-align: center;
+    padding: 50px 10px;
+    background: linear-gradient(to right, #9de5e9, #a2ebac);
+    color: #fff;
 }
 
 .card-body {
@@ -42,11 +67,14 @@
     padding: 10px 5px;
 }
 
-.card:hover {}
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
+}
 
 @media screen and (max-width: 1000px) {
     .card {
-        width: 30%;
+        width: 40%;
     }
 }
 
@@ -59,16 +87,39 @@
         font-size: 20px;
     }
     .card {
-        width: 40%;
+        width: 60%;
     }
 }
 
-a {
+h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: bold;
-    color: #b7aecd;
+    font-size: 120%;
+    padding-top: 25px;
 }
 
-a:hover {
-    color: #50a1a5;
+.anuncio1 {
+    background: rgb(250, 232, 232);
+}
+
+.texto_arreglos {
+    color: rgb(56, 173, 124);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.anuncio2 {
+    background: transparent;
+}
+
+.letra {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.iconos {
+    font-size: 3em;
+}
+
+.alineado {
+    text-align: center;
 }

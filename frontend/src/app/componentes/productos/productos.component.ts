@@ -8,6 +8,7 @@ import { PromocionesFrontService } from '../../servicios/promociones-front.servi
 import { EventosService } from '../../servicios/eventos.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { CarritoService } from 'src/app/servicios/carrito.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class ProductosComponent implements OnInit {
   familias:any = [];
   generosFiltrado:any = [];
   especiesFiltrado:any = [];
+  categoria: string;
 
   public url: string;
   filtro_Especie='';
@@ -34,7 +36,7 @@ export class ProductosComponent implements OnInit {
   promociones: Array<any>;
   filtro: string;
   sinCoincidencias = false;
-
+  
   productoAgregado: any = {};
   @ViewChild('toast') addedToast: ElementRef<HTMLDivElement>;
   @ViewChild('alertToast') alertToast: ElementRef<HTMLDivElement>;
@@ -47,6 +49,8 @@ export class ProductosComponent implements OnInit {
     private _busquedaService: BusquedaProductosService,
     private _authService: AuthService,
     private eventService: EventosService,
+    private _route: ActivatedRoute,
+    private _router: Router,
     private router: Router) {
       this.url = Global.url;
       _cargar.Carga(["app"]);
@@ -58,6 +62,7 @@ export class ProductosComponent implements OnInit {
         }
       });
 
+      
       this._busquedaService.search.subscribe( (term: string) => {
         this.filtrados = this.productos.filter( (product: any) => product.nombre.toLowerCase().includes(term.toLowerCase())
             || product.categoria.toLowerCase().includes(term.toLowerCase()));
@@ -68,12 +73,18 @@ export class ProductosComponent implements OnInit {
           this.sinCoincidencias = false;
         }
       });
+
+
+     
   }
 
 
 
 
   ngOnInit(): void {
+
+
+
     this.servicioProducto.getProducto()
       .subscribe( res => {
         this.productos = res;
@@ -86,6 +97,7 @@ export class ProductosComponent implements OnInit {
             this.promociones = resp;
             console.log('Promociones: ', resp);
 
+
             for (const promo of this.promociones) {
 
               const fechafin = new Date(promo.fechafin);
@@ -97,6 +109,14 @@ export class ProductosComponent implements OnInit {
                 this.productos[ this.productos.findIndex( prod => prod.idproducto === promo.idproducto) ].preciocondescuento = promo.preciocondescuento;
               }
             }
+
+            this.categoria = this._route.snapshot.paramMap.get('categoria');
+            this._route.params.subscribe(paramst =>{
+              console.log(paramst['categoria']);
+    if (paramst['categoria'])
+              this.filtrados = this.productos.filter( (product: any) => product.categoria.toLowerCase()===this.categoria.toLowerCase());
+      
+            })
 
           }, errr => {
             console.log(errr);
@@ -155,6 +175,7 @@ export class ProductosComponent implements OnInit {
     this.filtro_Familia='';
     this.filtro_Precio1='';
     this.filtro_Precio2='';
+    this.filtrados=this.productos;
     this.generosFiltrado=this.generos;
     this.especiesFiltrado=this.especies;
   }

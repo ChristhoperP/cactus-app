@@ -416,10 +416,117 @@ var controller = {
 
         } catch (err) {
             return res.status(500).send({
-                message: 'Error: No se puede obtener esta informacón'
+                message: 'Error: No se puede obtener esta información'
             })
         }
+    },
+    traerPedidosUsuarios: async function(req, res) {
+        try {
+            const response = await conf.pool.query('SELECT * FROM  pedidos_usuarios_admin ;');
+            var respuesta = response.rows;
+            return res.status(200).send(respuesta);
+
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    traerPedidosDetalleProductos: async function(req, res) {
+        var idpedido = req.params.idpedido;
+
+
+
+        try {
+            var a = 'SELECT idproducto, nombre, precio_unitario, cantidad, subtotalPorProducto ';
+            var b = 'FROM SP_DETALLE_PEDIDO_PRODUCTOS($1) AS (idproducto INT, nombre VARCHAR(45), precio_unitario NUMERIC, cantidad INT, subtotalPorProducto NUMERIC);'
+            var c = a + b;
+
+            const response1 = await conf.pool.query(c, [parseInt(idpedido)]);
+            var respuestaProductos = response1.rows;
+
+
+            const response2 = await conf.pool.query('SELECT SP_DETALLE_PEDIDO_DATOS_CLIENTE($1);', [
+                parseInt(idpedido)
+            ]);
+
+
+            var respuestaDatos = response2.rows[0].sp_detalle_pedido_datos_cliente;
+            var respuestaDatos2 = respuestaDatos.substring(1, respuestaDatos.length - 1).replace('"', '').replace('"', '');
+            var arregloRes = respuestaDatos2.split(',');
+            console.log(arregloRes);
+
+            var nombreRemitente = arregloRes[0];
+            var totalPagado = parseInt(arregloRes[1]);
+            var agenciaEnvio = arregloRes[2];
+            var precioEnvio = parseInt(arregloRes[3]);
+            var municipio = arregloRes[4];
+            var departamento = arregloRes[5].replace('"', '').replace('"', '');
+            var direccioncompleta = arregloRes[6].replace('"', '').replace('"', '');
+            var domicilio = arregloRes[7].replace('"', '').replace('"', '');
+            var subtotal = totalPagado - precioEnvio;
+
+            console.log(domicilio);
+
+            return res.status(200).send({
+                productos: respuestaProductos,
+                datos: {
+                    nombreRemitente,
+                    totalPagado,
+                    agenciaEnvio,
+                    precioEnvio,
+                    municipio,
+                    departamento,
+                    direccioncompleta,
+                    domicilio,
+                    subtotal
+                }
+            });
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: 'Error: No se puede obtener esta información'
+            })
+        }
+    },
+    actualizarEstadoPedido: async function(req, res) {
+
+        var { idPedido, nuevoEstado } = req.body;
+
+        if (idPedido != null && nuevoEstado != null) {
+            try {
+
+                var c = 'SELECT SP_ACTUALIZAR_ESTADO_PEDIDO($1,$2);'
+                const response = await conf.pool.query(c, [parseInt(idPedido), nuevoEstado]);
+
+                var respuestaDatos = response.rows[0].sp_actualizar_estado_pedido;
+                var respuestaDatos2 = respuestaDatos.substring(1, respuestaDatos.length - 1).replace('"', '').replace('"', '');
+                var arregloRes = respuestaDatos2.split(',');
+                var mensaje = arregloRes[0];
+                var codigo = arregloRes[1];
+
+                if (codigo == 0) {
+                    return res.status(200).send({
+                        message: mensaje
+                    })
+                } else {
+                    return res.status(500).send({
+                        message: mensaje
+                    })
+                }
+            } catch (err) {
+                console.log(err);
+                return res.status(500).res({
+                    message: 'Estado no actualizado'
+                });
+            }
+
+        } else {
+            return res.status(500).res({
+                message: 'Campos incompletos'
+            });
+        }
     }
+
 };
 
 module.exports = controller;

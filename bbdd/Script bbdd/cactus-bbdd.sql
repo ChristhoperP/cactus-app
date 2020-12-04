@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS Usuario_has_MetodoPago (
 CREATE TABLE IF NOT EXISTS agenciaEnvio (
   idagenciaEnvio SERIAL NOT NULL,
   nombre VARCHAR(100) NULL,
-  precio INT NULL,
+  precio DECIMAL NULL,
   urlPerfil VARCHAR(500) NULL,
   PRIMARY KEY (idagenciaEnvio))
 ;
