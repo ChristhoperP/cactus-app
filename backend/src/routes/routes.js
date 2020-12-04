@@ -14,6 +14,7 @@ var VisitaController = require('../controllers/visita');
 var productoController = require('../controllers/producto');
 var envioController = require('../controllers/envio');
 var reporteController = require('../controllers/reporte');
+const { reporteVentas } = require('../controllers/reporte');
 
 
 /* RUTAS DE USUARIO */
@@ -118,3 +119,5 @@ module.exports = router;
 
 /* RUTAS PARA REPORTES */
 router.get('/reporteUsuario', /* auth.isAdmin, */ reporteController.reporteUsuario);
+router.get('/reporteVentas', auth.isAdmin, reporteController.reporteVentas);
+router.get('/ingresosPorMes', auth.isAdmin, reporteController.ingresosPorMes);
