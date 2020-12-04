@@ -25,10 +25,7 @@ td {
     vertical-align: middle !important;
 }
 
-.btn-volver{
- background-color: #f0cdd4;
- color: brown;
-}
+
 
 .fa-trash-o:hover{
     cursor: pointer;
