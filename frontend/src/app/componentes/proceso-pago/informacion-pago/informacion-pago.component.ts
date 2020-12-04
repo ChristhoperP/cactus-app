@@ -154,6 +154,7 @@ export class InformacionPagoComponent implements OnInit {
   siguiente(): void {
     this.calcularTotal();
     this.etapa = 2;
+    this.formularioPago.value.nombre=this.usuario.nombre;
   };
 
   createToken(): void {
