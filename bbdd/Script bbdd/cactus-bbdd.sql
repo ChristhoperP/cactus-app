@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS TipoBase (
 CREATE TABLE IF NOT EXISTS Categoria (
   idCategoria SERIAL NOT NULL,
   descripcion VARCHAR(200) NULL,
-  imagenCategoria VARCHAR(200) NULL,
+  imagencategoria VARCHAR(200) NULL,
   PRIMARY KEY (idCategoria))
 ;
 
