@@ -1,5 +1,5 @@
 <!-- Modal  -->
-<div class="modal fade" id="filtroUsuarios" tabindex="-1" aria-labelledby="addFilterModal" aria-hidden="true">
+<div class="modal fade" [class.show]="showModalUsuarios" id="filtroUsuarios" tabindex="-1" aria-labelledby="addFilterModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,7 @@
           </button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="formularioVentas">
+                <form [formGroup]="formularioUsuario">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-3 mb-1">
@@ -53,7 +53,7 @@
             <div class="modal-footer">
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-agregar" (click)="cerrarModal()">Generar</button>
+                <button type="button" class="btn btn-agregar" (click)="filtrar()">Generar</button>
             </div>
         </div>
     </div>
