@@ -377,7 +377,7 @@ var controller = {
         }
     },
     eliminarProductoCarrito: async function(req, res) {
-
+        console.log(req.body);
         var { idproducto } = req.body;
 
         if (req.user.id != null && idproducto != null) {

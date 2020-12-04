@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, MaxLengthValidator } from '@angular/forms';
 import { ProcesoPagoService } from '../../../servicios/proceso-pago.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
@@ -58,7 +59,7 @@ export class InformacionPagoComponent implements OnInit {
     municipio: new FormControl('', [Validators.required])
   });
 
-  constructor(private _pagoService: ProcesoPagoService, private fb: FormBuilder, private stripeService: StripeService) {
+  constructor(private _pagoService: ProcesoPagoService, private fb: FormBuilder, private stripeService: StripeService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -114,21 +115,35 @@ export class InformacionPagoComponent implements OnInit {
           // Use the token
           console.log(this.formularioPago.value);
           console.log(result.token);
-
-          this._pagoService.procederPago([this.formularioPago.value, { stripeToken: result.token.id }, this.total])
+          
+          this._pagoService.procederPago([this.formularioPago.value, { stripeToken: result.token.id }, this.total, localStorage.getItem('productos')])
             .subscribe(res => {
               console.log(res);
-              /* if (res.rol === 'admin') {
-                this.router.navigate(['/controlador-admin']);
-              } else {
-                this.router.navigate(['/inicio']);
-              } */
+
+              //Eliminar productos del carrito
+              let productosCarrito = JSON.parse(localStorage.getItem('productos'));
+
+              productosCarrito.forEach(element => {
+                console.log(element.idproducto);
+                this._pagoService.eliminarProductoCarrito(element.idproducto)
+                  .subscribe(res => {
+                  },
+                    err => {
+                      console.log(err);
+                    });
+              });
+
+              //Eliminar los productos del localEstorage
+              localStorage.removeItem('productos');
 
               //mostrar sweet alert de compra exitosa
               Swal.fire({
                 icon: 'success',
                 title: `Compra por L.${this.total} realizada exitosamente.`
               });
+
+              //Redireccionar al Historial de compras
+              this.router.navigate(['/inicio']);
             },
               err => {
                 console.log(err);
@@ -138,11 +153,12 @@ export class InformacionPagoComponent implements OnInit {
                   text: `No se pudo realizar la compra.`
                 });
               });
-
+        
         } else if (result.error) {
           // Error creating the token
           console.log(result.error.message);
         }
+
       });
   }
 
@@ -150,9 +166,9 @@ export class InformacionPagoComponent implements OnInit {
     this._pagoService.calcularTotal(localStorage.getItem('productos'), this.formularioPago.value.agencia)
       .subscribe(res => {
         console.log(res);
-        this.subtotal=res.subtotal;
-        this.envio=res.envio;
-        this.total=res.total;
+        this.subtotal = res.subtotal;
+        this.envio = res.envio;
+        this.total = res.total;
         console.log(this.total);
       },
         err => {

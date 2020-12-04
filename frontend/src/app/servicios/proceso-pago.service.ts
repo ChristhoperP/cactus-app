@@ -34,4 +34,9 @@ export class ProcesoPagoService {
     //let params2 = JSON.stringify(idAgenciaEnvio);
     return this._http.post<any>(this.url + "calcularTotal", params, { headers: this.headers });
   }
+
+  eliminarProductoCarrito(idProducto){
+    let params = JSON.stringify(JSON.parse('{"idproducto":'+idProducto+'}'));
+    return this._http.post<any>(this.url + "eliminar-producto-carrito", params, { headers: this.headers });
+  }
 }
