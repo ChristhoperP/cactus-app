@@ -47,8 +47,11 @@ var controller = {
         });
 
         return res.status(200).send(respuesta1);
-
-
+    },
+    reporteInventario: async function(req, res) {
+            
+            const response = await conf.pool.query(`SELECT * FROM REPORTE_INVENTARIO`);
+            res.json(response.rows);
     },
     reporteVentas: async function(req, res) {
         try {

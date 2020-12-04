@@ -66,10 +66,18 @@ SELECT A.idpedido, A.fechapedido, A.total,
         A.estado, B.idusuario, B.nombre AS nombre_usuario
 FROM pedido A LEFT JOIN usuario B ON A.usuario_idusuario = B.idusuario;
 
-CREATE OR REPLACE VIEW reporte_usuario AS
+CREATE OR REPLACE VIEW REPORTE_USUARIO AS
 SELECT us.idusuario, us.nombre, us.correo, us.telefono, us.direccion, us.fecharegistro,pe.idpedido,pe.fechapedido 
 FROM pedido pe LEFT JOIN usuario us ON pe.usuario_idusuario = us.idusuario
 WHERE tipo_usuario_idtipo_usuario = 2;
+
+
+CREATE OR REPLACE VIEW REPORTE_INVENTARIO AS
+SELECT PR.IDPRODUCTO,PR.NOMBRE,PR.URLPORTADA,CAT.DESCRIPCION as categoria,TP.DESCRIPCION as TipoDeBase, ES.DESCRIPCION as especie, PR.CANTIDAD, PR.PRECIO FROM PRODUCTO PR
+INNER JOIN CATEGORIA CAT ON CAT.IDCATEGORIA=PR.CATEGORIA_IDCATEGORIA
+INNER JOIN PRODUCTO_HAS_ESPECIE PRES ON PRES.PRODUCTO_IDPRODUCTO=PR.IDPRODUCTO
+INNER JOIN ESPECIE ES ON ES.IDESPECIE=PRES.ESPECIE_IDESPECIE
+INNER JOIN TIPOBASE TP ON TP.IDTIPOBASE = PR.TIPOBASE_IDTIPOBASE;
 
 CREATE OR REPLACE VIEW reporte_ventas AS
 SELECT C.idproducto, C.nombre AS nombre_producto, A.fechapedido, B.precioproducto AS precio_venta, 
@@ -88,3 +96,4 @@ CREATE OR REPLACE VIEW ingresos_por_mes AS
 SELECT to_char(fechapedido, 'YYYY-MM') AS fecha, sum(total) AS ventas_mes
 FROM pedido
 GROUP BY fecha;
+

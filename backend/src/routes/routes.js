@@ -118,6 +118,10 @@ router.post('/actualizarEstadoPedido', auth.isAdmin, AdminController.actualizarE
 module.exports = router;
 
 /* RUTAS PARA REPORTES */
+
+
 router.get('/reporteUsuario', /* auth.isAdmin, */ reporteController.reporteUsuario);
+router.get('/reporteInventario', /* auth.isAdmin, */ reporteController.reporteInventario);
 router.get('/reporteVentas', auth.isAdmin, reporteController.reporteVentas);
 router.get('/ingresosPorMes', auth.isAdmin, reporteController.ingresosPorMes);
+
