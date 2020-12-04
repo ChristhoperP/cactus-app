@@ -1,12 +1,48 @@
 
 <div class="container">
-    <div class="row">
-        <h4 class="ml-3">Reporte de Inventario</h4>
-        <button type="button" class="btn btn-sm mr-3 ml-auto btn-volver" data-toggle="modal" data-target="#filtroInventario"><i class="fa fa-reply-all" aria-hidden="true"></i> Volver</button>
+    <div class="row mt-2 mb-3">
+        <button type="button" class="btn btn-sm mr-auto btn-volver" data-toggle="modal" data-target="#filtroInventario"><i class="fa fa-reply-all" aria-hidden="true"></i> Volver</button>
+        <h4>Reporte de Inventario</h4>
+        <button type="button" class="btn btn-sm ml-auto btn-volver"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar PDF</button>
     </div>
-    <hr>
     <div class="row">
-        <p>tabla de información</p>
+        <div class="table-responsive">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr class="encabezado">
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Tipo de base</th>
+                        <th scope="col">Especie(s)</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let producto of inventario" class="product-row">
+                        <th scope="row" class="product-id">{{producto.idproducto}}</th>
+                        <td>{{producto.nombre}}</td>
+                        <td>{{producto.categoria}}</td>
+                        <td>{{producto.tipodebase}}</td>
+                        <td>{{producto.especie}}</td>
+                        <td class="text-center">{{producto.cantidad}}</td>
+                        <td>L {{producto.precio}}</td>
+                    </tr>
+                    <tr [hidden]="inventario.length===0">
+                        <td colspan="5" class="text-right" style="color:#0c515c"><b>Cantidad total de productos en inventario: </b></td>
+                        <td>{{cantidadTotal}}</td>
+                        <td></td>
+                    </tr>
+                    <tr *ngIf="inventario.length===0">
+                        <td colspan="2">
+                            No hay resultados
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <app-filtro-inventario (inventarioFiltrado)="recibeInventario($event)"></app-filtro-inventario>

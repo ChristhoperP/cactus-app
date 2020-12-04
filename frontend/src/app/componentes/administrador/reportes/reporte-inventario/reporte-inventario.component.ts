@@ -7,19 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReporteInventarioComponent implements OnInit {
   inventario:any=[];
+  cantidadTotal=0;
 
   constructor() {
     this.inventario;
-    console.log(this.inventario);
-    
-   }
+  }
 
   ngOnInit(): void {
-    console.log("prueba");
   }
 
   recibeInventario(inventario){
     console.log(inventario);
-    this.inventario.push(inventario);
+    this.inventario=inventario;
+
+    for (let i = 0; i < inventario.length; i++) {
+     this.cantidadTotal+=inventario[i].cantidad;
+    }
+
   }
 }
