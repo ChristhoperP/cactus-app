@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-reporte-usuarios',
@@ -7,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReporteUsuariosComponent implements OnInit {
   usuarios:any = [];
-  constructor() {
+  
+  constructor( private _location: Location) {
     this.usuarios;
-    console.log(this.usuarios);
    }
 
   ngOnInit(): void {
@@ -18,4 +20,9 @@ export class ReporteUsuariosComponent implements OnInit {
     console.log(usuarios);
     this.usuarios=usuarios;
   }
+
+  regresar() {
+    this._location.back();
+  }
+
 }

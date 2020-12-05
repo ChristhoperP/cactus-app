@@ -1,47 +1,44 @@
 <!-- Modal  -->
-<div class="modal fade" id="filtroIngresos" tabindex="-1" aria-labelledby="addFilterModal" aria-hidden="true">
+<div class="modal fade" [class.show]="showModalIngresos" id="filtroReporteIngesos" tabindex="-1" aria-labelledby="addFilterModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Filtrar información de Ingresos</h5>
-                <button type="button" #closeAddExpenseModalUsuarios class="close" data-dismiss="modal" aria-label="Close">
+
+                <button [hidden]="true" type="button" #closeAddExpenseModalUsuarios class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="formularioVentas">
+                <form [formGroup]="formularioIngresos">
                     <div class="container">
                         <div class="row">
-
-                            <div class="col-md-9 mb-1">
+                            <div class="col-md-8 mb-1">
                                 <label for="validationServer02">Año</label>
                                 <div class="input-group input-group-sm mb-3">
-                                    <input type="number" formControlName="nombreUsuario" class="form-control" aria-label="nombre">
+                                    <input type="text" formControlName="Anio" class="form-control" aria-label="nombre">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <p> Mes</p>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <select name="select">
-                                    <option value="value1">Enero</option> 
-                                    <option value="value2" >Febrero</option>
-                                    <option value="value3">Marzo</option>
-                                    <option value="value1">Abril</option> 
-                                    <option value="value2" >Mayo</option>
-                                    <option value="value3">Junio</option>
-                                    <option value="value1">Julio</option> 
-                                    <option value="value2" >Agosto</option>
-                                    <option value="value3">Septiembre</option>
-                                    <option value="value1">Octubre</option> 
-                                    <option value="value2" >Noviembre</option>
-                                    <option value="value3">Diciembre</option>
-                                  </select>
-                                <div class="invalid-feedback">
-                                    Campo obligatorio
-                                </div>
+                            <div class="col-md-8 mb-1">
+                                <label for="validationServer05">Mes</label>
+                                <select class="custom-select custom-select-sm" formControlName="Mes">
+                                    <option disabled active value="">Seleccionar...</option>  
+                                    <option  value="Enero"> Enero</option>
+                                    <option  value="Febrero"> Febrero</option>
+                                    <option  value="Marzo"> Marzo</option>
+                                    <option  value="Abril"> Abril</option>
+                                    <option  value="Mayo"> Mayo</option>
+                                    <option  value="Junio"> Junio</option>
+                                    <option  value="Julio"> Julio</option>
+                                    <option  value="Agosto"> Agosto</option>
+                                    <option  value="Septiembre"> Septiembre</option>
+                                    <option  value="Octubre"> Octubre</option>
+                                    <option  value="Noviembre"> Noviembre</option>
+                                    <option  value="Diciembre"> Diciembre</option>
+
+                                </select>
                             </div>
 
                         </div>
@@ -56,8 +53,8 @@
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-agregar" (click)="cerrarModal()">Generar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="regresar()">Regresar</button>
+                <button type="button" class="btn btn-agregar">Generar</button>
             </div>
         </div>
     </div>

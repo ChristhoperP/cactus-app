@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter  } from 
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
 import { ReportesService } from '../../../../../servicios/administrador/reportes.service';
 import { Router } from '@angular/router';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class FiltroUsuariosComponent implements OnInit {
     nombreUsuario: new FormControl(''),
   
   });
-  constructor(private _reporteService: ReportesService, private router: Router) { }
+  constructor( private _location: Location,private _reporteService: ReportesService, private router: Router) { }
 
   ngOnInit(): void {
     this._reporteService.getUsuariosReporte()
@@ -65,5 +66,9 @@ export class FiltroUsuariosComponent implements OnInit {
     }
 
     return console.log(this.filtro);
+  }
+
+  regresar() {
+    this._location.back();
   }
 }
