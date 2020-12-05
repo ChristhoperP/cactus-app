@@ -32,6 +32,7 @@ import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.comp
 import { ReporteInventarioComponent } from './componentes/administrador/reportes/reporte-inventario/reporte-inventario.component';
 import { ReporteVentasComponent } from './componentes/administrador/reportes/reporte-ventas/reporte-ventas.component';
 import { ReporteIngresosComponent } from './componentes/administrador/reportes/reporte-ingresos/reporte-ingresos.component';
+import { PayGuard } from './servicios/guards/pay.guard';
 
 // Array de rutas
 const appRoutes: Routes = [
@@ -47,8 +48,8 @@ const appRoutes: Routes = [
             {path: 'informacion', component: InformacionComponent, canActivate: [NoAdminGuard]},
             {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard, NoAdminGuard]},
             {path: 'historial-compra', component: HistorialComprasComponent, canActivate: [AuthGuard, NoAdminGuard]},
-            {path: 'detalle/:id', component: DetalleProductoComponent,canActivate: [NoAdminGuard]},
-            {path: 'informacionPago', component: InformacionPagoComponent, canActivate: [AuthGuard, NoAdminGuard]}
+            {path: 'detalle/:id', component: DetalleProductoComponent, canActivate: [NoAdminGuard]},
+            {path: 'informacionPago', component: InformacionPagoComponent, canActivate: [PayGuard, NoAdminGuard]}
         ]
     },
     {path: 'iniciar-sesion', component: IniciarSesionComponent, canActivate: [NoAuthGuard]},

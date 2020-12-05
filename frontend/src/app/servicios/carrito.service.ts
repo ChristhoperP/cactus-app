@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Global } from './global';
 
@@ -8,6 +8,9 @@ import { Global } from './global';
 export class CarritoService {
   url = Global.url;
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+  @Output() cantidadProductos: EventEmitter<number> = new EventEmitter();
+  cantProductos = 0;
 
   constructor(private _http: HttpClient) { }
 
@@ -22,6 +25,8 @@ export class CarritoService {
     if (!localStorage.getItem('productos-carrito')) {
       productosCarrito.productos.push(producto);
       localStorage.setItem('productos-carrito', JSON.stringify(productosCarrito.productos));
+      this.cantProductos++;
+      this.cantidadProductos.emit(productosCarrito.productos.length);
       console.log('Agregó el producto con id ' + producto.idproducto + ' a su carrito de compras');
       return true;
     } else {
@@ -33,6 +38,8 @@ export class CarritoService {
       } else {
         productosCarrito.productos.push(producto);
         localStorage.setItem('productos-carrito', JSON.stringify(productosCarrito.productos));
+        this.cantProductos++;
+        this.cantidadProductos.emit(productosCarrito.productos.length);
         console.log('Agregó el producto con id ' + producto.idproducto + ' a su carrito de compras');
         return true;
       }
@@ -48,6 +55,10 @@ export class CarritoService {
   eliminarProductoCarrito( id:any ){
     return this._http.post(this.url + 'eliminar-producto-carrito', {idproducto: id}, {headers: this.headers} );
 
+  }
+
+  setCantidadProductos( cantidad: number ): void {
+    this.cantidadProductos.emit(cantidad);
   }
 
 }

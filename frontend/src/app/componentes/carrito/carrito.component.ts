@@ -206,7 +206,7 @@ checkAll: boolean;
         productos.push({ "idproducto": +element.idproducto, "cantidad": + element.cantidadencarrito});
       }
     });
-    
+
     localStorage.setItem("productos", JSON.stringify(productos));
   }
 }

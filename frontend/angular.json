@@ -28,6 +28,7 @@
                             "src/styles.css"
                         ],
                         "scripts": [
+                            "src/assets/js/all.js",
                             "src/assets/js/jquery-3.5.1.slim.min.js",
                             "src/assets/js/popper.min.js",
                             "src/assets/js/bootstrap.min.js"
