@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { BusquedaProductosService } from 'src/app/servicios/busqueda-productos.service';
+import { CarritoService } from 'src/app/servicios/carrito.service';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { BusquedaProductosService } from 'src/app/servicios/busqueda-productos.s
 })
 export class EncabezadoComponent implements OnInit {
   nombreUsuario: any;
+  cantidadProductos: number;
 
   terminoBusqueda = '';
 
@@ -19,6 +21,7 @@ export class EncabezadoComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private busquedaService: BusquedaProductosService,
+    private carritoService: CarritoService,
     private router: Router) {}
 
   ngOnInit(): void {
@@ -33,6 +36,10 @@ export class EncabezadoComponent implements OnInit {
     this.authService.updatedName.subscribe( newName => {
       this.nombreActualizado = newName;
     } );
+
+    this.carritoService.cantidadProductos.subscribe( cantidad => {
+      this.cantidadProductos = cantidad;
+    });
   }
 
   searchProducts(): void {

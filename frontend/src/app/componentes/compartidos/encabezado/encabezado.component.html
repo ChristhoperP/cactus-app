@@ -70,7 +70,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <i class="fas fa-shopping-cart" [routerLink]="['/carrito']" id="carro_compra"></i>
+                    <a type="button" class="nav-link" [routerLink]="['/carrito']">
+                        <span class="fa-layers fa-fw" style="font-size: 1.5rem;">
+                            <!-- <i class="fas fa-envelope"></i> -->
+                            <i class="fas fa-shopping-cart"></i>
+                            <span *ngIf="cantidadProductos && cantidadProductos > 0" class="fa-layers-counter fa-2x fa-layers-top-right" style="background:Tomato">{{ cantidadProductos ? cantidadProductos : 0}}</span>
+                        </span>
+                    </a>
+                    <!-- <i class="fas fa-shopping-cart" [routerLink]="['/carrito']" id="carro_compra"></i> -->
                 </li>
             </ul>
 
