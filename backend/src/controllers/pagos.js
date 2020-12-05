@@ -165,7 +165,7 @@ var controller = {
             respuesta = await conf.pool.query(consulta);
 
             envio = respuesta.rows[0].precio;
-            return res.status(200).send('{"subtotal": ' + subTotal + ',"envio": ' + envio + ',"total":' + (subTotal + envio) + '}');
+            return res.status(200).send('{"subtotal": ' + subTotal + ',"envio": ' + envio + ',"total":' + (parseFloat(subTotal) + parseFloat(envio)) + '}');
         } else {
             console.log("No hay cantidad disponible para su compra");
 
