@@ -22,4 +22,8 @@ export class ReportesService {
     return this._http.get(this.url + 'reporteInventario');
   }
 
+  getIngresoReporte() {
+    return this._http.get(this.url + 'reporteIngresos');
+  }
+
 }

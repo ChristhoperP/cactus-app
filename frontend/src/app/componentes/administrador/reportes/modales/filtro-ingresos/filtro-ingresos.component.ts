@@ -23,9 +23,13 @@ export class FiltroIngresosComponent implements OnInit {
   constructor(private _location: Location,private _reporteService: ReportesService, private router: Router) { }
 
   ngOnInit(): void {
-  
-
-   
+    this._reporteService.getIngresoReporte()
+      .subscribe( res => {
+        this.usuarios = res;
+        console.log(res);
+      }, err => {
+        console.log(err);
+      });
   }
  regresar() {
     this._location.back();
