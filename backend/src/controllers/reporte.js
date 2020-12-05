@@ -82,7 +82,39 @@ var controller = {
                 message: 'Error: No se puede obtener esta información'
             })
         }
-    }
-}
+    },
+
+    reporteIngresos: async function(req, res) {
+                   
+                try {
+
+                         const response1 = await conf.pool.query(
+                        `SELECT (date_part('year', fechapedido)) AS IngresosPorAnio, sum(total) AS ventasXanio
+                        FROM pedido
+                        Group by IngresosPorAnio;`);
+                         var IngresosPorAnio = response1.rows;   
+
+
+                        const response2 = await conf.pool.query(`
+                        SELECT to_char(fechapedido, 'YYYY-MM') AS IngresosPorMes, sum(total) AS ventasXmes
+                        FROM pedido
+                        Group by IngresosPorMes;`);
+                        var IngresosPorMes = response2.rows;  
+                    
+                
+                    return res.status(200).send({
+                        IngresosPorAnio: IngresosPorAnio,
+                        IngresosPorMes: IngresosPorMes 
+                    });
+        
+        
+                } catch (err) {
+                    return res.status(500).send({
+                        message: 'Error: No se puede obtener esta información'
+                    })
+                }
+        }    
+    
+};
 
 module.exports = controller;
