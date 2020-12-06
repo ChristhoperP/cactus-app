@@ -185,8 +185,7 @@ export class FiltroVentasComponent implements OnInit {
         (filtro.base==="" || filtro.base===null ))
     {
     this.ventasFiltrado.emit(this.ventas);
-    console.log(this.ventas);
-    
+    this.nombreProducto.emit('');
     console.log("sin filtro");
     }  else {
                // filtro por ID de producto

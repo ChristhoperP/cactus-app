@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FilterPipe } from 'ngx-filter-pipe';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-reporte-inventario',
@@ -8,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class ReporteInventarioComponent implements OnInit {
   inventario:any=[];
   cantidadTotal=0;
+  productosFilterByName = { nombre: '' }; 
 
-  constructor() {
+
+  constructor(private _location: Location, private filter: FilterPipe) {
     this.inventario;
+    this.productosFilterByName;
+
   }
 
   ngOnInit(): void {
@@ -24,5 +30,18 @@ export class ReporteInventarioComponent implements OnInit {
      this.cantidadTotal+=inventario[i].cantidad;
     }
 
+  }
+
+  recibeNombreProducto(nombre){
+    this.productosFilterByName = { nombre: nombre }; 
+    }
+  
+  limpiarModal(){
+    this.inventario = [];
+    this.cantidadTotal=0;
+  }
+
+  regresar() {
+    this._location.back();
   }
 }

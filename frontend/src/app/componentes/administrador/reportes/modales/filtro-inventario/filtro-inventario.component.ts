@@ -4,6 +4,7 @@ import { ProductosService } from '../../../../../servicios/administrador/product
 import { ReportesService } from '../../../../../servicios/administrador/reportes.service';
 import { Router } from '@angular/router';
 import {Location} from '@angular/common';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 
 @Component({
   selector: 'app-filtro-inventario',
@@ -17,12 +18,17 @@ export class FiltroInventarioComponent implements OnInit {
   @Output() 
   inventarioFiltrado = new EventEmitter<Object>();
   
+  @Output() 
+  nombreProducto = new EventEmitter<String>();
+
   categorias:any = [];
   especies:any = [];
   tipoBases:any = [];
   generos:any= [];
   inventario:any = [];
   filtro;
+  generoSeleccionado;
+
 
   formularioInventario:FormGroup = new FormGroup({
     idProducto: new FormControl(''),
@@ -44,11 +50,6 @@ export class FiltroInventarioComponent implements OnInit {
         this.categorias = res;
       } );
 
-    this._productoService.getEspecies ()
-    .subscribe((res:any)=> {
-        this.especies = res;
-    } );
-
     this._productoService.getTiposBases ()
     .subscribe((res:any)=> {
         this.tipoBases = res;
@@ -65,10 +66,20 @@ export class FiltroInventarioComponent implements OnInit {
     });
   }
 
+  obtenerEspeciesXGenero(genero:any): void {
+    this._productoService.getEspecies ()
+    .subscribe((res:any)=> {
+      var especiesGenero:any =[];
+      especiesGenero=res;
+        this.especies=especiesGenero.filter(especie => especie.descripcion_genero === genero);
+    } );
+  }
+
   filtrar(){ 
     this.filtrosInventario();
     this.showModalInventario=false;
     this.closeAddExpenseModalInventario.nativeElement.click();
+    this.formularioInventario.reset();
   }
 
   filtrosInventario(){
@@ -81,16 +92,95 @@ export class FiltroInventarioComponent implements OnInit {
     }
     this.filtro=filtro;
 
-    if (filtro.id==="" && 
-        filtro.nombre==="" && 
-        filtro.categoria==="" && 
-        filtro.especie==="" && 
-        filtro.base==="") 
+    if ((filtro.id==="" || filtro.id===null) && 
+        (filtro.nombre==="" || filtro.nombre===null) && 
+        (filtro.categoria==="" || filtro.categoria===null) && 
+        (filtro.especie==="" || filtro.especie===null) && 
+        (filtro.base==="" || filtro.base===null)) 
     {
-    this.inventarioFiltrado.emit(this.inventario);
-    console.log("sin filtro");
-    }
+      this.inventarioFiltrado.emit(this.inventario);
+      this.nombreProducto.emit('');
+      console.log("sin filtro");
+    } else {
+      // filtro por ID de producto
+       if ((filtro.id!="" || filtro.id!=null) && 
+           (filtro.nombre==="" || filtro.nombre===null) && 
+           (filtro.categoria==="" || filtro.categoria===null) && 
+           (filtro.especie==="" || filtro.especie===null) && 
+           (filtro.base==="" || filtro.base===null)) {
+         var filtroInventarioID:any = [];
 
+         filtroInventarioID=this.inventario.filter(inventario => inventario.idproducto === parseInt(filtro.id) );
+         console.log(filtroInventarioID);
+         
+         this.inventarioFiltrado.emit(filtroInventarioID);
+       }
+       else {
+             //filtro por nombre del producto
+               if ((filtro.id==="" ||filtro.id===null)  && 
+                   (filtro.nombre!="" || filtro.nombre!=null)&& 
+                   (filtro.categoria==="" || filtro.categoria===null)  && 
+                   (filtro.especie==="" || filtro.especie===null) && 
+                   (filtro.base==="" || filtro.base===null)) {
+                 var filtroInventarioNombre:any = [];
+                 console.log(filtroInventarioNombre);
+                 this.inventarioFiltrado.emit(this.inventario);
+                 this.nombreProducto.emit(filtro.nombre);
+               }
+               else{
+                   //filtro por categoria del producto
+                       if ((filtro.id==="" || filtro.id===null) && 
+                           (filtro.nombre==="" || filtro.nombre===null) && 
+                           (filtro.categoria!="" || filtro.categoria!=null) && 
+                           (filtro.especie==="" || filtro.especie===null) && 
+                           (filtro.base===""|| filtro.base===null) ) {
+                         var filtroInventarioCategoria:any = [];
+
+                         filtroInventarioCategoria=this.inventario.filter(inventario => inventario.categoria === filtro.categoria);
+                         console.log(filtroInventarioCategoria);
+                         this.inventarioFiltrado.emit(filtroInventarioCategoria);
+                       }
+                       else{
+                           //filtro por base del producto
+                               if ((filtro.id==="" || filtro.id===null) && 
+                                   (filtro.nombre==="" || filtro.nombre===null) && 
+                                   (filtro.categoria==="" || filtro.categoria===null) && 
+                                   (filtro.especie==="" || filtro.especie===null) && 
+                                   (filtro.base!=""|| filtro.base!=null) ) {
+                                 var filtroInventarioBase:any = [];
+
+                                 filtroInventarioBase=this.inventario.filter(inventario => inventario.tipodebase === filtro.base);
+                                 console.log(filtroInventarioBase);
+                                 this.inventarioFiltrado.emit(filtroInventarioBase);
+                               }
+                               else{
+                                  //filtro por especie del producto
+                                    if ((filtro.id==="" || filtro.id===null) && 
+                                        (filtro.nombre==="" || filtro.nombre===null) && 
+                                        (filtro.categoria==="" || filtro.categoria===null) && 
+                                        (filtro.especie!="" || filtro.especie!=null) && 
+                                        (filtro.base===""|| filtro.base===null) ) {
+                                        var filtroInventarioEspecie:any = [];
+
+                                        filtroInventarioEspecie=this.inventario.filter(inventario => {
+                                                                                          var especie;
+                                                                                          for (let i = 0; i < inventario.especie.length; i++) {
+                                                                                            if (inventario.especie[i] === filtro.especie) {
+                                                                                              especie = inventario.especie[i];
+                                                                                              console.log(especie); 
+                                                                                              break;
+                                                                                            }
+                                                                                          }
+                                                                                          return especie;
+                                                                                        });
+                                        console.log(filtroInventarioEspecie);
+                                        this.inventarioFiltrado.emit(filtroInventarioEspecie);
+                                    }
+                                   }
+                           }
+                   }
+            }
+           }
     return console.log(this.filtro);
   }
 

@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="row mt-2 mb-3">
-        <button type="button" class="btn btn-sm mr-auto btn-volver" data-toggle="modal" data-target="#filtroInventario"><i class="fa fa-reply-all" aria-hidden="true"></i> Volver</button>
+        <button type="button" class="btn btn-sm mr-auto btn-volver" (click)="limpiarModal()" data-toggle="modal" data-target="#filtroInventario"><i class="fa fa-reply-all" aria-hidden="true"></i> Volver</button>
         <h4>Reporte de Inventario</h4>
         <button type="button" class="btn btn-sm ml-auto btn-volver"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar PDF</button>
     </div>
@@ -21,12 +21,16 @@
                 </thead>
                 <tbody>
 
-                    <tr *ngFor="let producto of inventario" class="product-row">
+                    <tr *ngFor="let producto of inventario | filterBy: productosFilterByName" class="product-row">
                         <th scope="row" class="product-id">{{producto.idproducto}}</th>
                         <td>{{producto.nombre}}</td>
                         <td>{{producto.categoria}}</td>
                         <td>{{producto.tipodebase}}</td>
-                        <td>{{producto.especie}}</td>
+                        <td>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item p-0 pl-1 text-left"  *ngFor="let especie of producto.especie">{{especie}}</li>
+                            </ul>
+                        </td>
                         <td class="text-center">{{producto.cantidad}}</td>
                         <td>L {{producto.precio}}</td>
                     </tr>
@@ -45,5 +49,5 @@
         </div>
     </div>
 </div>
-<app-filtro-inventario (inventarioFiltrado)="recibeInventario($event)"></app-filtro-inventario>
+<app-filtro-inventario (inventarioFiltrado)="recibeInventario($event)" (nombreProducto)="recibeNombreProducto($event)"></app-filtro-inventario>
 
