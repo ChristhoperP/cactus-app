@@ -64,6 +64,37 @@ export class FiltroUsuariosComponent implements OnInit {
     this.usuarioFiltrado.emit(this.usuarios);
     console.log("sin filtro");
     }
+  
+  
+    if (filtro.fechafin==="" &&
+    filtro.fechainicio==="" &&
+      filtro.id!="" && 
+        filtro.nombre==="" ) 
+    {
+      var filtroUsuarioId:any[];
+
+      filtroUsuarioId=this.usuarios.filter(usuario => usuario.idusuario === parseInt(filtro.id));
+      console.log(filtroUsuarioId);
+
+      this.usuarioFiltrado.emit(filtroUsuarioId);
+    }
+    if (filtro.fechafin==="" &&
+    filtro.fechainicio==="" &&
+      filtro.id==="" && 
+        filtro.nombre!="" ) 
+    {
+      var filtroNombre:any[];
+
+      filtroNombre=this.usuarios.filter(usuario => usuario.nombre.split(' ')[0]===filtro.nombre   || usuario.nombre===filtro.nombre   );
+
+
+      console.log(filtroNombre);
+
+      this.usuarioFiltrado.emit(filtroNombre);
+    }
+
+
+
 
     return console.log(this.filtro);
   }
