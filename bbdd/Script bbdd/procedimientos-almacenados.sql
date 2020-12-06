@@ -1064,7 +1064,8 @@ CREATE OR REPLACE FUNCTION SP_REGISTRAR_PEDIDO
 	OUT p_ocurrioError INT,
 	OUT p_mensajePedido VARCHAR(200),
 	OUT p_mensajeProductos VARCHAR(200),
-	OUT p_id INT
+	OUT p_id INT,
+	OUT p_mensajeCantidadProductos VARCHAR(200)
 )
 RETURNS RECORD AS $BODY$
 	DECLARE vnIdPedido INT;
@@ -1073,6 +1074,7 @@ RETURNS RECORD AS $BODY$
 	DECLARE vnIdPromocion INT;
 	DECLARE vcDescripcion VARCHAR(200);
 	DECLARE vnPorcentaje DECIMAL;
+	DECLARE vnCantidadProducto INT;
 BEGIN
 	--Validar que los campos no sean null
 	IF(p_total IS NULL OR p_estado IS NULL OR p_IdEnvio IS NULL OR p_idUsuario IS NULL OR p_productos IS NULL) THEN
@@ -1095,7 +1097,7 @@ BEGIN
    p_id:=vnIdPedido;
 
 	--Registrar los pedido_has_producto
-    for i in 1..array_length(p_productos, 1)
+   for i in 1..array_length(p_productos, 1)
 	loop
 		--Obtener precio del producto, id de la promocion, descripcion y % de descuento
 		--Validar que los productos existan
@@ -1128,6 +1130,21 @@ BEGIN
 				promocionaplicada_idpromocionaplicada, pedido_has_producto_pedido_idpedido, pedido_has_producto_producto_idproducto)
 				VALUES (vnIdPromocionAplicada, vnIdPedido, p_productos[i][1]);
 			END IF;
+			
+			--Reducir la cantidad de producto en el inventario
+			SELECT cantidad INTO vnCantidadProducto
+			 FROM PRODUCTO 
+			 WHERE idproducto = p_productos[i][1];
+
+			 IF (vnCantidadProducto>=p_productos[i][2]) THEN
+				 UPDATE producto
+				 SET cantidad = (cantidad-p_productos[i][2])
+				 WHERE idproducto = p_productos[i][1];
+
+				 p_mensajeCantidadProductos:= CONCAT(p_mensajeCantidadProductos,'Cantidad en el producto ', p_productos[i][1], ' se actualizo correctamente.');
+			 ELSE
+				p_mensajeCantidadProductos:= CONCAT(p_mensajeCantidadProductos,'Error: Cantidad en el producto ', p_productos[i][1], ' NO se actualizo correctamente porque no hay disponibilidad en el inventario.');
+			 END IF;
 			
 		ELSE
 			p_mensajeProductos:='No se registraron todos los productos.';

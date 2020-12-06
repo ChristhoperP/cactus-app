@@ -194,15 +194,24 @@ export class InformacionPagoComponent implements OnInit {
               });
 
               //Redireccionar al Historial de compras
-              this.router.navigate(['/inicio']);
+              this.router.navigate(['/historial-compra']);
             },
               err => {
-                console.log(err);
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
-                  text: `No se pudo realizar la compra.`
-                });
+                console.log(err.error);
+                if (err.error.pagoRecibido==0) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: `Error al realizar la compra.`
+                  });
+                }else{
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: `Error al registrar el pedido. El pago se realizó correctamente. Contacte con el vendedor.`
+                  });
+                  this.router.navigate(['/inicio']);
+                }
               });
         
         } else if (result.error) {

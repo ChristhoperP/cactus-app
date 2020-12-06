@@ -8,7 +8,7 @@ var controller = {
 
     setPago: async function (req, res) {
         //console.log(req.body);
-        var sendRespuesta = JSON.parse('{"mensaje": "", "infoenvio":"", "pedido":""}');
+        var sendRespuesta = JSON.parse('{"mensaje": "", "pagoRecibido": 0, "infoenvio":"", "pedido":"", "cantidadProducto":""}');
 
         //Obtener el email del cliente
         const response = await conf.pool.query(
@@ -22,7 +22,7 @@ var controller = {
             });
 
             const charge = await stripe.charges.create({
-                amount: req.body[2] * 100,
+                amount: parseInt(req.body[2] * 100),
                 currency: 'HNL',
                 customer: customer.id,
                 description: 'Compra de prueba'
@@ -33,6 +33,7 @@ var controller = {
 
             //En caso de que el pago se haya realizado en Stripe
             if (charge.id) {
+                sendRespuesta.pagoRecibido=1;
                 //Registrar la informacion de envio y recibir el id
                 let p_ocurrioerror;
                 let p_mensaje;
@@ -68,6 +69,8 @@ var controller = {
                     });
                     //console.log(productos);
 
+                    //Reducir la cantidad en los productos
+
                     //Registrar el pedido
                     const response = await conf.pool.query(
                         'SELECT sp_registrar_pedido($1,$2,$3,$4,$5);',
@@ -85,6 +88,8 @@ var controller = {
                     let p_mensajepedido = arregloRes[1];
                     let p_mensajeproductos = arregloRes[2];
                     p_id = arregloRes[3];
+                    let p_mensajeCantidadProductos= arregloRes[4];
+                    sendRespuesta.cantidadProducto=p_mensajeCantidadProductos;
 
                     if (p_ocurrioerror == 0) {
                         //Se reporta que el registro del pedido tuvo exito
@@ -110,7 +115,7 @@ var controller = {
         } catch (error) {
             console.log(error);
             //ocurrio un error durante el pago
-            sendRespuesta.mensaje = 'Error: no se pudo tramitar el pago.';
+            sendRespuesta.mensaje = 'Error: ocurrió un problema al registrar el pedido.';
             return res.status(500).send(sendRespuesta);
         }
     },
