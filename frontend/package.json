@@ -32,6 +32,7 @@
     "ngx-image2dataurl": "^10.0.1",
     "ngx-stripe": "^10.1.2",
     "popper.js": "^1.16.1",
+    "primeng": "^11.0.0-rc.2",
     "rxjs": "~6.6.0",
     "stripe": "^8.126.0",
     "sweetalert2": "^10.6.1",
