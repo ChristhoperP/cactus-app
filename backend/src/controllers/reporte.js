@@ -51,16 +51,81 @@ var controller = {
     reporteInventario: async function(req, res) {
             
             const response = await conf.pool.query(`SELECT * FROM REPORTE_INVENTARIO`);
-            res.json(response.rows);
+            /* res.json(response.rows); */
+
+            var respuesta = response.rows;
+
+            var idproductoAnt = 0;
+            var idproducto = 0;
+            var indiceProducto = 0;
+            var especie = [];
+            var elementosAEliminar = [];
+
+            respuesta.forEach((element, indice) => {
+                idproducto = element.idproducto; //Se obtiene el id del elemento actual
+                especie = []; //se establece un arreglo vacio para almacenar la especie
+                if (idproducto == idproductoAnt) { //Si el id del elemento actual coincide con el id del elemento anterior:
+                    respuesta[indiceProducto].especie.push(element.especie); //La especie del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
+                    elementosAEliminar.push(indice);
+                } else {
+                    //Si no es igual el elemento anterior con el actual:
+                    especie.push(element.especie); //la especie actual se almacena en un arreglo
+                    element.especie = especie; //la especie del elemento actual se convierte en un arreglo
+                    indiceProducto = indice; //se almacena el indice del array que contiene el elemento actual
+                    idproductoAnt = idproducto; //el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
+                }
+            });
+
+            //Se eliminan los elementos que no se necesitan
+
+            var respuesta1 = [];
+            respuesta.forEach((element, indice) => {
+                if (!(elementosAEliminar.indexOf(indice) >= 0)) {
+
+                    respuesta1.push(element);
+                }
+            });
+
+            return res.status(200).send(respuesta1);
     },
     reporteVentas: async function(req, res) {
         try {
             const response = await conf.pool.query('SELECT * FROM REPORTE_VENTAS order by idProducto;');
             var respuesta = response.rows;
 
-            return res.status(200).send({
-                respuesta
-            })
+            var idproductoAnt = 0;
+            var idproducto = 0;
+            var indiceProducto = 0;
+            var especie = [];
+            var elementosAEliminar = [];
+
+            respuesta.forEach((element, indice) => {
+                idproducto = element.idproducto; //Se obtiene el id del elemento actual
+                especie = []; //se establece un arreglo vacio para almacenar la especie
+                if (idproducto == idproductoAnt) { //Si el id del elemento actual coincide con el id del elemento anterior:
+                    respuesta[indiceProducto].especie.push(element.especie); //La especie del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
+                    elementosAEliminar.push(indice);
+                } else {
+                    //Si no es igual el elemento anterior con el actual:
+                    especie.push(element.especie); //la especie actual se almacena en un arreglo
+                    element.especie = especie; //la especie del elemento actual se convierte en un arreglo
+                    indiceProducto = indice; //se almacena el indice del array que contiene el elemento actual
+                    idproductoAnt = idproducto; //el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
+                }
+            });
+
+            //Se eliminan los elementos que no se necesitan
+
+            var respuesta1 = [];
+            respuesta.forEach((element, indice) => {
+                if (!(elementosAEliminar.indexOf(indice) >= 0)) {
+
+                    respuesta1.push(element);
+                }
+            });
+
+            return res.status(200).send(respuesta1);
+            
         } catch (err) {
             console.log(err);
             return res.status(500).send({
