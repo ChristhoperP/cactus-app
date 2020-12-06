@@ -67,8 +67,8 @@ SELECT A.idpedido, A.fechapedido, A.total,
 FROM pedido A LEFT JOIN usuario B ON A.usuario_idusuario = B.idusuario;
 
 CREATE OR REPLACE VIEW REPORTE_USUARIO AS
-SELECT us.idusuario, us.nombre, us.correo, us.telefono, us.direccion, us.fecharegistro,pe.idpedido,pe.fechapedido 
-FROM pedido pe LEFT JOIN usuario us ON pe.usuario_idusuario = us.idusuario
+SELECT us.idusuario, us.nombre, us.correo, us.telefono, us.direccion, us.fecharegistro 
+FROM usuario us
 WHERE tipo_usuario_idtipo_usuario = 2;
 
 
