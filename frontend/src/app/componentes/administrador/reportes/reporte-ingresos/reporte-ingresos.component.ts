@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportesService } from '../../../../servicios/administrador/reportes.service';
 import {Location} from '@angular/common';
 
 @Component({
@@ -8,12 +9,21 @@ import {Location} from '@angular/common';
 })
 export class ReporteIngresosComponent implements OnInit {
   ingresosAnio:any = [];
+  ingresosMes:any = [];
+  tablaOcultaMes:boolean=false;
+  tablaOcultaAnio:boolean=true;
 
-  constructor( private _location: Location) { 
+  constructor( private _location: Location,private _reporteService: ReportesService) { 
     this.ingresosAnio;
   }
 
   ngOnInit(): void {
+    this._reporteService.getIngresoReporte()
+    .subscribe( (res:any) => {
+      this.ingresosAnio = res.IngresosPorAnio;
+      this.ingresosMes=res.IngresosPorMes;
+      console.log( this.ingresosMes);
+          }, err => { console.log(err); });
   }
 
   recibeIngresos(ingresosAnio){
@@ -23,6 +33,17 @@ export class ReporteIngresosComponent implements OnInit {
 
   regresar() {
     this._location.back();
+  }
+
+  ocultarTabla(tabla){
+    switch(tabla){
+      case "Anio": this.tablaOcultaAnio=true;
+      this.tablaOcultaMes=false;
+      break;
+      case "Mes":this.tablaOcultaMes=true;
+      this.tablaOcultaAnio=false;
+      break;
+    }
   }
 
 }

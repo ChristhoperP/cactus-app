@@ -2,13 +2,17 @@ import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter  } from 
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
 import { ReportesService } from '../../../../../servicios/administrador/reportes.service';
 import { Router } from '@angular/router';
-import {Location} from '@angular/common';
+import {Location, DatePipe } from '@angular/common';
+import { bindNodeCallback } from 'rxjs';
+import { stringify } from 'querystring';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 
 
 @Component({
   selector: 'app-filtro-usuarios',
   templateUrl: './filtro-usuarios.component.html',
-  styleUrls: ['./filtro-usuarios.component.css']
+  styleUrls: ['./filtro-usuarios.component.css'],
+  providers: [DatePipe]
 })
 export class FiltroUsuariosComponent implements OnInit {
   @ViewChild('closeAddExpenseModalUsuarios') closeAddExpenseModalUsuarios: ElementRef;
@@ -17,7 +21,12 @@ export class FiltroUsuariosComponent implements OnInit {
   @Output() 
   usuarioFiltrado = new EventEmitter<Object>();
 
+  @Output() 
+  nombreUsuario = new EventEmitter<String>();
+
+  fechaActual:any = new Date();
   usuarios:any = [];
+  
   filtro;
 
   formularioUsuario:FormGroup = new FormGroup({
@@ -27,7 +36,14 @@ export class FiltroUsuariosComponent implements OnInit {
     nombreUsuario: new FormControl(''),
   
   });
-  constructor( private _location: Location,private _reporteService: ReportesService, private router: Router) { }
+  constructor( private datePipe: DatePipe,
+     private _location: Location,
+    private _reporteService: ReportesService,
+     private router: Router) {
+       
+      this.fechaActual = this.datePipe.transform(this.fechaActual, 'yyyy-MM-dd');
+      console.log(this.fechaActual);
+     }
 
   ngOnInit(): void {
     this._reporteService.getUsuariosReporte()
@@ -44,6 +60,7 @@ export class FiltroUsuariosComponent implements OnInit {
     this.filtrosUsuarios();
     this.showModalUsuarios=false;
     this.closeAddExpenseModalUsuarios.nativeElement.click();
+    this.formularioUsuario.reset();
   }
 
 
@@ -56,47 +73,77 @@ export class FiltroUsuariosComponent implements OnInit {
     }
     this.filtro=filtro;
 
-    if (filtro.fechafin==="" &&
-    filtro.fechainicio==="" &&
-      filtro.id==="" && 
-        filtro.nombre==="" ) 
+    if ((filtro.fechafin===""  || filtro.fechafin===null)  && 
+    (filtro.fechainicio===""  || filtro.fechainicio===null) && 
+    (filtro.id===""  || filtro.id===null) && 
+    (filtro.nombre===""  || filtro.nombre===null) )
     {
     this.usuarioFiltrado.emit(this.usuarios);
+    console.log(this.usuarios);
     console.log("sin filtro");
-    }
-  
-  
-    if (filtro.fechafin==="" &&
-    filtro.fechainicio==="" &&
-      filtro.id!="" && 
-        filtro.nombre==="" ) 
-    {
-      var filtroUsuarioId:any[];
+    } else {
+      // filtro por ID de usuario
+       if ((filtro.fechainicio==="" || filtro.fechainicio===null) && 
+           (filtro.fechafin==="" || filtro.fechafin===null) && 
+           (filtro.id!="" || filtro.id!=null) && 
+           (filtro.nombre==="" || filtro.nombre===null) ) {
+         var filtroUsuarioID:any = [];
 
-      filtroUsuarioId=this.usuarios.filter(usuario => usuario.idusuario === parseInt(filtro.id));
-      console.log(filtroUsuarioId);
+         filtroUsuarioID=this.usuarios.filter(usuario => usuario.idusuario === parseInt(filtro.id) );
+         console.log(filtroUsuarioID);
+         
+         this.usuarioFiltrado.emit(filtroUsuarioID);
+       }
+       else {
+             //filtro por nombre del usuario
+               if ((filtro.fechainicio==="" || filtro.fechainicio===null) && 
+                   (filtro.fechafin==="" || filtro.fechafin===null) && 
+                   (filtro.id==="" ||filtro.id===null)  && 
+                   (filtro.nombre!="" || filtro.nombre!=null))
+                    {
+                 var filtroUsuarioNombre:any = [];
 
-      this.usuarioFiltrado.emit(filtroUsuarioId);
-    }
-    if (filtro.fechafin==="" &&
-    filtro.fechainicio==="" &&
-      filtro.id==="" && 
-        filtro.nombre!="" ) 
-    {
-      var filtroNombre:any[];
+                
+                 console.log(filtroUsuarioNombre);
+                 this.usuarioFiltrado.emit(this.usuarios);
+                 this.nombreUsuario.emit(filtro.nombre);
+               }
+   
+                                   else {
+                                     //filtro por fecha de venta del producto
+                                         if ((filtro.fechainicio!="" || filtro.fechainicio!=null)  && 
+                                             (filtro.fechafin!="" || filtro.fechafin!=null) && 
+                                             (filtro.id==="" || filtro.id===null) && 
+                                             (filtro.nombre==="" || filtro.nombre===null) 
+                                              ) {
+                                             var filtroFecha:any = [];
+                                               
+                                             if (filtro.fechafin<=this.fechaActual) {
+                                               if (filtro.fechafin>filtro.fechainicio) {
+                                                filtroFecha=this.usuarios.filter(usuario => (usuario.fecharegistro>=filtro.fechainicio && usuario.fecharegistro<=filtro.fechafin));
+                                                 console.log(filtroFecha);
+                                                 this.usuarioFiltrado.emit(filtroFecha);
+                                               }else {
+                                                 Swal.fire({
+                                                   icon: 'error',
+                                                   title: 'Error',
+                                                   text: 'La fecha final debe ser mayor a la fecha inicial'
+                                                 });
+                                               }
+                                             }else {
+                                               Swal.fire({
+                                                 icon: 'error',
+                                                 title: 'Error',
+                                                 text: 'Le fecha final no debe exceder la fecha actual'
+                                               });
+                                             }
+                                         }
+                                   }
 
-      filtroNombre=this.usuarios.filter(usuario => usuario.nombre.split(' ')[0]===filtro.nombre   || usuario.nombre===filtro.nombre   );
+       }
+}
+return console.log(this.filtro);
 
-
-      console.log(filtroNombre);
-
-      this.usuarioFiltrado.emit(filtroNombre);
-    }
-
-
-
-
-    return console.log(this.filtro);
   }
 
   regresar() {

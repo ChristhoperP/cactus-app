@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row mb-3">
-        <button type="button" class="btn btn-sm mr-auto btn-volver" data-toggle="modal" data-target="#filtroUsuarios"><i class="fa fa-reply-all" aria-hidden="true"></i> Volver</button>
+        <button type="button" class="btn btn-sm mr-auto btn-volver" (click)="limpiarModal()" data-toggle="modal" data-target="#filtroUsuarios"><i class="fa fa-reply-all" aria-hidden="true"></i> Volver</button>
         <h4 class="ml-3">Reporte de Usuarios</h4>
         <button type="button" class="btn btn-sm ml-auto btn-volver"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar PDF</button>
     </div>
@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let usuario of usuarios ">
+                    <tr *ngFor="let usuario of usuarios | filterBy: usuarioFilterByName">
                         <th scope="row">{{ usuario.idusuario }}</th>
                         <td>{{ usuario.nombre }}</td>
                         <td>{{ usuario.correo }}</td>
@@ -32,4 +32,4 @@
         </div>
     </div>
 </div>
-<app-filtro-usuarios (usuarioFiltrado)="recibeUsuario($event)"></app-filtro-usuarios>
+<app-filtro-usuarios (usuarioFiltrado)="recibeUsuario($event)" (nombreUsuario)="recibeNombreUsuario($event)"></app-filtro-usuarios>
