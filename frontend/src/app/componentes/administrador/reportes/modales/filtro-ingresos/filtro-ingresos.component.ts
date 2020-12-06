@@ -10,27 +10,55 @@ import {Location} from '@angular/common';
   styleUrls: ['./filtro-ingresos.component.css']
 })
 export class FiltroIngresosComponent implements OnInit {
-  @ViewChild('showModalIngresos') closeAddExpenseModalVentas: ElementRef;
+  @ViewChild('closeAddExpenseModalIngresos') closeAddExpenseModalIngresos: ElementRef;
   showModalIngresos: boolean = true;
 
-  usuarios: any = [];
+  @Output() 
+  ingresoFiltrado = new EventEmitter<Object>();
+
+  ingresosAnio: any = [];
+  filtro;
+
   formularioIngresos:FormGroup = new FormGroup({
-    
-    Anio: new FormControl(''),
-    Mes: new FormControl(''),
-  
+    Anio: new FormControl('Anio'),
+    Mes: new FormControl('Mes'),
   });
+
   constructor(private _location: Location,private _reporteService: ReportesService, private router: Router) { }
 
   ngOnInit(): void {
-    this._reporteService.getIngresoReporte()
-      .subscribe( res => {
-        this.usuarios = res;
+      this._reporteService.getIngresoReporte()
+      .subscribe( (res:any) => {
+        this.ingresosAnio = res;
         console.log(res);
-      }, err => {
-        console.log(err);
-      });
+            }, err => { console.log(err); });
   }
+
+  filtrar(){ 
+    this.filtrosIngresos();
+    this.showModalIngresos=false;
+    this.closeAddExpenseModalIngresos.nativeElement.click();
+  }
+  
+  filtrosIngresos(){
+    var filtro = {
+      "anio":this.formularioIngresos.get("Anio").value,
+      "mes":this.formularioIngresos.get("Mes").value,
+    }
+    this.filtro=filtro;
+
+    if (filtro.anio==="" &&
+    filtro.mes===""  ) 
+    {
+    this.ingresoFiltrado.emit(this.ingresosAnio);
+    console.log("sin filtro");
+    }
+
+    return console.log(this.filtro);
+  }
+
+
+
  regresar() {
     this._location.back();
   }
