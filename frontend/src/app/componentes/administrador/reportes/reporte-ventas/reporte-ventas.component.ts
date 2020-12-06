@@ -32,6 +32,7 @@ export class ReporteVentasComponent implements OnInit {
 
   recibeNombreProducto(nombre){
   this.productosFilterByName = { nombre_producto: nombre }; 
+  console.log(this.productosFilterByName);
   }
 
   limpiarModal(){
