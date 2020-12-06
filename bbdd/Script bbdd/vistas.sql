@@ -80,7 +80,7 @@ INNER JOIN ESPECIE ES ON ES.IDESPECIE=PRES.ESPECIE_IDESPECIE
 INNER JOIN TIPOBASE TP ON TP.IDTIPOBASE = PR.TIPOBASE_IDTIPOBASE;
 
 CREATE OR REPLACE VIEW reporte_ventas AS
-SELECT C.idproducto, C.nombre AS nombre_producto, A.fechapedido, B.precioproducto AS precio_venta, 
+SELECT C.idproducto, C.nombre AS nombre_producto, to_char(A.fechapedido , 'YYYY-MM-DD') AS fechapedido, B.precioproducto AS precio_venta, 
         B.cantidad AS cantidad_vendida, D.descripcion AS categoria, E.descripcion AS tipobase,
 	G.descripcion AS especie, H.idusuario, H.nombre AS nombre_usuario
 FROM pedido AS A LEFT JOIN pedido_has_producto AS B ON A.idpedido = B.pedido_idpedido 
