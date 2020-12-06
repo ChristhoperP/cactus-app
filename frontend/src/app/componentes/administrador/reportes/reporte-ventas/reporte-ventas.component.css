@@ -1,3 +1,11 @@
 h4{
     color: #3E7B7E;
 }
+
+.list-group{
+    max-height: 50px;
+    overflow:scroll; 
+    overflow-x:auto;
+    overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
+}
