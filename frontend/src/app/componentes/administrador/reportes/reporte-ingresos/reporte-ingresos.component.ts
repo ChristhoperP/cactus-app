@@ -23,14 +23,8 @@ export class ReporteIngresosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  recibeIngresosAnio(ingresosAnio){
-    var ingresos:any=[];
-    ingresos=ingresosAnio;
-    
-  for(let i=0; i<ingresos.length; i++){
-    this.ingresosAnio.push(ingresos[i]);
-    console.log(ingresos[i].ventasxanio);
- }
+  recibeIngresosAnio(anio:any){
+    this.ingresosAnio=anio;
     console.log(this.ingresosAnio);
   }
 
