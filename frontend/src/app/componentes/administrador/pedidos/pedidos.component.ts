@@ -43,17 +43,25 @@ export class PedidosComponent implements OnInit {
 
   cambiarEstadoPedido(idpedido): void {
     const index = this.pedidos.findIndex( pedido => pedido.idpedido === idpedido);
-    this.pedidos[index].estado = 'completado';
 
-    this.pedidosPendientes = 0;
-    this.pedidosCompletados = 0;
-    for (const pedido of this.pedidos) {
-      if (pedido.estado === 'pendiente'){
-        this.pedidosPendientes ++;
-      } else {
-        this.pedidosCompletados ++;
-      }
-    }
+    this.pedidosService.setEstadoPedido({ idPedido: idpedido, nuevoEstado: 'completado'})
+      .subscribe(res => {
+        console.log(res);
+        this.pedidos[index].estado = 'completado';
+
+        this.pedidosPendientes = 0;
+        this.pedidosCompletados = 0;
+        for (const pedido of this.pedidos) {
+          if (pedido.estado === 'pendiente'){
+            this.pedidosPendientes ++;
+          } else {
+            this.pedidosCompletados ++;
+          }
+        }
+
+        console.log('Completados: ', this.pedidosCompletados);
+        console.log('Pendientes: ', this.pedidosPendientes);
+      }, err => { console.log(err); });
 
     console.log('Completados: ', this.pedidosCompletados);
     console.log('Pendientes: ', this.pedidosPendientes);
