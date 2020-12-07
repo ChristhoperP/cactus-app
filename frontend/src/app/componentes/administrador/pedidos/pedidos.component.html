@@ -45,7 +45,10 @@
                         </td>
                         <td class="text-center">L {{ pedido.total | number }}</td>
                         <td><button role="button" [disabled]="pedido.estado === 'completado'" class="btn order-status-label" [class.pending]="pedido.estado === 'pendiente'" [class.completed]="pedido.estado === 'completado'" (click)="cambiarEstadoPedido(pedido.idpedido)"
-                                [title]="pedido.estado === 'pendiente' ? 'Marcar como completado' : 'Pedido completado'">{{ pedido.estado }}</button></td>
+                                [title]="pedido.estado === 'pendiente' ? 'Marcar como completado' : 'Pedido completado'">
+                                <span *ngIf="pedido.estado === 'completado'"><i class="fas fa-check" [class.d-inline-block]="pedido.estado === 'completado'? true : false"></i></span>
+                                <span *ngIf="pedido.estado === 'pendiente'"><i class="fas fa-hourglass-half" [class.d-inline-block]="pedido.estado === 'pendiente'? true : false"></i></span>
+                                {{ pedido.estado }}</button></td>
                     </tr>
                     <tr *ngIf="(!pedidos || pedidos.length === 0)">
                         <td colspan="6" class="text-danger text-center">

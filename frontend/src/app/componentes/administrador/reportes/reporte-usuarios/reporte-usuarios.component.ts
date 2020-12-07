@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
 import { FilterPipe } from 'ngx-filter-pipe';
+import { Global } from 'src/app/servicios/global';
+
+/* Para generar PDF */
+import { Canvas, Columns, Img, Line, PdfMakeWrapper, Stack, Table, Txt } from 'pdfmake-wrapper';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+
+PdfMakeWrapper.setFonts(pdfFonts);
 
 @Component({
   selector: 'app-reporte-usuarios',
@@ -9,14 +16,17 @@ import { FilterPipe } from 'ngx-filter-pipe';
 })
 export class ReporteUsuariosComponent implements OnInit {
   usuarios:any = [];
-  usuarioFilterByName = { nombre: '' }; 
-  
+  usuarioFilterByName = { nombre: '' };
+
+  pdf = new PdfMakeWrapper();
+
   constructor( private _location: Location, private filter: FilterPipe) {
     this.usuarios;
     this.usuarioFilterByName;
    }
 
   ngOnInit(): void {
+    this.getImagenReporte();
   }
 
   recibeUsuario(usuarios:any){
@@ -37,5 +47,85 @@ export class ReporteUsuariosComponent implements OnInit {
   regresar() {
     this._location.back();
   }
+
+  async getImagenReporte(){
+    this.pdf.images({headerImg: await new Img(Global.url + 'get-image/logo_vector.png').build()});
+  }
+
+  getTablaReporte( usuarios: any[]) {
+    return usuarios.map( usr => [usr.idusuario, usr.nombre, usr.correo, usr.telefono, usr.direccion, new Date(usr.fecharegistro).toLocaleDateString()]);
+  }
+
+  getEncabezadoTabla() {
+    return [
+      new Txt('Código').alignment('center').bold().color('white').end,
+      new Txt('Nombre de usuario').alignment('center').bold().color('white').end,
+      new Txt('Correo Electrónico').alignment('center').bold().color('white').end,
+      new Txt('Teléfono').alignment('center').bold().color('white').end,
+      new Txt('Dirección').alignment('center').bold().color('white').end,
+      new Txt('Fecha de registro').alignment('center').bold().color('white').end
+    ];
+  }
+
+  generarPDF(): void {
+
+    this.pdf.pageSize('letter');
+    this.pdf.pageMargins([50, 85, 50, 72]);
+
+    this.pdf.info({
+      title: `Reporte de usuarios ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
+    });
+
+    this.pdf.add(
+      new Canvas([new Line([0, 0], [612, 0]).color('grey').lineWidth(5).end]).height(5).absolutePosition(0, 70).end
+      );
+
+    this.pdf.header(
+      new Columns([
+        { image: 'headerImg', width: 50, height: 50 },
+        new Txt('Cactus HN').bold().fontSize(24).width(125).margin([10, 11, 0, 0]).end,
+        new Txt('REPORTE DE USUARIOS').fontSize(20).bold().decoration('underline').width(315).margin([0, 15, 0, 0]).alignment('center').end,
+        [
+          new Txt(`Generado el ${new Date().toLocaleDateString()}`).fontSize(10).italics().width(102).margin([0, 11, 0, 0]).alignment('left').end,
+          new Txt(`A las ${new Date().toLocaleTimeString()}`).fontSize(10).italics().width(102).margin([0, 5, 0, 0]).alignment('left').end
+        ]
+      ]).margin([10, 10, 0, 0]).alignment('left').end
+    );
+
+    const table = new Table([
+      this.getEncabezadoTabla(),
+        ...this.getTablaReporte(this.usuarios)
+      ])
+      .fontSize(8)
+      .widths([30, 90, 90, 55, 120, 72])
+      .headerRows(1)
+      .alignment('center')
+      .layout({
+        fillColor: (rowIndex: number, node: any, columnIndex: number) => {
+          return rowIndex === 0 ? 'black' : rowIndex % 2 === 0 ? 'white' : 'white';
+        },
+        hLineColor: (rowIndex: number, node: any, columnIndex: number) => {
+          return (rowIndex === 0 || rowIndex === 1) ? 'black' : 'lightgrey';
+        },
+        vLineColor: (rowIndex: number, node: any, columnIndex: number) => {
+          return 'lightgrey';
+        },
+        vLineWidth : (rowIndex: number, node: any, columnIndex: number) => {
+          return 1;
+        },
+        hLineWidth: (rowIndex: number, node: any, columnIndex: number) => {
+          return (rowIndex === 0 || rowIndex === 1) ? 1 : 0.5;
+        }
+      }).end;
+
+    this.pdf.add(table);
+    const file = this.pdf.create();
+    file.open(); // Abre el archivo en una nueva ventana
+
+    // Descargar automáticamente el archivo generado
+    // file.download(`Reporte de usuarios ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}.pdf`);
+    console.log('File: ', file);
+  }
+
 
 }
