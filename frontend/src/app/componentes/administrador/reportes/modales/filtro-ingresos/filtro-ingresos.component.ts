@@ -21,6 +21,7 @@ export class FiltroIngresosComponent implements OnInit {
 
   ingresosAnio: any = [];
   ingresosMes:any = [];
+  
   filtro;
 
   formularioIngresos:FormGroup = new FormGroup({
@@ -68,16 +69,28 @@ export class FiltroIngresosComponent implements OnInit {
            (filtro.mes==="" || filtro.mes===null) ) {
          var filtroAnio:any = [];
 
-         filtroAnio=this.ingresosAnio.filter(usuario => usuario.IngresosPorAnio === parseInt(filtro.anio) );
+         filtroAnio=this.ingresosAnio.filter(anio => anio.ingresosporanio === parseInt(filtro.anio) );
          console.log(filtroAnio);
          
          this.ingresoFiltradoAnio.emit(filtroAnio);
        }
+       else {
+        
+         if ((filtro.anio ==="" || filtro.anio===null) && 
+             (filtro.mes!=""  || filtro.mes!=null) ) {
+              var filtroMes:any = [];
+
+              filtroMes=this.ingresosMes.filter(mes => mes.ingresospormes.substr(5,3) === filtro.mes);
+              console.log(filtroMes);
+              this.ingresoFiltradoMes.emit(filtroMes);
+         }
       }
+      
+      
 
     return console.log(this.filtro);
   }
-
+  }
 
  regresar() {
     this._location.back();

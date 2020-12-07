@@ -6,7 +6,7 @@
         <button type="button" class="btn btn-sm ml-auto btn-volver"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar PDF</button>
     </div>
     <div class=" container">
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 mb-4">
             <div class="btn-toolbar" role="toolbar" aria-label="">
                 <div class="btn-group" role="group" aria-label="">
                     <button type="button" class="btn btn-outline-info botones " (click)="ocultarTabla('Mes')">Reporte Año</button>
@@ -53,8 +53,13 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let ingreMes of ingresosMes ">
-                            <th scope="row">{{ingreMes.ingresospormes}}</th>
+                            <th scope="row">{{ingreMes.ingresospormes }}</th>
                             <td>{{ingreMes.ventasxmes}}</td>
+                        </tr>
+                        <tr *ngIf="ingresosMes.length===0">
+                            <td colspan="2">
+                                No hay resultados
+                            </td>
                         </tr>
                     </tbody>
                 </table>
