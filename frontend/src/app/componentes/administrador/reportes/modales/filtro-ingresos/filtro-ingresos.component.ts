@@ -14,30 +14,38 @@ export class FiltroIngresosComponent implements OnInit {
   showModalIngresos: boolean = true;
 
   @Output() 
-  ingresoFiltrado = new EventEmitter<Object>();
+  ingresoFiltradoMes = new EventEmitter<Object>();
+
+  @Output() 
+  ingresoFiltradoAnio = new EventEmitter<Object>();
 
   ingresosAnio: any = [];
+  ingresosMes:any = [];
+
   filtro;
 
   formularioIngresos:FormGroup = new FormGroup({
-    Anio: new FormControl('Anio'),
-    Mes: new FormControl('Mes'),
+    Anio: new FormControl(''),
+    Mes: new FormControl(''),
   });
 
   constructor(private _location: Location,private _reporteService: ReportesService, private router: Router) { }
 
   ngOnInit(): void {
-      this._reporteService.getIngresoReporte()
-      .subscribe( (res:any) => {
-        this.ingresosAnio = res;
-        console.log(res);
-            }, err => { console.log(err); });
+    this._reporteService.getIngresoReporte()
+    .subscribe( (res:any) => {
+      this.ingresosAnio = res.IngresosPorAnio;
+      this.ingresosMes=res.IngresosPorMes;
+      console.log( this.ingresosMes);
+      console.log( this.ingresosAnio);
+          }, err => { console.log(err); });
   }
 
   filtrar(){ 
     this.filtrosIngresos();
     this.showModalIngresos=false;
     this.closeAddExpenseModalIngresos.nativeElement.click();
+    this.formularioIngresos.reset();
   }
   
   filtrosIngresos(){
@@ -47,16 +55,29 @@ export class FiltroIngresosComponent implements OnInit {
     }
     this.filtro=filtro;
 
-    if (filtro.anio==="" &&
-    filtro.mes===""  ) 
+    if ((filtro.anio===""  || filtro.anio===null)  &&
+    (filtro.mes===""  || filtro.mes===null)
+    ) 
     {
-    this.ingresoFiltrado.emit(this.ingresosAnio);
+    this.ingresoFiltradoMes.emit(this.ingresosMes);
+    this.ingresoFiltradoAnio.emit( this.ingresosAnio);
+    console.log(this.ingresosMes, this.ingresosAnio);
     console.log("sin filtro");
-    }
+    } else {
+      // filtro por anio
+       if ((filtro.anio!="" || filtro.anio!=null) && 
+           (filtro.mes==="" || filtro.mes===null) ) {
+         var filtroAnio:any = [];
+
+         filtroAnio=this.ingresosAnio.filter(usuario => usuario.IngresosPorAnio === parseInt(filtro.anio) );
+         console.log(filtroAnio);
+         
+         this.ingresoFiltradoAnio.emit(filtroAnio);
+       }
+      }
 
     return console.log(this.filtro);
   }
-
 
 
  regresar() {
