@@ -2,14 +2,15 @@
     <div class="row mb-3">
         <button type="button" class="btn btn-sm mr-auto btn-volver" data-toggle="modal" data-target="#filtroReporteIngesos"><i class="fa fa-reply-all" aria-hidden="true"></i> Volver</button>
         <h4 class="ml-3">Reporte de Ingresos</h4>
+        <p>{{nombre}}</p>
         <button type="button" class="btn btn-sm ml-auto btn-volver"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar PDF</button>
     </div>
     <div class=" container">
         <div class="col-12 col-md-4">
             <div class="btn-toolbar" role="toolbar" aria-label="">
                 <div class="btn-group" role="group" aria-label="">
-                    <button type="button" class="btn btn-outline-info botones " (click)="ocultarTabla('Anio')">Reporte Mes</button>
                     <button type="button" class="btn btn-outline-info botones " (click)="ocultarTabla('Mes')">Reporte Año</button>
+                    <button type="button" class="btn btn-outline-info botones " (click)="ocultarTabla('Anio')">Reporte Mes</button>
 
                 </div>
             </div>
@@ -26,8 +27,14 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let ingreAnio of ingresosAnio ">
-                            <th scope="row">{{ ingreAnio.ingresosporanio }}</th>
-                            <td>{{ ingreAnio.ventasxanio }}</td>
+                            <th scope="row">{{ingreAnio.ingresosporanio}}</th>
+                            <td>L{{ingreAnio.ventasxanio}}</td>
+                        </tr>
+
+                        <tr *ngIf="ingresosAnio.length===0">
+                            <td colspan="2">
+                                No hay resultados
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -46,13 +53,17 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let ingreMes of ingresosMes ">
-                            <th scope="row">{{ ingreMes.ingresospormes }}</th>
-                            <td>{{ ingreMes.ventasxmes }}</td>
+                            <th scope="row">{{ingreMes.ingresospormes}}</th>
+                            <td>{{ingreMes.ventasxmes}}</td>
                         </tr>
                     </tbody>
                 </table>
+
             </div>
         </div>
-
     </div>
-    <app-filtro-ingresos (ingresoFiltrado)="recibeIngresos($event)"></app-filtro-ingresos>
+
+
+
+
+    <app-filtro-ingresos (ingresoFiltradoMes)="recibeIngresosAnio($event)" (ingresoFiltradoAnio)="recibeIngresosMes($event)"></app-filtro-ingresos>

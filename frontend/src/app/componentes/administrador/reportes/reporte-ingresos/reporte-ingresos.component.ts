@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportesService } from '../../../../servicios/administrador/reportes.service';
+
 import {Location} from '@angular/common';
 
 @Component({
@@ -10,25 +10,33 @@ import {Location} from '@angular/common';
 export class ReporteIngresosComponent implements OnInit {
   ingresosAnio:any = [];
   ingresosMes:any = [];
+  nombre:any;
+
   tablaOcultaMes:boolean=false;
   tablaOcultaAnio:boolean=true;
 
-  constructor( private _location: Location,private _reporteService: ReportesService) { 
+  constructor( private _location: Location) { 
     this.ingresosAnio;
+    this.ingresosMes;
   }
 
   ngOnInit(): void {
-    this._reporteService.getIngresoReporte()
-    .subscribe( (res:any) => {
-      this.ingresosAnio = res.IngresosPorAnio;
-      this.ingresosMes=res.IngresosPorMes;
-      console.log( this.ingresosMes);
-          }, err => { console.log(err); });
   }
 
-  recibeIngresos(ingresosAnio){
-    console.log(ingresosAnio);
-    this.ingresosAnio=ingresosAnio;
+  recibeIngresosAnio(ingresosAnio){
+    var ingresos:any=[];
+    ingresos=ingresosAnio;
+    
+  for(let i=0; i<ingresos.length; i++){
+    this.ingresosAnio.push(ingresos[i]);
+    console.log(ingresos[i].ventasxanio);
+ }
+    console.log(this.ingresosAnio);
+  }
+
+  recibeIngresosMes(ingresosMes){
+    this.ingresosMes=ingresosMes;
+    console.log(this.ingresosMes);
   }
 
   regresar() {
