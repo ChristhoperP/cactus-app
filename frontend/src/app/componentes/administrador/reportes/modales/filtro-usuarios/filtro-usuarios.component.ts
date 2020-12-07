@@ -79,6 +79,7 @@ export class FiltroUsuariosComponent implements OnInit {
     (filtro.nombre===""  || filtro.nombre===null) )
     {
     this.usuarioFiltrado.emit(this.usuarios);
+    this.nombreUsuario.emit('');
     console.log(this.usuarios);
     console.log("sin filtro");
     } else {
