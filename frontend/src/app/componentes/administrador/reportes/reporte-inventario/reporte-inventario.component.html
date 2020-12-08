@@ -1,9 +1,8 @@
-
 <div class="container">
     <div class="row mt-2 mb-3">
         <button type="button" class="btn btn-sm mr-auto btn-volver" (click)="limpiarModal()" data-toggle="modal" data-target="#filtroInventario"><i class="fa fa-reply-all" aria-hidden="true"></i> Volver</button>
         <h4>Reporte de Inventario</h4>
-        <button type="button" class="btn btn-sm ml-auto btn-volver"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Generar PDF</button>
+        <button type="button" class="btn btn-sm ml-auto btn-volver" (click)="generarPDF()"><i class="fa fa-file-pdf" aria-hidden="true"></i> Generar PDF</button>
     </div>
     <div class="row">
         <div class="table-responsive">
@@ -28,7 +27,7 @@
                         <td>{{producto.tipodebase}}</td>
                         <td>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item p-0 pl-1 text-left"  *ngFor="let especie of producto.especie">{{especie}}</li>
+                                <li class="list-group-item p-0 pl-1 text-left" *ngFor="let especie of producto.especie">{{especie}}</li>
                             </ul>
                         </td>
                         <td class="text-center">{{producto.cantidad}}</td>
@@ -50,4 +49,3 @@
     </div>
 </div>
 <app-filtro-inventario (inventarioFiltrado)="recibeInventario($event)" (nombreProducto)="recibeNombreProducto($event)"></app-filtro-inventario>
-

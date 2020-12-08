@@ -52,8 +52,8 @@ export class ReporteUsuariosComponent implements OnInit {
     this.pdf.images({headerImg: await new Img(Global.url + 'get-image/logo_vector.png').build()});
   }
 
-  getTablaReporte( usuarios: any[]) {
-    return usuarios.map( usr => [usr.idusuario, usr.nombre, usr.correo, usr.telefono, usr.direccion, new Date(usr.fecharegistro).toLocaleDateString()]);
+  getTablaReporte() {
+      return this.usuarios.map( usr => [usr.idusuario, usr.nombre, usr.correo, usr.telefono, usr.direccion, new Date(usr.fecharegistro).toLocaleDateString()]);
   }
 
   getEncabezadoTabla() {
@@ -73,12 +73,11 @@ export class ReporteUsuariosComponent implements OnInit {
     this.pdf.pageMargins([50, 85, 50, 72]);
 
     this.pdf.info({
-      title: `Reporte de usuarios ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
+      title: `Reporte de Usuarios`,
+      creationDate: `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`,
+      subject: `Reporte de Usuarios - ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`,
+      author: 'Cactus HN'
     });
-
-    this.pdf.add(
-      new Canvas([new Line([0, 0], [612, 0]).color('grey').lineWidth(5).end]).height(5).absolutePosition(0, 70).end
-      );
 
     this.pdf.header(
       new Columns([
@@ -88,13 +87,26 @@ export class ReporteUsuariosComponent implements OnInit {
         [
           new Txt(`Generado el ${new Date().toLocaleDateString()}`).fontSize(10).italics().width(102).margin([0, 11, 0, 0]).alignment('left').end,
           new Txt(`A las ${new Date().toLocaleTimeString()}`).fontSize(10).italics().width(102).margin([0, 5, 0, 0]).alignment('left').end
-        ]
+        ],
+        new Canvas([new Line([0, 0], [612, 0]).color('grey').lineWidth(5).end]).height(5).absolutePosition(0, 70).end
       ]).margin([10, 10, 0, 0]).alignment('left').end
+    );
+
+    this.pdf.footer(
+      (currentPage: number, pageCount: number) => {
+        const foot = [{
+          alignment: 'right',
+          margin: [0, 25, 15, 0],
+          text: new Txt('Pág. ' + currentPage.toString() + ' de ' + pageCount).fontSize(10).end
+        },
+        new Canvas([new Line([0, 0], [612, 0]).color('grey').lineWidth(5).end]).height(5).absolutePosition(0, 15).end];
+        return foot;
+      }
     );
 
     const table = new Table([
       this.getEncabezadoTabla(),
-        ...this.getTablaReporte(this.usuarios)
+        ...this.getTablaReporte()
       ])
       .fontSize(8)
       .widths([30, 90, 90, 55, 120, 72])
@@ -108,10 +120,10 @@ export class ReporteUsuariosComponent implements OnInit {
           return (rowIndex === 0 || rowIndex === 1) ? 'black' : 'lightgrey';
         },
         vLineColor: (rowIndex: number, node: any, columnIndex: number) => {
-          return 'lightgrey';
+          return columnIndex < 1 ? 'black' : 'lightgrey';
         },
         vLineWidth : (rowIndex: number, node: any, columnIndex: number) => {
-          return 1;
+          return 0.5;
         },
         hLineWidth: (rowIndex: number, node: any, columnIndex: number) => {
           return (rowIndex === 0 || rowIndex === 1) ? 1 : 0.5;
@@ -120,11 +132,21 @@ export class ReporteUsuariosComponent implements OnInit {
 
     this.pdf.add(table);
     const file = this.pdf.create();
-    file.open(); // Abre el archivo en una nueva ventana
+
+    // Abre el archivo en una nueva ventana
+    file.open();
 
     // Descargar automáticamente el archivo generado
     // file.download(`Reporte de usuarios ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}.pdf`);
+
+    // Reniciar estructura del archivo
+    this.reiniciarArchivo();
     console.log('File: ', file);
+  }
+
+  reiniciarArchivo(): void {
+    this.pdf = new PdfMakeWrapper();
+    this.getImagenReporte();
   }
 
 

@@ -214,10 +214,10 @@ export class FiltroVentasComponent implements OnInit {
                             (filtro.base==="" || filtro.base===null)) {
                           var filtroVentasNombre:any = [];
 
-                          // filtroVentasNombre=this.ventas.filter(ventas => ventas.nombre_producto === filtro.nombre);
+                          filtroVentasNombre = this.ventas.filter(ventas => ventas.nombre_producto.toLowerCase().includes(filtro.nombre.toLowerCase()));
                           console.log(filtroVentasNombre);
-                          this.ventasFiltrado.emit(this.ventas);
-                          this.nombreProducto.emit(filtro.nombre);
+                          this.ventasFiltrado.emit(filtroVentasNombre);
+                          // this.nombreProducto.emit(filtro.nombre);
                         }
                         else{
                             //filtro por categoria del producto

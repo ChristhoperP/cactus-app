@@ -99,7 +99,7 @@ export class FiltroInventarioComponent implements OnInit {
         (filtro.base==="" || filtro.base===null)) 
     {
       this.inventarioFiltrado.emit(this.inventario);
-      this.nombreProducto.emit('');
+      // this.nombreProducto.emit('');
       console.log("sin filtro");
     } else {
       // filtro por ID de producto
@@ -124,8 +124,10 @@ export class FiltroInventarioComponent implements OnInit {
                    (filtro.base==="" || filtro.base===null)) {
                  var filtroInventarioNombre:any = [];
                  console.log(filtroInventarioNombre);
-                 this.inventarioFiltrado.emit(this.inventario);
-                 this.nombreProducto.emit(filtro.nombre);
+
+                 filtroInventarioNombre = this.inventario.filter(inventario => inventario.nombre.toLowerCase().includes(filtro.nombre.toLowerCase()));
+                 this.inventarioFiltrado.emit(filtroInventarioNombre);
+                 // this.nombreProducto.emit(filtro.nombre);
                }
                else{
                    //filtro por categoria del producto
