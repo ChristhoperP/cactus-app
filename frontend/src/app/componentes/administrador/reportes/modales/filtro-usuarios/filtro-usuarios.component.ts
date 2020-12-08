@@ -79,7 +79,7 @@ export class FiltroUsuariosComponent implements OnInit {
     (filtro.nombre===""  || filtro.nombre===null) )
     {
     this.usuarioFiltrado.emit(this.usuarios);
-    this.nombreUsuario.emit('');
+    // this.nombreUsuario.emit('');
     console.log(this.usuarios);
     console.log("sin filtro");
     } else {
@@ -102,12 +102,12 @@ export class FiltroUsuariosComponent implements OnInit {
                    (filtro.id==="" ||filtro.id===null)  && 
                    (filtro.nombre!="" || filtro.nombre!=null))
                     {
-                 var filtroUsuarioNombre:any = [];
-
-                
-                 console.log(filtroUsuarioNombre);
-                 this.usuarioFiltrado.emit(this.usuarios);
-                 this.nombreUsuario.emit(filtro.nombre);
+                    var filtroUsuarioNombre:any = [];
+                    filtroUsuarioNombre = this.usuarios.filter(usuario => usuario.nombre.toLowerCase().includes(filtro.nombre.toLowerCase()));
+                    
+                    console.log(filtroUsuarioNombre);
+                    this.usuarioFiltrado.emit(filtroUsuarioNombre);
+                 // this.nombreUsuario.emit(filtro.nombre);
                }
    
                                    else {
