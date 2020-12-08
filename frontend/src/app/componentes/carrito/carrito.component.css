@@ -27,11 +27,11 @@ td {
 
 
 
-.fa-trash-o:hover{
+.fas:hover{
     cursor: pointer;
 }
 
-.fa-trash{
+.fa-trash-alt{
     cursor: pointer;
     color: #ce8898;
 }

@@ -39,6 +39,7 @@ checkAll: boolean;
       .subscribe((res: any) => {
         console.log(res);
         this.productosCarrito = res;
+        console.log(res.length);
 
         for (const producto of this.productosCarrito) {
           producto.checked = true;
@@ -104,6 +105,7 @@ checkAll: boolean;
             .subscribe(res => {
                 console.log(res);
                 this.productosCarrito = [];
+
             });
           }
         }else{
