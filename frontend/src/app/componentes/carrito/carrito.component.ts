@@ -105,12 +105,13 @@ checkAll: boolean;
             .subscribe(res => {
                 console.log(res);
                 this.productosCarrito = [];
-
+                this._carritoService.setCantidadProductos(0);
             });
           }
         }else{
           localStorage.removeItem(this.storageName);
           this.productosCarrito = [];
+          this._carritoService.setCantidadProductos(0);
         }
       }
     });
@@ -134,11 +135,14 @@ checkAll: boolean;
               console.log('Eliminando: ' + id + ' / ' + this.productosCarrito[i]);
               this.productosCarrito.splice(i, 1);
 
+              this._carritoService.setCantidadProductos(this.productosCarrito.length);
+
               if (this.userLogged) {
                 this._carritoService.eliminarProductoCarrito(id)
                 .subscribe(res => {
                     console.log(res);
                     // this.productosCarrito;
+                    this._carritoService.setCantidadProductos(this.productosCarrito.length);
                     this.calcularTotalPagar();
                 });
               }else{
@@ -154,6 +158,7 @@ checkAll: boolean;
 
   actualizarLocalStorage() {
     localStorage.setItem(this.storageName, JSON.stringify(this.productosCarrito));
+    this._carritoService.setCantidadProductos(this.productosCarrito.length);
     return this.productosCarrito;
   }
 

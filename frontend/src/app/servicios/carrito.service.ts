@@ -54,11 +54,20 @@ export class CarritoService {
 
   eliminarProductoCarrito( id:any ){
     return this._http.post(this.url + 'eliminar-producto-carrito', {idproducto: id}, {headers: this.headers} );
-
   }
 
   setCantidadProductos( cantidad: number ): void {
     this.cantidadProductos.emit(cantidad);
+  }
+
+  getCantidadProductos() {
+    let productosCarrito = { productos: [] };
+
+    if (localStorage.getItem('productos-carrito')) {
+      productosCarrito.productos = JSON.parse(localStorage.getItem('productos-carrito'));
+      this.cantProductos = productosCarrito.productos.length
+    }
+    return this.cantProductos;
   }
 
 }
