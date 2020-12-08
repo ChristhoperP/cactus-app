@@ -21,8 +21,8 @@
                         <th scope="col">Producto</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Precio</th>
-                        <th scope="col">Descuento</th>
-                        <th scope="col"><i class="fa fa-trash" aria-hidden="true" (click)="eliminarTodosProductos()" data-placement="bottom" title="Eliminar todos" [hidden]="productosCarrito.length === 0"></i></th>
+                        <th scope="col">Descuento</th> 
+                        <th scope="col"><p class="m-0" (click)="eliminarTodosProductos()" [hidden]="productosCarrito.length === 0"><i class="fas fa-trash-alt" aria-hidden="true"  data-placement="bottom" title="Eliminar todos"></i></p></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +37,7 @@
                                 <img class="img-fluid" src="{{url+'get-image/'+producto.urlportada}}" alt="nombre">
                             </div>
                         </th>
-                        <td>{{producto.nombre}}</td>
+                        <td>{{producto.nombre}} </td>
                         <td>
                             <div class="input-group input-group-sm mb-3 m-auto w-50">
                                 <input type="number" min="1" max="{{producto.cantidadinventario}}" class="form-control" value="{{producto.cantidadencarrito}}" (input)="cambiarCantidadProducto( producto.idproducto, $event)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
@@ -46,7 +46,9 @@
                         <td>L {{producto.precio}}</td>
                         <td>{{producto.porcentajedescuento}} {{(producto.porcentajedescuento === '' || producto.porcentajedescuento === null) ? ' ' : '%'}} </td>
                         <td class="pr-0 pl-0">
-                            <i class="fa fa-trash-o" aria-hidden="true" (click)="eliminarProductoCarrito(producto.idproducto)" data-placement="bottom" title="Eliminar"></i>
+                            <p (click)="eliminarProductoCarrito(producto.idproducto)" class="m-0">
+                                <i class="far fa-trash-alt"  data-placement="bottom" title="Eliminar"></i>
+                            </p>
                         </td>
                     </tr>
                     <tr *ngIf="productosCarrito.length ===0">
