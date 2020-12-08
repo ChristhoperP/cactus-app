@@ -82,7 +82,7 @@ export class InformacionPagoComponent implements OnInit {
 
     this._pagoService.obtenerAgenciasEnvio()
       .subscribe(res => {
-        this.agencias = res;
+        this.agencias = res;       
       });
 
     this.stripeTest = this.fb.group({
