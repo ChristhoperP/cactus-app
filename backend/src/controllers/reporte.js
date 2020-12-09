@@ -49,44 +49,44 @@ var controller = {
         return res.status(200).send(respuesta1);
     },
     reporteInventario: async function(req, res) {
-            
-            const response = await conf.pool.query(`SELECT * FROM REPORTE_INVENTARIO`);
-            /* res.json(response.rows); */
 
-            var respuesta = response.rows;
+        const response = await conf.pool.query(`SELECT * FROM REPORTE_INVENTARIO`);
+        /* res.json(response.rows); */
 
-            var idproductoAnt = 0;
-            var idproducto = 0;
-            var indiceProducto = 0;
-            var especie = [];
-            var elementosAEliminar = [];
+        var respuesta = response.rows;
 
-            respuesta.forEach((element, indice) => {
-                idproducto = element.idproducto; //Se obtiene el id del elemento actual
-                especie = []; //se establece un arreglo vacio para almacenar la especie
-                if (idproducto == idproductoAnt) { //Si el id del elemento actual coincide con el id del elemento anterior:
-                    respuesta[indiceProducto].especie.push(element.especie); //La especie del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
-                    elementosAEliminar.push(indice);
-                } else {
-                    //Si no es igual el elemento anterior con el actual:
-                    especie.push(element.especie); //la especie actual se almacena en un arreglo
-                    element.especie = especie; //la especie del elemento actual se convierte en un arreglo
-                    indiceProducto = indice; //se almacena el indice del array que contiene el elemento actual
-                    idproductoAnt = idproducto; //el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
-                }
-            });
+        var idproductoAnt = 0;
+        var idproducto = 0;
+        var indiceProducto = 0;
+        var especie = [];
+        var elementosAEliminar = [];
 
-            //Se eliminan los elementos que no se necesitan
+        respuesta.forEach((element, indice) => {
+            idproducto = element.idproducto; //Se obtiene el id del elemento actual
+            especie = []; //se establece un arreglo vacio para almacenar la especie
+            if (idproducto == idproductoAnt) { //Si el id del elemento actual coincide con el id del elemento anterior:
+                respuesta[indiceProducto].especie.push(element.especie); //La especie del elemento actual se agrega al arreglo del elemento que contiene el indice del producto
+                elementosAEliminar.push(indice);
+            } else {
+                //Si no es igual el elemento anterior con el actual:
+                especie.push(element.especie); //la especie actual se almacena en un arreglo
+                element.especie = especie; //la especie del elemento actual se convierte en un arreglo
+                indiceProducto = indice; //se almacena el indice del array que contiene el elemento actual
+                idproductoAnt = idproducto; //el id del elemento actual se convierte en el id del elemento anterior para el siguiente ciclo
+            }
+        });
 
-            var respuesta1 = [];
-            respuesta.forEach((element, indice) => {
-                if (!(elementosAEliminar.indexOf(indice) >= 0)) {
+        //Se eliminan los elementos que no se necesitan
 
-                    respuesta1.push(element);
-                }
-            });
+        var respuesta1 = [];
+        respuesta.forEach((element, indice) => {
+            if (!(elementosAEliminar.indexOf(indice) >= 0)) {
 
-            return res.status(200).send(respuesta1);
+                respuesta1.push(element);
+            }
+        });
+
+        return res.status(200).send(respuesta1);
     },
     reporteVentas: async function(req, res) {
         try {
@@ -125,7 +125,7 @@ var controller = {
             });
 
             return res.status(200).send(respuesta1);
-            
+
         } catch (err) {
             console.log(err);
             return res.status(500).send({
@@ -138,9 +138,9 @@ var controller = {
             const response = await conf.pool.query('SELECT * FROM INGRESOS_POR_MES order by fecha;');
             var respuesta = response.rows;
 
-            return res.status(200).send({
+            return res.status(200).send(
                 respuesta
-            })
+            )
         } catch (err) {
             console.log(err);
             return res.status(500).send({
@@ -150,36 +150,36 @@ var controller = {
     },
 
     reporteIngresos: async function(req, res) {
-                   
-                try {
 
-                         const response1 = await conf.pool.query(
-                        `SELECT (date_part('year', fechapedido)) AS IngresosPorAnio, sum(total) AS ventasXanio
+        try {
+
+            const response1 = await conf.pool.query(
+                `SELECT (date_part('year', fechapedido)) AS IngresosPorAnio, sum(total) AS ventasXanio
                         FROM pedido
                         Group by IngresosPorAnio;`);
-                         var IngresosPorAnio = response1.rows;   
+            var IngresosPorAnio = response1.rows;
 
 
-                        const response2 = await conf.pool.query(`
+            const response2 = await conf.pool.query(`
                         SELECT to_char(fechapedido, 'YYYY-MM') AS IngresosPorMes, sum(total) AS ventasXmes
                         FROM pedido
                         Group by IngresosPorMes;`);
-                        var IngresosPorMes = response2.rows;  
-                    
-                
-                    return res.status(200).send({
-                        IngresosPorAnio: IngresosPorAnio,
-                        IngresosPorMes: IngresosPorMes 
-                    });
-        
-        
-                } catch (err) {
-                    return res.status(500).send({
-                        message: 'Error: No se puede obtener esta información'
-                    })
-                }
-        }    
-    
+            var IngresosPorMes = response2.rows;
+
+
+            return res.status(200).send({
+                IngresosPorAnio: IngresosPorAnio,
+                IngresosPorMes: IngresosPorMes
+            });
+
+
+        } catch (err) {
+            return res.status(500).send({
+                message: 'Error: No se puede obtener esta información'
+            })
+        }
+    }
+
 };
 
 module.exports = controller;
