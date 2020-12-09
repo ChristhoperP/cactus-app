@@ -40,6 +40,8 @@ export class EncabezadoComponent implements OnInit {
     this.carritoService.cantidadProductos.subscribe( cantidad => {
       this.cantidadProductos = cantidad;
     });
+    
+    this.cantidadProductos = this.carritoService.getCantidadProductos();
   }
 
   searchProducts(): void {
@@ -49,7 +51,6 @@ export class EncabezadoComponent implements OnInit {
   cerrarSesion(){
     this.authService.logoutUser();
     localStorage.removeItem('productos-carrito');
-
   }
 
 }

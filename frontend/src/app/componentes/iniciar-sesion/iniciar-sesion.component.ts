@@ -62,6 +62,7 @@ export class IniciarSesionComponent implements OnInit {
                     if (agregados === carrito.length){
                       localStorage.removeItem('productos-carrito');
                       this.router.navigate(['/carrito']);
+                      this.servicioCarrito.setCantidadProductos(agregados);
                     }
                   }, err => {
                     console.log(err);
