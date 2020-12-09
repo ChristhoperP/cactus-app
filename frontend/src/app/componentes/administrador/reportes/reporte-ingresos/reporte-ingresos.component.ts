@@ -62,7 +62,7 @@ export class ReporteIngresosComponent implements OnInit {
   }
 
   async getImagenReporte(){
-    this.pdf.images({headerImg: await new Img(Global.url + 'get-image/logo_vector.png').build()});
+    this.pdf.images({headerImg: await new Img('../../../../assets/img/logo_vector.png').build()});
   }
 
   getTablaAnio() {    
