@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {Location} from '@angular/common';
 import { Global } from 'src/app/servicios/global';
 
 /* Para generar PDF */
 import { Canvas, Cell, Columns, Img, Line, PdfMakeWrapper, Table, Txt } from 'pdfmake-wrapper';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { GraficaIngresosComponent } from '../grafica/grafica-ingresos/grafica-ingresos.component';
 
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -21,6 +22,8 @@ export class ReporteIngresosComponent implements OnInit {
 
   tablaOcultaMes:boolean=false;
   tablaOcultaAnio:boolean=true;
+
+  @ViewChild('graficaIngresos') imagenGrafica: GraficaIngresosComponent;
 
   pdf = new PdfMakeWrapper();
 
@@ -84,10 +87,12 @@ export class ReporteIngresosComponent implements OnInit {
     ];
   }
 
-  generarPDF(): void {
+  async generarPDF() {
 
     this.pdf.pageSize('letter');
     this.pdf.pageMargins([71, 85, 72, 72]);
+
+    // this.pdf.images({ graficaImg: 'data:image/png;base64,' + this.imagenGrafica.getImagenGrafica()});
 
     this.pdf.info({
       title: `Reporte de Ingresos`,
@@ -180,7 +185,10 @@ export class ReporteIngresosComponent implements OnInit {
         }).end;
 
       this.pdf.add(table);
+      this.pdf.add(this.pdf.ln(3));
     }
+
+    this.pdf.add( {image: this.imagenGrafica.getImagenGrafica(), width: 468, height: 350 })
 
     const file = this.pdf.create();
 

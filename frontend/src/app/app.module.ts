@@ -92,6 +92,7 @@ import {PedidosComponent} from './componentes/administrador/pedidos/pedidos.comp
 import { FiltroUsuariosComponent } from './componentes/administrador/reportes/modales/filtro-usuarios/filtro-usuarios.component';
 import { FiltroIngresosComponent } from './componentes/administrador/reportes/modales/filtro-ingresos/filtro-ingresos.component';
 import { ReporteIngresosComponent } from './componentes/administrador/reportes/reporte-ingresos/reporte-ingresos.component';
+import { GraficaIngresosComponent } from './componentes/administrador/reportes/grafica/grafica-ingresos/grafica-ingresos.component';
 
 
 @NgModule({
@@ -143,7 +144,8 @@ import { ReporteIngresosComponent } from './componentes/administrador/reportes/r
     PedidosComponent,
     FiltroUsuariosComponent,
     FiltroIngresosComponent,
-    ReporteIngresosComponent
+    ReporteIngresosComponent,
+    GraficaIngresosComponent
   ],
   imports: [
     BrowserModule,
