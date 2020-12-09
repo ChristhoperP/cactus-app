@@ -26,4 +26,8 @@ export class ReportesService {
     return this._http.get(this.url + 'reporteIngresos');
   }
 
+  getIngresosGrafica() {
+    return this._http.get(this.url + 'ingresosPorMes');
+  }
+
 }
