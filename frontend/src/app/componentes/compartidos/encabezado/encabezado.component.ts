@@ -22,7 +22,9 @@ export class EncabezadoComponent implements OnInit {
     public authService: AuthService,
     private busquedaService: BusquedaProductosService,
     private carritoService: CarritoService,
-    private router: Router) {}
+    private router: Router) {
+      this.cantidadProductos;
+    }
 
   ngOnInit(): void {
 
