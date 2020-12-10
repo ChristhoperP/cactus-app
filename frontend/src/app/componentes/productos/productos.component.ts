@@ -73,17 +73,10 @@ export class ProductosComponent implements OnInit {
           this.sinCoincidencias = false;
         }
       });
-
-
      
   }
 
-
-
-
   ngOnInit(): void {
-
-
 
     this.servicioProducto.getProducto()
       .subscribe( res => {
@@ -202,9 +195,10 @@ export class ProductosComponent implements OnInit {
     }
 
     if (this._authService.loggedIn()){
-      this.servicioCarrito.agregarCarritoLogged(producto.idproducto, cantidad)
+      this.servicioCarrito.agregarCarritoLogged(producto.idproducto, parseInt(cantidad, 10))
         .subscribe( res => {
           console.log(res);
+          this.servicioCarrito.actualizarAgregados();
           this.mostrarAddedToast();
         }, err => { 
           console.log(err);
@@ -233,6 +227,11 @@ export class ProductosComponent implements OnInit {
       }
     }
 
+  }
+
+  comprarAhora(producto, cantidad) {
+    this.agregarCarrito(producto, cantidad);
+    this.router.navigate(['../carrito']);
   }
 
   mostrarAddedToast(): void {

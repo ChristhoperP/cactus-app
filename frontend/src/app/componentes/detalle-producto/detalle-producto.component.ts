@@ -96,6 +96,7 @@ export class DetalleProductoComponent implements OnInit {
         .subscribe( res => {
           console.log(res);
           this.mostrarAddedToast();
+          this.ServicioCarrito.actualizarAgregados();
         }, err => { console.log(err); });
       } else {
 
@@ -132,6 +133,12 @@ export class DetalleProductoComponent implements OnInit {
         confirmButtonColor: `#50a1a5`
       });
     }
+  }
+
+  comprarAhora() {
+    this.formularioCaracteristicas.patchValue({cantidad: 1});
+    this.agregarCarrito();
+    this._router.navigate(['../carrito']);
   }
 
   mostrarAddedToast(): void {
