@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { CarritoService } from 'src/app/servicios/carrito.service';
 
@@ -21,6 +21,7 @@ export class IniciarSesionComponent implements OnInit {
   constructor(
     private servicioAuth: AuthService,
     private servicioCarrito: CarritoService,
+    private route: ActivatedRoute,
     private router: Router
   ) { }
 
@@ -49,20 +50,39 @@ export class IniciarSesionComponent implements OnInit {
           if (res.rol === 'admin' ){
             this.router.navigate(['/controlador-admin']);
           } else {
+
             if (localStorage.getItem('productos-carrito')){
               const carrito = JSON.parse(localStorage.getItem('productos-carrito'));
               let agregados = 0;
+              let cantidad = 0;
+
+              this.servicioCarrito.obtenerProductosCarrito()
+              .subscribe(( resps: any) => {
+                this.servicioCarrito.setCantidadProductos(resps.length);
+              }, err => { console.log(err);});
 
               for (const producto of carrito) {
                 this.servicioCarrito.agregarCarritoLogged(producto.idproducto, producto.cantidadencarrito)
                   .subscribe( resp => {
                     console.log(resp);
                     agregados++;
+                    cantidad += parseInt(producto.cantidadencarrito, 10);
 
                     if (agregados === carrito.length){
                       localStorage.removeItem('productos-carrito');
-                      this.router.navigate(['/carrito']);
-                      this.servicioCarrito.setCantidadProductos(agregados);
+                      
+                      if (!this.route.snapshot.paramMap.get('pago')){
+                        this.router.navigate(['/inicio']);
+                      } else {
+                        this.router.navigate(['../carrito']);
+                      }
+
+                      this.servicioCarrito.setCantidadProductos(cantidad);
+
+                      this.servicioCarrito.obtenerProductosCarrito()
+                      .subscribe(( resps: any) => {
+                        this.servicioCarrito.setCantidadProductos(resps.length);
+                      }, err => { console.log(err);});
                     }
                   }, err => {
                     console.log(err);

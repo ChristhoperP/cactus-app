@@ -53,6 +53,7 @@ const appRoutes: Routes = [
         ]
     },
     {path: 'iniciar-sesion', component: IniciarSesionComponent, canActivate: [NoAuthGuard]},
+    {path: 'iniciar-sesion/:pago', component: IniciarSesionComponent, canActivate: [NoAuthGuard]},
     {path: 'registro', component: RegistroComponent, canActivate: [NoAuthGuard]},
     {
         path: 'controlador-admin',

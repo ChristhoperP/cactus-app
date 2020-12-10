@@ -28,6 +28,12 @@ export class EncabezadoComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.cantidadProductos = this.carritoService.getCantidadProductos();   
+
+    this.carritoService.cantidadProductos.subscribe( cantidad => {
+      this.cantidadProductos = cantidad;
+    }, err => { console.log(err); });
+
     if (this.authService.loggedIn() === true){
       this.authService.getInfoUsuario().subscribe((data: any) => {
         this.nombreUsuario = data.nombre;
@@ -38,21 +44,19 @@ export class EncabezadoComponent implements OnInit {
     this.authService.updatedName.subscribe( newName => {
       this.nombreActualizado = newName;
     } );
-
-    this.carritoService.cantidadProductos.subscribe( cantidad => {
-      this.cantidadProductos = cantidad;
-    });
     
-    this.cantidadProductos = this.carritoService.getCantidadProductos();
+    // this.cantidadProductos = this.carritoService.getCantidadProductos();
   }
 
   searchProducts(): void {
     this.busquedaService.searchProducts( this.terminoBusqueda);
   }
 
-  cerrarSesion(){
+  async cerrarSesion(){
+    this.carritoService.setCantidadProductos(0);
     this.authService.logoutUser();
     localStorage.removeItem('productos-carrito');
+    localStorage.removeItem('productos');    
   }
 
 }

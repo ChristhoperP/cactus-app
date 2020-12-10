@@ -13,7 +13,7 @@ export class PayGuard implements CanActivate {
   canActivate(): boolean {
     if (!this.auth.loggedIn()) {
       if (localStorage.getItem('productos-carrito')) {
-        this.router.navigate(['iniciar-sesion']);
+        this.router.navigate(['iniciar-sesion/pago']);
       } else {
         this.router.navigate(['inicio']);
       }
