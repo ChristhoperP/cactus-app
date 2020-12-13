@@ -17,7 +17,7 @@ export class DetalleHistorialCompraComponent implements OnInit {
   }
   setPedido(idpedido): void {
     console.log('Idpedido: ', idpedido);
-    this.pedidoService.getDetallePedido(idpedido)
+    this.pedidoService.getDetallePedidoCliente(idpedido)
       .subscribe( (res:any) => {
         console.log(res);
         this.pedido = res.datos;

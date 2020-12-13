@@ -125,6 +125,7 @@ router.get('/categoriaLanding', productoController.getCategoriasLanding);
 router.get('/traerPedidosUsuarios', auth.isAdmin, AdminController.traerPedidosUsuarios);
 router.get('/traerPedidosUsuariosCliente', auth.isAuth, AdminController.traerPedidosUsuarios);
 router.get('/traerPedidoDetalleProductos/:idpedido', auth.isAdmin, AdminController.traerPedidosDetalleProductos);
+router.get('/traerPedidoDetalleProductosClientes/:idpedido', auth.isAuth, AdminController.traerPedidosDetalleProductos);
 router.post('/actualizarEstadoPedido', auth.isAdmin, AdminController.actualizarEstadoPedido);
 
 module.exports = router;
@@ -137,4 +138,3 @@ router.get('/reporteInventario', auth.isAdmin, reporteController.reporteInventar
 router.get('/reporteVentas', auth.isAdmin, reporteController.reporteVentas);
 router.get('/reporteIngresos', auth.isAdmin, reporteController.reporteIngresos);
 router.get('/ingresosPorMes', auth.isAdmin, reporteController.ingresosPorMes);
-
