@@ -50,7 +50,7 @@ const uploadGoogle = (req, res, next) => {
 
         // Instantiate a storage client
         const storage = new Storage({
-            keyFilename: 'cactus.json'
+            keyFilename: 'cactus2.json'
         });
 
         const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET || conf.bucketName);

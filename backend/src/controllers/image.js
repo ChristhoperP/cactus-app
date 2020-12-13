@@ -55,7 +55,7 @@ var controller = {
         if (conf.produccion) {
             // Creates a client
             const storage = new Storage({
-                keyFilename: 'cactus.json'
+                keyFilename: 'cactus2.json'
             });
 
             const bucketName = conf.bucketName;
