@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidosService } from '../../../servicios/administrador/pedidos.service';
 
+
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.component.html',

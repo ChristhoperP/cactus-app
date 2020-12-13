@@ -75,11 +75,13 @@ export class FiltroVentasComponent implements OnInit {
         
     } );
 
+
     this._reporteService.getVentasReporte()
     .subscribe((res:any)=> {
       this.ventas = res;
       console.log(res);
     });
+
   }
 
   obtenerEspeciesXGenero(genero:any): void {

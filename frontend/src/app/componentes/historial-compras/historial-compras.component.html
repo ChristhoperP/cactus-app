@@ -13,10 +13,11 @@
                 <table class="table  text-center table-striped">
                     <thead class="encabezado-tabla ">
                         <tr>
-
+                            <th scope="col">Id</th>
                             <th scope="col">Producto</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Cantidad</th>
+                            <th scope="col">Detalle</th>
                             <th scope="col">Fecha de Compra</th>
 
                         </tr>
@@ -24,10 +25,17 @@
                     <tbody>
                         <ng-container *ngFor="let pedido of productosPedidos">
                             <tr *ngFor="let producto  of pedido.productos , let i=index">
-
+                                <td>{{ pedido.idpedido}}</td>
                                 <td>{{ producto.nombre }}</td>
                                 <td>{{ producto.precio_unitario }}</td>
                                 <td>{{ producto.cantidad }}</td>
+
+                                <td *ngIf="i === 0" [attr.rowspan]="(i===0) ? pedido.productos.length:1" style="vertical-align: middle;">
+
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal" (click)="detalleModal.setPedido(pedido.idpedido)">
+                                        Ver más...
+                                      </button>
+                                </td>
                                 <td *ngIf="i === 0" [attr.rowspan]="(i===0) ? pedido.productos.length:1" style="vertical-align: middle;">{{ pedido.fecha | date:'d/MM/y' }}</td>
                             </tr>
                         </ng-container>
@@ -39,3 +47,5 @@
     </div>
 
 </body>
+
+<app-detalle-historial-compra #detalleModal></app-detalle-historial-compra>
