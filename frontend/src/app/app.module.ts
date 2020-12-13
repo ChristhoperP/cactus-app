@@ -93,6 +93,7 @@ import { FiltroUsuariosComponent } from './componentes/administrador/reportes/mo
 import { FiltroIngresosComponent } from './componentes/administrador/reportes/modales/filtro-ingresos/filtro-ingresos.component';
 import { ReporteIngresosComponent } from './componentes/administrador/reportes/reporte-ingresos/reporte-ingresos.component';
 import { GraficaIngresosComponent } from './componentes/administrador/reportes/grafica/grafica-ingresos/grafica-ingresos.component';
+import { DetalleHistorialCompraComponent } from './componentes/detalle-historial-compra/detalle-historial-compra.component';
 
 
 @NgModule({
@@ -145,7 +146,8 @@ import { GraficaIngresosComponent } from './componentes/administrador/reportes/g
     FiltroUsuariosComponent,
     FiltroIngresosComponent,
     ReporteIngresosComponent,
-    GraficaIngresosComponent
+    GraficaIngresosComponent,
+    DetalleHistorialCompraComponent
   ],
   imports: [
     BrowserModule,

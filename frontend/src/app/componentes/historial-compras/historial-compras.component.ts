@@ -9,7 +9,7 @@ import {HistorialCompraService} from 'src/app/servicios/historial-compra.service
 export class HistorialComprasComponent implements OnInit {
   pedidos: any = [];
   productosPedidos: any =[];
-
+  productId: number;
 
   constructor(private servicioHistorial: HistorialCompraService) { }
 
@@ -41,6 +41,9 @@ for(const pedido of this.pedidos){
     
   }
 
+  getProductSelectedInfo(id){
+    console.log(id);
+    return id;
+  }
+
 }
-
-

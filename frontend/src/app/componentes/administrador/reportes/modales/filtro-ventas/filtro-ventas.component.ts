@@ -31,72 +31,7 @@ export class FiltroVentasComponent implements OnInit {
   especies:any = [];
   tipoBases:any = [];
   generos:any= [];
-  ventas:any=[{
-                "idproducto": 1,
-                "nombre_producto":"terrario colgante",
-                "fechapedido":"2020-11-05",
-                "precio_venta": 200,
-                "cantidad_vendida": 1,
-                "categoria": "Terrarios colgantes",
-                "tipobase": "base cristal",
-                "especie": ["e lola", "Echeveria imbricata", "Echeveria Neon Breakers", "e affinis"],
-                "nombre_usuario":"signe",
-              },
-              {
-                "idproducto": 1,
-                "nombre_producto":"terrario colgante",
-                "fechapedido":"2020-11-05",
-                "precio_venta": 200,
-                "cantidad_vendida": 1,
-                "categoria": "Terrarios colgantes",
-                "tipobase": "cajita",
-                "especie": ["e lola", "Echeveria imbricata", "Echeveria Neon Breakers", "e affinis"],
-                "nombre_usuario":"eli"
-              },
-              {
-                "idproducto": 2,
-                "nombre_producto":"cajita",
-                "fechapedido":"2020-11-12",
-                "precio_venta": 400,
-                "cantidad_vendida": 1,
-                "categoria": "Cajitas",
-                "tipobase": "Caja de madera 10x8x8 cm",
-                "especie": ["Echeveria imbricata"],
-                "nombre_usuario":"anneli"
-              },
-              {
-                "idproducto": 2,
-                "nombre_producto":"cajita",
-                "fechapedido":"2020-11-20",
-                "precio_venta": 400,
-                "cantidad_vendida": 1,
-                "categoria": "Cajitas",
-                "tipobase": "Caja de madera 10x8x8 cm",
-                "especie": ["Echeveria imbricata"],
-                "nombre_usuario":"signe"
-              },
-              {
-                "idproducto": 3,
-                "nombre_producto":"rosario",
-                "fechapedido":"2020-11-20",
-                "precio_venta": 85,
-                "cantidad_vendida": 1,
-                "categoria": "Cajitas",
-                "tipobase": "Caja de madera 10x8x8 cm",
-                "especie": ["Echeveria Neon Breakers"],
-                "nombre_usuario":"signe"
-              },
-              {
-                "idproducto": 4,
-                "nombre_producto":"macetera pintada de barro",
-                "fechapedido":"2020-12-05",
-                "precio_venta": 120,
-                "cantidad_vendida": 2,
-                "categoria": "Maceteras de barro",
-                "tipobase": "Macetera de barro grande",
-                "especie": ["Echeveria lilacina"],
-                "nombre_usuario":"signe"
-              }];
+  ventas:any=[];
   filtro;
   generoSeleccionado;
 
@@ -140,11 +75,11 @@ export class FiltroVentasComponent implements OnInit {
         
     } );
 
-    // this._reporteService.getVentasReporte()
-    // .subscribe((res:any)=> {
-    //   this.ventas = res;
-    //   console.log(res);
-    // });
+     this._reporteService.getVentasReporte()
+     .subscribe((res:any)=> {
+      this.ventas = res;
+       console.log(res);
+     });
   }
 
   obtenerEspeciesXGenero(genero:any): void {
