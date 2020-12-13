@@ -22,6 +22,10 @@ export class PedidosService {
     return this._http.get<any>(`${this.url}/traerPedidoDetalleProductos/${idpedido}`);
   }
 
+  getDetallePedidoCliente(idpedido) {
+    return this._http.get<any>(`${this.url}/traerPedidoDetalleProductosClientes/${idpedido}`);
+  }
+
   setEstadoPedido(pedido) {
     return this._http.post<any>(this.url + 'actualizarEstadoPedido', JSON.stringify(pedido), {headers: this.headers});
   }
