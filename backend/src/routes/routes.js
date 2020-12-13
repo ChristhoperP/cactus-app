@@ -123,6 +123,7 @@ router.get('/categoriaLanding', productoController.getCategoriasLanding);
 
 //PEDIDOS
 router.get('/traerPedidosUsuarios', auth.isAdmin, AdminController.traerPedidosUsuarios);
+router.get('/traerPedidosUsuariosCliente', auth.isAuth, AdminController.traerPedidosUsuarios);
 router.get('/traerPedidoDetalleProductos/:idpedido', auth.isAdmin, AdminController.traerPedidosDetalleProductos);
 router.post('/actualizarEstadoPedido', auth.isAdmin, AdminController.actualizarEstadoPedido);
 
