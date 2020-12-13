@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "loyal-mason-298500",
+  "private_key_id": "46de43dcf5dce3637716169a8c5ab28c63fec32b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDeD0BxS01gXVZo\npsOVDwFAqa6Xzne3f8qW+pbfpmlCt+55W1+3jYL/Q4GBz51Ua8VPzDN0dyB9qlcx\nbEJeEvVNgXkkO7q1o0fKPJYO4rlKjZHlBziX3B5IqucYNlga88zsU6jrVtwx4FOH\nCjwOoX6+wWz3A+FO220wTJrrfvwSbk4iziiON68MZqAPUT3CWsxDaZeIksZPa3Lt\nAcrAqcNY1edYpcNaEySvwY4DN2iDuJwwEBtB8n/vs5uD7tvDHcvNOhQcLVbECcsV\npP5l2JMGmLFpix1Cci0iyTAXJmyU8qKCrESozJZoBB3Id0PlTj2wKU0hy9/A7A0F\nkjNaI8e1AgMBAAECggEAES0s1uv0OEKqrxL3M03N0v/3uVZcfEfY69obrCu7Hfth\nlDw1KIWRtHJhpMuNEpKjgzX7D5ncsYZo6DHE5cdMTN/O9wvdDV/BQIDJ5VeJmEgL\nGPl4rzEfm+Sxq3XIquJg34bjx2XDR+MKPaUqWsIIg8jXx45NR0RB1efsXnrxafC+\nuFC5arshuEbfCEe/x+QL2EYO+8miO19HBJlbIVtfFf2hgHHQA2c9TIPiWpNLBeGT\n3HsNBcZJbQeB9KwECKyNz9mJV1MCks/W7mtL5Rn1RDlQkEpmaHJhRWlN+zT7GTW0\nao4ka5/5f/M6hMSsSPQtNc+MggDcm5CjGjTG1afaoQKBgQD8fO2oE9h8NKyM55uW\n5pbMOmenjINs6EsJGUAOU3bXu/dHAxYQNrIeRoN1JLVccaE0telzvRHXMvlCEd7W\nO8nAeZP+lXSasYv4KnIvz1wFBveJ4JnkvqdgYWKcAvUn+gW6NiAG5CiX17FLrR/Z\n7GjRdAu7pc03491gPsEvRXoqCwKBgQDhJfjscLcuF4dXNEuILDy91Kk65ntzi2kD\nJo62GEzjdspRP3GC7wgcLAtim/eY3zmFeJcGSD7UvX0grL6l0Emd4+ivAIJeUe6W\nAMRmESQYH3t5vBmvr2JY0ZCxNU4sDXxP2BE1VGBnEX+sq3mQ4Dqf2KBYtisqZo5F\nWCCNDD6tPwKBgQDH2JY/gB3NCeA90yCayz82vU/IFXb9H8wsknjaHgQl89hgs7el\n87T+M6/fa8PFPQds8kOq4U8at3UFb6GijkY9e73BN0jJHJj+P5KL9yQNspsB3e3R\nWXqf1dU4STsEfmhEII0vBy5+KTJjBM/+LJo2lxSmXTDW+RwDDwjXwrVUSwKBgC9p\nmK7p2ZlqOQUDLTjC4BO1ueF+cdbWL8oLD5iHK4HnHRnY+2VwQsvz9n3QjGZz86AI\n0fzvr9OLB9OerRMr9qS6PuDDgbCtHkoWZUV9LJWr44uyMdKOY26Cyy6WJB0gxeHm\nhVEusJJj2/gXsCTzI0VQEAw+aH6oVCOEOG6beoNvAoGAA5K+lZY9fzWEwmPir+2e\nhAj9M+Ew+Yi/l9Gcg3i+DJO3nF6TzpWNemlFtM+ckDmk/n5BcVPlhYjl313pbTXX\nfd63wa2PAt8uNo+LX7SQEluBDK8x4SF9hbzM95hskn/R+nAuXS42wSsnEsUa7v/c\nRx690p79fR+9pWEn8D+ynR8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "nueva-726@loyal-mason-298500.iam.gserviceaccount.com",
+  "client_id": "101885414208119910129",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nueva-726%40loyal-mason-298500.iam.gserviceaccount.com"
+}
