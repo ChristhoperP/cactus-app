@@ -1,7 +1,7 @@
 'use strict'
 const { Pool } = require('pg');
 
-var produccion = false; //cambiar valor dependiendo el entorno
+var produccion = true; //cambiar valor dependiendo el entorno
 
 if (produccion) {
     module.exports = {
